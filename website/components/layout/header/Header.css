@@ -1,0 +1,353 @@
+/* =========================================
+   HEADER WRAPPER
+========================================= */
+.jadwa-header {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 97%;
+  z-index: 999;
+  transition: all 0.35s ease;
+}
+
+.jadwa-header.is-sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  animation: slideInDown 0.4s ease;
+}
+
+.jadwa-header-wrap {
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--header-shadow);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.jadwa-header.is-sticky .jadwa-header-wrap {
+  border-radius: 0;
+  box-shadow: var(--header-shadow-sticky);
+  border-left: 0;
+  border-right: 0;
+}
+
+/* =========================================
+     HEADER TOP
+  ========================================= */
+.jadwa-header-top {
+  min-height: 48px;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(
+    90deg,
+    rgba(3, 39, 35, 0.82) 0%,
+    rgba(4, 53, 47, 0.76) 45%,
+    rgba(5, 66, 57, 0.82) 100%
+  );
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.jadwa-header.is-sticky .jadwa-header-top {
+  border-radius: 0;
+}
+
+.jadwa-header-top-left,
+.jadwa-header-top-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.jadwa-social-link {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: var(--white);
+  transition: all 0.3s ease;
+}
+
+.jadwa-social-link:hover {
+  background: var(--secondary);
+  color: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+.jadwa-language-label {
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.jadwa-select-box {
+  position: relative;
+}
+
+.jadwa-language-select {
+  color: var(--white);
+  text-transform: uppercase;
+  border-radius: 999px;
+  padding: 8px 14px;
+  min-width: 88px;
+  outline: none;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.jadwa-language-select option {
+  color: #111;
+}
+
+/* =========================================
+     HEADER LOWER
+  ========================================= */
+.jadwa-header-lower {
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    rgba(3, 39, 35, 0.78) 0%,
+    rgba(5, 66, 57, 0.72) 50%,
+    rgba(4, 53, 47, 0.78) 100%
+  );
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.jadwa-header.is-sticky .jadwa-header-lower {
+  background: linear-gradient(
+    135deg,
+    rgba(3, 39, 35, 0.88) 0%,
+    rgba(5, 66, 57, 0.84) 100%
+  );
+}
+
+.jadwa-header-lower::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.045) 0%,
+    rgba(255, 255, 255, 0.015) 100%
+  );
+  pointer-events: none;
+}
+
+/* =========================================
+     HEADER INNER LAYOUT
+  ========================================= */
+.jadwa-header-inner {
+  min-height: 86px;
+  padding: 0 26px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.jadwa-logo-box {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.jadwa-logo {
+  max-height: 52px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* =========================================
+     CENTER NAV
+  ========================================= */
+.jadwa-nav {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  min-width: 0;
+}
+
+.jadwa-nav .navbar-collapse {
+  display: flex;
+  justify-content: center;
+}
+
+.jadwa-nav .navigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.jadwa-nav .navigation > li {
+  position: relative;
+  margin: 0 4px;
+}
+
+.jadwa-nav .navigation > li > a,
+.jadwa-nav .navigation > li.dropdown > a {
+  color: rgba(255, 255, 255, 0.9) !important;
+  padding: 0 18px;
+  font-weight: 600;
+  font-size: 14px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 86px;
+  transition: color 0.35s ease, transform 0.35s ease, opacity 0.35s ease;
+  will-change: transform;
+}
+
+.jadwa-nav .navigation > li > a:hover,
+.jadwa-nav .navigation > li.current > a,
+.jadwa-nav .navigation > li.current-menu-item > a {
+  color: var(--secondary) !important;
+  transform: translateY(-1px);
+}
+
+.jadwa-nav .navigation > li > a::before,
+.jadwa-nav .navigation > li.dropdown > a::before {
+  position: absolute;
+  content: "\f102";
+  font-family: "flaticon";
+  font-size: 14px;
+  left: -15px;
+  top: 50%;
+  transform: translateY(-50%) translateX(8px);
+  opacity: 0;
+  font-weight: 400;
+  color: var(--secondary);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.jadwa-nav .navigation > li > a:hover::before,
+.jadwa-nav .navigation > li.current > a::before,
+.jadwa-nav .navigation > li.current-menu-item > a::before {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+/* =========================================
+     INVEST BUTTON
+  ========================================= */
+.jadwa-invest-btn {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 42px;
+  padding: 0 20px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--secondary-dark), var(--secondary));
+  color: var(--primary-dark) !important;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  box-shadow: 0 8px 20px rgba(185, 167, 122, 0.26);
+  border: 1px solid rgba(159, 141, 97, 0.35);
+}
+
+.jadwa-invest-btn:hover {
+  transform: translateY(-1px);
+  background: linear-gradient(135deg, var(--secondary), var(--secondary-light));
+  color: var(--primary-dark) !important;
+  box-shadow: 0 12px 24px rgba(185, 167, 122, 0.34);
+}
+
+/* =========================================
+     MOBILE TOGGLER
+  ========================================= */
+.jadwa-mobile-toggler {
+  display: none;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.jadwa-mobile-toggler:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.jadwa-mobile-toggler .icon-bar {
+  width: 18px;
+  height: 2px;
+  border-radius: 999px;
+  background: #fff;
+  display: block;
+}
+
+/* =========================================
+     RESPONSIVE
+  ========================================= */
+@media (max-width: 991px) {
+  .jadwa-nav,
+  .jadwa-invest-btn {
+    display: none;
+  }
+
+  .jadwa-mobile-toggler {
+    display: inline-flex;
+  }
+
+  .jadwa-header-inner {
+    min-height: 76px;
+    padding: 0 18px;
+  }
+
+  .jadwa-header-top {
+    padding: 0 18px;
+  }
+
+  .jadwa-logo {
+    max-height: 44px;
+  }
+}
+
+@media (max-width: 767px) {
+  .jadwa-header {
+    top: 10px;
+  }
+
+  .jadwa-header-top {
+    min-height: auto;
+    padding: 10px 14px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .jadwa-header-top-left,
+  .jadwa-header-top-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .jadwa-header-inner {
+    min-height: 70px;
+    padding: 0 14px;
+  }
+}

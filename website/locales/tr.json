@@ -1,0 +1,130 @@
+{
+  "about": {
+    "about-us": "about us",
+    "investor": "Yatırımcı",
+    "theFounders": "Kurucular",
+    "ourTeam": "Ekibimiz",
+    "moreAboutUs": "Daha fazla hakkımızda",
+    "section": "Bölüm",
+    "businessApproach": "İş yaklaşımı",
+    "whyUs": "Neden biz?",
+    "governance": "Yönetişim",
+    "recognition": "Tanıma",
+    "prizes": "Ödüller",
+    "provider": "Sağlayan",
+    "date": "Tarih",
+    "credentials": "Belgeler",
+    "certificates": "Sertifikalar",
+    "testimonials": "Referanslar"
+  },
+  "services": {
+    "title": "hizmetler",
+    "subtitle": "Her şeyi sunabiliriz",
+    "subtitle2": "Sunduğumuz hizmetler"
+  },
+  "values": {
+    "title": "Değerlerimiz",
+    "subtitle": "Jadwa Şirketindeki değerlerimiz"
+  },
+  "blog": {
+    "Blogs": "Bloglar",
+    "BlogDetails": "Blog Ayrıntıları"
+  },
+  "investmentSectors": {
+    "title": "Yatırım Sektörleri",
+    "subtitle": "Farklı sektörlerde çeşitli fırsatlar"
+  },
+  "newsRoom": {
+    "title": "Blog Gönderisi",
+    "subtitle": "Son Haberler"
+  },
+  "companies": {
+    "title": "şirketlerimiz",
+    "subtitle": "Şirketlerimiz  "
+  },
+  "partners": {
+    "title": "Ortaklarımız",
+    "subtitle": "Stratejik Ortaklar"
+  },
+
+  "contact": {
+    "title": "Bizimle İletişime Geçin",
+    "description": "Herhangi bir sorunuz veya sorununuz varsa, formu doldurarak bizimle iletişime geçebilirsiniz.",
+    "address": "MAHMUTBEY MAH.HACI BOSTAN CAD.NO.22 \nBAĞCILAR - İSTANBUL",
+    "socialTitle": "Bize Ulaşın:",
+    "formTitle": "Bizimle İletişime Geçin",
+    "followUs": "Bizi takip edin",
+    "name": "İsim",
+    "email": "E-posta",
+    "phone": "Telefon",
+    "message": "Mesaj",
+    "submit": "Gönder"
+  },
+
+  "companySpecialization": "Yatırım yönetimi ve anonim şirketlerin kuruluşunda uzmanlaşmış bir şirket",
+  "all_rights_reserved": "Tüm hakları saklıdır",
+  "terms_conditions": "Şartlar ve Koşullar",
+  "privacy_policy": "Gizlilik Politikası",
+  "investor_rights": "Yatırımcı Hakları",
+  "more_about": "Hakkında Daha Fazla",
+  "years": "Yıl",
+  "turkish_citizinchip": "Türk Vatandaşlığı",
+  "experience_in": "Deneyim",
+  "our_mission": "MİSYONUMUZ",
+  "our_vision": "VİZYONUMUZ",
+  "strategic_goals": "Stratejik Hedefler",
+  "our_strategic_goals": "Stratejik Hedeflerimiz",
+  "goal": "Hedef",
+  "more": "daha fazla",
+  "read_more": "Devamı oku",
+  "Services": "Hizmetler",
+  "Phenomenal Consulting Solutions": "Olağanüstü Danışmanlık Çözümleri",
+  "Jadwa_most_important_services": "Jadwa Şirketi'nin en önemli hizmetleri",
+  "ourTeam": "Ekibimiz",
+  "teamMember": "Ekip Üyesi",
+  "JadwaExpertTeam": "Jadwa Şirketi'nin Kurucuları",
+  "fundBenefits": "Fonun Avantajları",
+  "InvestmentFunds": "Yatırım Fonları",
+  "EnterKeyword": "Anahtar Kelimeyi Girin ",
+  "Categories": "Kategoriler",
+  "noCategories": "Kategori Yok",
+
+  "Popular Tags": "Popüler Etiketler",
+  "ExploreMore": "KeşfetDaha Fazla",
+  "By": "İle",
+  "On": "Açık",
+  "NextPage": "Sonraki Sayfa",
+  "PrevPage": "Önceki Sayfa",
+  "Read All Posts": "Tüm makaleleri okuyun",
+  "Breadcrumbhome": "Ana Sayfa",
+  "investGatepartners": "ortaklar",
+  "investGateOurpartners": "ortaklarımız",
+  "English": "İngilizce",
+  "Arabic": "Arapça",
+  "Turkish": "Türkçe",
+  "see_more": "daha fazlasını gör",
+  "General": "Genel",
+  "Category": "Kategori",
+  "category": "Kategori",
+  "noTitle": "Başlık yok",
+  "Company_Overview": "Fon Genel Bakışı",
+  "funfact": {
+    "title": "Rakamlar kendi başına konuşuyor",
+    "Billion": "Milyar",
+    "Billion_p": "Danışmanlık altındaki müşteri varlıkları.",
+    "Locations": "Konumlar",
+    "Locations_p": "Profesyonel firma ile hizmet",
+    "Years": "Yıl",
+    "Years_p": "Danışmanlık alanında deneyim"
+  },
+  "All": "Tümü",
+  "portfolio": "Portföy",
+  "investCompFunds": "Yatırım Şirketleri ve Fonlar",
+  "leadership": "Liderlik",
+  "meetOur": "ile Tanışın",
+  "headquarters": "Genel Merkez",
+  "education": "Eğitim",
+  "profExp": "Profesyonel Deneyim",
+  "boardMember": "Yönetim Kurulu Üyesi",
+  "bio": "Biyografi"
+}
