@@ -47,7 +47,7 @@ const GlobalUpdateModal = ({
             onClick={onClose}
             disabled={isLoading}
           >
-            Cancel
+            <FormattedMessage id="GENERAL.CANCEL" />
           </button>
           <button
             className={`btn btn-${btnColor}`}

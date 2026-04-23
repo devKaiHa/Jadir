@@ -69,10 +69,10 @@ const AllUsers = () => {
                       <td>
                         <span
                           className={`badge ${
-                            user?.isActive ? "badge-success" : "badge-danger"
+                            "badge-success"
                           }`}
                         >
-                          {user?.isActive ? "Active" : "Inactive"}
+                          {"Active"}
                         </span>
                       </td>
 

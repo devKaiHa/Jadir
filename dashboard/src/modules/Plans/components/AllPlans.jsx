@@ -60,7 +60,6 @@ const AllPlans = () => {
                         <span className="text-sm font-medium text-gray-800">
                           {plan?.title?.en ||
                             plan?.title?.ar ||
-                            plan?.title?.tr ||
                             "-"}
                         </span>
                       </td>
@@ -69,7 +68,6 @@ const AllPlans = () => {
                         <span className="text-sm text-gray-700 line-clamp-2">
                           {plan?.description?.en ||
                             plan?.description?.ar ||
-                            plan?.description?.tr ||
                             "-"}
                         </span>
                       </td>
@@ -79,10 +77,10 @@ const AllPlans = () => {
                       <td>
                         <span
                           className={`badge ${
-                            plan?.isActive ? "badge-success" : "badge-danger"
+                            "badge-success"
                           }`}
                         >
-                          {plan?.isActive ? "Active" : "Inactive"}
+                          {"Active"}
                         </span>
                       </td>
 

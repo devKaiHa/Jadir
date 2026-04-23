@@ -6,7 +6,6 @@ import { useProjects } from "../../hooks/useProjects";
 const emptyLangState = {
   en: "",
   ar: "",
-  tr: "",
 };
 
 const useCreateProject = () => {
@@ -15,8 +14,10 @@ const useCreateProject = () => {
 
   const [title, setTitle] = useState({ ...emptyLangState });
   const [brief, setBrief] = useState({ ...emptyLangState });
+  const [challenge, setChallenge] = useState({ ...emptyLangState });
+  const [solution, setSolution] = useState({ ...emptyLangState });
+  const [result, setResult] = useState({ ...emptyLangState });
   const [projectLink, setProjectLink] = useState("");
-  const [isActive, setIsActive] = useState(true);
   const [order, setOrder] = useState(0);
 
   const [imageFile, setImageFile] = useState(null);
@@ -28,6 +29,18 @@ const useCreateProject = () => {
 
   const handleBriefChange = (lang, value) => {
     setBrief((prev) => ({ ...prev, [lang]: value }));
+  };
+
+  const handleChallengeChange = (lang, value) => {
+    setChallenge((prev) => ({ ...prev, [lang]: value }));
+  };
+
+  const handleSolutionChange = (lang, value) => {
+    setSolution((prev) => ({ ...prev, [lang]: value }));
+  };
+
+  const handleResultChange = (lang, value) => {
+    setResult((prev) => ({ ...prev, [lang]: value }));
   };
 
   const onImageChange = (selectedAvatar) => {
@@ -48,8 +61,10 @@ const useCreateProject = () => {
 
       formData.append("title", JSON.stringify(title));
       formData.append("brief", JSON.stringify(brief));
+      formData.append("challenge", JSON.stringify(challenge));
+      formData.append("solution", JSON.stringify(solution));
+      formData.append("result", JSON.stringify(result));
       formData.append("projectLink", projectLink || "");
-      formData.append("isActive", isActive ? "true" : "false");
       formData.append("order", String(order || 0));
 
       if (imageFile) {
@@ -72,16 +87,20 @@ const useCreateProject = () => {
   return {
     title,
     brief,
+    challenge,
+    solution,
+    result,
     projectLink,
     setProjectLink,
-    isActive,
-    setIsActive,
     order,
     setOrder,
     imagePreview,
     onImageChange,
     handleTitleChange,
     handleBriefChange,
+    handleChallengeChange,
+    handleSolutionChange,
+    handleResultChange,
     handleSave,
     isLoading: isPosting,
   };

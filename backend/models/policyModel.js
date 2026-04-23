@@ -7,12 +7,7 @@ const policySchema = new mongoose.Schema(
     slug: { type: String, unique: true, index: true },
     summary: { type: multilingualSchema },
     content: { type: multilingualSchema },
-    policyType: {
-      type: String,
-      enum: ["policy", "privacy", "terms", "cookies"],
-      default: "policy",
-    },
-    isActive: { type: Boolean, default: true },
+    policyType: { type: String, default: "" },
     order: { type: Number, default: 0 },
   },
   { timestamps: true },

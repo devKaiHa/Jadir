@@ -1,143 +1,206 @@
 "use client";
 
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Autoplay } from "swiper/modules";
+
 import "swiper/css";
-import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-export default function TestimonialSlider03({ testimonials = [] }) {
+function getInitials(name = "") {
+  return name
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0])
+    .join("")
+    .toUpperCase();
+}
+
+export default function TestimonialsShowcase({ testimonials = [] }) {
   const { i18n } = useTranslation();
   const lang = i18n.language || "en";
   const isRtl = lang === "ar";
 
-  const swiperOptions = {
-    modules: [Autoplay, Pagination, Navigation],
-    slidesPerView: 1,
-    spaceBetween: 24,
-    loop: testimonials.length > 3,
-    speed: 900,
-    autoplay:
-      testimonials.length > 1
-        ? {
-            delay: 4500,
-            disableOnInteraction: false,
-          }
-        : false,
-    navigation: {
-      nextEl: ".testimonial-next",
-      prevEl: ".testimonial-prev",
-    },
-    pagination: {
-      el: ".testimonial-pagination",
-      clickable: true,
-    },
-    breakpoints: {
-      320: {
-        slidesPerView: 1,
-        spaceBetween: 18,
-      },
-      768: {
-        slidesPerView: 2,
-        spaceBetween: 22,
-      },
-      1200: {
-        slidesPerView: 3,
-        spaceBetween: 24,
-      },
-    },
-  };
+  const sortedTestimonials = useMemo(() => {
+    return [...testimonials].sort((a, b) => {
+      const aDate = new Date(a?.createdAt || 0).getTime();
+      const bDate = new Date(b?.createdAt || 0).getTime();
+      return bDate - aDate;
+    });
+  }, [testimonials]);
 
-  if (!testimonials?.length) return null;
+  if (!sortedTestimonials.length) return null;
+
+  // left featured swiper
+  const featuredSlides = sortedTestimonials.slice(0, 3);
+
+  // right static cards
+  const sideCards = sortedTestimonials.slice(0, 2);
 
   return (
-    <div
-      className={`testimonial-slider-premium ${isRtl ? "rtl" : "ltr"}`}
+    <section
+      className={`pt-5 jadwa-testimonials sec-pad ${isRtl ? "rtl" : "ltr"}`}
       dir={isRtl ? "rtl" : "ltr"}
     >
       <div className="auto-container">
-        <div className="testimonial-slider-head">
-          <div className="testimonial-slider-nav">
-            <button
-              type="button"
-              className="testimonial-nav-btn testimonial-prev"
-              aria-label={isRtl ? "السابق" : "Previous"}
-            >
-              <i className="fa-solid fa-arrow-left" />
-            </button>
+        <div className="jadwa-testimonials-panel">
+          <div className="jadwa-testimonials-head">
+            <div className="jadwa-pill">
+              <span className="jadwa-pill-dot" />
+              <span>
+                {lang === "ar"
+                  ? "الشهادات"
+                  : lang === "tr"
+                    ? "Yorumlar"
+                    : "Testimonials"}
+              </span>
+            </div>
 
-            <button
-              type="button"
-              className="testimonial-nav-btn testimonial-next"
-              aria-label={isRtl ? "التالي" : "Next"}
-            >
-              <i className="fa-solid fa-arrow-right" />
-            </button>
+            <h2 className="jadwa-testimonials-title">
+              {lang === "ar"
+                ? "موثوق به من الفرق الطموحة"
+                : lang === "tr"
+                  ? "Hırslı ekipler tarafından güveniliyor"
+                  : "Trusted by ambitious teams"}
+            </h2>
+
+            <p className="jadwa-testimonials-subtitle">
+              {lang === "ar"
+                ? "يستخدمه مؤسسون يهتمون بالسرعة والوضوح وثقة المستثمرين"
+                : lang === "tr"
+                  ? "Hız, netlik ve yatırımcı güvenine önem veren ekipler tarafından kullanılır"
+                  : "Used by founders who care about speed, clarity, and investor confidence"}
+            </p>
+          </div>
+
+          <div className="jadwa-layout">
+            <div className="jadwa-left">
+              {!!featuredSlides.length && (
+                <div className="jadwa-featured-swiper-wrap">
+                  <Swiper
+                    key={isRtl ? "rtl" : "ltr"}
+                    modules={[Pagination, Autoplay]}
+                    spaceBetween={16}
+                    slidesPerView={1}
+                    pagination={{ clickable: true }}
+                    loop={true}
+                    autoplay={{
+                      delay: 4500,
+                      disableOnInteraction: false,
+                    }}
+                    dir={isRtl ? "rtl" : "ltr"}
+                    rtl={isRtl}
+                    className="jadwa-featured-swiper"
+                  >
+                    {featuredSlides.map((item, index) => (
+                      <SwiperSlide key={item?._id || index}>
+                        <article className="jadwa-featured-card">
+                          <div className="jadwa-quote-light">"</div>
+
+                          <p className="jadwa-featured-text">
+                            {item?.content?.[lang] || item?.content?.en || ""}
+                          </p>
+
+                          <div className="jadwa-stars">
+                            {Array.from({
+                              length: Math.max(
+                                1,
+                                Math.min(Number(item?.rating || 5), 5),
+                              ),
+                            }).map((_, i) => (
+                              <i key={i} className="fa-solid fa-star" />
+                            ))}
+                          </div>
+
+                          <div className="jadwa-user">
+                            <div className="jadwa-avatar jadwa-avatar-dark">
+                              {getInitials(item?.name || "Client")}
+                            </div>
+
+                            <div className="jadwa-user-meta">
+                              <h4>{item?.name || "Client"}</h4>
+                              <p>
+                                {item?.role?.[lang] || item?.role?.en || ""}
+                              </p>
+                            </div>
+                          </div>
+                        </article>
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                </div>
+              )}
+            </div>
+
+            <div className="jadwa-right">
+              {!!sideCards.length && (
+                <div className="jadwa-top-cards">
+                  {sideCards.map((item, index) => (
+                    <article
+                      className="jadwa-small-card"
+                      key={item?._id || index}
+                    >
+                      <div className="jadwa-quote-dark">"</div>
+
+                      <p className="jadwa-small-text">
+                        {item?.content?.[lang] || item?.content?.en || ""}
+                      </p>
+
+                      <div className="jadwa-user jadwa-user-small">
+                        <div className="jadwa-avatar jadwa-avatar-light">
+                          {getInitials(item?.name || "Client")}
+                        </div>
+
+                        <div className="jadwa-user-meta">
+                          <h4>{item?.name || "Client"}</h4>
+                          <p>{item?.role?.[lang] || item?.role?.en || ""}</p>
+                        </div>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              )}
+
+              <div className="jadwa-stats-card">
+                <div className="jadwa-stat">
+                  <h3>120+</h3>
+                  <p>
+                    {lang === "ar"
+                      ? "شريك موثوق"
+                      : lang === "tr"
+                        ? "Güvenilir ortak"
+                        : "SaaS Founders Helped"}
+                  </p>
+                </div>
+
+                <div className="jadwa-stat">
+                  <h3>18M+</h3>
+                  <p>
+                    {lang === "ar"
+                      ? "قيمة مستهدفة"
+                      : lang === "tr"
+                        ? "Hedeflenen değer"
+                        : "Tons CO₂ tracked"}
+                  </p>
+                </div>
+
+                <div className="jadwa-stat">
+                  <h3>95%</h3>
+                  <p>
+                    {lang === "ar"
+                      ? "كفاءة أعلى"
+                      : lang === "tr"
+                        ? "Daha hızlı iş akışı"
+                        : "Faster ESG workflows"}
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-
-        <Swiper {...swiperOptions} className="testimonial-swiper">
-          {testimonials.map((item, index) => {
-            const name = item?.name || "Client";
-            const role = item?.role?.[lang] || item?.role?.en || "";
-            const content = item?.content?.[lang] || item?.content?.en || "";
-            const rating = Math.max(1, Math.min(Number(item?.rating || 5), 5));
-            const initials = name
-              .split(" ")
-              .filter(Boolean)
-              .slice(0, 2)
-              .map((part) => part[0])
-              .join("")
-              .toUpperCase();
-
-            return (
-              <SwiperSlide
-                key={item?._id || index}
-                className="testimonial-slide"
-              >
-                <article className="testimonial-card">
-                  <div className="testimonial-quote-mark">“</div>
-
-                  <div className="testimonial-card-top">
-                    <div className="testimonial-author">
-                      <div className="testimonial-avatar">
-                        {initials || "C"}
-                      </div>
-
-                      <div className="testimonial-author-meta">
-                        <h4 className="testimonial-name">{name}</h4>
-                        <p className="testimonial-role">{role}</p>
-                      </div>
-                    </div>
-
-                    <div
-                      className="testimonial-stars"
-                      aria-label={`${rating} stars`}
-                    >
-                      {Array.from({ length: rating }).map((_, i) => (
-                        <i key={i} className="fa-solid fa-star" />
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="testimonial-card-body">
-                    <p className="testimonial-text">{content}</p>
-                  </div>
-
-                  <div className="testimonial-card-footer">
-                    <span className="testimonial-index">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                  </div>
-                </article>
-              </SwiperSlide>
-            );
-          })}
-        </Swiper>
-
-        <div className="testimonial-pagination" />
       </div>
-    </div>
+    </section>
   );
 }

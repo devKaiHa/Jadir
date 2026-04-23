@@ -37,7 +37,7 @@ const ReplyMessageModal = ({ isOpen, onClose, messageItem }) => {
           <div className="input-group">
             <span className="btn btn-input w-[20%]">Reply</span>
             <textarea
-              className={`input min-h-[180px] py-3 ${
+              className={`input min-h-[180px] py-3 tracking-[1px] leading-[20px] ${
                 error ? "border-red-500" : ""
               }`}
               value={reply}

@@ -10,14 +10,9 @@ exports.getCustomPages = asyncHandler(async (req, res) => {
     page = 1,
     limit = 10,
     sort = "order createdAt",
-    isActive,
   } = req.query;
 
   const query = {};
-
-  if (isActive !== undefined) {
-    query.isActive = isActive === "true";
-  }
 
   if (keyword && keyword.trim() !== "") {
     const safeKeyword = keyword.trim();
@@ -25,7 +20,6 @@ exports.getCustomPages = asyncHandler(async (req, res) => {
     query.$or = [
       { "title.ar": { $regex: safeKeyword, $options: "i" } },
       { "title.en": { $regex: safeKeyword, $options: "i" } },
-      { "title.tr": { $regex: safeKeyword, $options: "i" } },
       { slug: { $regex: safeKeyword, $options: "i" } },
     ];
   }
@@ -53,7 +47,7 @@ exports.getCustomPages = asyncHandler(async (req, res) => {
 
 // Public list
 exports.getPublicCustomPages = asyncHandler(async (req, res) => {
-  const pages = await CustomPageModel.find({ isActive: true }).sort({
+  const pages = await CustomPageModel.find({}).sort({
     order: 1,
     createdAt: -1,
   });
@@ -67,7 +61,6 @@ exports.getCustomPageBySlug = asyncHandler(async (req, res, next) => {
 
   const page = await CustomPageModel.findOne({
     slug,
-    isActive: true,
   });
 
   if (!page) {

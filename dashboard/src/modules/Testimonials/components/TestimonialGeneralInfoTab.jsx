@@ -7,8 +7,6 @@ const TestimonialGeneralInfoTab = ({
   setRating,
   isFeatured,
   setIsFeatured,
-  isActive,
-  setIsActive,
   order,
   setOrder,
   imagePreview,
@@ -81,22 +79,6 @@ const TestimonialGeneralInfoTab = ({
                       value={order}
                       onChange={(e) => setOrder(Number(e.target.value))}
                     />
-                  </div>
-                </td>
-              </tr>
-
-              <tr>
-                <td className="p-2 pt-4">
-                  <div className="input-group">
-                    <span className="btn btn-input w-[20%]">Status</span>
-                    <select
-                      className="input"
-                      value={isActive ? "true" : "false"}
-                      onChange={(e) => setIsActive(e.target.value === "true")}
-                    >
-                      <option value="true">Active</option>
-                      <option value="false">Inactive</option>
-                    </select>
                   </div>
                 </td>
               </tr>

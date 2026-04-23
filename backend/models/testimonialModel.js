@@ -9,7 +9,6 @@ const testimonialSchema = new mongoose.Schema(
     content: { type: multilingualSchema },
     rating: { type: Number, default: 5, min: 1, max: 5 },
     isFeatured: { type: Boolean, default: false },
-    isActive: { type: Boolean, default: true },
     order: { type: Number, default: 0 },
   },
   { timestamps: true },

@@ -30,15 +30,10 @@ exports.getInvestmentFunds = asyncHandler(async (req, res) => {
     page = 1,
     limit = 10,
     sort = "order createdAt",
-    isActive,
     isFeatured,
   } = req.query;
 
   const query = {};
-
-  if (isActive !== undefined) {
-    query.isActive = isActive === "true";
-  }
 
   if (isFeatured !== undefined) {
     query.isFeatured = isFeatured === "true";
@@ -50,13 +45,10 @@ exports.getInvestmentFunds = asyncHandler(async (req, res) => {
     query.$or = [
       { "title.ar": { $regex: safeKeyword, $options: "i" } },
       { "title.en": { $regex: safeKeyword, $options: "i" } },
-      { "title.tr": { $regex: safeKeyword, $options: "i" } },
       { "content.ar": { $regex: safeKeyword, $options: "i" } },
       { "content.en": { $regex: safeKeyword, $options: "i" } },
-      { "content.tr": { $regex: safeKeyword, $options: "i" } },
       { "shortAbout.ar": { $regex: safeKeyword, $options: "i" } },
       { "shortAbout.en": { $regex: safeKeyword, $options: "i" } },
-      { "shortAbout.tr": { $regex: safeKeyword, $options: "i" } },
       { fundLink: { $regex: safeKeyword, $options: "i" } },
     ];
   }
@@ -93,7 +85,7 @@ exports.getInvestmentFunds = asyncHandler(async (req, res) => {
 
 exports.getPublicInvestmentFunds = asyncHandler(async (req, res) => {
   const { keyword, sector, type, isFeatured, page = 1, limit } = req.query;
-  const query = { isActive: true };
+  const query = {};
 
   if (isFeatured !== undefined) {
     query.isFeatured = isFeatured === "true";
@@ -104,10 +96,8 @@ exports.getPublicInvestmentFunds = asyncHandler(async (req, res) => {
     query.$or = [
       { "title.ar": { $regex: safeKeyword, $options: "i" } },
       { "title.en": { $regex: safeKeyword, $options: "i" } },
-      { "title.tr": { $regex: safeKeyword, $options: "i" } },
       { "shortAbout.ar": { $regex: safeKeyword, $options: "i" } },
       { "shortAbout.en": { $regex: safeKeyword, $options: "i" } },
-      { "shortAbout.tr": { $regex: safeKeyword, $options: "i" } },
     ];
   }
 
@@ -118,7 +108,6 @@ exports.getPublicInvestmentFunds = asyncHandler(async (req, res) => {
       $or: [
         { "targetingSectors.ar": { $regex: safeSector, $options: "i" } },
         { "targetingSectors.en": { $regex: safeSector, $options: "i" } },
-        { "targetingSectors.tr": { $regex: safeSector, $options: "i" } },
       ],
     });
   }
@@ -130,7 +119,6 @@ exports.getPublicInvestmentFunds = asyncHandler(async (req, res) => {
       $or: [
         { "type.ar": { $regex: safeType, $options: "i" } },
         { "type.en": { $regex: safeType, $options: "i" } },
-        { "type.tr": { $regex: safeType, $options: "i" } },
       ],
     });
   }
@@ -166,7 +154,7 @@ exports.getPublicInvestmentFunds = asyncHandler(async (req, res) => {
 
 exports.getInvestmentFundBySlug = asyncHandler(async (req, res, next) => {
   const fund = await investmentFundsModel
-    .findOne({ slug: req.params.slug, isActive: true })
+    .findOne({ slug: req.params.slug })
     .populate("companiesAssociated", "name _id logo slug");
 
   if (!fund) {
@@ -194,11 +182,6 @@ exports.createInvestmentFund = asyncHandler(async (req, res) => {
     "targetingSectors",
   );
   req.body.slug = buildSlug(req.body.title);
-
-  if (req.body.isActive !== undefined) {
-    req.body.isActive =
-      req.body.isActive === true || req.body.isActive === "true";
-  }
 
   if (req.body.isFeatured !== undefined) {
     req.body.isFeatured =
@@ -254,11 +237,6 @@ exports.updateInvestmentFund = asyncHandler(async (req, res, next) => {
       req.body.targetingSectors,
       "targetingSectors",
     );
-  }
-
-  if (req.body.isActive !== undefined) {
-    req.body.isActive =
-      req.body.isActive === true || req.body.isActive === "true";
   }
 
   if (req.body.isFeatured !== undefined) {

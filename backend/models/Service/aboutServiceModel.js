@@ -9,10 +9,8 @@ const aboutServiceItemSchema = new mongoose.Schema(
     contentText: {
       ar: { type: [String], default: [] },
       en: { type: [String], default: [] },
-      tr: { type: [String], default: [] },
     },
     highlight: { type: multilingualSchema },
-    isActive: { type: Boolean, default: true },
     order: { type: Number, default: 0 },
   },
   { _id: true },

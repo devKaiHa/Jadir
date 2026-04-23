@@ -1,13 +1,6 @@
 const mongoose = require("mongoose");
 const multilingualSchema = require("../multilingualModel");
 
-const prizeCertSchema = new mongoose.Schema({
-  name: { type: multilingualSchema },
-  date: { type: Date, default: Date.now },
-  image: String,
-  provider: { type: String, default: "" },
-});
-
 const aboutHomeSchema = new mongoose.Schema(
   {
     content: { type: multilingualSchema },
@@ -17,9 +10,7 @@ const aboutHomeSchema = new mongoose.Schema(
     messageDescription: { type: multilingualSchema },
     businessApproach: { type: multilingualSchema },
     whyUs: { type: multilingualSchema },
-    governance: { type: multilingualSchema },
-    prizes: [prizeCertSchema],
-    certificates: [prizeCertSchema],
+    whoWeServe: { type: multilingualSchema },
   },
   { timestamps: true },
 );

@@ -5,6 +5,7 @@ import { useOurServices } from "../../hooks/useOurServices";
 import LoadingCard from "../../../components/Global/LoadingCard";
 import ErrorMessageCard from "../../../components/Global/ErrorMessageCard";
 import AddButton from "../../../components/Global/AddButton";
+import { imageURL } from "../../../Api/GlobalData";
 
 const AllOurServices = () => {
   const navigate = useNavigate();
@@ -24,19 +25,43 @@ const AllOurServices = () => {
 
   if (isLoading) return <LoadingCard />;
   if (error) return <ErrorMessageCard />;
+  const linkedProjectsCount = services.filter(
+    (service) => (service?.relatedProjects?.length || 0) > 0,
+  ).length;
 
   return (
     <Container>
-      <div className="grid">
-        <div className="card card-grid min-w-full">
-          <div className="card-header py-5 flex-wrap">
-            <h3 className="card-title">Our Services</h3>
-            <div className="flex gap-6">
-              <AddButton
-                label="New Service"
-                onClick={() => navigate("/add-our-service")}
-              />
+      <div className="space-y-6">
+        <div className="overflow-hidden rounded-[28px] border border-slate-200 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white shadow-xl">
+          <div className="grid gap-6 px-6 py-7 lg:grid-cols-[1.2fr_0.8fr] lg:px-8">
+            <div>
+              <span className="inline-flex rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-slate-200">
+                Service Catalog
+              </span>
+              <h2 className="mt-4 text-2xl font-semibold">
+                Manage core service pages with the same polished overview as
+                board members
+              </h2>
+              <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-200">
+                Review service visibility, linked projects, and localized copy
+                from a cleaner, more consistent admin surface.
+              </p>
             </div>
+          </div>
+        </div>
+
+        <div className="card card-grid min-w-full rounded-3xl border border-gray-200 shadow-sm">
+          <div className="card-header py-5 flex-wrap">
+            <div>
+              <h3 className="card-title">Services List</h3>
+              <p className="mt-1 text-sm text-gray-500">
+                Showing {services.length} service pages
+              </p>
+            </div>
+            <AddButton
+              label="New Service"
+              onClick={() => navigate("/add-our-service")}
+            />
           </div>
 
           <div className="card-body">
@@ -44,7 +69,9 @@ const AllOurServices = () => {
               <table className="table table-auto table-border" id="grid_table">
                 <thead>
                   <tr>
+                    <th className="min-w-[110px]">Banner</th>
                     <th className="min-w-[220px]">Title</th>
+                    <th className="min-w-[120px]">Projects</th>
                     <th className="min-w-[260px]">Description</th>
                     <th className="min-w-[100px]">Order</th>
                     <th className="min-w-[100px]">Status</th>
@@ -56,19 +83,31 @@ const AllOurServices = () => {
                   {services?.map((service) => (
                     <tr key={service._id}>
                       <td>
+                        {service?.bannerImage ? (
+                          <img
+                            src={`${imageURL}/ourServices/${service.bannerImage}`}
+                            alt={service?.title?.en || "service"}
+                            className="w-[80px] h-[60px] rounded object-cover border"
+                          />
+                        ) : (
+                          <span className="text-gray-400 text-sm">
+                            No image
+                          </span>
+                        )}
+                      </td>
+
+                      <td>
                         <span className="text-sm font-medium text-gray-800">
-                          {service?.title?.en ||
-                            service?.title?.ar ||
-                            service?.title?.tr ||
-                            "-"}
+                          {service?.title?.en || service?.title?.ar || "-"}
                         </span>
                       </td>
+
+                      <td>{service?.relatedProjects?.length || 0}</td>
 
                       <td>
                         <span className="text-sm text-gray-700 line-clamp-2">
                           {service?.description?.en ||
                             service?.description?.ar ||
-                            service?.description?.tr ||
                             "-"}
                         </span>
                       </td>
@@ -76,12 +115,8 @@ const AllOurServices = () => {
                       <td>{service?.order ?? 0}</td>
 
                       <td>
-                        <span
-                          className={`badge ${
-                            service?.isActive ? "badge-success" : "badge-danger"
-                          }`}
-                        >
-                          {service?.isActive ? "Active" : "Inactive"}
+                        <span className={`badge ${"badge-success"}`}>
+                          {"Active"}
                         </span>
                       </td>
 
@@ -115,7 +150,7 @@ const AllOurServices = () => {
                   {!services?.length && (
                     <tr>
                       <td
-                        colSpan={5}
+                        colSpan={7}
                         className="text-center py-6 text-gray-500"
                       >
                         No services found

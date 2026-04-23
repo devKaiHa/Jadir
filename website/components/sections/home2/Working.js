@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
-import { truncateText } from "@/GlobalHooks/GlobalHooks";
 import { formatNumberSuff } from "@/components/utils/helpers";
 
 export default function Working({ funds = [] }) {
@@ -24,39 +23,50 @@ export default function Working({ funds = [] }) {
       ? "الصناديق المتاحة من مصدر البيانات"
       : lang === "tr"
       ? "Veri kaynağındaki mevcut fonlar"
-      : "Funds Available In The Data Source";
+      : "Funds Available In The Data";
+
+  const getText = (field) =>
+    field?.[lang] || field?.en || field?.ar || field?.tr || "";
 
   return (
     <section
       className={`funds-section sec-pad ${isRtl ? "rtl" : "ltr"}`}
       dir={isRtl ? "rtl" : "ltr"}
     >
-      <div className="funds-bg-shape funds-bg-shape-one" />
-      <div className="funds-bg-shape funds-bg-shape-two" />
-
       <div className="auto-container">
-        <div className="sec-title centred funds-title-wrap">
-          <span className="sub-title funds-subtitle">{sectionTitle}</span>
-          <h2 className="funds-heading">{sectionHeading}</h2>
+        <div className="jadwa-testimonials-head">
+          <div className="jadwa-pill">
+            <span className="jadwa-pill-dot" />
+            <span>{sectionTitle}</span>
+          </div>
+
+          <h2 className="jadwa-testimonials-title">{sectionHeading}</h2>
+
+          <p className="jadwa-testimonials-subtitle">
+            {lang === "ar"
+              ? "اكتشف مجموعة مختارة من الصناديق الاستثمارية المصممة للنمو طويل الأجل وإدارة الفرص بكفاءة."
+              : lang === "tr"
+              ? "Uzun vadeli büyüme ve fırsat yönetimi için tasarlanmış seçkin yatırım fonlarını keşfedin."
+              : "Explore a curated selection of investment funds designed for long-term growth."}
+          </p>
         </div>
 
         <div className="row clearfix">
           {funds.map((item, index) => {
-            const title = item?.title?.[lang] || item?.title?.en || "";
-            const desc =
-              item?.shortAbout?.[lang] ||
-              item?.shortAbout?.en ||
-              item?.content?.[lang] ||
-              item?.content?.en ||
-              "";
+            const title = getText(item?.title);
+            const type = getText(item?.type);
 
-            const assetsVolume = item?.assetsVolume
-              ? formatNumberSuff(item.assetsVolume)
+            const sectors = Array.isArray(item?.sectors)
+              ? item.sectors.map((sector) => getText(sector)).filter(Boolean)
+              : [];
+
+            const investmentVolume =
+              item?.investmentVolume || item?.assetsVolume;
+            const investmentVolumeValue = investmentVolume
+              ? formatNumberSuff(investmentVolume)
               : null;
 
             const irrValue = item?.irr ? `${item.irr}%` : null;
-
-            const minInvestment = item?.minInvestAmount || null;
 
             return (
               <div
@@ -67,70 +77,71 @@ export default function Working({ funds = [] }) {
                   <div className="fund-card-inner">
                     <span className="fund-card-number">
                       {String(index + 1).padStart(2, "0")}
-                    </span>
-
-                    <div className="fund-card-topline" />
-
+                    </span>{" "}
+                    <div className="fund-card-meta-top">
+                      {type ? (
+                        <span className="fund-card-type">{type}</span>
+                      ) : null}
+                      <div className="fund-card-topline" />
+                    </div>
                     <div className="fund-card-main">
                       <div className="fund-card-head">
                         <h3 className="fund-card-title">{title}</h3>
                       </div>
 
-                      <div className="fund-card-desc-wrap">
-                        <p className="fund-card-desc">
-                          {truncateText(desc, 120)}
-                        </p>
-                      </div>
-
-                      <div className="fund-card-metric-wrap">
-                        {assetsVolume || irrValue ? (
-                          <div className="fund-card-stats">
-                            {assetsVolume && (
-                              <div className="fund-stat-item">
-                                <span className="fund-stat-label">
-                                  {lang === "ar"
-                                    ? "حجم الأصول"
-                                    : lang === "tr"
-                                    ? "Varlık Hacmi"
-                                    : "Assets Volume"}
-                                </span>
-                                <strong className="fund-stat-value">
-                                  {assetsVolume}
-                                </strong>
-                              </div>
-                            )}
-
-                            {irrValue && (
-                              <div className="fund-stat-item">
-                                <span className="fund-stat-label">IRR</span>
-                                <strong className="fund-stat-value">
-                                  {irrValue}
-                                </strong>
-                              </div>
-                            )}
+                      {!!sectors.length && (
+                        <div className="fund-card-sectors-wrap">
+                          <div className="fund-card-sectors">
+                            {sectors.slice(0, 3).map((sector, sectorIndex) => (
+                              <span
+                                key={`${sector}-${sectorIndex}`}
+                                className="fund-card-sector-chip"
+                              >
+                                {sector}
+                              </span>
+                            ))}
                           </div>
-                        ) : minInvestment ? (
-                          <div className="fund-card-stats fund-card-stats-single">
+                        </div>
+                      )}
+                      <div className="fund-card-metric-wrap">
+                        <div className="fund-card-stats">
+                          {investmentVolumeValue ? (
                             <div className="fund-stat-item">
                               <span className="fund-stat-label">
                                 {lang === "ar"
-                                  ? "الحد الأدنى للاستثمار"
+                                  ? "حجم الاستثمار"
                                   : lang === "tr"
-                                  ? "Minimum Yatırım"
-                                  : "Minimum Investment"}
+                                  ? "Yatırım Hacmi"
+                                  : "Investment Volume"}
                               </span>
                               <strong className="fund-stat-value">
-                                {minInvestment}
+                                {investmentVolumeValue}
                               </strong>
                             </div>
-                          </div>
-                        ) : null}
+                          ) : null}
+
+                          {irrValue ? (
+                            <div className="fund-stat-item">
+                              <span className="fund-stat-label">
+                                {lang === "ar"
+                                  ? "العائد السنوي"
+                                  : lang === "tr"
+                                  ? "Hedef IRR"
+                                  : "Target IRR"}
+                              </span>
+                              <strong className="fund-stat-value">
+                                {irrValue}
+                              </strong>
+                            </div>
+                          ) : null}
+                        </div>
                       </div>
                     </div>
-
                     <div className="fund-card-footer">
                       <Link
-                        href={item?.fundLink || "/funds"}
+                        href={
+                          item?.slug ? `/fund-details/${item.slug}` : "/funds"
+                        }
                         className="fund-card-link"
                       >
                         <span className="fund-card-link-icon">↗</span>

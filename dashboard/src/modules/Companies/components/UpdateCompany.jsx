@@ -12,67 +12,13 @@ const UpdateCompany = () => {
     error,
     isPageLoading,
     isUpdating,
-
     name,
-    about,
-    experienceField,
-    content,
-
-    experienceYears,
-    setExperienceYears,
-
-    country,
-    setCountry,
-
-    phone,
-    setPhone,
-
-    email,
-    setEmail,
-
-    website,
-    setWebsite,
-
-    isActive,
-    setIsActive,
-
+    brief,
+    testimonial,
     order,
     setOrder,
-
-    fundsAssociated,
-    setFundsAssociated,
-    investmentFunds,
-    services,
-    values,
-    addresses,
-    goals,
-    statistics,
-
-    socialLinks,
-    handleSocialChange,
-
     logoPreview,
     onLogoChange,
-
-    backgroundPreview,
-    onBackgroundChange,
-    addService,
-    removeService,
-    updateService,
-    addValue,
-    removeValue,
-    updateValue,
-    addAddress,
-    removeAddress,
-    updateAddress,
-    addGoal,
-    removeGoal,
-    updateGoal,
-    addStatistic,
-    removeStatistic,
-    updateStatisticField,
-    updateStatisticLangField,
-
     handleLangChange,
     handleSave,
   } = useUpdateCompany();
@@ -87,54 +33,14 @@ const UpdateCompany = () => {
       icon: "ki-outline ki-user-square",
       content: (
         <CompanyGeneralInfoTab
-          experienceYears={experienceYears}
-          setExperienceYears={setExperienceYears}
-          country={country}
-          setCountry={setCountry}
-          phone={phone}
-          setPhone={setPhone}
-          email={email}
-          setEmail={setEmail}
-          website={website}
-          setWebsite={setWebsite}
-          isActive={isActive}
-          setIsActive={setIsActive}
           order={order}
           setOrder={setOrder}
-          fundsAssociated={fundsAssociated}
-          setFundsAssociated={setFundsAssociated}
-          investmentFunds={investmentFunds}
-          services={services}
-          values={values}
-          addresses={addresses}
-          goals={goals}
-          statistics={statistics}
-          socialLinks={socialLinks}
-          handleSocialChange={handleSocialChange}
           logoPreview={logoPreview}
           onLogoChange={onLogoChange}
-          backgroundPreview={backgroundPreview}
-          onBackgroundChange={onBackgroundChange}
-          addService={addService}
-          removeService={removeService}
-          updateService={updateService}
-          addValue={addValue}
-          removeValue={removeValue}
-          updateValue={updateValue}
-          addAddress={addAddress}
-          removeAddress={removeAddress}
-          updateAddress={updateAddress}
-          addGoal={addGoal}
-          removeGoal={removeGoal}
-          updateGoal={updateGoal}
-          addStatistic={addStatistic}
-          removeStatistic={removeStatistic}
-          updateStatisticField={updateStatisticField}
-          updateStatisticLangField={updateStatisticLangField}
         />
       ),
     },
-    ...["en", "ar", "tr"].map((lang) => ({
+    ...["en", "ar"].map((lang) => ({
       key: `company_${lang}`,
       label: `Company ${lang.toUpperCase()}`,
       icon: "ki-outline ki-clipboard",
@@ -142,9 +48,8 @@ const UpdateCompany = () => {
         <CompanyLangForm
           language={lang}
           nameValue={name[lang]}
-          aboutValue={about[lang]}
-          experienceFieldValue={experienceField[lang]}
-          contentValue={content[lang]}
+          briefValue={brief[lang]}
+          testimonialValue={testimonial[lang]}
           onLangChange={handleLangChange}
         />
       ),
@@ -153,16 +58,38 @@ const UpdateCompany = () => {
 
   return (
     <Container>
-      <Tabs tabs={tabConfig} />
+      <div className="space-y-6">
+        <div className="overflow-hidden rounded-[28px] border border-slate-200 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white shadow-xl">
+          <div className="grid gap-6 px-6 py-7 lg:grid-cols-[1.2fr_0.8fr] lg:px-8">
+            <div>
+              <span className="inline-flex rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-slate-200">
+                Update Company
+              </span>
+              <h2 className="mt-4 text-2xl font-semibold">
+                Update the trusted company entry without leaving the same
+                structured workflow
+              </h2>
+              <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-200">
+                Keep logo, display order, and multilingual copy aligned from a
+                single workspace.
+              </p>
+            </div>
+          </div>
+        </div>
 
-      <div className="mt-6">
-        <button
-          className="btn btn-primary"
-          onClick={handleSave}
-          disabled={isUpdating}
-        >
-          {isUpdating ? "Updating..." : "Update Company"}
-        </button>
+        <Tabs tabs={tabConfig} />
+
+        <div className="sticky bottom-4 z-20 mt-6 flex justify-end">
+          <div className="rounded-2xl border border-gray-200 bg-white/95 p-3 shadow-lg backdrop-blur">
+            <button
+              className="btn btn-primary"
+              onClick={handleSave}
+              disabled={isUpdating}
+            >
+              {isUpdating ? "Updating..." : "Update Company"}
+            </button>
+          </div>
+        </div>
       </div>
 
       <ToastContainer pauseOnHover />

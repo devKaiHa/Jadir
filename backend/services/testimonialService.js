@@ -28,15 +28,10 @@ exports.getTestimonials = asyncHandler(async (req, res) => {
     page = 1,
     limit = 10,
     sort = "order createdAt",
-    isActive,
     isFeatured,
   } = req.query;
 
   const query = {};
-
-  if (isActive !== undefined) {
-    query.isActive = isActive === "true";
-  }
 
   if (isFeatured !== undefined) {
     query.isFeatured = isFeatured === "true";
@@ -48,10 +43,8 @@ exports.getTestimonials = asyncHandler(async (req, res) => {
       { name: { $regex: safeKeyword, $options: "i" } },
       { "role.ar": { $regex: safeKeyword, $options: "i" } },
       { "role.en": { $regex: safeKeyword, $options: "i" } },
-      { "role.tr": { $regex: safeKeyword, $options: "i" } },
       { "company.ar": { $regex: safeKeyword, $options: "i" } },
       { "company.en": { $regex: safeKeyword, $options: "i" } },
-      { "company.tr": { $regex: safeKeyword, $options: "i" } },
     ];
   }
 
@@ -78,7 +71,7 @@ exports.getTestimonials = asyncHandler(async (req, res) => {
 
 exports.getPublicTestimonials = asyncHandler(async (req, res) => {
   const { featuredOnly } = req.query;
-  const query = { isActive: true };
+  const query = {};
 
   if (featuredOnly !== undefined) {
     query.isFeatured = featuredOnly === "true";
@@ -114,11 +107,6 @@ exports.createTestimonial = asyncHandler(async (req, res) => {
   req.body.company = safeParseJSON(req.body.company, "company");
   req.body.content = safeParseJSON(req.body.content, "content");
 
-  if (req.body.isActive !== undefined) {
-    req.body.isActive =
-      req.body.isActive === true || req.body.isActive === "true";
-  }
-
   if (req.body.isFeatured !== undefined) {
     req.body.isFeatured =
       req.body.isFeatured === true || req.body.isFeatured === "true";
@@ -144,11 +132,6 @@ exports.updateTestimonial = asyncHandler(async (req, res, next) => {
 
   if (req.body.content !== undefined) {
     req.body.content = safeParseJSON(req.body.content, "content");
-  }
-
-  if (req.body.isActive !== undefined) {
-    req.body.isActive =
-      req.body.isActive === true || req.body.isActive === "true";
   }
 
   if (req.body.isFeatured !== undefined) {

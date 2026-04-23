@@ -14,8 +14,6 @@ const UpdateCustomPage = () => {
     isUpdating,
     title,
     content,
-    isActive,
-    setIsActive,
     order,
     setOrder,
     handleTitleChange,
@@ -33,14 +31,12 @@ const UpdateCustomPage = () => {
       icon: "ki-outline ki-user-square",
       content: (
         <CustomPageGeneralTab
-          isActive={isActive}
-          setIsActive={setIsActive}
           order={order}
           setOrder={setOrder}
         />
       ),
     },
-    ...["en", "ar", "tr"].map((lang) => ({
+    ...["en", "ar"].map((lang) => ({
       key: `custom_page_${lang}`,
       label: `Page ${lang.toUpperCase()}`,
       icon: "ki-outline ki-clipboard",

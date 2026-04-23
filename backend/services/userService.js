@@ -11,14 +11,9 @@ exports.getUsers = asyncHandler(async (req, res) => {
     page = 1,
     limit = 10,
     sort = "-createdAt",
-    isActive,
   } = req.query;
 
   const query = {};
-
-  if (isActive !== undefined) {
-    query.isActive = isActive === "true";
-  }
 
   if (keyword && keyword.trim() !== "") {
     const safeKeyword = keyword.trim();
@@ -72,7 +67,7 @@ exports.getOneUser = asyncHandler(async (req, res, next) => {
 
 // CREATE USER
 exports.createUser = asyncHandler(async (req, res, next) => {
-  const { name, email, password, phone, isActive } = req.body;
+  const { name, email, password, phone} = req.body;
 
   if (!name || !email || !password) {
     return next(new ApiError("Name, email, and password are required", 400));
@@ -91,8 +86,6 @@ exports.createUser = asyncHandler(async (req, res, next) => {
     email,
     phone,
     password: hashedPassword,
-    isActive:
-      isActive === undefined ? true : isActive === true || isActive === "true",
   });
 
   res.status(201).json({
@@ -104,7 +97,6 @@ exports.createUser = asyncHandler(async (req, res, next) => {
       slug: user.slug,
       email: user.email,
       phone: user.phone,
-      isActive: user.isActive,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
     },
@@ -140,11 +132,6 @@ exports.updateUser = asyncHandler(async (req, res, next) => {
     updateData.password = await bcrypt.hash(updateData.password, 12);
   } else {
     delete updateData.password;
-  }
-
-  if (updateData.isActive !== undefined) {
-    updateData.isActive =
-      updateData.isActive === true || updateData.isActive === "true";
   }
 
   const updatedUser = await UserModel.findByIdAndUpdate(id, updateData, {

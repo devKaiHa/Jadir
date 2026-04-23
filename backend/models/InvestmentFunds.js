@@ -9,7 +9,6 @@ const investmentFundsSchema = new mongoose.Schema(
     image: { type: String, default: "" },
     fundLink: { type: String, default: "" },
     type: { type: multilingualSchema },
-    isActive: { type: Boolean, default: true },
     isFeatured: { type: Boolean, default: false },
     order: { type: Number, default: 0 },
     shortAbout: { type: multilingualSchema },

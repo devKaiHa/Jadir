@@ -3,12 +3,18 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { usePartners } from "../../hooks/usePartners";
 
+const emptyLangState = {
+  en: "",
+  ar: "",
+};
+
 const useCreatePartner = () => {
   const navigate = useNavigate();
   const { postPartner, isPosting } = usePartners();
 
-  const [title, setTitle] = useState("");
-  const [isActive, setIsActive] = useState(true);
+  const [title, setTitle] = useState({ ...emptyLangState });
+  const [brief, setBrief] = useState({ ...emptyLangState });
+  const [testimonial, setTestimonial] = useState({ ...emptyLangState });
   const [order, setOrder] = useState(0);
 
   const [imageFile, setImageFile] = useState(null);
@@ -27,8 +33,9 @@ const useCreatePartner = () => {
   };
 
   const resetForm = () => {
-    setTitle("");
-    setIsActive(true);
+    setTitle({ ...emptyLangState });
+    setBrief({ ...emptyLangState });
+    setTestimonial({ ...emptyLangState });
     setOrder(0);
     setImageFile(null);
     setImagePreview(null);
@@ -38,8 +45,9 @@ const useCreatePartner = () => {
     try {
       const formData = new FormData();
 
-      formData.append("title", title || "");
-      formData.append("isActive", isActive ? "true" : "false");
+      formData.append("title", JSON.stringify(title));
+      formData.append("brief", JSON.stringify(brief));
+      formData.append("testimonial", JSON.stringify(testimonial));
       formData.append("order", String(order || 0));
 
       if (imageFile) {
@@ -63,9 +71,10 @@ const useCreatePartner = () => {
   return {
     title,
     setTitle,
-
-    isActive,
-    setIsActive,
+    brief,
+    setBrief,
+    testimonial,
+    setTestimonial,
 
     order,
     setOrder,

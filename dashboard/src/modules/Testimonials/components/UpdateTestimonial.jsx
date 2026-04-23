@@ -30,8 +30,6 @@ const UpdateTestimonial = () => {
     setRating,
     isFeatured,
     setIsFeatured,
-    isActive,
-    setIsActive,
     order,
     setOrder,
     imagePreview,
@@ -67,8 +65,6 @@ const UpdateTestimonial = () => {
           setRating={setRating}
           isFeatured={isFeatured}
           setIsFeatured={setIsFeatured}
-          isActive={isActive}
-          setIsActive={setIsActive}
           order={order}
           setOrder={setOrder}
           imagePreview={imagePreview}
@@ -76,7 +72,7 @@ const UpdateTestimonial = () => {
         />
       ),
     },
-    ...["en", "ar", "tr"].map((lang) => ({
+    ...["en", "ar"].map((lang) => ({
       key: `testimonial_${lang}`,
       label: `Testimonial ${lang.toUpperCase()}`,
       icon: "ki-outline ki-clipboard",

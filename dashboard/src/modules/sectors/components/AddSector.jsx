@@ -12,9 +12,6 @@ const AddSector = () => {
     slug,
     setSlug,
 
-    isActive,
-    setIsActive,
-
     order,
     setOrder,
 
@@ -34,14 +31,12 @@ const AddSector = () => {
         <SectorGeneralInfoTab
           slug={slug}
           setSlug={setSlug}
-          isActive={isActive}
-          setIsActive={setIsActive}
           order={order}
           setOrder={setOrder}
         />
       ),
     },
-    ...["en", "ar", "tr"].map((lang) => ({
+    ...["en", "ar"].map((lang) => ({
       key: `sector_${lang}`,
       label: `Sector ${lang.toUpperCase()}`,
       icon: "ki-outline ki-clipboard",
@@ -59,16 +54,20 @@ const AddSector = () => {
 
   return (
     <Container>
-      <Tabs tabs={tabConfig} />
+      <div className="space-y-6">
+        <Tabs tabs={tabConfig} />
 
-      <div className="mt-6">
-        <button
-          className="btn btn-primary"
-          onClick={handleSave}
-          disabled={isLoading}
-        >
-          {isLoading ? "Submitting..." : "Create Sector"}
-        </button>
+        <div className="sticky bottom-4 z-20 mt-6 flex justify-end">
+          <div className="rounded-2xl border border-gray-200 bg-white/95 p-3 shadow-lg backdrop-blur">
+            <button
+              className="btn btn-primary"
+              onClick={handleSave}
+              disabled={isLoading}
+            >
+              {isLoading ? "Submitting..." : "Create Sector"}
+            </button>
+          </div>
+        </div>
       </div>
 
       <ToastContainer pauseOnHover />

@@ -1,0 +1,788 @@
+.jadwa-contact-v2 {
+  position: relative;
+  padding: 96px 0;
+  background: linear-gradient(180deg, #fbfcfb 0%, #f4f6f2 100%);
+  isolation: isolate;
+}
+
+.jadwa-contact-v2-shell {
+  position: relative;
+}
+
+.jadwa-contact-v2-glow {
+  display: none;
+}
+
+.jadwa-contact-v2-glow--one {
+  width: 180px;
+  height: 180px;
+  top: -20px;
+  left: -30px;
+  background: transparent;
+}
+
+.jadwa-contact-v2-glow--two {
+  width: 220px;
+  height: 220px;
+  right: -40px;
+  top: 40px;
+  background: transparent;
+}
+
+.jadwa-contact-v2-glow--three {
+  width: 140px;
+  height: 140px;
+  left: 45%;
+  bottom: -30px;
+  background: transparent;
+}
+
+.jadwa-contact-v2-panel {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #ffffff;
+  border: 1px solid rgba(5, 66, 57, 0.1);
+  box-shadow: 0 22px 55px rgba(15, 28, 21, 0.08);
+}
+
+.jadwa-contact-v2-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.18;
+  pointer-events: none;
+  background: linear-gradient(
+    135deg,
+    rgba(185, 167, 122, 0.1) 0%,
+    transparent 34%,
+    rgba(5, 66, 57, 0.06) 100%
+  );
+}
+
+.jadwa-contact-v2-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(5, 66, 57, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(5, 66, 57, 0.035) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.3), transparent 48%);
+  pointer-events: none;
+}
+
+.jadwa-contact-v2-grid,
+.jadwa-contact-v2-panel {
+  min-width: 0;
+}
+
+.jadwa-contact-v2-panel {
+  display: grid;
+  grid-template-columns: minmax(300px, 0.9fr) minmax(0, 1.1fr);
+}
+
+.jadwa-contact-v2-info {
+  position: relative;
+  z-index: 1;
+  padding: 34px;
+  background: linear-gradient(
+    145deg,
+    var(--primary-dark) 0%,
+    var(--primary) 100%
+  );
+  border-inline-end: 1px solid rgba(5, 66, 57, 0.08);
+}
+
+.jadwa-contact-v2-info-inner {
+  max-width: 460px;
+  position: sticky;
+  top: 110px;
+}
+
+.jadwa-contact-v2-pill-dark {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--secondary-light);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: none;
+}
+
+.jadwa-contact-v2-pill-dark .jadwa-pill-dot {
+  background: var(--secondary-light);
+}
+
+.jadwa-contact-v2-title {
+  margin: 18px 0 12px;
+  color: var(--white);
+  font-family: var(--urbanist);
+  font-size: clamp(32px, 4vw, 46px);
+  line-height: 1.08;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.jadwa-contact-v2-text {
+  margin: 0 0 28px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 15px;
+  line-height: 1.85;
+  max-width: 420px;
+}
+
+.jadwa-contact-v2-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.jadwa-contact-v2-item {
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+  padding: 14px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition:
+    transform 0.25s ease,
+    background-color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.jadwa-contact-v2-item:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.11);
+  border-color: rgba(185, 167, 122, 0.26);
+}
+
+.jadwa-contact-v2-item-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(185, 167, 122, 0.16);
+  color: var(--site-white);
+  font-size: 18px;
+}
+
+.jadwa-contact-v2-item-body h4 {
+  margin: 0 0 6px;
+  color: var(--site-white);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.jadwa-contact-v2-item-body p {
+  margin: 0 0 6px;
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 14px;
+  line-height: 1.72;
+}
+
+.jadwa-contact-v2-item-body a {
+  color: var(--site-white);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.jadwa-contact-v2-item-body a:hover {
+  color: var(--white);
+}
+
+.jadwa-contact-v2-branches {
+  margin-top: 28px;
+}
+
+.jadwa-contact-v2-branches h3 {
+  margin: 0 0 14px;
+  color: var(--white);
+  font-family: var(--urbanist);
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.jadwa-contact-v2-branches-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.jadwa-contact-v2-branch {
+  padding: 14px 14px 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: var(--transition);
+}
+
+.jadwa-contact-v2-branch:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(185, 167, 122, 0.18);
+}
+
+.jadwa-contact-v2-branch h4 {
+  margin: 0 0 8px;
+  color: var(--white);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.jadwa-contact-v2-branch p {
+  margin: 0 0 8px;
+  color: var(--text-soft);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.jadwa-contact-v2-branch > a {
+  display: inline-block;
+  margin-bottom: 8px;
+  color: var(--secondary-light);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.jadwa-contact-v2-branch-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+}
+
+.jadwa-contact-v2-branch-links a {
+  color: var(--secondary-light);
+  text-decoration: none;
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.jadwa-contact-v2-form-side {
+  position: relative;
+  z-index: 1;
+  padding: 18px;
+}
+
+.jadwa-contact-v2-form-card {
+  height: 100%;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(5, 66, 57, 0.08);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.82);
+  padding: 34px 32px 30px;
+}
+
+.jadwa-contact-v2-pill-light {
+  background: rgba(5, 66, 57, 0.05);
+  color: var(--primary);
+  border: 1px solid rgba(5, 66, 57, 0.08);
+  box-shadow: none;
+}
+
+.jadwa-contact-v2-form-title {
+  margin: 16px 0 22px;
+  color: var(--text-dark);
+  font-family: var(--urbanist);
+  font-size: clamp(30px, 4vw, 42px);
+  line-height: 1.12;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.jadwa-contact-v2-form {
+  display: block;
+}
+
+.jadwa-contact-v2-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 16px;
+}
+
+.jadwa-contact-v2-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.jadwa-contact-v2-field-full {
+  grid-column: 1 / -1;
+}
+
+.jadwa-contact-v2-field label {
+  color: var(--text-dark);
+  font-size: 12.5px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.jadwa-contact-v2-field input,
+.jadwa-contact-v2-field select,
+.jadwa-contact-v2-field textarea {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid rgba(5, 66, 57, 0.12);
+  background: #f8faf8;
+  color: var(--text-dark);
+  padding: 0 16px;
+  font-size: 14px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.jadwa-contact-v2-field select {
+  appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--primary) 50%),
+    linear-gradient(135deg, var(--primary) 50%, transparent 50%);
+  background-position:
+    calc(100% - 20px) 23px,
+    calc(100% - 14px) 23px;
+  background-size:
+    6px 6px,
+    6px 6px;
+  background-repeat: no-repeat;
+  padding-inline-end: 42px;
+}
+
+html[dir="rtl"] .jadwa-contact-v2-field select {
+  background-position:
+    14px 23px,
+    20px 23px;
+}
+
+.jadwa-contact-v2-field input,
+.jadwa-contact-v2-field select {
+  height: 52px;
+}
+
+.jadwa-contact-v2-field textarea {
+  min-height: 142px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  resize: vertical;
+}
+
+.jadwa-contact-v2-field input:focus,
+.jadwa-contact-v2-field select:focus,
+.jadwa-contact-v2-field textarea:focus {
+  background: #fff;
+  border-color: rgba(5, 66, 57, 0.42);
+  box-shadow: 0 0 0 4px rgba(5, 66, 57, 0.08);
+}
+
+.jadwa-contact-v2-searchable .input-group {
+  display: block;
+}
+
+.jadwa-contact-v2-searchable .relative {
+  width: 100% !important;
+}
+
+.jadwa-contact-v2-searchable-input {
+  width: 100%;
+  border-radius: 8px !important;
+  border: 1px solid rgba(5, 66, 57, 0.12) !important;
+  background: #f8faf8 !important;
+  color: var(--text-dark) !important;
+  padding: 0 16px !important;
+  font-size: 14px !important;
+  outline: none !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7) !important;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease !important;
+}
+
+.jadwa-contact-v2-searchable-input:focus {
+  background: #fff !important;
+  border-color: rgba(5, 66, 57, 0.42) !important;
+  box-shadow: 0 0 0 4px rgba(5, 66, 57, 0.08) !important;
+}
+
+.jadwa-contact-v2-searchable-menu {
+  z-index: 10000 !important;
+  padding: 6px !important;
+  border-radius: 8px !important;
+  border: 1px solid rgba(5, 66, 57, 0.1) !important;
+  background: #fff !important;
+  box-shadow: 0 18px 38px rgba(15, 28, 21, 0.14) !important;
+}
+
+.jadwa-contact-v2-searchable-option {
+  padding: 10px 12px;
+  border-radius: 6px;
+  color: var(--text-dark);
+  font-size: 13px !important;
+  line-height: 1.45;
+  cursor: pointer;
+}
+
+.jadwa-contact-v2-searchable-option:hover {
+  background: rgba(5, 66, 57, 0.07);
+}
+
+.jadwa-contact-v2-searchable-menu
+  > div:not(.jadwa-contact-v2-searchable-option) {
+  padding: 10px 12px;
+  color: var(--text-muted-dark);
+  font-size: 13px;
+}
+
+.jadwa-contact-v2-field-note {
+  color: #b42318;
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+.jadwa-contact-v2-error-message {
+  margin-top: 18px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.14);
+  color: #b42318;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.jadwa-contact-v2-submit {
+  margin-top: 20px;
+  min-width: 180px;
+  height: 54px;
+  padding: 0 22px;
+  border: none;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: linear-gradient(
+    135deg,
+    var(--primary) 0%,
+    var(--primary-light) 100%
+  );
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  box-shadow: 0 14px 26px rgba(5, 66, 57, 0.2);
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    background-color 0.22s ease;
+}
+
+.jadwa-contact-v2-submit:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 32px rgba(5, 66, 57, 0.24);
+}
+
+.jadwa-contact-v2-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.jadwa-contact-v2-submit i {
+  font-size: 14px;
+  transition: transform 0.22s ease;
+}
+
+.jadwa-contact-v2-submit:hover i {
+  transform: translateX(2px);
+}
+
+html[dir="rtl"] .jadwa-contact-v2-submit:hover i {
+  transform: translateX(-2px);
+}
+
+.jadwa-contact-v2-success-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 16, 14, 0.52);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 9999;
+}
+
+.jadwa-contact-v2-success-modal {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  border-radius: 8px;
+  background: #ffffff;
+  border: 1px solid rgba(5, 66, 57, 0.08);
+  box-shadow: 0 34px 80px rgba(0, 0, 0, 0.22);
+  padding: 34px 28px 28px;
+  text-align: center;
+}
+
+.jadwa-contact-v2-success-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 8px;
+  background: #eef3f1;
+  color: #52606d;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+html[dir="rtl"] .jadwa-contact-v2-success-close {
+  right: auto;
+  left: 16px;
+}
+
+.jadwa-contact-v2-success-icon {
+  width: 94px;
+  height: 94px;
+  margin: 0 auto 20px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    135deg,
+    var(--primary) 0%,
+    var(--primary-light) 100%
+  );
+  color: #fff;
+  font-size: 34px;
+  box-shadow:
+    0 18px 36px rgba(5, 66, 57, 0.2),
+    0 0 0 10px rgba(185, 167, 122, 0.1);
+}
+
+.jadwa-contact-v2-success-modal h3 {
+  margin: 0 0 12px;
+  color: var(--text-dark);
+  font-family: var(--urbanist);
+  font-size: 30px;
+  line-height: 1.12;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.jadwa-contact-v2-success-modal p {
+  max-width: 400px;
+  margin: 0 auto 22px;
+  color: var(--text-muted-dark);
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.jadwa-contact-v2-error {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 34px 28px;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid rgba(5, 66, 57, 0.08);
+  box-shadow: 0 18px 40px rgba(15, 28, 21, 0.06);
+  text-align: center;
+}
+
+.jadwa-contact-v2-error h3 {
+  margin: 0 0 10px;
+}
+
+.jadwa-contact-v2-error p {
+  margin: 0 0 18px;
+}
+
+@media (max-width: 1199px) {
+  .jadwa-contact-v2-panel {
+    grid-template-columns: minmax(280px, 0.9fr) minmax(0, 1.1fr);
+  }
+}
+
+@media (max-width: 991px) {
+  .jadwa-contact-v2-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .jadwa-contact-v2-info {
+    border-inline-end: none;
+    border-bottom: 1px solid rgba(5, 66, 57, 0.08);
+  }
+
+  .jadwa-contact-v2-info-inner {
+    position: relative;
+    top: auto;
+    max-width: none;
+  }
+
+  .jadwa-contact-v2-fields {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 767px) {
+  .jadwa-contact-v2 {
+    padding: 70px 0;
+  }
+
+  .jadwa-contact-v2-panel {
+    border-radius: 8px;
+  }
+
+  .jadwa-contact-v2-info {
+    padding: 26px 18px;
+  }
+
+  .jadwa-contact-v2-form-side {
+    padding: 12px;
+  }
+
+  .jadwa-contact-v2-form-card {
+    padding: 24px 18px 22px;
+    border-radius: 8px;
+  }
+
+  .jadwa-contact-v2-title {
+    font-size: 30px;
+  }
+
+  .jadwa-contact-v2-form-title {
+    font-size: 30px;
+  }
+
+  .jadwa-contact-v2-success-modal {
+    padding: 28px 20px 24px;
+    border-radius: 8px;
+  }
+
+  .jadwa-contact-v2-success-modal h3 {
+    font-size: 26px;
+  }
+
+  .jadwa-contact-v2-success-icon {
+    width: 84px;
+    height: 84px;
+    font-size: 28px;
+  }
+}
+
+.jadwa-contact-v2-branches-section {
+  margin-top: 38px;
+}
+
+.jadwa-contact-v2-branches-head {
+  margin-bottom: 26px;
+}
+
+.jadwa-contact-v2-branch-card {
+  height: 100%;
+  padding: 20px 18px 18px;
+  border-radius: 8px;
+  background: #ffffff;
+  border: 1px solid rgba(5, 66, 57, 0.08);
+  box-shadow: 0 12px 30px rgba(15, 28, 21, 0.05);
+  transition:
+    transform 0.24s ease,
+    box-shadow 0.24s ease,
+    border-color 0.24s ease;
+}
+
+.jadwa-contact-v2-branch-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 38px rgba(15, 28, 21, 0.08);
+  border-color: rgba(185, 167, 122, 0.18);
+}
+
+.jadwa-contact-v2-branch-card-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.jadwa-contact-v2-branch-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(5, 66, 57, 0.06);
+  border: 1px solid rgba(5, 66, 57, 0.08);
+  color: var(--primary);
+  font-size: 18px;
+  flex: 0 0 44px;
+}
+
+.jadwa-contact-v2-branch-card h4 {
+  margin: 0 0 6px;
+  color: var(--text-dark);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.jadwa-contact-v2-branch-card p {
+  margin: 0;
+  color: var(--text-muted-dark);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.jadwa-contact-v2-branch-phone {
+  display: inline-block;
+  margin-bottom: 14px;
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.jadwa-contact-v2-branch-card-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+}
+
+.jadwa-contact-v2-branch-card-links a {
+  color: var(--secondary-dark);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.jadwa-contact-v2-branch-card-links a:hover,
+.jadwa-contact-v2-branch-phone:hover {
+  color: var(--primary);
+}
+
+@media (max-width: 767px) {
+  .jadwa-contact-v2-branches-section {
+    margin-top: 28px;
+  }
+
+  .jadwa-contact-v2-branch-card {
+    padding: 18px 16px 16px;
+    border-radius: 8px;
+  }
+
+  .jadwa-contact-v2-branch-card h4 {
+    font-size: 16px;
+  }
+
+  .jadwa-contact-v2-branch-card p,
+  .jadwa-contact-v2-branch-phone {
+    font-size: 13px;
+  }
+}

@@ -1,13 +1,13 @@
-import shape from "@/public/assets/images/contact/shape.png";
-import location from "@/public/assets/images/contact/location.png";
-import emailImg from "@/public/assets/images/contact/email.png";
-import phoneImg from "@/public/assets/images/contact/phone.png";
+"use client";
+
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   useGetContactInfoQuery,
   useSendMessageMutation,
 } from "@/RTK/Api/Contact/ContactApi";
+import { useGetPublicServicesQuery } from "@/RTK/Api/Services/ServicesApi";
+import SearchableSelect from "@/components/elements/SearchableSelect";
 import LoadingCard from "@/components/utils/LoadingCard";
 
 const requestTypeOptions = [
@@ -15,6 +15,8 @@ const requestTypeOptions = [
   { value: "partnership", label: "Partnership" },
   { value: "media", label: "Media" },
   { value: "support", label: "Support" },
+  { value: "request-service", label: "Request a service" },
+  { value: "complaint", label: "Complaint" },
 ];
 
 const localize = (value, lang) =>
@@ -30,8 +32,10 @@ const ContactForm = () => {
     phone: "",
     subject: "",
     requestType: "investment-inquiry",
+    service: "",
     message: "",
   });
+
   const [submitState, setSubmitState] = useState({
     type: "",
     message: "",
@@ -43,10 +47,20 @@ const ContactForm = () => {
     isError: isContactError,
     refetch,
   } = useGetContactInfoQuery();
+
   const [sendMessage, { isLoading: isSubmitting }] = useSendMessageMutation();
   const [showSuccess, setShowSuccess] = useState(false);
+  const isServiceRequest = formData.requestType === "request-service";
+  const {
+    data: servicesResponse,
+    isLoading: isLoadingServices,
+    isError: isServicesError,
+  } = useGetPublicServicesQuery(undefined, {
+    skip: !isServiceRequest,
+  });
 
   const contact = response?.data || {};
+
   const branches = useMemo(
     () =>
       Array.isArray(contact?.branches)
@@ -57,10 +71,40 @@ const ContactForm = () => {
     [contact?.branches],
   );
 
+  const serviceOptions = useMemo(
+    () =>
+      Array.isArray(servicesResponse?.data)
+        ? [...servicesResponse.data].sort(
+            (a, b) => (a?.order || 0) - (b?.order || 0),
+          )
+        : [],
+    [servicesResponse?.data],
+  );
+
+  const getServiceLabel = (service) =>
+    localize(service?.title, lang) || service?.slug || "";
+
   const handleChange = (field) => (e) => {
     setFormData((current) => ({
       ...current,
       [field]: e.target.value,
+    }));
+  };
+
+  const handleRequestTypeChange = (e) => {
+    const nextRequestType = e.target.value;
+
+    setFormData((current) => ({
+      ...current,
+      requestType: nextRequestType,
+      service: nextRequestType === "request-service" ? current.service : "",
+    }));
+  };
+
+  const handleServiceChange = (service) => {
+    setFormData((current) => ({
+      ...current,
+      service: service?._id || service?.id || "",
     }));
   };
 
@@ -71,6 +115,7 @@ const ContactForm = () => {
       phone: "",
       subject: "",
       requestType: "investment-inquiry",
+      service: "",
       message: "",
     });
   };
@@ -84,25 +129,19 @@ const ContactForm = () => {
   };
 
   const validateForm = () => {
-    if (!formData.name.trim()) {
-      return "Please enter your name.";
+    if (!formData.name.trim()) return "Please enter your name.";
+    if (!formData.email.trim()) return "Please enter your email address.";
+    if (isServiceRequest && !formData.service) {
+      return "Please select the service you are interested in.";
     }
-
-    if (!formData.email.trim()) {
-      return "Please enter your email address.";
-    }
-
-    if (!formData.message.trim()) {
-      return "Please enter your message.";
-    }
-
+    if (!formData.message.trim()) return "Please enter your message.";
     return "";
   };
 
   const submit = async (e) => {
     e.preventDefault();
-    const validationError = validateForm();
 
+    const validationError = validateForm();
     if (validationError) {
       setSubmitState({
         type: "error",
@@ -117,7 +156,8 @@ const ContactForm = () => {
         email: formData.email.trim(),
         phone: formData.phone.trim(),
         subject: formData.subject.trim(),
-        requestType: formData.requestType,
+        requestType: isServiceRequest ? "service-request" : formData.requestType,
+        service: isServiceRequest ? formData.service : null,
         message: formData.message.trim(),
       }).unwrap();
 
@@ -142,583 +182,472 @@ const ContactForm = () => {
 
   if (isContactError) {
     return (
-      <div className="container-contact" style={{ padding: "60px 0" }}>
-        <div className="form">
-          <div className="contact-form" style={{ width: "100%" }}>
-            <h3 className="title">Unable to load contact details</h3>
+      <section className="jadwa-contact-v2">
+        <div className="auto-container">
+          <div className="jadwa-contact-v2-error">
+            <h3>Unable to load contact details</h3>
             <p>Please try again in a moment.</p>
-            <button type="button" className="btn" onClick={() => refetch()}>
+            <button
+              type="button"
+              className="jadwa-contact-v2-submit"
+              onClick={() => refetch()}
+            >
               Retry
             </button>
           </div>
         </div>
-      </div>
+      </section>
     );
   }
 
   return (
-    <div className="container-contact">
-      <span className="big-circle"></span>
-      <img src={shape.src} className="square" alt="shape" />
-      <div className="form" style={{ marginTop: "30px" }}>
-        <div className="contact-info">
-          <h3 className="title">
-            {t("contact.title") === "contact.title"
-              ? "Stay in touch with us"
-              : t("contact.title")}
-          </h3>
-          <p className="text">
-            {t("contact.description") === "contact.description"
-              ? "If you have any questions, send us a message and our team will get back to you."
-              : t("contact.description")}
-          </p>
+    <section className="jadwa-contact-v2">
+      <div className="auto-container">
+        <div className="jadwa-contact-v2-shell">
+          <span className="jadwa-contact-v2-glow jadwa-contact-v2-glow--one" />
+          <span className="jadwa-contact-v2-glow jadwa-contact-v2-glow--two" />
+          <span className="jadwa-contact-v2-glow jadwa-contact-v2-glow--three" />
 
-          <div className="info">
-            {contact?.address ? (
-              <div className="information">
-                <img src={location.src} className="icon me-2" alt="location" />
-                <div className="paragraf-contant">
-                  <p style={{ marginBottom: "4px" }}>
-                    {localize(contact.address, lang)}
-                  </p>
-                  {contact?.mapLink ? (
-                    <a
-                      href={contact.mapLink}
-                      target="_blank"
-                      rel="noreferrer"
-                      style={{ color: "#75727b", textDecoration: "underline" }}
-                    >
-                      Open map
-                    </a>
+          <div className="jadwa-contact-v2-panel">
+            <div className="jadwa-contact-v2-info">
+              <div className="jadwa-contact-v2-info-inner">
+                <div className="jadwa-pill jadwa-contact-v2-pill-dark">
+                  <span className="jadwa-pill-dot" />
+                  <span>
+                    {t("contact.title") === "contact.title"
+                      ? "Contact Information"
+                      : t("contact.title")}
+                  </span>
+                </div>
+
+                <h2 className="jadwa-contact-v2-title">
+                  {lang === "ar"
+                    ? "يسعدنا تواصلك معنا"
+                    : lang === "tr"
+                      ? "Bizimle iletişime geçin"
+                      : "We’d Love to Hear From You"}
+                </h2>
+
+                <p className="jadwa-contact-v2-text">
+                  {t("contact.description") === "contact.description"
+                    ? "If you have any questions, partnership ideas, or investment inquiries, our team is ready to help."
+                    : t("contact.description")}
+                </p>
+
+                <div className="jadwa-contact-v2-list">
+                  {contact?.address ? (
+                    <div className="jadwa-contact-v2-item">
+                      <div className="jadwa-contact-v2-item-icon">
+                        <i className="fa-solid fa-location-dot" />
+                      </div>
+                      <div className="jadwa-contact-v2-item-body">
+                        <h4>
+                          {lang === "ar"
+                            ? "العنوان"
+                            : lang === "tr"
+                              ? "Adres"
+                              : "Address"}
+                        </h4>
+                        <p>{localize(contact.address, lang)}</p>
+                        {contact?.mapLink ? (
+                          <a
+                            href={contact.mapLink}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            {lang === "ar"
+                              ? "عرض الموقع"
+                              : lang === "tr"
+                                ? "Haritada Aç"
+                                : "Open Map"}
+                          </a>
+                        ) : null}
+                      </div>
+                    </div>
+                  ) : null}
+
+                  {Array.isArray(contact?.emails) &&
+                  contact.emails.filter(Boolean).length > 0 ? (
+                    <div className="jadwa-contact-v2-item">
+                      <div className="jadwa-contact-v2-item-icon">
+                        <i className="fa-solid fa-envelope" />
+                      </div>
+                      <div className="jadwa-contact-v2-item-body">
+                        <h4>
+                          {lang === "ar"
+                            ? "البريد الإلكتروني"
+                            : lang === "tr"
+                              ? "E-posta"
+                              : "Email"}
+                        </h4>
+                        {contact.emails.filter(Boolean).map((item) => (
+                          <p key={item}>
+                            <a href={`mailto:${item}`}>{item}</a>
+                          </p>
+                        ))}
+                      </div>
+                    </div>
+                  ) : null}
+
+                  {Array.isArray(contact?.phones) &&
+                  contact.phones.filter(Boolean).length > 0 ? (
+                    <div className="jadwa-contact-v2-item">
+                      <div className="jadwa-contact-v2-item-icon">
+                        <i className="fa-solid fa-phone" />
+                      </div>
+                      <div className="jadwa-contact-v2-item-body">
+                        <h4>
+                          {lang === "ar"
+                            ? "الهاتف"
+                            : lang === "tr"
+                              ? "Telefon"
+                              : "Phone"}
+                        </h4>
+                        {contact.phones.filter(Boolean).map((item) => (
+                          <p key={item}>
+                            <a href={`tel:${item.replace(/\s+/g, "")}`}>
+                              {item}
+                            </a>
+                          </p>
+                        ))}
+                        {contact?.whatsapp ? (
+                          <p>
+                            <a
+                              href={`https://wa.me/${contact.whatsapp.replace(
+                                /[^\d]/g,
+                                "",
+                              )}`}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              WhatsApp: {contact.whatsapp}
+                            </a>
+                          </p>
+                        ) : null}
+                      </div>
+                    </div>
                   ) : null}
                 </div>
               </div>
-            ) : null}
+            </div>
 
-            {Array.isArray(contact?.emails) &&
-            contact.emails.filter(Boolean).length > 0 ? (
-              <div className="information">
-                <img src={emailImg.src} className="icon me-2" alt="email" />
-                <div className="paragraf-contant">
-                  {contact.emails.filter(Boolean).map((item) => (
-                    <p key={item} style={{ marginBottom: "6px" }}>
-                      <a href={`mailto:${item}`} style={{ color: "inherit" }}>
-                        {item}
-                      </a>
-                    </p>
-                  ))}
+            <div className="jadwa-contact-v2-form-side">
+              <div className="jadwa-contact-v2-form-card">
+                <div className="jadwa-pill jadwa-contact-v2-pill-light">
+                  <span className="jadwa-pill-dot" />
+                  <span>
+                    {t("contact.formTitle") === "contact.formTitle"
+                      ? "Send Message"
+                      : t("contact.formTitle")}
+                  </span>
                 </div>
-              </div>
-            ) : null}
 
-            {Array.isArray(contact?.phones) &&
-            contact.phones.filter(Boolean).length > 0 ? (
-              <div className="information">
-                <img src={phoneImg.src} className="icon me-2" alt="phone" />
-                <div className="paragraf-contant">
-                  {contact.phones.filter(Boolean).map((item) => (
-                    <p key={item} style={{ marginBottom: "6px" }}>
-                      <a
-                        href={`tel:${item.replace(/\s+/g, "")}`}
-                        style={{ color: "inherit" }}
-                      >
-                        {item}
-                      </a>
-                    </p>
-                  ))}
-                  {contact?.whatsapp ? (
-                    <p style={{ marginBottom: 0 }}>
-                      <a
-                        href={`https://wa.me/${contact.whatsapp.replace(/[^\d]/g, "")}`}
-                        target="_blank"
-                        rel="noreferrer"
-                        style={{ color: "inherit" }}
-                      >
-                        WhatsApp: {contact.whatsapp}
-                      </a>
-                    </p>
-                  ) : null}
-                </div>
-              </div>
-            ) : null}
-          </div>
+                <h3 className="jadwa-contact-v2-form-title">
+                  {lang === "ar"
+                    ? "تواصل معنا"
+                    : lang === "tr"
+                      ? "Bize Yazın"
+                      : "Contact Us"}
+                </h3>
 
-          {branches.length ? (
-            <div className="social-media" style={{ marginTop: "30px" }}>
-              <p>
-                {t("headquarters") === "headquarters"
-                  ? "Branches"
-                  : t("headquarters")}
-              </p>
-              <div style={{ display: "grid", gap: "14px" }}>
-                {branches.map((branch) => (
-                  <div
-                    key={branch?._id}
-                    style={{
-                      padding: "14px 16px",
-                      borderRadius: "14px",
-                      background: "rgba(255,255,255,0.08)",
-                    }}
-                  >
-                    <strong style={{ display: "block", marginBottom: "6px" }}>
-                      {localize(branch?.name, lang)}
-                    </strong>
-                    <p style={{ marginBottom: "6px" }}>
-                      {localize(branch?.address, lang)}
-                    </p>
-                    {branch?.phones?.[0] ? (
-                      <p style={{ marginBottom: "6px" }}>
-                        <a
-                          href={`tel:${branch.phones[0].replace(/\s+/g, "")}`}
-                          style={{ color: "inherit" }}
-                        >
-                          {branch.phones[0]}
-                        </a>
-                      </p>
+                <form
+                  autoComplete="off"
+                  onSubmit={submit}
+                  className="jadwa-contact-v2-form"
+                >
+                  <div className="jadwa-contact-v2-fields">
+                    <div className="jadwa-contact-v2-field">
+                      <label>{t("contact.name")}</label>
+                      <input
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange("name")}
+                        placeholder={t("contact.name")}
+                        required
+                      />
+                    </div>
+
+                    <div className="jadwa-contact-v2-field">
+                      <label>{t("contact.email")}</label>
+                      <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange("email")}
+                        placeholder={t("contact.email")}
+                        required
+                      />
+                    </div>
+
+                    <div className="jadwa-contact-v2-field">
+                      <label>{t("contact.phone")}</label>
+                      <input
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleChange("phone")}
+                        placeholder={t("contact.phone")}
+                      />
+                    </div>
+
+                    <div className="jadwa-contact-v2-field">
+                      <label>Subject</label>
+                      <input
+                        name="subject"
+                        value={formData.subject}
+                        onChange={handleChange("subject")}
+                        placeholder="Subject"
+                      />
+                    </div>
+
+                    <div className="jadwa-contact-v2-field jadwa-contact-v2-field-full">
+                      <label>
+                        {lang === "ar"
+                          ? "نوع الطلب"
+                          : lang === "tr"
+                            ? "Talep Türü"
+                            : "Request Type"}
+                      </label>
+                      <select
+                        name="requestType"
+                        value={formData.requestType}
+                        onChange={handleRequestTypeChange}
+                      >
+                        {requestTypeOptions.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    {isServiceRequest ? (
+                      <div className="jadwa-contact-v2-field jadwa-contact-v2-field-full">
+                        <label>
+                          {lang === "ar"
+                            ? "Ø§Ù„Ø®Ø¯Ù…Ø©"
+                            : lang === "tr"
+                              ? "Hizmet"
+                              : "Service"}
+                        </label>
+                        <SearchableSelect
+                          className="jadwa-contact-v2-searchable"
+                          inputClassName="jadwa-contact-v2-searchable-input"
+                          menuClassName="jadwa-contact-v2-searchable-menu"
+                          optionClassName="jadwa-contact-v2-searchable-option"
+                          labelWidth={0}
+                          height="3.25"
+                          placeholder={
+                            isLoadingServices
+                              ? "Loading services..."
+                              : isServicesError
+                                ? "Unable to load services"
+                                : "Search and select a service"
+                          }
+                          options={{ data: serviceOptions }}
+                          selectedValue={formData.service}
+                          onChange={handleServiceChange}
+                          disabled={isLoadingServices || isServicesError}
+                          error={isServiceRequest && !formData.service}
+                          getOptionLabel={getServiceLabel}
+                        />
+                        {isServicesError ? (
+                          <span className="jadwa-contact-v2-field-note">
+                            We couldn't load the services right now. Please try
+                            again in a moment.
+                          </span>
+                        ) : null}
+                      </div>
                     ) : null}
-                    <div
-                      style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}
-                    >
+
+                    <div className="jadwa-contact-v2-field jadwa-contact-v2-field-full">
+                      <label>{t("contact.message")}</label>
+                      <textarea
+                        name="message"
+                        value={formData.message}
+                        onChange={handleChange("message")}
+                        placeholder={t("contact.message")}
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  {submitState.type === "error" && submitState.message ? (
+                    <div className="jadwa-contact-v2-error-message">
+                      {submitState.message}
+                    </div>
+                  ) : null}
+
+                  <button
+                    type="submit"
+                    className="jadwa-contact-v2-submit"
+                    disabled={isSubmitting}
+                  >
+                    <span>
+                      {isSubmitting
+                        ? "Sending..."
+                        : t("contact.submit") === "contact.submit"
+                          ? "Send Message"
+                          : t("contact.submit")}
+                    </span>
+                    <i
+                      className={
+                        isSubmitting
+                          ? "fa-solid fa-spinner fa-spin"
+                          : "fa-solid fa-arrow-right"
+                      }
+                      aria-hidden="true"
+                    />
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        {branches.length ? (
+          <div className="jadwa-contact-v2-branches-section">
+            <div className="jadwa-testimonials-head jadwa-contact-v2-branches-head">
+              <div className="jadwa-pill">
+                <span className="jadwa-pill-dot" />
+                <span>
+                  {t("headquarters") === "headquarters"
+                    ? "Branches"
+                    : t("headquarters")}
+                </span>
+              </div>
+
+              <h2 className="jadwa-testimonials-title">
+                {lang === "ar"
+                  ? "مكاتبنا وفروعنا"
+                  : lang === "tr"
+                    ? "Ofislerimiz ve Şubelerimiz"
+                    : "Our Offices & Branches"}
+              </h2>
+
+              <p className="jadwa-testimonials-subtitle">
+                {lang === "ar"
+                  ? "يمكنك الوصول إلى فرقنا عبر أكثر من موقع حسب احتياجك."
+                  : lang === "tr"
+                    ? "Ekiplerimize ihtiyacınıza göre birden fazla lokasyondan ulaşabilirsiniz."
+                    : "Reach our teams through multiple locations based on your needs."}
+              </p>
+            </div>
+
+            <div className="row clearfix">
+              {branches.map((branch) => (
+                <div
+                  className="col-lg-4 col-md-6 col-sm-12 mb-4"
+                  key={branch?._id}
+                >
+                  <div className="jadwa-contact-v2-branch-card">
+                    <div className="jadwa-contact-v2-branch-card-top">
+                      <div className="jadwa-contact-v2-branch-icon">
+                        <i className="fa-solid fa-building" />
+                      </div>
+
+                      <div>
+                        <h4>{localize(branch?.name, lang)}</h4>
+                        <p>{localize(branch?.address, lang)}</p>
+                      </div>
+                    </div>
+
+                    {branch?.phones?.[0] ? (
+                      <a
+                        className="jadwa-contact-v2-branch-phone"
+                        href={`tel:${branch.phones[0].replace(/\s+/g, "")}`}
+                      >
+                        {branch.phones[0]}
+                      </a>
+                    ) : null}
+
+                    <div className="jadwa-contact-v2-branch-card-links">
                       {branch?.mapLink ? (
                         <a
                           href={branch.mapLink}
                           target="_blank"
                           rel="noreferrer"
-                          style={{
-                            color: "#75727b",
-                            textDecoration: "underline",
-                          }}
                         >
-                          View branch map
+                          {lang === "ar"
+                            ? "الخريطة"
+                            : lang === "tr"
+                              ? "Harita"
+                              : "Map"}
                         </a>
                       ) : null}
+
                       {branch?.whatsapp ? (
                         <a
-                          href={`https://wa.me/${branch.whatsapp.replace(/[^\d]/g, "")}`}
+                          href={`https://wa.me/${branch.whatsapp.replace(
+                            /[^\d]/g,
+                            "",
+                          )}`}
                           target="_blank"
                           rel="noreferrer"
-                          style={{
-                            color: "#75727b",
-                            textDecoration: "underline",
-                          }}
                         >
                           WhatsApp
                         </a>
                       ) : null}
                     </div>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
-          ) : null}
-        </div>
-
-        <div className="contact-form">
-          <span className="circle one"></span>
-          <span className="circle two"></span>
-
-          <form autoComplete="off" onSubmit={submit}>
-            <h3 className="title">
-              {t("contact.formTitle") === "contact.formTitle"
-                ? "Send us a message"
-                : t("contact.formTitle")}
-            </h3>
-
-            <div className="input-container">
-              <input
-                placeholder={t("contact.name")}
-                name="name"
-                className="input"
-                value={formData.name}
-                onChange={handleChange("name")}
-              />
-            </div>
-
-            <div className="input-container">
-              <input
-                type="email"
-                placeholder={t("contact.email")}
-                name="email"
-                className="input"
-                value={formData.email}
-                onChange={handleChange("email")}
-              />
-            </div>
-
-            <div className="input-container">
-              <input
-                placeholder={t("contact.phone")}
-                name="phone"
-                className="input"
-                value={formData.phone}
-                onChange={handleChange("phone")}
-              />
-            </div>
-
-            <div className="input-container">
-              <input
-                placeholder="Subject"
-                name="subject"
-                className="input"
-                value={formData.subject}
-                onChange={handleChange("subject")}
-              />
-            </div>
-
-            <div className="input-container">
-              <select
-                name="requestType"
-                className="input"
-                value={formData.requestType}
-                onChange={handleChange("requestType")}
-              >
-                {requestTypeOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="input-container textarea">
-              <textarea
-                placeholder={t("contact.message")}
-                name="message"
-                className="input"
-                value={formData.message}
-                onChange={handleChange("message")}
-              ></textarea>
-            </div>
-
-            {submitState.type === "error" && submitState.message ? (
-              <p
-                style={{
-                  marginBottom: "16px",
-                  color: "#ffe0e0",
-                }}
-              >
-                {submitState.message}
-              </p>
-            ) : null}
-
-            <button type="submit" className="btn" disabled={isSubmitting}>
-              {isSubmitting
-                ? "Sending..."
-                : t("contact.submit") === "contact.submit"
-                  ? "Send"
-                  : t("contact.submit")}
-            </button>
-          </form>
-        </div>
+          </div>
+        ) : null}
       </div>
 
       {showSuccess ? (
         <div
-          className="language-modal-overlay"
+          className="jadwa-contact-v2-success-overlay"
           onClick={closeSuccessModal}
-          style={{
-            position: "fixed",
-            inset: 0,
-            background: "rgba(10, 18, 24, 0.55)",
-            backdropFilter: "blur(10px)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: "24px",
-            zIndex: 9999,
-          }}
         >
           <div
+            className="jadwa-contact-v2-success-modal"
             onClick={(e) => e.stopPropagation()}
-            style={{
-              width: "100%",
-              maxWidth: "560px",
-              position: "relative",
-              borderRadius: "32px",
-              background:
-                "linear-gradient(180deg, #ffffff 0%, #f8fbfc 55%, #f3f7f8 100%)",
-              boxShadow: "0 40px 100px rgba(0, 0, 0, 0.22)",
-              overflow: "hidden",
-              padding: "0",
-            }}
           >
-            {/* decorative background */}
-            <div
-              style={{
-                position: "absolute",
-                inset: 0,
-                pointerEvents: "none",
-                overflow: "hidden",
-              }}
+            <button
+              type="button"
+              className="jadwa-contact-v2-success-close"
+              onClick={closeSuccessModal}
+              aria-label="Close"
             >
-              <div
-                style={{
-                  position: "absolute",
-                  width: "260px",
-                  height: "260px",
-                  borderRadius: "50%",
-                  background: "rgba(74, 177, 212, 0.12)",
-                  top: "-120px",
-                  left: "-80px",
-                }}
-              />
-              <div
-                style={{
-                  position: "absolute",
-                  width: "180px",
-                  height: "180px",
-                  borderRadius: "50%",
-                  background: "rgba(18, 92, 121, 0.10)",
-                  bottom: "-60px",
-                  right: "-40px",
-                }}
-              />
-              <div
-                style={{
-                  position: "absolute",
-                  width: "120px",
-                  height: "120px",
-                  borderRadius: "24px",
-                  transform: "rotate(22deg)",
-                  background: "rgba(18, 92, 121, 0.05)",
-                  top: "90px",
-                  right: "-20px",
-                }}
-              />
+              <i className="fa-solid fa-xmark" />
+            </button>
+
+            <div className="jadwa-contact-v2-success-icon">
+              <i className="fa-solid fa-check" />
             </div>
 
-            {/* top section */}
-            <div
-              style={{
-                position: "relative",
-                padding: "34px 34px 20px",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "flex-start",
-              }}
+            <h3>
+              {lang === "ar"
+                ? "شكراً، تم استلام رسالتك"
+                : lang === "tr"
+                  ? "Teşekkürler, mesajınız alındı"
+                  : "Thanks, we got your message"}
+            </h3>
+
+            <p>
+              {lang === "ar"
+                ? "سيقوم فريقنا بمراجعة رسالتك والرد عليك في أقرب وقت ممكن."
+                : lang === "tr"
+                  ? "Ekibimiz mesajınızı inceleyip size en kısa sürede dönüş yapacaktır."
+                  : "Our team will review your message and get back to you as soon as possible."}
+            </p>
+
+            <button
+              type="button"
+              onClick={closeSuccessModal}
+              className="jadwa-contact-v2-submit"
             >
-              <div
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "8px",
-                  padding: "8px 14px",
-                  borderRadius: "999px",
-                  background: "rgba(18, 92, 121, 0.08)",
-                  color: "#125c79",
-                  fontSize: "13px",
-                  fontWeight: 700,
-                  letterSpacing: "0.2px",
-                }}
-              >
-                <span
-                  style={{
-                    width: "8px",
-                    height: "8px",
-                    borderRadius: "50%",
-                    background: "#22c55e",
-                    display: "inline-block",
-                  }}
-                />
-                Message sent
-              </div>
-
-              <button
-                type="button"
-                onClick={closeSuccessModal}
-                style={{
-                  width: "42px",
-                  height: "42px",
-                  border: "none",
-                  borderRadius: "50%",
-                  background: "#eef4f6",
-                  color: "#4b5563",
-                  fontSize: "18px",
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <i className="fa-solid fa-xmark" />
-              </button>
-            </div>
-
-            {/* content */}
-            <div
-              style={{
-                position: "relative",
-                padding: "0 34px 34px",
-                textAlign: "center",
-              }}
-            >
-              <div
-                style={{
-                  width: "110px",
-                  height: "110px",
-                  margin: "0 auto 24px",
-                  borderRadius: "50%",
-                  background:
-                    "radial-gradient(circle at 30% 30%, #6ad6f7 0%, #4ab1d4 35%, #125c79 100%)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  boxShadow:
-                    "0 20px 40px rgba(18, 92, 121, 0.22), 0 0 0 10px rgba(74, 177, 212, 0.10), 0 0 0 20px rgba(74, 177, 212, 0.05)",
-                }}
-              >
-                <i
-                  className="fa-solid fa-check"
-                  style={{
-                    color: "#fff",
-                    fontSize: "42px",
-                  }}
-                />
-              </div>
-
-              <h3
-                style={{
-                  margin: "0 0 12px",
-                  fontSize: "34px",
-                  lineHeight: 1.15,
-                  color: "#0f1728",
-                  fontWeight: 800,
-                  letterSpacing: "-0.8px",
-                }}
-              >
-                Thanks, we got it
-              </h3>
-
-              <p
-                style={{
-                  margin: "0 auto 28px",
-                  maxWidth: "420px",
-                  fontSize: "15px",
-                  lineHeight: 1.9,
-                  color: "#667085",
-                }}
-              >
-                Your message was sent successfully. Our team will review it and
-                get back to you as soon as possible.
-              </p>
-
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(3, 1fr)",
-                  gap: "12px",
-                  marginBottom: "30px",
-                }}
-              >
-                <div
-                  style={{
-                    padding: "16px 12px",
-                    borderRadius: "18px",
-                    background: "#ffffff",
-                    border: "1px solid #e8eef0",
-                  }}
-                >
-                  <div
-                    style={{
-                      fontSize: "22px",
-                      color: "#125c79",
-                      marginBottom: "8px",
-                    }}
-                  >
-                    <i className="fa-regular fa-envelope" />
-                  </div>
-                  <div
-                    style={{
-                      fontSize: "13px",
-                      color: "#667085",
-                      lineHeight: 1.6,
-                    }}
-                  >
-                    Message received
-                  </div>
-                </div>
-
-                <div
-                  style={{
-                    padding: "16px 12px",
-                    borderRadius: "18px",
-                    background: "#ffffff",
-                    border: "1px solid #e8eef0",
-                  }}
-                >
-                  <div
-                    style={{
-                      fontSize: "22px",
-                      color: "#125c79",
-                      marginBottom: "8px",
-                    }}
-                  >
-                    <i className="fa-regular fa-clock" />
-                  </div>
-                  <div
-                    style={{
-                      fontSize: "13px",
-                      color: "#667085",
-                      lineHeight: 1.6,
-                    }}
-                  >
-                    Under review soon
-                  </div>
-                </div>
-
-                <div
-                  style={{
-                    padding: "16px 12px",
-                    borderRadius: "18px",
-                    background: "#ffffff",
-                    border: "1px solid #e8eef0",
-                  }}
-                >
-                  <div
-                    style={{
-                      fontSize: "22px",
-                      color: "#125c79",
-                      marginBottom: "8px",
-                    }}
-                  >
-                    <i className="fa-regular fa-bell" />
-                  </div>
-                  <div
-                    style={{
-                      fontSize: "13px",
-                      color: "#667085",
-                      lineHeight: 1.6,
-                    }}
-                  >
-                    We’ll contact you
-                  </div>
-                </div>
-              </div>
-
-              <button
-                type="button"
-                onClick={closeSuccessModal}
-                style={{
-                  minWidth: "190px",
-                  height: "56px",
-                  border: "none",
-                  borderRadius: "18px",
-                  background:
-                    "linear-gradient(135deg, #125c79 0%, #4ab1d4 100%)",
-                  color: "#fff",
-                  fontSize: "16px",
-                  fontWeight: 700,
-                  cursor: "pointer",
-                  boxShadow: "0 18px 35px rgba(18, 92, 121, 0.24)",
-                }}
-              >
-                Continue
-              </button>
-            </div>
+              {lang === "ar"
+                ? "متابعة"
+                : lang === "tr"
+                  ? "Devam Et"
+                  : "Continue"}
+            </button>
           </div>
         </div>
       ) : null}
-    </div>
+    </section>
   );
 };
 

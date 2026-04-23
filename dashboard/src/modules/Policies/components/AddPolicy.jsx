@@ -16,8 +16,6 @@ const AddPolicy = () => {
     content,
     policyType,
     setPolicyType,
-    isActive,
-    setIsActive,
     order,
     setOrder,
     handleLangChange,
@@ -44,14 +42,12 @@ const AddPolicy = () => {
         <PolicyGeneralInfoTab
           policyType={policyType}
           setPolicyType={setPolicyType}
-          isActive={isActive}
-          setIsActive={setIsActive}
           order={order}
           setOrder={setOrder}
         />
       ),
     },
-    ...["en", "ar", "tr"].map((lang) => ({
+    ...["en", "ar"].map((lang) => ({
       key: `policy_${lang}`,
       label: `Policy ${lang.toUpperCase()}`,
       icon: "ki-outline ki-clipboard",

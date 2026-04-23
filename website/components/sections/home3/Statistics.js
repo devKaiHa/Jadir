@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 
-export default function Statistics({ statistics = [] }) {
+export default function Statistics({ statistics = [], isAbout = false }) {
   const { i18n } = useTranslation();
   const lang = i18n.language || "en";
   const isRtl = lang === "ar";
@@ -14,8 +14,10 @@ export default function Statistics({ statistics = [] }) {
     lang === "ar"
       ? "نظرة سريعة على بيانات الشركة"
       : lang === "tr"
-      ? "Şirket verilerine hızlı bakış"
-      : "A Quick Look At Company Data";
+        ? "Şirket verilerine hızlı bakış"
+        : "A Quick Look At Company Data";
+
+  const displayedStats = isAbout ? statistics : statistics.slice(0, 3);
 
   return (
     <section
@@ -23,13 +25,13 @@ export default function Statistics({ statistics = [] }) {
       dir={isRtl ? "rtl" : "ltr"}
     >
       <div className="auto-container statistics-container">
-        {/* <div className="statistics-title centred">
+        <div className="statistics-title centred">
           <span className="statistics-subtitle">{sectionTitle}</span>
           <h2 className="statistics-heading">{sectionHeading}</h2>
-        </div> */}
+        </div>
 
-        <div className="row clearfix">
-          {statistics.slice(0, 3).map((item) => (
+        <div className="row clearfix" style={{ justifyContent: "center" }}>
+          {displayedStats.map((item) => (
             <div
               key={item?._id}
               className="col-lg-4 col-md-6 col-sm-12 statistics-col"
@@ -47,15 +49,9 @@ export default function Statistics({ statistics = [] }) {
                     {item?.title?.[lang] || item?.title?.en}
                   </h3>
 
-                  <div
-                    className="statistics-description"
-                    dangerouslySetInnerHTML={{
-                      __html:
-                        item?.description?.[lang] ||
-                        item?.description?.en ||
-                        "",
-                    }}
-                  />
+                  <div className="statistics-description">
+                    {item?.description?.[lang] || item?.description?.en || ""}
+                  </div>
                 </div>
               </div>
             </div>

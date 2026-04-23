@@ -3,14 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useBlogs } from "../../../hooks/useBlogs";
 
-const buildMultilingualTags = (tagsEN = [], tagsAR = [], tagsTR = []) => {
-  const maxLength = Math.max(tagsEN.length, tagsAR.length, tagsTR.length);
+const buildMultilingualTags = (tagsEN = [], tagsAR = []) => {
+  const maxLength = Math.max(tagsEN.length, tagsAR.length);
 
   return Array.from({ length: maxLength }, (_, index) => ({
     en: tagsEN[index] || "",
     ar: tagsAR[index] || "",
-    tr: tagsTR[index] || "",
-  })).filter((tag) => tag.en || tag.ar || tag.tr);
+  })).filter((tag) => tag.en || tag.ar);
 };
 
 export const useCreateBlog = () => {
@@ -20,7 +19,6 @@ export const useCreateBlog = () => {
   const [blogData, setBlogData] = useState({
     en: { title: "", excerpt: "", authorRole: "", content: "" },
     ar: { title: "", excerpt: "", authorRole: "", content: "" },
-    tr: { title: "", excerpt: "", authorRole: "", content: "" },
   });
 
   const [category, setCategory] = useState("");
@@ -30,7 +28,6 @@ export const useCreateBlog = () => {
 
   const [tagsEN, setTagsEN] = useState([]);
   const [tagsAR, setTagsAR] = useState([]);
-  const [tagsTR, setTagsTR] = useState([]);
 
   const [coverImage, setCoverImage] = useState(null);
   const [coverPreview, setCoverPreview] = useState(null);
@@ -42,7 +39,6 @@ export const useCreateBlog = () => {
     setBlogData({
       en: { title: "", excerpt: "", authorRole: "", content: "" },
       ar: { title: "", excerpt: "", authorRole: "", content: "" },
-      tr: { title: "", excerpt: "", authorRole: "", content: "" },
     });
     setCategory("");
     setPublished(false);
@@ -50,7 +46,6 @@ export const useCreateBlog = () => {
     setRelatedPosts([]);
     setTagsEN([]);
     setTagsAR([]);
-    setTagsTR([]);
     setCoverImage(null);
     setCoverPreview(null);
     setThumbnailFile(null);
@@ -88,29 +83,25 @@ export const useCreateBlog = () => {
       const title = {
         en: blogData.en?.title || "",
         ar: blogData.ar?.title || "",
-        tr: blogData.tr?.title || "",
       };
 
       const content = {
         en: blogData.en?.content || "",
         ar: blogData.ar?.content || "",
-        tr: blogData.tr?.content || "",
       };
       const excerpt = {
         en: blogData.en?.excerpt || "",
         ar: blogData.ar?.excerpt || "",
-        tr: blogData.tr?.excerpt || "",
       };
       const author = {
         name: authorName || "",
         role: {
           en: blogData.en?.authorRole || "",
           ar: blogData.ar?.authorRole || "",
-          tr: blogData.tr?.authorRole || "",
         },
       };
 
-      const tags = buildMultilingualTags(tagsEN, tagsAR, tagsTR);
+      const tags = buildMultilingualTags(tagsEN, tagsAR);
 
       formData.append("title", JSON.stringify(title));
       formData.append("content", JSON.stringify(content));
@@ -171,8 +162,6 @@ export const useCreateBlog = () => {
     setTagsEN,
     tagsAR,
     setTagsAR,
-    tagsTR,
-    setTagsTR,
 
     coverPreview,
     onCoverChange,

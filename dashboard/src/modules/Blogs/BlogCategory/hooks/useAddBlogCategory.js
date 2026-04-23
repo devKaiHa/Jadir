@@ -9,9 +9,7 @@ const useAddBlogCategory = (onClose) => {
     name: {
       en: "",
       ar: "",
-      tr: "",
     },
-    isActive: true,
   });
 
   const [errors, setErrors] = useState({});
@@ -31,7 +29,6 @@ const useAddBlogCategory = (onClose) => {
 
     if (!category.name.en.trim()) newErrors.en = "Required";
     if (!category.name.ar.trim()) newErrors.ar = "Required";
-    if (!category.name.tr.trim()) newErrors.tr = "Required";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -43,7 +40,6 @@ const useAddBlogCategory = (onClose) => {
     try {
       const payload = {
         name: { ...category.name },
-        isActive: category.isActive,
       };
 
       await postCategory(payload).unwrap();
@@ -54,9 +50,7 @@ const useAddBlogCategory = (onClose) => {
         name: {
           en: "",
           ar: "",
-          tr: "",
         },
-        isActive: true,
       });
 
       if (onClose) onClose();

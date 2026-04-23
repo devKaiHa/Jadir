@@ -6,13 +6,11 @@ import useAboutServices from "../../hooks/useAboutServices";
 const normalizeMultilingual = (value) => ({
   en: value?.en || "",
   ar: value?.ar || "",
-  tr: value?.tr || "",
 });
 
 const normalizeContentText = (value) => ({
   en: Array.isArray(value?.en) && value.en.length ? value.en : [""],
   ar: Array.isArray(value?.ar) && value.ar.length ? value.ar : [""],
-  tr: Array.isArray(value?.tr) && value.tr.length ? value.tr : [""],
 });
 
 const normalizeItem = (item, index = 0) => ({
@@ -22,7 +20,6 @@ const normalizeItem = (item, index = 0) => ({
   contentTitle: normalizeMultilingual(item?.contentTitle),
   contentText: normalizeContentText(item?.contentText),
   highlight: normalizeMultilingual(item?.highlight),
-  isActive: item?.isActive ?? true,
   order: item?.order ?? index,
 });
 
@@ -157,12 +154,8 @@ const useAboutServicesEditor = () => {
             ar: (item.contentText?.ar || []).filter(
               (line) => line?.trim() !== "",
             ),
-            tr: (item.contentText?.tr || []).filter(
-              (line) => line?.trim() !== "",
-            ),
           },
           highlight: normalizeMultilingual(item.highlight),
-          isActive: item.isActive ?? true,
           order: Number(item.order) || 0,
         })),
       };

@@ -14,7 +14,6 @@ const useUpdateUser = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
-  const [isActive, setIsActive] = useState(true);
 
   const [errors, setErrors] = useState({});
 
@@ -25,7 +24,6 @@ const useUpdateUser = () => {
     setEmail(user?.email || "");
     setPhone(user?.phone || "");
     setPassword("");
-    setIsActive(user?.isActive ?? true);
   }, [user]);
 
   const validate = () => {
@@ -46,7 +44,6 @@ const useUpdateUser = () => {
         name,
         email,
         phone,
-        isActive,
       };
 
       if (password.trim()) {
@@ -82,8 +79,6 @@ const useUpdateUser = () => {
     setPhone,
     password,
     setPassword,
-    isActive,
-    setIsActive,
 
     errors,
     handleSave,

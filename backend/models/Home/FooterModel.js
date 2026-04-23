@@ -5,7 +5,17 @@ const footerLinks = new mongoose.Schema(
   {
     title: String,
     link: String,
-    isActive: { type: Boolean, default: false },
+  },
+  { _id: false },
+);
+
+const workingScheduleDay = new mongoose.Schema(
+  {
+    key: { type: String, default: "" },
+    day: { type: multilingualSchema },
+    hours: { type: multilingualSchema },
+    isClosed: { type: Boolean, default: false },
+    order: { type: Number, default: 0 },
   },
   { _id: false },
 );
@@ -13,6 +23,7 @@ const footerLinks = new mongoose.Schema(
 const footerSchema = new mongoose.Schema(
   {
     description: { type: multilingualSchema },
+    address: { type: multilingualSchema },
     links: { type: [footerLinks], default: [] },
     facebook: String,
     instagram: String,
@@ -20,6 +31,9 @@ const footerSchema = new mongoose.Schema(
     linkedin: String,
     phone: String,
     email: String,
+    workDays: { type: String, default: "" },
+    workingHours: { type: String, default: "" },
+    workingSchedule: { type: [workingScheduleDay], default: [] },
   },
   { timestamps: true },
 );

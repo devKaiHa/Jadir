@@ -9,7 +9,6 @@ const AddBlog = () => {
   const {
     blogData,
     handleLangChange,
-
     category,
     setCategory,
     published,
@@ -18,20 +17,14 @@ const AddBlog = () => {
     setAuthorName,
     relatedPosts,
     setRelatedPosts,
-
     tagsEN,
     setTagsEN,
     tagsAR,
     setTagsAR,
-    tagsTR,
-    setTagsTR,
-
     coverPreview,
     onCoverChange,
-
     thumbnailPreviews,
     onThumbnailsChange,
-
     handleSave,
     isLoading,
     error,
@@ -56,8 +49,6 @@ const AddBlog = () => {
           setTagsEN={setTagsEN}
           tagsAR={tagsAR}
           setTagsAR={setTagsAR}
-          tagsTR={tagsTR}
-          setTagsTR={setTagsTR}
           coverPreview={coverPreview}
           onCoverChange={onCoverChange}
           thumbnailPreviews={thumbnailPreviews}
@@ -89,32 +80,24 @@ const AddBlog = () => {
         />
       ),
     },
-    {
-      key: "Blog_tr",
-      label: "Blog TR",
-      icon: "ki-outline ki-clipboard",
-      content: (
-        <BlogLangForm
-          language="tr"
-          value={blogData.tr}
-          onChange={handleLangChange}
-        />
-      ),
-    },
   ];
 
   return (
     <Container>
-      <Tabs tabs={tabConfig} />
+      <div className="space-y-6">
+        <Tabs tabs={tabConfig} />
 
-      <div className="mt-6">
-        <button
-          className="btn btn-primary"
-          onClick={handleSave}
-          disabled={isLoading}
-        >
-          {isLoading ? "Submitting..." : "Create Blog"}
-        </button>
+        <div className="sticky bottom-4 z-20 mt-6 flex justify-end">
+          <div className="rounded-2xl border border-gray-200 bg-white/95 p-3 shadow-lg backdrop-blur">
+            <button
+              className="btn btn-primary"
+              onClick={handleSave}
+              disabled={isLoading}
+            >
+              {isLoading ? "Submitting..." : "Create Blog"}
+            </button>
+          </div>
+        </div>
 
         {error && (
           <p className="text-red-500 mt-2">

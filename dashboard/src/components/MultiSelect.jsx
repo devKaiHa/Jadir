@@ -5,10 +5,8 @@ const defaultGetOptionValue = (option) => option?.id || option?._id || "";
 const defaultGetOptionLabel = (option) =>
   option?.name?.en ||
   option?.name?.ar ||
-  option?.name?.tr ||
   option?.title?.en ||
   option?.title?.ar ||
-  option?.title?.tr ||
   option?.name ||
   option?.title ||
   "";

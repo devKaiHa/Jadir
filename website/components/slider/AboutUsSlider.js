@@ -32,8 +32,8 @@ export default function AboutUsSlider({ slides = [] }) {
                   <i
                     className={
                       slide?.type === "vision"
-                        ? "flaticon-target"
-                        : "flaticon-pie-chart"
+                        ? "fas fa-binoculars"
+                        : "fas fa-chart-line"
                     }
                   />
                 </div>
@@ -45,12 +45,9 @@ export default function AboutUsSlider({ slides = [] }) {
 
               <h3>{slide?.title?.[lang] || ""}</h3>
 
-              <div
-                className="jadwa-about-slide-text"
-                dangerouslySetInnerHTML={{
-                  __html: slide?.content?.[lang] || "",
-                }}
-              />
+              <div className="jadwa-about-slide-text">
+                {slide?.content?.[lang] || ""}
+              </div>
             </div>
           </SwiperSlide>
         ))}

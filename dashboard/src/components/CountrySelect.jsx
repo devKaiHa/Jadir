@@ -43,9 +43,9 @@ export function CountrySelect({ value, onChange }) {
         </span>
 
         {open ? (
-          <ChevronUp className="h-4 w-4 jadwa-icon-gold transition" />
+          <ChevronUp className="h-4 w-4 jadir-icon-gold transition" />
         ) : (
-          <ChevronDown className="h-4 w-4 jadwa-icon-gold transition" />
+          <ChevronDown className="h-4 w-4 jadir-icon-gold transition" />
         )}
       </button>
 
@@ -64,7 +64,7 @@ export function CountrySelect({ value, onChange }) {
           {/* List */}
           <div className="max-h-64 overflow-y-auto">
             {filtered.length === 0 && (
-              <p className="px-3 py-2 text-sm text-jadwa-muted">No results</p>
+              <p className="px-3 py-2 text-sm text-jadir-muted">No results</p>
             )}
 
             {filtered.map((c) => (
@@ -83,7 +83,7 @@ export function CountrySelect({ value, onChange }) {
                 <span className="flex-1 truncate">{getCountryName(c)}</span>
 
                 {value === c.code && (
-                  <Check className="h-4 w-4 jadwa-icon-gold" />
+                  <Check className="h-4 w-4 jadir-icon-gold" />
                 )}
               </button>
             ))}

@@ -30,14 +30,9 @@ exports.getProjects = asyncHandler(async (req, res) => {
     page = 1,
     limit = 10,
     sort = "order createdAt",
-    isActive,
   } = req.query;
 
   const query = {};
-
-  if (isActive !== undefined) {
-    query.isActive = isActive === "true";
-  }
 
   if (keyword?.trim()) {
     const safeKeyword = keyword.trim();
@@ -45,10 +40,14 @@ exports.getProjects = asyncHandler(async (req, res) => {
     query.$or = [
       { "title.ar": { $regex: safeKeyword, $options: "i" } },
       { "title.en": { $regex: safeKeyword, $options: "i" } },
-      { "title.tr": { $regex: safeKeyword, $options: "i" } },
       { "brief.ar": { $regex: safeKeyword, $options: "i" } },
       { "brief.en": { $regex: safeKeyword, $options: "i" } },
-      { "brief.tr": { $regex: safeKeyword, $options: "i" } },
+      { "challenge.ar": { $regex: safeKeyword, $options: "i" } },
+      { "challenge.en": { $regex: safeKeyword, $options: "i" } },
+      { "solution.ar": { $regex: safeKeyword, $options: "i" } },
+      { "solution.en": { $regex: safeKeyword, $options: "i" } },
+      { "result.ar": { $regex: safeKeyword, $options: "i" } },
+      { "result.en": { $regex: safeKeyword, $options: "i" } },
       { projectLink: { $regex: safeKeyword, $options: "i" } },
     ];
   }
@@ -80,7 +79,7 @@ exports.getProjects = asyncHandler(async (req, res) => {
 
 exports.getPublicProjects = asyncHandler(async (req, res) => {
   const { keyword, page = 1, limit } = req.query;
-  const query = { isActive: true };
+  const query = {};
 
   if (keyword?.trim()) {
     const safeKeyword = keyword.trim();
@@ -88,10 +87,14 @@ exports.getPublicProjects = asyncHandler(async (req, res) => {
     query.$or = [
       { "title.ar": { $regex: safeKeyword, $options: "i" } },
       { "title.en": { $regex: safeKeyword, $options: "i" } },
-      { "title.tr": { $regex: safeKeyword, $options: "i" } },
       { "brief.ar": { $regex: safeKeyword, $options: "i" } },
       { "brief.en": { $regex: safeKeyword, $options: "i" } },
-      { "brief.tr": { $regex: safeKeyword, $options: "i" } },
+      { "challenge.ar": { $regex: safeKeyword, $options: "i" } },
+      { "challenge.en": { $regex: safeKeyword, $options: "i" } },
+      { "solution.ar": { $regex: safeKeyword, $options: "i" } },
+      { "solution.en": { $regex: safeKeyword, $options: "i" } },
+      { "result.ar": { $regex: safeKeyword, $options: "i" } },
+      { "result.en": { $regex: safeKeyword, $options: "i" } },
     ];
   }
 
@@ -127,7 +130,6 @@ exports.getPublicProjects = asyncHandler(async (req, res) => {
 exports.getProjectBySlug = asyncHandler(async (req, res, next) => {
   const project = await ProjectsModel.findOne({
     slug: req.params.slug,
-    isActive: true,
   });
 
   if (!project) {
@@ -143,12 +145,10 @@ exports.getProjectBySlug = asyncHandler(async (req, res, next) => {
 exports.createProject = asyncHandler(async (req, res) => {
   req.body.title = safeParseJSON(req.body.title, "title");
   req.body.brief = safeParseJSON(req.body.brief, "brief");
+  req.body.challenge = safeParseJSON(req.body.challenge, "challenge");
+  req.body.solution = safeParseJSON(req.body.solution, "solution");
+  req.body.result = safeParseJSON(req.body.result, "result");
   req.body.slug = buildSlug(req.body.title);
-
-  if (req.body.isActive !== undefined) {
-    req.body.isActive =
-      req.body.isActive === true || req.body.isActive === "true";
-  }
 
   if (req.body.order !== undefined) {
     req.body.order = Number(req.body.order) || 0;
@@ -186,9 +186,16 @@ exports.updateProject = asyncHandler(async (req, res, next) => {
     req.body.brief = safeParseJSON(req.body.brief, "brief");
   }
 
-  if (req.body.isActive !== undefined) {
-    req.body.isActive =
-      req.body.isActive === true || req.body.isActive === "true";
+  if (req.body.challenge !== undefined) {
+    req.body.challenge = safeParseJSON(req.body.challenge, "challenge");
+  }
+
+  if (req.body.solution !== undefined) {
+    req.body.solution = safeParseJSON(req.body.solution, "solution");
+  }
+
+  if (req.body.result !== undefined) {
+    req.body.result = safeParseJSON(req.body.result, "result");
   }
 
   if (req.body.order !== undefined) {

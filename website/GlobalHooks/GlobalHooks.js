@@ -10,8 +10,15 @@ export const truncateText = (text = "", maxLength = 150) => {
   return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
 };
 
-export async function fetchJSON(url, init) {
-  const res = await fetch(url, init);
+export async function fetchJSON(url, init = {}) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), init.timeoutMs || 8000);
+
+  const res = await fetch(url, {
+    ...init,
+    signal: init.signal || controller.signal,
+  }).finally(() => clearTimeout(timeout));
+
   if (!res.ok) {
     const text = await res.text().catch(() => "");
     const err = new Error(

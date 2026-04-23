@@ -97,7 +97,7 @@ const AboutHomeGeneralTab = ({
               </div>
             </div>
 
-            {["en", "ar", "tr"].map((lang) => (
+            {["en", "ar"].map((lang) => (
               <div className="input-group" key={`${title}-${index}-${lang}`}>
                 <span className="btn btn-input w-[20%] capitalize">
                   Name ({lang})

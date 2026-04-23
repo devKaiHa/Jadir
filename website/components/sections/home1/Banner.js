@@ -4,16 +4,15 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { useTranslation } from "react-i18next";
-import { useRouter } from "next/router";
-import { useIsMobile } from "@/lib/helpers";
 import { imageURL } from "@/api/GlobalData";
+import { useRef } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function Banner({ HomeSlides }) {
-  const router = useRouter();
-  const { i18n, t } = useTranslation();
+  const prevRef = useRef(null);
+  const nextRef = useRef(null);
+  const { i18n } = useTranslation();
   const lang = i18n.language || "en";
-  const isMobile = useIsMobile();
 
   return (
     <section className="banner-section p_relative">
@@ -22,11 +21,30 @@ export default function Banner({ HomeSlides }) {
         slidesPerView={1}
         spaceBetween={0}
         autoplay={{
-          delay: 700000,
+          delay: 5000,
           disableOnInteraction: false,
         }}
         dir="ltr"
         loop
+        navigation={{
+          prevEl: prevRef.current,
+          nextEl: nextRef.current,
+        }}
+        onSwiper={(swiper) => {
+          setTimeout(() => {
+            if (
+              swiper.params.navigation &&
+              typeof swiper.params.navigation !== "boolean"
+            ) {
+              swiper.params.navigation.prevEl = prevRef.current;
+              swiper.params.navigation.nextEl = nextRef.current;
+
+              swiper.navigation.destroy();
+              swiper.navigation.init();
+              swiper.navigation.update();
+            }
+          });
+        }}
         className="banner-carousel"
       >
         {HomeSlides?.map((slide, idx) => (
@@ -37,35 +55,27 @@ export default function Banner({ HomeSlides }) {
                 backgroundImage: `url(${`${imageURL}homeSlider/${slide?.img}`})`,
               }}
             />
-            <div className="custom-container">
-              <div className="content-box">
-                <h2 dir={lang === "ar" ? "rtl" : "ltr"}>
-                  {slide?.title?.[lang]}
-                </h2>
-
-                <div className="lower-box">
-                  <div className="text" dir={lang === "ar" ? "rtl" : "ltr"}>
-                    {slide?.description?.[lang]}
-                  </div>
-
-                  {slide?.btnLink && (
-                    <a
-                      href="#"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        router.push(slide?.btnLink);
-                      }}
-                      className="jadwa-banner-btn"
-                    >
-                      {t("see_more")}
-                    </a>
-                  )}
-                </div>
-              </div>
-            </div>
           </SwiperSlide>
         ))}
       </Swiper>
+
+      {/* Navigation */}
+      <div className="banner-nav">
+        <div className="banner-prev" ref={prevRef}>
+          {lang === "ar" ? (
+            <i className="fas fa-chevron-right"></i>
+          ) : (
+            <i className="fas fa-chevron-left"></i>
+          )}
+        </div>
+        <div className="banner-next" ref={nextRef}>
+          {lang === "ar" ? (
+            <i className="fas fa-chevron-left"></i>
+          ) : (
+            <i className="fas fa-chevron-right"></i>
+          )}
+        </div>
+      </div>
     </section>
   );
 }

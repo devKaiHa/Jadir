@@ -1,44 +1,27 @@
-const SectorGeneralInfoTab = ({ isActive, setIsActive, order, setOrder }) => {
+const SectorGeneralInfoTab = ({ order, setOrder }) => {
   return (
-    <div className="card">
-      <div className="card-header flex items-center justify-between">
-        <h3 className="card-title">General Info</h3>
-      </div>
+    <div className="space-y-6">
+      <div className="rounded-3xl border border-gray-200 bg-white p-5 shadow-sm">
+        <div className="mb-5">
+          <h3 className="text-lg font-semibold text-gray-900">Sector Settings</h3>
+          <p className="mt-1 text-sm text-gray-500">
+            Control whether this sector is visible and where it appears in the list.
+          </p>
+        </div>
 
-      <div className="card-table scrollable-x-auto pb-3">
-        <table className="table-auto w-full text-sm text-gray-600">
-          <tbody>
-            <tr>
-              <td className="p-2 pt-4">
-                <div className="input-group">
-                  <span className="btn btn-input w-[20%]">Order</span>
-                  <input
-                    type="number"
-                    className="input"
-                    value={order}
-                    onChange={(e) => setOrder(Number(e.target.value))}
-                  />
-                </div>
-              </td>
-            </tr>
-
-            <tr>
-              <td className="p-2 pt-4">
-                <div className="input-group">
-                  <span className="btn btn-input w-[20%]">Status</span>
-                  <select
-                    className="input"
-                    value={isActive ? "true" : "false"}
-                    onChange={(e) => setIsActive(e.target.value === "true")}
-                  >
-                    <option value="true">Active</option>
-                    <option value="false">Inactive</option>
-                  </select>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div className="grid gap-4 md:grid-cols-2">
+          <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4">
+            <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.18em] text-gray-400">
+              Display Order
+            </label>
+            <input
+              type="number"
+              className="input"
+              value={order}
+              onChange={(e) => setOrder(Number(e.target.value))}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

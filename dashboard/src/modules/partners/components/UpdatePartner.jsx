@@ -13,9 +13,10 @@ const UpdatePartner = () => {
 
     title,
     setTitle,
-
-    isActive,
-    setIsActive,
+    brief,
+    setBrief,
+    testimonial,
+    setTestimonial,
 
     order,
     setOrder,
@@ -31,25 +32,31 @@ const UpdatePartner = () => {
 
   return (
     <Container>
-      <PartnerFormCard
-        title={title}
-        setTitle={setTitle}
-        isActive={isActive}
-        setIsActive={setIsActive}
-        order={order}
-        setOrder={setOrder}
-        imagePreview={imagePreview}
-        onImageChange={onImageChange}
-      />
+      <div className="space-y-6">
+        <PartnerFormCard
+          title={title}
+          setTitle={setTitle}
+          brief={brief}
+          setBrief={setBrief}
+          testimonial={testimonial}
+          setTestimonial={setTestimonial}
+          order={order}
+          setOrder={setOrder}
+          imagePreview={imagePreview}
+          onImageChange={onImageChange}
+        />
 
-      <div className="mt-6">
-        <button
-          className="btn btn-primary"
-          onClick={handleSave}
-          disabled={isUpdating}
-        >
-          {isUpdating ? "Updating..." : "Update Partner"}
-        </button>
+        <div className="sticky bottom-4 z-20 mt-6 flex justify-end">
+          <div className="rounded-2xl border border-gray-200 bg-white/95 p-3 shadow-lg backdrop-blur">
+            <button
+              className="btn btn-primary"
+              onClick={handleSave}
+              disabled={isUpdating}
+            >
+              {isUpdating ? "Updating..." : "Update Partner"}
+            </button>
+          </div>
+        </div>
       </div>
 
       <ToastContainer pauseOnHover />

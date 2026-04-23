@@ -10,9 +10,7 @@ const useUpdateCategoryForm = (initialCategory, onClose) => {
     name: {
       ar: "",
       en: "",
-      tr: "",
     },
-    isActive: true,
   });
 
   const [errors, setErrors] = useState({});
@@ -24,12 +22,7 @@ const useUpdateCategoryForm = (initialCategory, onClose) => {
         name: {
           ar: initialCategory?.name?.ar || "",
           en: initialCategory?.name?.en || "",
-          tr: initialCategory?.name?.tr || "",
         },
-        isActive:
-          initialCategory?.isActive === undefined
-            ? true
-            : initialCategory.isActive,
       });
     }
   }, [initialCategory]);
@@ -49,7 +42,6 @@ const useUpdateCategoryForm = (initialCategory, onClose) => {
 
     if (!category.name.ar.trim()) newErrors.ar = "Required";
     if (!category.name.en.trim()) newErrors.en = "Required";
-    if (!category.name.tr.trim()) newErrors.tr = "Required";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -63,7 +55,6 @@ const useUpdateCategoryForm = (initialCategory, onClose) => {
         id: category._id,
         data: {
           name: { ...category.name },
-          isActive: category.isActive,
         },
       }).unwrap();
 

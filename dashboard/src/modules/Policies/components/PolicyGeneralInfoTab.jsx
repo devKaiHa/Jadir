@@ -1,8 +1,6 @@
 const PolicyGeneralInfoTab = ({
   policyType,
   setPolicyType,
-  isActive,
-  setIsActive,
   order,
   setOrder,
 }) => {
@@ -19,16 +17,13 @@ const PolicyGeneralInfoTab = ({
               <td className="p-2 pt-4">
                 <div className="input-group">
                   <span className="btn btn-input w-[20%]">Type</span>
-                  <select
+                  <input
+                    type="text"
                     className="input"
                     value={policyType}
+                    placeholder="Enter policy type"
                     onChange={(e) => setPolicyType(e.target.value)}
-                  >
-                    <option value="policy">Policy</option>
-                    <option value="privacy">Privacy</option>
-                    <option value="terms">Terms</option>
-                    <option value="cookies">Cookies</option>
-                  </select>
+                  />
                 </div>
               </td>
             </tr>
@@ -47,21 +42,6 @@ const PolicyGeneralInfoTab = ({
               </td>
             </tr>
 
-            <tr>
-              <td className="p-2 pt-4">
-                <div className="input-group">
-                  <span className="btn btn-input w-[20%]">Status</span>
-                  <select
-                    className="input"
-                    value={isActive ? "true" : "false"}
-                    onChange={(e) => setIsActive(e.target.value === "true")}
-                  >
-                    <option value="true">Active</option>
-                    <option value="false">Inactive</option>
-                  </select>
-                </div>
-              </td>
-            </tr>
           </tbody>
         </table>
       </div>

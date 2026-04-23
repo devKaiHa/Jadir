@@ -18,7 +18,7 @@ const safeParseJSON = (value, fieldName) => {
 };
 
 const buildSlug = (name = {}) => {
-  const base = name?.en || name?.ar || name?.tr || "";
+  const base = name?.en || name?.ar || "";
   return slugify(base, { lower: true, strict: true, trim: true });
 };
 
@@ -46,15 +46,10 @@ exports.getBoardMembers = asyncHandler(async (req, res) => {
     page = 1,
     limit = 10,
     sort = "order createdAt",
-    isActive,
     isFounder,
   } = req.query;
 
   const query = {};
-
-  if (isActive !== undefined) {
-    query.isActive = isActive === "true";
-  }
 
   if (isFounder !== undefined) {
     query.isFounder = isFounder === "true";
@@ -66,13 +61,6 @@ exports.getBoardMembers = asyncHandler(async (req, res) => {
     query.$or = [
       { "name.ar": { $regex: safeKeyword, $options: "i" } },
       { "name.en": { $regex: safeKeyword, $options: "i" } },
-      { "name.tr": { $regex: safeKeyword, $options: "i" } },
-      { "position.ar": { $regex: safeKeyword, $options: "i" } },
-      { "position.en": { $regex: safeKeyword, $options: "i" } },
-      { "position.tr": { $regex: safeKeyword, $options: "i" } },
-      { email: { $regex: safeKeyword, $options: "i" } },
-      { phone: { $regex: safeKeyword, $options: "i" } },
-      { nationality: { $regex: safeKeyword, $options: "i" } },
     ];
   }
 
@@ -105,7 +93,7 @@ exports.getBoardMembers = asyncHandler(async (req, res) => {
 exports.getPublicBoardMembers = asyncHandler(async (req, res) => {
   const { isFounder } = req.query;
 
-  const query = { isActive: true };
+  const query = {};
 
   if (isFounder !== undefined) {
     query.isFounder = isFounder === "true";
@@ -123,19 +111,11 @@ exports.getPublicBoardMembers = asyncHandler(async (req, res) => {
 
 exports.createBoardMember = asyncHandler(async (req, res) => {
   req.body.name = safeParseJSON(req.body.name, "name");
-  req.body.position = safeParseJSON(req.body.position, "position");
   req.body.bio = safeParseJSON(req.body.bio, "bio");
-  req.body.address = safeParseJSON(req.body.address, "address");
-  req.body.content = safeParseJSON(req.body.content, "content");
 
   if (req.body.isFounder !== undefined) {
     req.body.isFounder =
       req.body.isFounder === true || req.body.isFounder === "true";
-  }
-
-  if (req.body.isActive !== undefined) {
-    req.body.isActive =
-      req.body.isActive === true || req.body.isActive === "true";
   }
 
   req.body.slug = buildSlug(req.body.name);
@@ -169,7 +149,6 @@ exports.getBoardMemberBySlug = asyncHandler(async (req, res, next) => {
 
   const member = await boardMemberModel.findOne({
     slug,
-    isActive: true,
   });
 
   if (!member) {
@@ -191,30 +170,13 @@ exports.updateBoardMember = asyncHandler(async (req, res, next) => {
     req.body.name = safeParseJSON(req.body.name, "name");
   }
 
-  if (req.body.position !== undefined) {
-    req.body.position = safeParseJSON(req.body.position, "position");
-  }
-
   if (req.body.bio !== undefined) {
     req.body.bio = safeParseJSON(req.body.bio, "bio");
-  }
-
-  if (req.body.address !== undefined) {
-    req.body.address = safeParseJSON(req.body.address, "address");
-  }
-
-  if (req.body.content !== undefined) {
-    req.body.content = safeParseJSON(req.body.content, "content");
   }
 
   if (req.body.isFounder !== undefined) {
     req.body.isFounder =
       req.body.isFounder === true || req.body.isFounder === "true";
-  }
-
-  if (req.body.isActive !== undefined) {
-    req.body.isActive =
-      req.body.isActive === true || req.body.isActive === "true";
   }
 
   if (req.body.name) {

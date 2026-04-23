@@ -13,8 +13,6 @@ const AddUser = () => {
     setPhone,
     password,
     setPassword,
-    isActive,
-    setIsActive,
     errors,
     isLoading,
     handleSave,
@@ -31,8 +29,6 @@ const AddUser = () => {
         setPhone={setPhone}
         password={password}
         setPassword={setPassword}
-        isActive={isActive}
-        setIsActive={setIsActive}
         errors={errors}
       />
 

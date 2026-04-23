@@ -49,7 +49,7 @@ const AboutServicesItemsManager = ({
               />
             ),
           },
-          ...["en", "ar", "tr"].map((lang) => ({
+          ...["en", "ar"].map((lang) => ({
             key: `${item._id}_${lang}`,
             label: lang.toUpperCase(),
             icon: "ki-outline ki-clipboard",

@@ -6,7 +6,6 @@ import { useCustomPages } from "../../hooks/useCustomPages";
 const emptyLangState = {
   en: "",
   ar: "",
-  tr: "",
 };
 
 const useCreateCustomPage = () => {
@@ -15,7 +14,6 @@ const useCreateCustomPage = () => {
 
   const [title, setTitle] = useState({ ...emptyLangState });
   const [content, setContent] = useState({ ...emptyLangState });
-  const [isActive, setIsActive] = useState(true);
   const [order, setOrder] = useState(0);
 
   const handleTitleChange = (lang, value) => {
@@ -31,7 +29,6 @@ const useCreateCustomPage = () => {
       const payload = {
         title,
         content,
-        isActive,
         order,
       };
 
@@ -51,8 +48,6 @@ const useCreateCustomPage = () => {
   return {
     title,
     content,
-    isActive,
-    setIsActive,
     order,
     setOrder,
     handleTitleChange,

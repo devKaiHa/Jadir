@@ -61,19 +61,19 @@ const AllTestimonials = () => {
                   {testimonials.map((item) => (
                     <tr key={item._id}>
                       <td>{item?.name || "-"}</td>
-                      <td>{item?.role?.en || item?.role?.ar || item?.role?.tr || "-"}</td>
+                      <td>{item?.role?.en || item?.role?.ar || "-"}</td>
                       <td>
-                        {item?.company?.en || item?.company?.ar || item?.company?.tr || "-"}
+                        {item?.company?.en || item?.company?.ar || "-"}
                       </td>
                       <td>{item?.rating ?? 5}</td>
                       <td>{item?.isFeatured ? "Yes" : "No"}</td>
                       <td>
                         <span
                           className={`badge ${
-                            item?.isActive ? "badge-success" : "badge-danger"
+                            "badge-success"
                           }`}
                         >
-                          {item?.isActive ? "Active" : "Inactive"}
+                          {"Active"}
                         </span>
                       </td>
                       <td>

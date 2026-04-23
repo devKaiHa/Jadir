@@ -1,11 +1,37 @@
 const mongoose = require("mongoose");
 const multilingualSchema = require("../multilingualModel");
 
+const multilingualArraySchema = new mongoose.Schema(
+  {
+    ar: { type: [String], default: [] },
+    en: { type: [String], default: [] },
+  },
+  { _id: false },
+);
+
+const testimonialSchema = new mongoose.Schema(
+  {
+    clientName: { type: multilingualSchema },
+    clientRole: { type: multilingualSchema },
+    quote: { type: multilingualSchema },
+  },
+  { _id: false },
+);
+
 const serviceSchema = new mongoose.Schema(
   {
     title: { type: multilingualSchema },
+    bannerImage: { type: String, default: "" },
     description: { type: multilingualSchema },
-    isActive: { type: Boolean, default: true },
+    features: { type: multilingualArraySchema },
+    steps: { type: multilingualArraySchema },
+    targetingSectors: { type: multilingualArraySchema },
+    relatedProjects: [
+      { type: mongoose.Schema.Types.ObjectId, ref: "projects" },
+    ],
+    testimonial: { type: testimonialSchema },
+    relatedServices: [{ type: mongoose.Schema.Types.ObjectId, ref: "service" }],
+    slug: { type: String, unique: true, index: true },
     order: { type: Number, default: 0 },
   },
   { timestamps: true },

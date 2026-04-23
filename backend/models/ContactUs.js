@@ -8,7 +8,6 @@ const contactBranchSchema = new mongoose.Schema(
     mapLink: { type: String, default: "" },
     phones: { type: [String], default: [] },
     whatsapp: { type: String, default: "" },
-    isActive: { type: Boolean, default: true },
     order: { type: Number, default: 0 },
   },
   { _id: true },

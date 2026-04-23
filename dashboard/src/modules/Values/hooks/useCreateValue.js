@@ -6,7 +6,6 @@ import { useValues } from "../../hooks/useValues";
 const emptyLangState = {
   en: "",
   ar: "",
-  tr: "",
 };
 
 const useCreateValue = () => {
@@ -17,7 +16,6 @@ const useCreateValue = () => {
   const [content, setContent] = useState({ ...emptyLangState });
   const [description, setDescription] = useState({ ...emptyLangState });
 
-  const [isActive, setIsActive] = useState(true);
   const [order, setOrder] = useState(0);
 
   const handleNameChange = (lang, value) => {
@@ -36,7 +34,6 @@ const useCreateValue = () => {
     setName({ ...emptyLangState });
     setContent({ ...emptyLangState });
     setDescription({ ...emptyLangState });
-    setIsActive(true);
     setOrder(0);
   };
 
@@ -46,7 +43,6 @@ const useCreateValue = () => {
         name,
         content,
         description,
-        isActive,
         order,
       };
 
@@ -68,9 +64,6 @@ const useCreateValue = () => {
     name,
     content,
     description,
-
-    isActive,
-    setIsActive,
 
     order,
     setOrder,

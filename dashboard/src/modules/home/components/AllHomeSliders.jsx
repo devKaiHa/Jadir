@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Container, Tooltip } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import LoadingCard from "@/components/Global/LoadingCard";
@@ -6,17 +6,14 @@ import ErrorMessageCard from "@/components/Global/ErrorMessageCard";
 import AddButton from "@/components/Global/AddButton";
 import { ToastContainer, toast } from "react-toastify";
 import { useHomeSliders } from "../../hooks/useHomeSliders";
-import baseURL, { imageURL } from "../../../Api/GlobalData";
+import { imageURL } from "../../../Api/GlobalData";
 
 const AllHomeSliders = () => {
   const navigate = useNavigate();
 
-  const [sliderTypeFilter, setSliderTypeFilter] = useState("");
-
   const { sliders, isLoading, error, deleteHomeSlider, isDeleting } =
     useHomeSliders({
       limit: 100,
-      sliderType: sliderTypeFilter || undefined,
     });
 
   const handleDelete = async (id) => {
@@ -40,16 +37,6 @@ const AllHomeSliders = () => {
             <h3 className="card-title">Home Sliders</h3>
 
             <div className="flex gap-4 items-center">
-              <select
-                className="input"
-                value={sliderTypeFilter}
-                onChange={(e) => setSliderTypeFilter(e.target.value)}
-              >
-                <option value="">All Types</option>
-                <option value="main">Main</option>
-                <option value="secondary">Secondary</option>
-              </select>
-
               <AddButton
                 label="New Slider"
                 onClick={() => navigate("/add-home-slider")}
@@ -63,10 +50,7 @@ const AllHomeSliders = () => {
                 <thead>
                   <tr>
                     <th className="min-w-[100px]">Image</th>
-                    <th className="min-w-[180px]">Title</th>
-                    <th className="min-w-[120px]">Type</th>
                     <th className="min-w-[100px]">Order</th>
-                    <th className="min-w-[100px]">Status</th>
                     <th className="w-[120px]">Actions</th>
                   </tr>
                 </thead>
@@ -78,7 +62,7 @@ const AllHomeSliders = () => {
                         {slider?.img ? (
                           <img
                             src={`${imageURL}/homeSlider/${slider.img}`}
-                            alt={slider?.title?.en || "slider"}
+                            alt="slider"
                             className="w-[80px] h-[50px] rounded object-cover border"
                           />
                         ) : (
@@ -88,31 +72,7 @@ const AllHomeSliders = () => {
                         )}
                       </td>
 
-                      <td>
-                        <span className="text-sm font-medium text-gray-800">
-                          {slider?.title?.en ||
-                            slider?.title?.ar ||
-                            slider?.title?.tr}
-                        </span>
-                      </td>
-
-                      <td>
-                        <span className="badge badge-outline">
-                          {slider?.sliderType || "-"}
-                        </span>
-                      </td>
-
                       <td>{slider?.order ?? 0}</td>
-
-                      <td>
-                        <span
-                          className={`badge ${
-                            slider?.isActive ? "badge-success" : "badge-danger"
-                          }`}
-                        >
-                          {slider?.isActive ? "Active" : "Inactive"}
-                        </span>
-                      </td>
 
                       <td>
                         <div className="flex gap-3">
@@ -144,7 +104,7 @@ const AllHomeSliders = () => {
                   {!sliders?.length && (
                     <tr>
                       <td
-                        colSpan={6}
+                        colSpan={3}
                         className="text-center py-6 text-gray-500"
                       >
                         No sliders found

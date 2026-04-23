@@ -18,3 +18,8 @@ out
 .DS_Store
 dev.log
 dev.err.log
+.next-build-check
+.next-build-check-services
+.next-build-check-services-2
+.codex-temp-pdf
+structure.txt

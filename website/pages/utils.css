@@ -181,3 +181,44 @@
   background-color: transparent !important;
   background: transparent !important;
 }
+
+.banner-nav {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.banner-prev,
+.banner-next {
+  pointer-events: all;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.4); /* base */
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 0 20px;
+  transition: all 0.3s ease;
+}
+
+.banner-prev i,
+.banner-next i {
+  color: #fff;
+  font-size: 18px;
+}
+
+/* hover effect */
+.banner-prev:hover,
+.banner-next:hover {
+  background: #c9a45c; /* your brand gold */
+  transform: scale(1.1);
+}

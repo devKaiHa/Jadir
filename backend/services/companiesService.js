@@ -9,7 +9,6 @@ const safeParseJSON = require("../utils/safeParseJson");
 
 exports.uploadCompaniesImages = uploadMixOfImages([
   { name: "logo", maxCount: 1 },
-  { name: "background", maxCount: 1 },
 ]);
 
 exports.resizeCompaniesImages = asyncHandler(async (req, res, next) => {
@@ -26,63 +25,23 @@ exports.resizeCompaniesImages = asyncHandler(async (req, res, next) => {
     req.body.logo = logoFilename;
   }
 
-  if (req.files.background?.[0]) {
-    const backgroundFilename = `company-background-${uuidv4()}-${Date.now()}.webp`;
-
-    await sharp(req.files.background[0].buffer)
-      .toFormat("webp")
-      .webp({ quality: 70 })
-      .toFile(`uploads/companies/${backgroundFilename}`);
-
-    req.body.background = backgroundFilename;
-  }
-
   next();
 });
 
 const parseCompanyBody = (body) => {
   if (body.name !== undefined) body.name = safeParseJSON(body.name, "name");
-  if (body.about !== undefined) body.about = safeParseJSON(body.about, "about");
-  if (body.experienceField !== undefined) {
-    body.experienceField = safeParseJSON(
-      body.experienceField,
-      "experienceField",
-    );
+  if (body.brief !== undefined) {
+    body.brief = safeParseJSON(body.brief, "brief");
   }
-  if (body.content !== undefined) {
-    body.content = safeParseJSON(body.content, "content");
+  if (body.testimonial !== undefined) {
+    body.testimonial = safeParseJSON(body.testimonial, "testimonial");
   }
-  if (body.social_links !== undefined) {
-    body.social_links = safeParseJSON(body.social_links, "social_links");
-  }
-  if (body.services !== undefined) {
-    body.services = safeParseJSON(body.services, "services");
-  }
-  if (body.values !== undefined) {
-    body.values = safeParseJSON(body.values, "values");
-  }
-  if (body.addresses !== undefined) {
-    body.addresses = safeParseJSON(body.addresses, "addresses");
-  }
-  if (body.goals !== undefined) {
-    body.goals = safeParseJSON(body.goals, "goals");
-  }
-  if (body.statistics !== undefined) {
-    body.statistics = safeParseJSON(body.statistics, "statistics");
-  }
-  if (body.fundsAssociated !== undefined) {
-    body.fundsAssociated = safeParseJSON(
-      body.fundsAssociated,
-      "fundsAssociated",
-    );
+  if (body.order !== undefined) {
+    body.order = Number(body.order) || 0;
   }
 
   if (body.name) {
     body.slug = buildSlug(body.name);
-  }
-
-  if (body.isActive !== undefined) {
-    body.isActive = body.isActive === true || body.isActive === "true";
   }
 };
 
@@ -112,19 +71,9 @@ exports.getCompanies = asyncHandler(async (req, res) => {
     page = 1,
     limit = 10,
     sort = "order createdAt",
-    isActive,
-    country,
   } = req.query;
 
   const query = {};
-
-  if (isActive !== undefined) {
-    query.isActive = isActive === "true";
-  }
-
-  if (country?.trim()) {
-    query.country = { $regex: country.trim(), $options: "i" };
-  }
 
   if (keyword?.trim()) {
     const safeKeyword = keyword.trim();
@@ -132,11 +81,10 @@ exports.getCompanies = asyncHandler(async (req, res) => {
     query.$or = [
       { "name.en": { $regex: safeKeyword, $options: "i" } },
       { "name.ar": { $regex: safeKeyword, $options: "i" } },
-      { "name.tr": { $regex: safeKeyword, $options: "i" } },
-      { "about.en": { $regex: safeKeyword, $options: "i" } },
-      { "about.ar": { $regex: safeKeyword, $options: "i" } },
-      { "about.tr": { $regex: safeKeyword, $options: "i" } },
-      { country: { $regex: safeKeyword, $options: "i" } },
+      { "brief.en": { $regex: safeKeyword, $options: "i" } },
+      { "brief.ar": { $regex: safeKeyword, $options: "i" } },
+      { "testimonial.en": { $regex: safeKeyword, $options: "i" } },
+      { "testimonial.ar": { $regex: safeKeyword, $options: "i" } },
     ];
   }
 
@@ -145,12 +93,7 @@ exports.getCompanies = asyncHandler(async (req, res) => {
   const skip = (pageNum - 1) * limitNum;
 
   const [companies, total] = await Promise.all([
-    companiesModel
-      .find(query)
-      .populate("fundsAssociated", "title _id image slug")
-      .sort(sort)
-      .skip(skip)
-      .limit(limitNum),
+    companiesModel.find(query).sort(sort).skip(skip).limit(limitNum),
     companiesModel.countDocuments(query),
   ]);
 
@@ -171,26 +114,18 @@ exports.getCompanies = asyncHandler(async (req, res) => {
 });
 
 exports.getPublicCompanies = asyncHandler(async (req, res) => {
-  const { keyword, country, fundId, page = 1, limit } = req.query;
-  const query = { isActive: true };
-
-  if (country?.trim()) {
-    query.country = { $regex: country.trim(), $options: "i" };
-  }
-
-  if (fundId?.trim()) {
-    query.fundsAssociated = fundId.trim();
-  }
+  const { keyword, page = 1, limit } = req.query;
+  const query = {};
 
   if (keyword?.trim()) {
     const safeKeyword = keyword.trim();
     query.$or = [
       { "name.en": { $regex: safeKeyword, $options: "i" } },
       { "name.ar": { $regex: safeKeyword, $options: "i" } },
-      { "name.tr": { $regex: safeKeyword, $options: "i" } },
-      { "about.en": { $regex: safeKeyword, $options: "i" } },
-      { "about.ar": { $regex: safeKeyword, $options: "i" } },
-      { "about.tr": { $regex: safeKeyword, $options: "i" } },
+      { "brief.en": { $regex: safeKeyword, $options: "i" } },
+      { "brief.ar": { $regex: safeKeyword, $options: "i" } },
+      { "testimonial.en": { $regex: safeKeyword, $options: "i" } },
+      { "testimonial.ar": { $regex: safeKeyword, $options: "i" } },
     ];
   }
 
@@ -200,7 +135,6 @@ exports.getPublicCompanies = asyncHandler(async (req, res) => {
 
   let companiesQuery = companiesModel
     .find(query)
-    .populate("fundsAssociated", "title _id image slug")
     .sort({ order: 1, createdAt: -1 });
 
   if (limitNum) {
@@ -224,12 +158,14 @@ exports.getPublicCompanies = asyncHandler(async (req, res) => {
 });
 
 exports.getCompanyBySlug = asyncHandler(async (req, res, next) => {
-  const company = await companiesModel
-    .findOne({ slug: req.params.slug, isActive: true })
-    .populate("fundsAssociated", "title _id image slug");
+  const company = await companiesModel.findOne({
+    slug: req.params.slug,
+  });
 
   if (!company) {
-    return next(new ApiError(`No company found for slug ${req.params.slug}`, 404));
+    return next(
+      new ApiError(`No company found for slug ${req.params.slug}`, 404),
+    );
   }
 
   res.status(200).json({
@@ -239,12 +175,12 @@ exports.getCompanyBySlug = asyncHandler(async (req, res, next) => {
 });
 
 exports.getOneCompany = asyncHandler(async (req, res, next) => {
-  const company = await companiesModel
-    .findById(req.params.id)
-    .populate("fundsAssociated", "title _id image slug");
+  const company = await companiesModel.findById(req.params.id);
 
   if (!company) {
-    return next(new ApiError(`No company found for this id ${req.params.id}`, 404));
+    return next(
+      new ApiError(`No company found for this id ${req.params.id}`, 404),
+    );
   }
 
   res.status(200).json({
@@ -263,7 +199,9 @@ exports.updateCompany = asyncHandler(async (req, res, next) => {
   );
 
   if (!updatedCompany) {
-    return next(new ApiError(`No company found for this id ${req.params.id}`, 404));
+    return next(
+      new ApiError(`No company found for this id ${req.params.id}`, 404),
+    );
   }
 
   res.status(200).json({
@@ -277,7 +215,9 @@ exports.deleteCompany = asyncHandler(async (req, res, next) => {
   const deletedCompany = await companiesModel.findByIdAndDelete(req.params.id);
 
   if (!deletedCompany) {
-    return next(new ApiError(`No company found for this id ${req.params.id}`, 404));
+    return next(
+      new ApiError(`No company found for this id ${req.params.id}`, 404),
+    );
   }
 
   res.status(200).json({

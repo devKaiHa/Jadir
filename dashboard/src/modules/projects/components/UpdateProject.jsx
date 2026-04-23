@@ -14,16 +14,20 @@ const UpdateProject = () => {
     isUpdating,
     title,
     brief,
+    challenge,
+    solution,
+    result,
     projectLink,
     setProjectLink,
-    isActive,
-    setIsActive,
     order,
     setOrder,
     imagePreview,
     onImageChange,
     handleTitleChange,
     handleBriefChange,
+    handleChallengeChange,
+    handleSolutionChange,
+    handleResultChange,
     handleSave,
   } = useUpdateProject();
 
@@ -39,8 +43,6 @@ const UpdateProject = () => {
         <ProjectGeneralInfoTab
           projectLink={projectLink}
           setProjectLink={setProjectLink}
-          isActive={isActive}
-          setIsActive={setIsActive}
           order={order}
           setOrder={setOrder}
           imagePreview={imagePreview}
@@ -48,7 +50,7 @@ const UpdateProject = () => {
         />
       ),
     },
-    ...["en", "ar", "tr"].map((lang) => ({
+    ...["en", "ar"].map((lang) => ({
       key: `project_${lang}`,
       label: `Project ${lang.toUpperCase()}`,
       icon: "ki-outline ki-clipboard",
@@ -57,8 +59,14 @@ const UpdateProject = () => {
           language={lang}
           titleValue={title[lang]}
           briefValue={brief[lang]}
+          challengeValue={challenge[lang]}
+          solutionValue={solution[lang]}
+          resultValue={result[lang]}
           onTitleChange={handleTitleChange}
           onBriefChange={handleBriefChange}
+          onChallengeChange={handleChallengeChange}
+          onSolutionChange={handleSolutionChange}
+          onResultChange={handleResultChange}
         />
       ),
     })),

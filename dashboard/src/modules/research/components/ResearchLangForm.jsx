@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 
 const ResearchLangForm = ({
   language,
@@ -54,31 +52,11 @@ const ResearchLangForm = ({
                 <span className="btn btn-input w-[20%] capitalize">
                   Content ({language})
                 </span>
-                <ReactQuill
+                <textarea
                   value={localState.content}
-                  onChange={(value) => handleChange("content", value)}
-                  modules={{
-                    toolbar: [
-                      [{ header: [1, 2, false] }],
-                      ["bold", "italic", "underline", "strike"],
-                      [{ list: "ordered" }, { list: "bullet" }],
-                      ["link", "image"],
-                      ["clean"],
-                    ],
-                  }}
+                  onChange={(e) => handleChange("content", e.target.value)}
                   placeholder={`Enter content in ${language.toUpperCase()}`}
-                  formats={[
-                    "header",
-                    "bold",
-                    "italic",
-                    "underline",
-                    "strike",
-                    "list",
-                    "bullet",
-                    "link",
-                    "image",
-                  ]}
-                  className="bg-white text-black min-h-[180px] w-full pb-[3rem]"
+                  className="input min-h-[180px] w-full p-3 tracking-[1px] leading-[20px]"
                 />
               </div>
             </td>

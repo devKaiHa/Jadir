@@ -25,19 +25,44 @@ const AllValues = () => {
 
   if (isLoading) return <LoadingCard />;
   if (error) return <ErrorMessageCard />;
+  const highlightedCount = values.filter(
+    (value) => typeof value?.order === "number" && value.order <= 3,
+  ).length;
 
   return (
     <Container>
-      <div className="grid">
-        <div className="card card-grid min-w-full">
-          <div className="card-header py-5 flex-wrap">
-            <h3 className="card-title">Values</h3>
-            <div className="flex gap-6">
-              <AddButton
-                label="New Value"
-                onClick={() => navigate("/add-value")}
-              />
+      <div className="space-y-6">
+        <div className="overflow-hidden rounded-[28px] border border-slate-200 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white shadow-xl">
+          <div className="grid gap-6 px-6 py-7 lg:grid-cols-[1.2fr_0.8fr] lg:px-8">
+            <div>
+              <span className="inline-flex rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-slate-200">
+                Brand Values
+              </span>
+              <h2 className="mt-4 text-2xl font-semibold">
+                Keep the company value system clear, ordered, and ready for
+                publishing
+              </h2>
+              <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-200">
+                Review the public-facing values, adjust their order, and
+                maintain consistent messaging across all languages.
+              </p>
             </div>
+          </div>
+        </div>
+
+        <div className="card card-grid min-w-full rounded-3xl border border-gray-200 shadow-sm">
+          <div className="card-header py-5 flex-wrap">
+            <div>
+              <h3 className="card-title">Values List</h3>
+              <p className="mt-1 text-sm text-gray-500">
+                Showing {values.length} values configured for the website
+              </p>
+            </div>
+
+            <AddButton
+              label="New Value"
+              onClick={() => navigate("/add-value")}
+            />
           </div>
 
           <div className="card-body">
@@ -45,8 +70,9 @@ const AllValues = () => {
               <table className="table table-auto table-border" id="grid_table">
                 <thead>
                   <tr>
-                    <th className="min-w-[200px]">Name</th>
-                    <th className="min-w-[220px]">Description</th>
+                    <th className="min-w-[220px]">Name</th>
+                    <th className="min-w-[180px]">Content</th>
+                    <th className="min-w-[280px]">Description</th>
                     <th className="min-w-[100px]">Order</th>
                     <th className="min-w-[100px]">Status</th>
                     <th className="w-[120px]">Actions</th>
@@ -59,8 +85,15 @@ const AllValues = () => {
                       <td>
                         <span className="text-sm font-medium text-gray-800">
                           {value?.name?.en ||
-                            value?.name?.ar ||
-                            value?.name?.tr}
+                            value?.name?.ar}
+                        </span>
+                      </td>
+
+                      <td>
+                        <span className="text-sm text-gray-700 line-clamp-1">
+                          {value?.content?.en ||
+                            value?.content?.ar ||
+                            "-"}
                         </span>
                       </td>
 
@@ -68,7 +101,6 @@ const AllValues = () => {
                         <span className="text-sm text-gray-700 line-clamp-2">
                           {value?.description?.en ||
                             value?.description?.ar ||
-                            value?.description?.tr ||
                             "-"}
                         </span>
                       </td>
@@ -78,10 +110,10 @@ const AllValues = () => {
                       <td>
                         <span
                           className={`badge ${
-                            value?.isActive ? "badge-success" : "badge-danger"
+                            "badge-success"
                           }`}
                         >
-                          {value?.isActive ? "Active" : "Inactive"}
+                          {"Active"}
                         </span>
                       </td>
 
@@ -115,7 +147,7 @@ const AllValues = () => {
                   {!values?.length && (
                     <tr>
                       <td
-                        colSpan={5}
+                        colSpan={6}
                         className="text-center py-6 text-gray-500"
                       >
                         No values found

@@ -21,7 +21,7 @@ if (process.env.NODE_ENV === "development") {
   console.log(`mode: ${process.env.NODE_ENV}`);
 }
 
-// Mount routes here
+// Mount routes
 app.use("/api", apiRoutes);
 
 const PORT = process.env.PORT || 9000;

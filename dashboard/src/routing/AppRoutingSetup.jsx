@@ -40,21 +40,9 @@ import AboutServices from "../modules/aboutServices/components/AboutServices";
 import AllOurServices from "../modules/OurServices/components/AllOurServices";
 import AddOurService from "../modules/OurServices/components/AddOurService";
 import UpdateOurService from "../modules/OurServices/components/UpdateOurService";
-import AllPlans from "../modules/Plans/components/AllPlans";
-import AddPlan from "../modules/Plans/components/AddPlan";
-import UpdatePlan from "../modules/Plans/components/UpdatePlan";
-import AllInvestmentFunds from "../modules/InvestmentFunds/components/AllInvestmentFunds";
-import AddInvestmentFund from "../modules/InvestmentFunds/components/AddInvestmentFund";
-import UpdateInvestmentFund from "../modules/InvestmentFunds/components/UpdateInvestmentFund";
-import AllCustomPages from "../modules/customPages/components/AllCustomPages";
-import AddCustomPage from "../modules/customPages/components/AddCustomPage";
-import UpdateCustomPage from "../modules/customPages/components/UpdateCustomPage";
 import AllProjects from "../modules/projects/components/AllProjects";
 import AddProject from "../modules/projects/components/AddProject";
 import UpdateProject from "../modules/projects/components/UpdateProject";
-import AllResearch from "../modules/research/components/AllResearch";
-import AddResearch from "../modules/research/components/AddResearch";
-import UpdateResearch from "../modules/research/components/UpdateResearch";
 import AllStatistics from "../modules/statistics/components/AllStatistics";
 import AddStatistic from "../modules/statistics/components/AddStatistic";
 import UpdateStatistic from "../modules/statistics/components/UpdateStatistic";
@@ -64,6 +52,9 @@ import UpdateTestimonial from "../modules/Testimonials/components/UpdateTestimon
 import AllPolicies from "../modules/Policies/components/AllPolicies";
 import AddPolicy from "../modules/Policies/components/AddPolicy";
 import UpdatePolicy from "../modules/Policies/components/UpdatePolicy";
+import AllCareers from "../modules/Careers/components/AllCareers";
+import AddCareer from "../modules/Careers/components/AddCareer";
+import UpdateCareer from "../modules/Careers/components/UpdateCareer";
 
 const AppRoutingSetup = () => {
   return (
@@ -116,9 +107,9 @@ const AppRoutingSetup = () => {
           <Route path="/update-user/:id" element={<UpdateUser />} />
 
           {/* Companies */}
-          <Route path="/all-companies" element={<AllCompanies />} />
+          {/* <Route path="/all-companies" element={<AllCompanies />} />
           <Route path="/add-company" element={<AddCompany />} />
-          <Route path="/update-company/:id" element={<UpdateCompany />} />
+          <Route path="/update-company/:id" element={<UpdateCompany />} /> */}
 
           {/* Board memners */}
           <Route path="/all-board-members" element={<AllBoardMembers />} />
@@ -129,9 +120,9 @@ const AppRoutingSetup = () => {
           />
 
           {/* Sectors */}
-          <Route path="/all-sectors" element={<AllSectors />} />
+          {/* <Route path="/all-sectors" element={<AllSectors />} />
           <Route path="/add-sector" element={<AddSector />} />
-          <Route path="/update-sector/:id" element={<UpdateSector />} />
+          <Route path="/update-sector/:id" element={<UpdateSector />} /> */}
 
           {/* About services */}
           <Route path="/about-services" element={<AboutServices />} />
@@ -144,39 +135,10 @@ const AppRoutingSetup = () => {
             element={<UpdateOurService />}
           />
 
-          {/* Plans */}
-          <Route path="/all-plans" element={<AllPlans />} />
-          <Route path="/add-plan" element={<AddPlan />} />
-          <Route path="/update-plan/:id" element={<UpdatePlan />} />
-
-          {/* Investment funds */}
-          <Route
-            path="/all-investment-funds"
-            element={<AllInvestmentFunds />}
-          />
-          <Route path="/add-investment-fund" element={<AddInvestmentFund />} />
-          <Route
-            path="/update-investment-fund/:id"
-            element={<UpdateInvestmentFund />}
-          />
-
-          {/* Custom page */}
-          <Route path="/all-custom-pages" element={<AllCustomPages />} />
-          <Route path="/add-custom-page" element={<AddCustomPage />} />
-          <Route
-            path="/update-custom-page/:id"
-            element={<UpdateCustomPage />}
-          />
-
           {/* Projects */}
           <Route path="/all-projects" element={<AllProjects />} />
           <Route path="/add-project" element={<AddProject />} />
           <Route path="/update-project/:id" element={<UpdateProject />} />
-
-          {/* Research */}
-          <Route path="/all-research" element={<AllResearch />} />
-          <Route path="/add-research" element={<AddResearch />} />
-          <Route path="/update-research/:id" element={<UpdateResearch />} />
 
           {/* Testimonials */}
           <Route path="/all-testimonials" element={<AllTestimonials />} />
@@ -195,6 +157,11 @@ const AppRoutingSetup = () => {
           <Route path="/all-statistics" element={<AllStatistics />} />
           <Route path="/add-statistic" element={<AddStatistic />} />
           <Route path="/update-statistic/:id" element={<UpdateStatistic />} />
+
+          {/* Careers */}
+          <Route path="/careers" element={<AllCareers />} />
+          <Route path="/add-career" element={<AddCareer />} />
+          <Route path="/update-career/:id" element={<UpdateCareer />} />
         </Route>
       </Route>
 

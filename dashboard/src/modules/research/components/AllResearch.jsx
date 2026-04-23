@@ -71,7 +71,6 @@ const AllResearch = () => {
                         <span className="text-sm font-medium text-gray-800">
                           {item?.title?.en ||
                             item?.title?.ar ||
-                            item?.title?.tr ||
                             "-"}
                         </span>
                       </td>
@@ -79,10 +78,10 @@ const AllResearch = () => {
                       <td>
                         <span
                           className={`badge ${
-                            item?.isActive ? "badge-success" : "badge-danger"
+                            "badge-success"
                           }`}
                         >
-                          {item?.isActive ? "Active" : "Inactive"}
+                          {"Active"}
                         </span>
                       </td>
                       <td>

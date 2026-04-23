@@ -6,7 +6,6 @@ import { useCustomPages, useOneCustomPage } from "../../hooks/useCustomPages";
 const emptyLangState = {
   en: "",
   ar: "",
-  tr: "",
 };
 
 const useUpdateCustomPage = () => {
@@ -19,7 +18,6 @@ const useUpdateCustomPage = () => {
   const [title, setTitle] = useState({ ...emptyLangState });
   const [content, setContent] = useState({ ...emptyLangState });
   const [slug, setSlug] = useState("");
-  const [isActive, setIsActive] = useState(true);
   const [order, setOrder] = useState(0);
 
   useEffect(() => {
@@ -28,17 +26,14 @@ const useUpdateCustomPage = () => {
     setTitle({
       en: customPage?.title?.en || "",
       ar: customPage?.title?.ar || "",
-      tr: customPage?.title?.tr || "",
     });
 
     setContent({
       en: customPage?.content?.en || "",
       ar: customPage?.content?.ar || "",
-      tr: customPage?.content?.tr || "",
     });
 
     setSlug(customPage?.slug || "");
-    setIsActive(customPage?.isActive ?? true);
     setOrder(customPage?.order || 0);
   }, [customPage]);
 
@@ -56,7 +51,6 @@ const useUpdateCustomPage = () => {
         title,
         content,
         slug,
-        isActive,
         order,
       };
 
@@ -84,8 +78,6 @@ const useUpdateCustomPage = () => {
     content,
     slug,
     setSlug,
-    isActive,
-    setIsActive,
     order,
     setOrder,
     handleTitleChange,

@@ -4,6 +4,7 @@ const partnersModel = require("../../models/Home/partnersModel");
 const { uploadSingleImage } = require("../../middlewares/uploadingImage");
 const { v4: uuidv4 } = require("uuid");
 const sharp = require("sharp");
+const safeParseJSON = require("../../utils/safeParseJson");
 
 exports.uploadPartnerImage = uploadSingleImage("img");
 exports.resizePartnerImage = asyncHandler(async (req, res, next) => {
@@ -22,22 +23,21 @@ exports.resizePartnerImage = asyncHandler(async (req, res, next) => {
 
 // Admin list
 exports.getPartners = asyncHandler(async (req, res) => {
-  const {
-    keyword,
-    page = 1,
-    limit = 10,
-    sort = "order createdAt",
-    isActive,
-  } = req.query;
+  const { keyword, page = 1, limit = 10, sort = "order createdAt" } = req.query;
 
   const query = {};
 
-  if (isActive !== undefined) {
-    query.isActive = isActive === "true";
-  }
-
   if (keyword && keyword.trim() !== "") {
-    query.title = { $regex: keyword.trim(), $options: "i" };
+    const safeKeyword = keyword.trim();
+
+    query.$or = [
+      { "title.ar": { $regex: safeKeyword, $options: "i" } },
+      { "title.en": { $regex: safeKeyword, $options: "i" } },
+      { "brief.ar": { $regex: safeKeyword, $options: "i" } },
+      { "brief.en": { $regex: safeKeyword, $options: "i" } },
+      { "testimonial.ar": { $regex: safeKeyword, $options: "i" } },
+      { "testimonial.en": { $regex: safeKeyword, $options: "i" } },
+    ];
   }
 
   const pageNum = parseInt(page, 10);
@@ -68,7 +68,7 @@ exports.getPartners = asyncHandler(async (req, res) => {
 // Public list
 exports.getPublicPartners = asyncHandler(async (req, res) => {
   const partners = await partnersModel
-    .find({ isActive: true })
+    .find({})
     .sort({ order: 1, createdAt: -1 });
 
   res.status(200).json({
@@ -78,12 +78,17 @@ exports.getPublicPartners = asyncHandler(async (req, res) => {
 });
 
 exports.createPartner = asyncHandler(async (req, res) => {
-  if (req.body.isActive !== undefined) {
-    req.body.isActive = req.body.isActive === "true";
-  }
-
   if (req.body.order !== undefined) {
     req.body.order = Number(req.body.order) || 0;
+  }
+  if (req.body.title !== undefined) {
+    req.body.title = safeParseJSON(req.body.title, "title");
+  }
+  if (req.body.brief !== undefined) {
+    req.body.brief = safeParseJSON(req.body.brief, "brief");
+  }
+  if (req.body.testimonial !== undefined) {
+    req.body.testimonial = safeParseJSON(req.body.testimonial, "testimonial");
   }
   const partner = await partnersModel.create(req.body);
 
@@ -116,12 +121,17 @@ exports.updatePartner = asyncHandler(async (req, res, next) => {
     return next(new ApiError(`No ID provided`, 404));
   }
 
-  if (req.body.isActive !== undefined) {
-    req.body.isActive = req.body.isActive === "true";
-  }
-
   if (req.body.order !== undefined) {
     req.body.order = Number(req.body.order) || 0;
+  }
+  if (req.body.title !== undefined) {
+    req.body.title = safeParseJSON(req.body.title, "title");
+  }
+  if (req.body.brief !== undefined) {
+    req.body.brief = safeParseJSON(req.body.brief, "brief");
+  }
+  if (req.body.testimonial !== undefined) {
+    req.body.testimonial = safeParseJSON(req.body.testimonial, "testimonial");
   }
 
   const updatedPartner = await partnersModel.findByIdAndUpdate(id, req.body, {

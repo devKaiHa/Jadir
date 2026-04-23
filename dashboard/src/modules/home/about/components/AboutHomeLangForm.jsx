@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 
 const AboutHomeLangForm = ({
   language,
@@ -16,10 +14,10 @@ const AboutHomeLangForm = ({
   onMessageDescriptionChange,
   businessApproachValue = "",
   whyUsValue = "",
-  governanceValue = "",
+  whoWeServeValue = "",
   onBusinessApproachChange,
   onWhyUsChange,
-  onGovernanceChange,
+  onWhoWeServeChange,
 }) => {
   const [localState, setLocalState] = useState({
     content: contentValue ?? "",
@@ -29,7 +27,7 @@ const AboutHomeLangForm = ({
     messageDescription: messageDescriptionValue ?? "",
     businessApproach: businessApproachValue ?? "",
     whyUs: whyUsValue ?? "",
-    governance: governanceValue ?? "",
+    whoWeServe: whoWeServeValue ?? "",
   });
 
   useEffect(() => {
@@ -41,7 +39,7 @@ const AboutHomeLangForm = ({
       messageDescription: messageDescriptionValue ?? "",
       businessApproach: businessApproachValue ?? "",
       whyUs: whyUsValue ?? "",
-      governance: governanceValue ?? "",
+      whoWeServe: whoWeServeValue ?? "",
     });
   }, [
     contentValue,
@@ -51,7 +49,7 @@ const AboutHomeLangForm = ({
     messageDescriptionValue,
     businessApproachValue,
     whyUsValue,
-    governanceValue,
+    whoWeServeValue,
   ]);
 
   const handleChange = (key, value) => {
@@ -65,10 +63,9 @@ const AboutHomeLangForm = ({
     if (key === "message") onMessageChange?.(language, value);
     if (key === "messageDescription")
       onMessageDescriptionChange?.(language, value);
-    if (key === "businessApproach")
-      onBusinessApproachChange?.(language, value);
+    if (key === "businessApproach") onBusinessApproachChange?.(language, value);
     if (key === "whyUs") onWhyUsChange?.(language, value);
-    if (key === "governance") onGovernanceChange?.(language, value);
+    if (key === "whoWeServe") onWhoWeServeChange?.(language, value);
   };
 
   return (
@@ -81,31 +78,11 @@ const AboutHomeLangForm = ({
                 <span className="btn btn-input w-[25%] capitalize">
                   Content ({language})
                 </span>
-                <ReactQuill
+                <textarea
                   value={localState.content}
-                  onChange={(value) => handleChange("content", value)}
-                  modules={{
-                    toolbar: [
-                      [{ header: [1, 2, false] }],
-                      ["bold", "italic", "underline", "strike"],
-                      [{ list: "ordered" }, { list: "bullet" }],
-                      ["link", "image"],
-                      ["clean"],
-                    ],
-                  }}
+                  onChange={(e) => handleChange("content", e.target.value)}
                   placeholder={`Enter content in ${language.toUpperCase()}`}
-                  formats={[
-                    "header",
-                    "bold",
-                    "italic",
-                    "underline",
-                    "strike",
-                    "list",
-                    "bullet",
-                    "link",
-                    "image",
-                  ]}
-                  className="bg-white text-black min-h-[180px] w-full pb-[3rem]"
+                  className="input min-h-[180px] w-full tracking-[1px] leading-[20px]"
                 />
               </div>
             </td>
@@ -134,31 +111,13 @@ const AboutHomeLangForm = ({
                 <span className="btn btn-input w-[25%] capitalize">
                   Vision Description ({language})
                 </span>
-                <ReactQuill
+                <textarea
                   value={localState.visionDescription}
-                  onChange={(value) => handleChange("visionDescription", value)}
-                  modules={{
-                    toolbar: [
-                      [{ header: [1, 2, false] }],
-                      ["bold", "italic", "underline", "strike"],
-                      [{ list: "ordered" }, { list: "bullet" }],
-                      ["link", "image"],
-                      ["clean"],
-                    ],
-                  }}
+                  onChange={(e) =>
+                    handleChange("visionDescription", e.target.value)
+                  }
                   placeholder={`Enter vision description in ${language.toUpperCase()}`}
-                  formats={[
-                    "header",
-                    "bold",
-                    "italic",
-                    "underline",
-                    "strike",
-                    "list",
-                    "bullet",
-                    "link",
-                    "image",
-                  ]}
-                  className="bg-white text-black min-h-[180px] w-full pb-[3rem]"
+                  className="input min-h-[180px] w-full tracking-[1px] leading-[20px]"
                 />
               </div>
             </td>
@@ -187,33 +146,13 @@ const AboutHomeLangForm = ({
                 <span className="btn btn-input w-[25%] capitalize">
                   Message Description ({language})
                 </span>
-                <ReactQuill
+                <textarea
                   value={localState.messageDescription}
-                  onChange={(value) =>
-                    handleChange("messageDescription", value)
+                  onChange={(e) =>
+                    handleChange("messageDescription", e.target.value)
                   }
-                  modules={{
-                    toolbar: [
-                      [{ header: [1, 2, false] }],
-                      ["bold", "italic", "underline", "strike"],
-                      [{ list: "ordered" }, { list: "bullet" }],
-                      ["link", "image"],
-                      ["clean"],
-                    ],
-                  }}
                   placeholder={`Enter message description in ${language.toUpperCase()}`}
-                  formats={[
-                    "header",
-                    "bold",
-                    "italic",
-                    "underline",
-                    "strike",
-                    "list",
-                    "bullet",
-                    "link",
-                    "image",
-                  ]}
-                  className="bg-white text-black min-h-[180px] w-full pb-[3rem]"
+                  className="input min-h-[180px] w-full tracking-[1px] leading-[20px]"
                 />
               </div>
             </td>
@@ -225,31 +164,13 @@ const AboutHomeLangForm = ({
                 <span className="btn btn-input w-[25%] capitalize">
                   Business Approach ({language})
                 </span>
-                <ReactQuill
+                <textarea
                   value={localState.businessApproach}
-                  onChange={(value) => handleChange("businessApproach", value)}
-                  modules={{
-                    toolbar: [
-                      [{ header: [1, 2, false] }],
-                      ["bold", "italic", "underline", "strike"],
-                      [{ list: "ordered" }, { list: "bullet" }],
-                      ["link", "image"],
-                      ["clean"],
-                    ],
-                  }}
+                  onChange={(e) =>
+                    handleChange("businessApproach", e.target.value)
+                  }
                   placeholder={`Enter business approach in ${language.toUpperCase()}`}
-                  formats={[
-                    "header",
-                    "bold",
-                    "italic",
-                    "underline",
-                    "strike",
-                    "list",
-                    "bullet",
-                    "link",
-                    "image",
-                  ]}
-                  className="bg-white text-black min-h-[180px] w-full pb-[3rem]"
+                  className="input min-h-[180px] w-full tracking-[1px] leading-[20px]"
                 />
               </div>
             </td>
@@ -261,31 +182,11 @@ const AboutHomeLangForm = ({
                 <span className="btn btn-input w-[25%] capitalize">
                   Why Us ({language})
                 </span>
-                <ReactQuill
+                <textarea
                   value={localState.whyUs}
-                  onChange={(value) => handleChange("whyUs", value)}
-                  modules={{
-                    toolbar: [
-                      [{ header: [1, 2, false] }],
-                      ["bold", "italic", "underline", "strike"],
-                      [{ list: "ordered" }, { list: "bullet" }],
-                      ["link", "image"],
-                      ["clean"],
-                    ],
-                  }}
+                  onChange={(e) => handleChange("whyUs", e.target.value)}
                   placeholder={`Enter why us in ${language.toUpperCase()}`}
-                  formats={[
-                    "header",
-                    "bold",
-                    "italic",
-                    "underline",
-                    "strike",
-                    "list",
-                    "bullet",
-                    "link",
-                    "image",
-                  ]}
-                  className="bg-white text-black min-h-[180px] w-full pb-[3rem]"
+                  className="input min-h-[180px] w-full tracking-[1px] leading-[20px]"
                 />
               </div>
             </td>
@@ -295,33 +196,13 @@ const AboutHomeLangForm = ({
             <td className="p-2 pt-4">
               <div className="input-group">
                 <span className="btn btn-input w-[25%] capitalize">
-                  Governance ({language})
+                  Who we serve ({language})
                 </span>
-                <ReactQuill
-                  value={localState.governance}
-                  onChange={(value) => handleChange("governance", value)}
-                  modules={{
-                    toolbar: [
-                      [{ header: [1, 2, false] }],
-                      ["bold", "italic", "underline", "strike"],
-                      [{ list: "ordered" }, { list: "bullet" }],
-                      ["link", "image"],
-                      ["clean"],
-                    ],
-                  }}
-                  placeholder={`Enter governance in ${language.toUpperCase()}`}
-                  formats={[
-                    "header",
-                    "bold",
-                    "italic",
-                    "underline",
-                    "strike",
-                    "list",
-                    "bullet",
-                    "link",
-                    "image",
-                  ]}
-                  className="bg-white text-black min-h-[180px] w-full pb-[3rem]"
+                <textarea
+                  value={localState.whoWeServe}
+                  onChange={(e) => handleChange("whoWeServe", e.target.value)}
+                  placeholder={`Enter who we serve in ${language.toUpperCase()}`}
+                  className="input min-h-[180px] w-full tracking-[1px] leading-[20px]"
                 />
               </div>
             </td>

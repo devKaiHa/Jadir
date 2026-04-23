@@ -6,7 +6,6 @@ import { useCompanies } from "../../hooks/useCompanies";
 import LoadingCard from "../../../components/Global/LoadingCard";
 import ErrorMessageCard from "../../../components/Global/ErrorMessageCard";
 import { imageURL } from "../../../Api/GlobalData";
-import { getCountryNameByCode } from "../../../lib/helpers";
 
 const AllCompanies = () => {
   const navigate = useNavigate();
@@ -26,19 +25,44 @@ const AllCompanies = () => {
 
   if (isLoading) return <LoadingCard />;
   if (error) return <ErrorMessageCard />;
+  const withBriefCount = companies.filter(
+    (company) => company?.brief?.en || company?.brief?.ar,
+  ).length;
 
   return (
     <Container>
-      <div className="grid">
-        <div className="card card-grid min-w-full">
-          <div className="card-header py-5 flex-wrap">
-            <h3 className="card-title">Companies</h3>
-            <div className="flex gap-6">
-              <AddButton
-                label="New Company"
-                onClick={() => navigate("/add-company")}
-              />
+      <div className="space-y-6">
+        <div className="overflow-hidden rounded-[28px] border border-slate-200 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white shadow-xl">
+          <div className="grid gap-6 px-6 py-7 lg:grid-cols-[1.2fr_0.8fr] lg:px-8">
+            <div>
+              <span className="inline-flex rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-slate-200">
+                Trusted Companies
+              </span>
+              <h2 className="mt-4 text-2xl font-semibold">
+                Manage the trusted-company logos and short blurbs used across
+                the site
+              </h2>
+              <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-200">
+                Keep brand names, logos, ordering, and short descriptions
+                aligned with the sitemap from the PDF.
+              </p>
             </div>
+          </div>
+        </div>
+
+        <div className="card card-grid min-w-full rounded-3xl border border-gray-200 shadow-sm">
+          <div className="card-header py-5 flex-wrap">
+            <div>
+              <h3 className="card-title">Company List</h3>
+              <p className="mt-1 text-sm text-gray-500">
+                Showing {companies.length} logo entries
+              </p>
+            </div>
+
+            <AddButton
+              label="New Company"
+              onClick={() => navigate("/add-company")}
+            />
           </div>
 
           <div className="card-body">
@@ -48,9 +72,7 @@ const AllCompanies = () => {
                   <tr>
                     <th className="min-w-[90px]">Logo</th>
                     <th className="min-w-[220px]">Name</th>
-                    <th className="min-w-[140px]">Country</th>
                     <th className="min-w-[100px]">Order</th>
-                    <th className="min-w-[100px]">Status</th>
                     <th className="w-[120px]">Actions</th>
                   </tr>
                 </thead>
@@ -74,23 +96,11 @@ const AllCompanies = () => {
                         <span className="text-sm font-medium text-gray-800">
                           {company?.name?.en ||
                             company?.name?.ar ||
-                            company?.name?.tr}
+                            "-"}
                         </span>
                       </td>
-
-                      <td>{getCountryNameByCode(company?.country) || "-"}</td>
 
                       <td>{company?.order ?? 0}</td>
-
-                      <td>
-                        <span
-                          className={`badge ${
-                            company?.isActive ? "badge-success" : "badge-danger"
-                          }`}
-                        >
-                          {company?.isActive ? "Active" : "Inactive"}
-                        </span>
-                      </td>
 
                       <td>
                         <div className="flex gap-3">

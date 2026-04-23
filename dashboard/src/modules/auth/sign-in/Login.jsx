@@ -45,7 +45,7 @@ const Login = () => {
         <div className="flex items-center gap-2">
           <span className="border-t border-gray-200 w-full"></span>
           <span className="text-2xs text-gray-500 font-medium uppercase">
-            Jadwa Website
+            Jadir Website
           </span>
           <span className="border-t border-gray-200 w-full"></span>
         </div>

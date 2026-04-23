@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 
 const PlanLangForm = ({
   language,
@@ -56,31 +54,11 @@ const PlanLangForm = ({
                 <span className="btn btn-input w-[20%] capitalize">
                   Description ({language})
                 </span>
-                <ReactQuill
+                <textarea
                   value={localState.description}
-                  onChange={(value) => handleChange("description", value)}
-                  modules={{
-                    toolbar: [
-                      [{ header: [1, 2, false] }],
-                      ["bold", "italic", "underline", "strike"],
-                      [{ list: "ordered" }, { list: "bullet" }],
-                      ["link", "image"],
-                      ["clean"],
-                    ],
-                  }}
+                  onChange={(e) => handleChange("description", e.target.value)}
                   placeholder={`Enter description in ${language.toUpperCase()}`}
-                  formats={[
-                    "header",
-                    "bold",
-                    "italic",
-                    "underline",
-                    "strike",
-                    "list",
-                    "bullet",
-                    "link",
-                    "image",
-                  ]}
-                  className="bg-white text-black min-h-[180px] w-full pb-[3rem]"
+                  className="input min-h-[180px] w-full p-3 tracking-[1px] leading-[20px]"
                 />
               </div>
             </td>

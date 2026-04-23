@@ -9,16 +9,20 @@ const AddProject = () => {
   const {
     title,
     brief,
+    challenge,
+    solution,
+    result,
     projectLink,
     setProjectLink,
-    isActive,
-    setIsActive,
     order,
     setOrder,
     imagePreview,
     onImageChange,
     handleTitleChange,
     handleBriefChange,
+    handleChallengeChange,
+    handleSolutionChange,
+    handleResultChange,
     handleSave,
     isLoading,
   } = useCreateProject();
@@ -32,8 +36,6 @@ const AddProject = () => {
         <ProjectGeneralInfoTab
           projectLink={projectLink}
           setProjectLink={setProjectLink}
-          isActive={isActive}
-          setIsActive={setIsActive}
           order={order}
           setOrder={setOrder}
           imagePreview={imagePreview}
@@ -41,7 +43,7 @@ const AddProject = () => {
         />
       ),
     },
-    ...["en", "ar", "tr"].map((lang) => ({
+    ...["en", "ar"].map((lang) => ({
       key: `project_${lang}`,
       label: `Project ${lang.toUpperCase()}`,
       icon: "ki-outline ki-clipboard",
@@ -50,8 +52,14 @@ const AddProject = () => {
           language={lang}
           titleValue={title[lang]}
           briefValue={brief[lang]}
+          challengeValue={challenge[lang]}
+          solutionValue={solution[lang]}
+          resultValue={result[lang]}
           onTitleChange={handleTitleChange}
           onBriefChange={handleBriefChange}
+          onChallengeChange={handleChallengeChange}
+          onSolutionChange={handleSolutionChange}
+          onResultChange={handleResultChange}
         />
       ),
     })),

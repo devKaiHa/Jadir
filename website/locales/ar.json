@@ -1,6 +1,6 @@
 {
   "about": {
-    "about-us": "عن جدوى للاستثمار",
+    "about-us": "عن جدير للاستثمار",
     "investor": "مستثمر",
     "theFounders": "المؤسسون",
     "ourTeam": "فريقنا",
@@ -14,7 +14,8 @@
     "provider": "الجهة",
     "date": "التاريخ",
     "credentials": "الاعتمادات",
-    "testimonials": "الآراء"
+    "testimonials": "الآراء",
+    "whoWeServe": "من نخدم"
   },
   "blog": {
     "Blogs": "المدونة",
@@ -28,7 +29,7 @@
   },
   "values": {
     "title": "قيمنا",
-    "subtitle": "قيمنا في شركة جدوى "
+    "subtitle": "قيمنا في شركة جدير "
   },
   "investmentSectors": {
     "title": "قطاعات الاستثمار",
@@ -77,11 +78,11 @@
   "more": "اكتشف اكثر",
   "read_more": "قراءة المزيد",
   "Services": "الخدمات",
-  "Phenomenal Consulting Solutions": "أهم خدمات شركة جدوى",
-  "Jadwa_most_important_services": "أهم خدمات شركة جدوى",
+  "Phenomenal Consulting Solutions": "أهم خدمات شركة جدير",
+  "Jadwa_most_important_services": "أهم خدمات شركة جدير",
   "ourTeam": "فريقنا",
   "teamMember": "عضو الفريق",
-  "JadwaExpertTeam": "مؤسسو شركة جدوى",
+  "JadwaExpertTeam": "مؤسسو شركة جدير",
   "fundBenefits": "مزايا الصندوق",
   "arFundBenefits": "مزايا صندوق",
   "InvestmentFunds": "الصناديق الاستثمارية",
@@ -125,5 +126,74 @@
   "education": "التعليم",
   "profExp": "الخبرة المهنية",
   "boardMember": "عضو مجلس الإدارة",
-  "bio": "نبذة"
+  "bio": "نبذة",
+  "talk_to_us": "تحدث معنا",
+  "we_are_here_to_listen": "نحن هنا للاستماع",
+  "hesitate_help": "لا تتردد في طلب المساعدة.",
+  "get_in_touch": "تواصل معنا",
+  "essentials": "روابط مهمة",
+  "company": "الشركة",
+  "home": "الرئيسية",
+  "about_us": "من نحن",
+  "professionals": "المتخصصون",
+  "insights": "الرؤى",
+  "why_choose": "لماذا تختارنا",
+  "how_it_works": "كيف نعمل",
+  "testimonials": "آراء العملاء",
+  "case_studies": "دراسات الحالة",
+  "free_quote": "عرض مجاني",
+  "instagram_post": "منشورات إنستغرام",
+  "join_with_us": "انضم إلينا",
+  "phone": "الهاتف",
+  "email": "البريد الإلكتروني",
+  "website": "الموقع الإلكتروني",
+  "relatedFunds": "الصناديق المرتبطة",
+  "learnFunds": "استكشف الصندوق",
+  "openWebsite": "زيارة الموقع",
+  "emailCompany": "مراسلة الشركة",
+  "country": "الدولة",
+  "overview": "نظرة عامة",
+  "companyProfile": "ملف الشركة",
+  "noData": "لا توجد تفاصيل إضافية متاحة حالياً.",
+  "associated_companies": "الشركات المرتبطة",
+  "arFundBenefits": "مزايا الصندوق",
+  "partnerships": "الشراكات",
+  "loading": "جاري التحميل...",
+  "error": "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
+  "ourCompanies": "شركاتنا",
+  "title": "فرص استثمارية",
+  "exploreCompany": "استكشف الشركة",
+  "investmentFunds": "الصناديق الاستثمارية",
+  "moreText": "هل تريد معرفة المزيد عن نهجنا الاستثماري؟",
+  "moreLink": "اكتشف المزيد",
+  "facebook": "فيسبوك",
+  "twitter": "إكس",
+  "instagram": "إنستغرام",
+  "contactUs": "تواصل معنا",
+  "consultTitle": "هل تحتاج إلى استشارة مخصصة؟",
+  "contactOffices": "التواصل والمكاتب",
+  "contactOfficesDescription": "طرق التواصل والمكاتب المرتبطة بالشركة.",
+  "offices": "المكاتب",
+  "fundAssociatedDescription": "شركات مرتبطة بالصندوق وتدعم توجهه الاستثماري.",
+  "icon1": "business",
+  "icon2": "planning",
+  "icon3": "investment",
+  "block1": {
+    "title": "استثمار استراتيجي",
+    "description": "فرص منظمة مصممة للنمو المستدام.",
+    "number": "01",
+    "suffix": "خطوة"
+  },
+  "block2": {
+    "title": "إدارة المحافظ",
+    "description": "إدارة مركزة عبر قطاعات استثمارية متنوعة.",
+    "number": "02",
+    "suffix": "خطوة"
+  },
+  "block3": {
+    "title": "قيمة طويلة الأجل",
+    "description": "شراكات مبنية حول قيمة طويلة الأجل قابلة للقياس.",
+    "number": "03",
+    "suffix": "خطوة"
+  }
 }

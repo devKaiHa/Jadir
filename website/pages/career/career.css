@@ -1,0 +1,38 @@
+.career-card .image img {
+  height: 250px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.career-card .lower-box {
+  display: flex;
+  flex-direction: column;
+  min-height: 260px;
+}
+
+.career-card .lower-box p {
+  flex: 1;
+  white-space: pre-line;
+}
+
+.career-date {
+  color: #6b7280;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.career-empty {
+  background: #f8f9fa;
+  border: 1px solid #edf0f2;
+  border-radius: 8px;
+  padding: 32px;
+  text-align: center;
+}
+
+.career-empty p {
+  margin: 0;
+}
+
+.career-expired {
+  color: var(--site-danger);
+}

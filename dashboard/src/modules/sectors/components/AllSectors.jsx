@@ -25,19 +25,44 @@ const AllSectors = () => {
 
   if (isLoading) return <LoadingCard />;
   if (error) return <ErrorMessageCard />;
+  const orderedCount = sectors.filter(
+    (sector) => typeof sector?.order === "number" && sector.order > 0,
+  ).length;
 
   return (
     <Container>
-      <div className="grid">
-        <div className="card card-grid min-w-full">
-          <div className="card-header py-5 flex-wrap">
-            <h3 className="card-title">Sectors</h3>
-            <div className="flex gap-6">
-              <AddButton
-                label="New Sector"
-                onClick={() => navigate("/add-sector")}
-              />
+      <div className="space-y-6">
+        <div className="overflow-hidden rounded-[28px] border border-slate-200 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white shadow-xl">
+          <div className="grid gap-6 px-6 py-7 lg:grid-cols-[1.2fr_0.8fr] lg:px-8">
+            <div>
+              <span className="inline-flex rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-slate-200">
+                Market Sectors
+              </span>
+              <h2 className="mt-4 text-2xl font-semibold">
+                Organize sector entries with the same structured overview used
+                across leadership pages
+              </h2>
+              <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-200">
+                Maintain clear ordering, keep visible sectors active, and edit
+                translated labels from one consistent workspace.
+              </p>
             </div>
+          </div>
+        </div>
+
+        <div className="card card-grid min-w-full rounded-3xl border border-gray-200 shadow-sm">
+          <div className="card-header py-5 flex-wrap">
+            <div>
+              <h3 className="card-title">Sectors List</h3>
+              <p className="mt-1 text-sm text-gray-500">
+                Showing {sectors.length} sector entries
+              </p>
+            </div>
+
+            <AddButton
+              label="New Sector"
+              onClick={() => navigate("/add-sector")}
+            />
           </div>
 
           <div className="card-body">
@@ -46,6 +71,7 @@ const AllSectors = () => {
                 <thead>
                   <tr>
                     <th className="min-w-[220px]">Name</th>
+                    <th className="min-w-[280px]">Description</th>
                     <th className="min-w-[100px]">Order</th>
                     <th className="min-w-[100px]">Status</th>
                     <th className="w-[120px]">Actions</th>
@@ -57,9 +83,14 @@ const AllSectors = () => {
                     <tr key={sector._id}>
                       <td>
                         <span className="text-sm font-medium text-gray-800">
-                          {sector?.name?.en ||
-                            sector?.name?.ar ||
-                            sector?.name?.tr ||
+                          {sector?.name?.en || sector?.name?.ar || "-"}
+                        </span>
+                      </td>
+
+                      <td>
+                        <span className="text-sm text-gray-700 line-clamp-2">
+                          {sector?.description?.en ||
+                            sector?.description?.ar ||
                             "-"}
                         </span>
                       </td>
@@ -67,12 +98,8 @@ const AllSectors = () => {
                       <td>{sector?.order ?? 0}</td>
 
                       <td>
-                        <span
-                          className={`badge ${
-                            sector?.isActive ? "badge-success" : "badge-danger"
-                          }`}
-                        >
-                          {sector?.isActive ? "Active" : "Inactive"}
+                        <span className={`badge ${"badge-success"}`}>
+                          {"Active"}
                         </span>
                       </td>
 
@@ -106,7 +133,7 @@ const AllSectors = () => {
                   {!sectors?.length && (
                     <tr>
                       <td
-                        colSpan={4}
+                        colSpan={5}
                         className="text-center py-6 text-gray-500"
                       >
                         No sectors found

@@ -1,30 +1,25 @@
 import { useEffect, useState } from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 
 const CompanyLangForm = ({
   language,
   nameValue = "",
-  aboutValue = "",
-  experienceFieldValue = "",
-  contentValue = "",
+  briefValue = "",
+  testimonialValue = "",
   onLangChange,
 }) => {
   const [localState, setLocalState] = useState({
     name: nameValue || "",
-    about: aboutValue || "",
-    experienceField: experienceFieldValue || "",
-    content: contentValue || "",
+    brief: briefValue || "",
+    testimonial: testimonialValue || "",
   });
 
   useEffect(() => {
     setLocalState({
       name: nameValue || "",
-      about: aboutValue || "",
-      experienceField: experienceFieldValue || "",
-      content: contentValue || "",
+      brief: briefValue || "",
+      testimonial: testimonialValue || "",
     });
-  }, [nameValue, aboutValue, experienceFieldValue, contentValue]);
+  }, [nameValue, briefValue, testimonialValue]);
 
   const handleChange = (key, value) => {
     const updated = { ...localState, [key]: value };
@@ -57,34 +52,13 @@ const CompanyLangForm = ({
             <td className="p-2 pt-4">
               <div className="input-group">
                 <span className="btn btn-input w-[22%] capitalize">
-                  About ({language})
+                  Brief ({language})
                 </span>
-                {/* <textarea value={localState.about} className="input"></textarea> */}
-                <ReactQuill
-                  value={localState.about}
-                  onChange={(value) => handleChange("about", value)}
-                  modules={{
-                    toolbar: [
-                      [{ header: [1, 2, false] }],
-                      ["bold", "italic", "underline", "strike"],
-                      [{ list: "ordered" }, { list: "bullet" }],
-                      ["link", "image"],
-                      ["clean"],
-                    ],
-                  }}
-                  placeholder={`Enter about in ${language.toUpperCase()}`}
-                  formats={[
-                    "header",
-                    "bold",
-                    "italic",
-                    "underline",
-                    "strike",
-                    "list",
-                    "bullet",
-                    "link",
-                    "image",
-                  ]}
-                  className="bg-white text-black min-h-[180px] w-full pb-[3rem]"
+                <textarea
+                  value={localState.brief}
+                  onChange={(e) => handleChange("brief", e.target.value)}
+                  placeholder={`Enter brief in ${language.toUpperCase()}`}
+                  className="input min-h-[180px] w-full p-3 tracking-[1px] leading-[20px]"
                 />
               </div>
             </td>
@@ -94,52 +68,13 @@ const CompanyLangForm = ({
             <td className="p-2 pt-4">
               <div className="input-group">
                 <span className="btn btn-input w-[22%] capitalize">
-                  Experience Field ({language})
+                  Testimonial ({language})
                 </span>
-                <input
-                  type="text"
-                  className="input"
-                  value={localState.experienceField}
-                  onChange={(e) =>
-                    handleChange("experienceField", e.target.value)
-                  }
-                  placeholder={`Enter experience field in ${language.toUpperCase()}`}
-                />
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td className="p-2 pt-4">
-              <div className="input-group">
-                <span className="btn btn-input w-[22%] capitalize">
-                  Content ({language})
-                </span>
-                <ReactQuill
-                  value={localState.content}
-                  onChange={(value) => handleChange("content", value)}
-                  modules={{
-                    toolbar: [
-                      [{ header: [1, 2, false] }],
-                      ["bold", "italic", "underline", "strike"],
-                      [{ list: "ordered" }, { list: "bullet" }],
-                      ["link", "image"],
-                      ["clean"],
-                    ],
-                  }}
-                  placeholder={`Enter content in ${language.toUpperCase()}`}
-                  formats={[
-                    "header",
-                    "bold",
-                    "italic",
-                    "underline",
-                    "strike",
-                    "list",
-                    "bullet",
-                    "link",
-                    "image",
-                  ]}
-                  className="bg-white text-black min-h-[180px] w-full pb-[3rem]"
+                <textarea
+                  value={localState.testimonial}
+                  onChange={(e) => handleChange("testimonial", e.target.value)}
+                  placeholder={`Enter testimonial in ${language.toUpperCase()}`}
+                  className="input min-h-[140px] w-full p-2 tracking-[1px] leading-[20px]"
                 />
               </div>
             </td>

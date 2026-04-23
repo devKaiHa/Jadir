@@ -4,19 +4,9 @@ const ValuesModel = require("../../models/Home/values");
 
 // Admin list
 exports.getValues = asyncHandler(async (req, res) => {
-  const {
-    keyword,
-    page = 1,
-    limit = 10,
-    sort = "order createdAt",
-    isActive,
-  } = req.query;
+  const { keyword, page = 1, limit = 10, sort = "order createdAt" } = req.query;
 
   const query = {};
-
-  if (isActive !== undefined) {
-    query.isActive = isActive === "true";
-  }
 
   if (keyword && keyword.trim() !== "") {
     const safeKeyword = keyword.trim();
@@ -24,7 +14,6 @@ exports.getValues = asyncHandler(async (req, res) => {
     query.$or = [
       { "name.ar": { $regex: safeKeyword, $options: "i" } },
       { "name.en": { $regex: safeKeyword, $options: "i" } },
-      { "name.tr": { $regex: safeKeyword, $options: "i" } },
     ];
   }
 
@@ -53,7 +42,7 @@ exports.getValues = asyncHandler(async (req, res) => {
 
 // Public list
 exports.getPublicValues = asyncHandler(async (req, res) => {
-  const values = await ValuesModel.find({ isActive: true }).sort({
+  const values = await ValuesModel.find().sort({
     order: 1,
     createdAt: -1,
   });

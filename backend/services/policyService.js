@@ -10,15 +10,10 @@ exports.getPolicies = asyncHandler(async (req, res) => {
     page = 1,
     limit = 10,
     sort = "order createdAt",
-    isActive,
     policyType,
   } = req.query;
 
   const query = {};
-
-  if (isActive !== undefined) {
-    query.isActive = isActive === "true";
-  }
 
   if (policyType?.trim()) {
     query.policyType = policyType.trim();
@@ -29,7 +24,6 @@ exports.getPolicies = asyncHandler(async (req, res) => {
     query.$or = [
       { "title.ar": { $regex: safeKeyword, $options: "i" } },
       { "title.en": { $regex: safeKeyword, $options: "i" } },
-      { "title.tr": { $regex: safeKeyword, $options: "i" } },
       { slug: { $regex: safeKeyword, $options: "i" } },
     ];
   }
@@ -57,7 +51,7 @@ exports.getPolicies = asyncHandler(async (req, res) => {
 
 exports.getPublicPolicies = asyncHandler(async (req, res) => {
   const { policyType } = req.query;
-  const query = { isActive: true };
+  const query = {};
 
   if (policyType?.trim()) {
     query.policyType = policyType.trim();
@@ -77,7 +71,6 @@ exports.getPublicPolicies = asyncHandler(async (req, res) => {
 exports.getPolicyBySlug = asyncHandler(async (req, res, next) => {
   const policy = await PolicyModel.findOne({
     slug: req.params.slug,
-    isActive: true,
   });
 
   if (!policy) {
@@ -109,11 +102,6 @@ exports.createPolicy = asyncHandler(async (req, res) => {
   req.body.content = safeParseJSON(req.body.content, "content");
   req.body.slug = buildSlug(req.body.title);
 
-  if (req.body.isActive !== undefined) {
-    req.body.isActive =
-      req.body.isActive === true || req.body.isActive === "true";
-  }
-
   const policy = await PolicyModel.create(req.body);
 
   res.status(201).json({
@@ -135,11 +123,6 @@ exports.updatePolicy = asyncHandler(async (req, res, next) => {
 
   if (req.body.content !== undefined) {
     req.body.content = safeParseJSON(req.body.content, "content");
-  }
-
-  if (req.body.isActive !== undefined) {
-    req.body.isActive =
-      req.body.isActive === true || req.body.isActive === "true";
   }
 
   const policy = await PolicyModel.findByIdAndUpdate(req.params.id, req.body, {

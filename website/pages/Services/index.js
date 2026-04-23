@@ -1,10 +1,7 @@
 import Layout from "@/components/layout/Layout";
-import Plans from "@/components/pages/OurServices/Plans";
-import AboutServices from "@/components/pages/OurServices/AboutServices";
-import Services from "@/components/pages/OurServices/Services";
-import Goals from "@/components/pages/OurServices/Goals";
 import { useTranslation } from "react-i18next";
 import { getOtherData } from "@/api/getOtherData";
+import AboutService from "@/components/pages/OurServices/AboutService";
 
 export async function getStaticProps() {
   try {
@@ -18,12 +15,7 @@ export async function getStaticProps() {
 
 const OurServices = ({ data = {} }) => {
   const { t } = useTranslation();
-
-  // destructure directly from server props
-  const { aboutService = {}, servicesList = [], plans: plansData = [] } = data;
-
-  const servicesAbout = aboutService?.items?.[0] ?? null;
-  const servicesHighlights = aboutService?.items?.slice(1) ?? [];
+  const { servicesList = [] } = data;
 
   return (
     <div className="Services">
@@ -34,10 +26,7 @@ const OurServices = ({ data = {} }) => {
         sticky={true}
         image={"/assets/images/background/services.png"}
       >
-        <AboutServices data={servicesAbout} />
-        <Services data={servicesList} />
-        <Goals data={servicesHighlights} />
-        <Plans data={plansData} />
+        <AboutService data={servicesList} length={servicesList?.length} />
       </Layout>
     </div>
   );

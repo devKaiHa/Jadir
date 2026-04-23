@@ -36,8 +36,8 @@ export const homeSliderApi = createApi({
     }),
 
     updateHomeSliderBulk: builder.mutation({
-      query: ({ sliderType, data }) => ({
-        url: `${HomeSliderEndPoint}/bulk/update?sliderType=${sliderType}`,
+      query: (data) => ({
+        url: `${HomeSliderEndPoint}/bulk/update`,
         method: "PUT",
         body: data,
       }),

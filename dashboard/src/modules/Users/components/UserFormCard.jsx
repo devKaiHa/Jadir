@@ -7,8 +7,6 @@ const UserFormCard = ({
   setPhone,
   password,
   setPassword,
-  isActive,
-  setIsActive,
   errors = {},
   isEdit = false,
 }) => {
@@ -93,22 +91,6 @@ const UserFormCard = ({
                 {errors.password && (
                   <p className="text-red-500 text-sm mt-1">{errors.password}</p>
                 )}
-              </td>
-            </tr>
-
-            <tr>
-              <td className="p-2 pt-4">
-                <div className="input-group">
-                  <span className="btn btn-input w-[20%]">Status</span>
-                  <select
-                    className="input"
-                    value={isActive ? "true" : "false"}
-                    onChange={(e) => setIsActive(e.target.value === "true")}
-                  >
-                    <option value="true">Active</option>
-                    <option value="false">Inactive</option>
-                  </select>
-                </div>
               </td>
             </tr>
           </tbody>

@@ -9,7 +9,6 @@ import {
 const emptyLangState = {
   en: "",
   ar: "",
-  tr: "",
 };
 
 const useUpdateBoardMember = () => {
@@ -26,8 +25,6 @@ const useUpdateBoardMember = () => {
   const [img, setImg] = useState(null);
   const [imgPreview, setImgPreview] = useState("");
   const [currentImg, setCurrentImg] = useState("");
-
-  const [isActive, setIsActive] = useState(true);
   const [order, setOrder] = useState(0);
 
   useEffect(() => {
@@ -36,26 +33,21 @@ const useUpdateBoardMember = () => {
     setName({
       en: boardMember?.name?.en || "",
       ar: boardMember?.name?.ar || "",
-      tr: boardMember?.name?.tr || "",
     });
 
     setPosition({
       en: boardMember?.position?.en || "",
       ar: boardMember?.position?.ar || "",
-      tr: boardMember?.position?.tr || "",
     });
 
     setDescription({
       en: boardMember?.bio?.en || "",
       ar: boardMember?.bio?.ar || "",
-      tr: boardMember?.bio?.tr || "",
     });
 
     setCurrentImg(boardMember?.image || "");
     setImgPreview("");
     setImg(null);
-
-    setIsActive(boardMember?.isActive ?? true);
     setOrder(boardMember?.order ?? 0);
   }, [boardMember]);
 
@@ -90,7 +82,6 @@ const useUpdateBoardMember = () => {
       formData.append("name", JSON.stringify(name));
       formData.append("position", JSON.stringify(position));
       formData.append("bio", JSON.stringify(description));
-      formData.append("isActive", isActive);
       formData.append("order", order);
 
       if (img) {
@@ -125,9 +116,6 @@ const useUpdateBoardMember = () => {
     img,
     imgPreview,
     currentImg,
-
-    isActive,
-    setIsActive,
 
     order,
     setOrder,

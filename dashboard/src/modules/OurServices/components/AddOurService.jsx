@@ -9,12 +9,26 @@ const AddOurService = () => {
   const {
     title,
     description,
-    isActive,
-    setIsActive,
+    features,
+    steps,
+    targetingSectors,
+    testimonial,
     order,
     setOrder,
+    relatedProjects,
+    setRelatedProjects,
+    relatedServices,
+    setRelatedServices,
+    projectOptions,
+    serviceOptions,
+    imagePreview,
+    onImageChange,
     handleTitleChange,
     handleDescriptionChange,
+    handleFeaturesChange,
+    handleStepsChange,
+    handleTargetingSectorsChange,
+    handleTestimonialFieldChange,
     handleSave,
     isLoading,
   } = useCreateOurService();
@@ -26,14 +40,20 @@ const AddOurService = () => {
       icon: "ki-outline ki-user-square",
       content: (
         <OurServiceGeneralInfoTab
-          isActive={isActive}
-          setIsActive={setIsActive}
           order={order}
           setOrder={setOrder}
+          imagePreview={imagePreview}
+          onImageChange={onImageChange}
+          projectOptions={projectOptions}
+          relatedProjects={relatedProjects}
+          setRelatedProjects={setRelatedProjects}
+          serviceOptions={serviceOptions}
+          relatedServices={relatedServices}
+          setRelatedServices={setRelatedServices}
         />
       ),
     },
-    ...["en", "ar", "tr"].map((lang) => ({
+    ...["en", "ar"].map((lang) => ({
       key: `service_${lang}`,
       label: `Service ${lang.toUpperCase()}`,
       icon: "ki-outline ki-clipboard",
@@ -42,8 +62,26 @@ const AddOurService = () => {
           language={lang}
           titleValue={title[lang]}
           descriptionValue={description[lang]}
+          featuresValue={features[lang]}
+          stepsValue={steps[lang]}
+          targetingSectorsValue={targetingSectors[lang]}
+          testimonialQuoteValue={testimonial.quote[lang]}
+          testimonialClientNameValue={testimonial.clientName[lang]}
+          testimonialClientRoleValue={testimonial.clientRole[lang]}
           onTitleChange={handleTitleChange}
           onDescriptionChange={handleDescriptionChange}
+          onFeaturesChange={handleFeaturesChange}
+          onStepsChange={handleStepsChange}
+          onTargetingSectorsChange={handleTargetingSectorsChange}
+          onTestimonialQuoteChange={(language, value) =>
+            handleTestimonialFieldChange("quote", language, value)
+          }
+          onTestimonialClientNameChange={(language, value) =>
+            handleTestimonialFieldChange("clientName", language, value)
+          }
+          onTestimonialClientRoleChange={(language, value) =>
+            handleTestimonialFieldChange("clientRole", language, value)
+          }
         />
       ),
     })),
@@ -51,16 +89,20 @@ const AddOurService = () => {
 
   return (
     <Container>
-      <Tabs tabs={tabConfig} />
+      <div className="space-y-6">
+        <Tabs tabs={tabConfig} />
 
-      <div className="mt-6">
-        <button
-          className="btn btn-primary"
-          onClick={handleSave}
-          disabled={isLoading}
-        >
-          {isLoading ? "Submitting..." : "Create Service"}
-        </button>
+        <div className="sticky bottom-4 z-20 mt-6 flex justify-end">
+          <div className="rounded-2xl border border-gray-200 bg-white/95 p-3 shadow-lg backdrop-blur">
+            <button
+              className="btn btn-primary"
+              onClick={handleSave}
+              disabled={isLoading}
+            >
+              {isLoading ? "Submitting..." : "Create Service"}
+            </button>
+          </div>
+        </div>
       </div>
 
       <ToastContainer pauseOnHover />

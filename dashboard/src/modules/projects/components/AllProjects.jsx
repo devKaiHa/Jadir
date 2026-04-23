@@ -49,10 +49,8 @@ const AllProjects = () => {
                   <tr>
                     <th className="min-w-[90px]">Image</th>
                     <th className="min-w-[220px]">Title</th>
-                    <th className="min-w-[260px]">Brief</th>
                     <th className="min-w-[180px]">Project Link</th>
                     <th className="min-w-[100px]">Order</th>
-                    <th className="min-w-[100px]">Status</th>
                     <th className="w-[120px]">Actions</th>
                   </tr>
                 </thead>
@@ -76,22 +74,7 @@ const AllProjects = () => {
 
                       <td>
                         <span className="text-sm font-medium text-gray-800">
-                          {project?.title?.en ||
-                            project?.title?.ar ||
-                            project?.title?.tr ||
-                            "-"}
-                        </span>
-                      </td>
-
-                      <td>
-                        <span className="text-sm text-gray-700 line-clamp-2">
-                          {truncateText(
-                            project?.brief?.en ||
-                              project?.brief?.ar ||
-                              project?.brief?.tr ||
-                              "-",
-                            50,
-                          )}
+                          {project?.title?.en || project?.title?.ar || "-"}
                         </span>
                       </td>
 
@@ -107,16 +90,6 @@ const AllProjects = () => {
                       </td>
 
                       <td>{project?.order ?? 0}</td>
-
-                      <td>
-                        <span
-                          className={`badge ${
-                            project?.isActive ? "badge-success" : "badge-danger"
-                          }`}
-                        >
-                          {project?.isActive ? "Active" : "Inactive"}
-                        </span>
-                      </td>
 
                       <td>
                         <div className="flex gap-3">
@@ -148,7 +121,7 @@ const AllProjects = () => {
                   {!projects?.length && (
                     <tr>
                       <td
-                        colSpan={7}
+                        colSpan={5}
                         className="text-center py-6 text-gray-500"
                       >
                         No projects found

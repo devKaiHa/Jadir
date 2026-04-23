@@ -7,7 +7,6 @@ import { imageURL } from "../../../Api/GlobalData";
 const emptyLangState = {
   en: "",
   ar: "",
-  tr: "",
 };
 
 const useUpdateResearch = () => {
@@ -21,7 +20,6 @@ const useUpdateResearch = () => {
   const [content, setContent] = useState({ ...emptyLangState });
   const [image, setImage] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
-  const [isActive, setIsActive] = useState(true);
   const [isPublished, setIsPublished] = useState(false);
   const [order, setOrder] = useState(0);
   const [currentImage, setCurrentImage] = useState("");
@@ -32,13 +30,11 @@ const useUpdateResearch = () => {
     setTitle({
       en: researchItem?.title?.en || "",
       ar: researchItem?.title?.ar || "",
-      tr: researchItem?.title?.tr || "",
     });
 
     setContent({
       en: researchItem?.content?.en || "",
       ar: researchItem?.content?.ar || "",
-      tr: researchItem?.content?.tr || "",
     });
 
     setImage(researchItem?.image || "");
@@ -46,7 +42,6 @@ const useUpdateResearch = () => {
     setImagePreview(
       researchItem?.image ? `${imageURL}/research/${researchItem.image}` : null,
     );
-    setIsActive(researchItem?.isActive ?? true);
     setIsPublished(researchItem?.isPublished ?? false);
     setOrder(researchItem?.order || 0);
   }, [researchItem]);
@@ -76,7 +71,6 @@ const useUpdateResearch = () => {
       const formData = new FormData();
       formData.append("title", JSON.stringify(title));
       formData.append("content", JSON.stringify(content));
-      formData.append("isActive", isActive ? "true" : "false");
       formData.append("isPublished", isPublished ? "true" : "false");
       formData.append("order", String(order || 0));
 
@@ -108,8 +102,6 @@ const useUpdateResearch = () => {
     content,
     imagePreview,
     onImageChange,
-    isActive,
-    setIsActive,
     isPublished,
     setIsPublished,
     order,

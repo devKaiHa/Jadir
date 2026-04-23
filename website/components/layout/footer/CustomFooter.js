@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import baseURL from "@/api/GlobalData";
 import { fetchJSON, pickArray } from "@/GlobalHooks/GlobalHooks";
+import { localize, siteLinks } from "@/components/website/websiteUtils";
 
 const socialConfig = [
   { key: "facebook", icon: "fa-brands fa-facebook-f", label: "Facebook" },
@@ -11,43 +12,74 @@ const socialConfig = [
   { key: "linkedin", icon: "fa-brands fa-linkedin-in", label: "LinkedIn" },
 ];
 
-const localize = (value, lang) =>
-  value?.[lang] || value?.en || value?.ar || value?.tr || "";
-
-const newsletterCopy = {
-  en: {
-    title: "Newsletter",
-    text: "Stay tuned for market updates, insights, and new opportunities.",
-    email: "Your email address",
-    button: "Subscribe",
-  },
-  ar: {
-    title: "النشرة البريدية",
-    text: "ابقَ على اطلاع بآخر التحديثات والرؤى والفرص الاستثمارية.",
-    email: "بريدك الإلكتروني",
-    button: "اشترك",
-  },
-  tr: {
-    title: "Bulten",
-    text: "Piyasa guncellemeleri, analizler ve yeni firsatlar icin takipte kalin.",
-    email: "E-posta adresiniz",
-    button: "Abone Ol",
-  },
+const closedLabel = {
+  en: "Closed",
+  ar: "مغلق",
 };
 
-const defaultAddress = {
-  en: "Mahmutbey Mah. Haci Bostan Cad. No.22, Bagcilar - Istanbul",
-  ar: "محلة محمود بيه، شارع حاجي بستان، رقم 22، باغجلار - إسطنبول",
-  tr: "Mahmutbey Mah. Haci Bostan Cad. No.22, Bağcılar - İstanbul",
+const formatDayRange = (days, lang) => {
+  if (!days.length) return "";
+  if (days.length === 1) return days[0];
+  return `${days[0]} - ${days[days.length - 1]}`;
 };
 
-const CustomFooter = () => {
-  const { t, i18n } = useTranslation();
-  const lang = i18n.language || "en";
+const groupWorkingSchedule = (schedule, lang) => {
+  const grouped = [];
+  let current = null;
+
+  schedule.forEach((item) => {
+    const dayLabel = localize(item?.day, lang);
+    const hoursLabel = item?.isClosed
+      ? closedLabel[lang]
+      : localize(item?.hours, lang) || localize(item?.hours, "en");
+
+    if (!dayLabel || !hoursLabel) return;
+
+    if (!current || current.hours !== hoursLabel) {
+      if (current) {
+        grouped.push({
+          days: formatDayRange(current.days, lang),
+          hours: current.hours,
+        });
+      }
+
+      current = {
+        days: [dayLabel],
+        hours: hoursLabel,
+      };
+    } else {
+      current.days.push(dayLabel);
+    }
+  });
+
+  if (current) {
+    grouped.push({
+      days: formatDayRange(current.days, lang),
+      hours: current.hours,
+    });
+  }
+
+  return grouped;
+};
+
+export default function CustomFooter() {
+  const { i18n } = useTranslation();
+  const lang = i18n?.language === "ar" ? "ar" : "en";
   const [footerData, setFooterData] = useState(null);
   const [contactData, setContactData] = useState(null);
-  const [funds, setFunds] = useState([]);
   const [policies, setPolicies] = useState([]);
+
+  const workingSchedule = useMemo(() => {
+    const schedule = Array.isArray(footerData?.workingSchedule)
+      ? [...footerData.workingSchedule]
+          .filter(
+            (item) => localize(item?.day, lang) || localize(item?.hours, lang),
+          )
+          .sort((a, b) => (a?.order || 0) - (b?.order || 0))
+      : [];
+
+    return groupWorkingSchedule(schedule, lang);
+  }, [footerData?.workingSchedule, lang]);
 
   useEffect(() => {
     let mounted = true;
@@ -55,7 +87,6 @@ const CustomFooter = () => {
     Promise.allSettled([
       fetchJSON(`${baseURL}footer`),
       fetchJSON(`${baseURL}contact-us/public`),
-      fetchJSON(`${baseURL}investment-funds/public?limit=3`),
       fetchJSON(`${baseURL}policies/public`),
     ]).then((results) => {
       if (!mounted) return;
@@ -70,13 +101,8 @@ const CustomFooter = () => {
           ? results[1].value?.data || null
           : null,
       );
-      setFunds(
-        results[2].status === "fulfilled"
-          ? pickArray(results[2].value).slice(0, 3)
-          : [],
-      );
       setPolicies(
-        results[3].status === "fulfilled" ? pickArray(results[3].value) : [],
+        results[2].status === "fulfilled" ? pickArray(results[2].value) : [],
       );
     });
 
@@ -84,14 +110,6 @@ const CustomFooter = () => {
       mounted = false;
     };
   }, []);
-
-  const footerLinks = useMemo(
-    () =>
-      Array.isArray(footerData?.links)
-        ? footerData.links.filter((item) => item?.isActive)
-        : [],
-    [footerData],
-  );
 
   const socialLinks = useMemo(
     () =>
@@ -101,295 +119,212 @@ const CustomFooter = () => {
     [footerData],
   );
 
-  const branches = Array.isArray(contactData?.branches)
-    ? contactData.branches.filter((item) => item?.isActive !== false)
-    : [];
-  const mainAddress =
-    localize(contactData?.address, lang) ||
-    defaultAddress[lang] ||
-    defaultAddress.en;
-  const policyLinks = {
-    privacy:
-      policies.find((item) => item?.policyType === "privacy")?.slug || null,
-    terms: policies.find((item) => item?.policyType === "terms")?.slug || null,
-  };
-  const copy = newsletterCopy[lang] || newsletterCopy.en;
   const currentYear = new Date().getFullYear();
+  const address = localize(contactData?.address, lang) || "Istanbul, Turkey";
+  const phone = contactData?.phones?.[0] || footerData?.phone || "";
+  const email = contactData?.emails?.[0] || footerData?.email || "";
+  // const workingSchedule = Array.isArray(footerData?.workingSchedule)
+  //   ? [...footerData.workingSchedule]
+  //       .filter(
+  //         (item) => localize(item?.day, lang) || localize(item?.hours, lang),
+  //       )
+  //       .sort((a, b) => (a?.order || 0) - (b?.order || 0))
+  //   : [];
 
   return (
-    <>
-      <section
-        className="footer-style-three"
-        style={{ background: "#0b2230", color: "#fff" }}
-      >
-        <div className="widget-section" style={{ padding: "78px 0 42px" }}>
-          <div className="auto-container">
-            <div className="row clearfix">
-              <div className="col-lg-3 col-md-6 col-sm-12 footer-column">
-                <div className="footer-widget logo-widget">
-                  <div className="footer-logo" style={{ marginBottom: "22px" }}>
-                    <Link href="/">
-                      <img
-                        style={{ height: "72px" }}
-                        src="/assets/images/logos/jadwa-en-light.png"
-                        alt="Jadwa"
-                      />
-                    </Link>
-                  </div>
-                  <p
-                    style={{ color: "rgba(255,255,255,0.78)", lineHeight: 1.9 }}
-                  >
-                    {localize(footerData?.description, lang) ||
-                      t("companySpecialization")}
-                  </p>
-                  <div
-                    style={{
-                      marginTop: "20px",
-                      display: "flex",
-                      gap: "12px",
-                      flexWrap: "wrap",
-                    }}
-                  >
-                    {socialLinks.map((item) => (
-                      <a
-                        key={item.key}
-                        href={item.href}
-                        target="_blank"
-                        rel="noreferrer"
-                        aria-label={item.label}
-                        style={{
-                          width: "40px",
-                          height: "40px",
-                          borderRadius: "999px",
-                          border: "1px solid rgba(255,255,255,0.12)",
-                          display: "inline-flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          color: "#fff",
-                        }}
-                      >
-                        <i className={item.icon} />
-                      </a>
-                    ))}
-                  </div>
+    <section className="footer-premium">
+      <div className="footer-premium-main">
+        <div className="auto-container">
+          <div className="row">
+            <div className="col-lg-3 col-md-6 col-sm-12 footer-column">
+              <div className="footer-widget footer-premium-widget">
+                <div className="footer-logo footer-premium-logo">
+                  <Link href="/">
+                    <img
+                      className="footer-premium-logo-img"
+                      src="/assets/images/logos/jadir.png"
+                      alt="Jadir"
+                    />
+                  </Link>
                 </div>
-              </div>
-
-              <div className="col-lg-2 col-md-6 col-sm-12 footer-column">
-                <div className="footer-widget links-widget">
-                  <div className="widget-title">
-                    <h3 style={{ color: "#fff" }}>
-                      {t("quick_links") === "quick_links"
-                        ? "Quick Links"
-                        : t("quick_links")}
-                    </h3>
-                  </div>
-                  <div className="widget-content">
-                    <ul className="links-list clearfix">
-                      {footerLinks.map((item, index) => (
-                        <li key={`${item?.link}-${index}`}>
-                          <Link href={item?.link || "#"}>{item?.title}</Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-lg-3 col-md-6 col-sm-12 footer-column">
-                <div className="footer-widget links-widget">
-                  <div className="widget-title">
-                    <h3 style={{ color: "#fff" }}>
-                      {t("InvestmentFunds") === "InvestmentFunds"
-                        ? "Investment Funds"
-                        : t("InvestmentFunds")}
-                    </h3>
-                  </div>
-                  <div className="widget-content">
-                    <ul className="links-list clearfix">
-                      {funds.map((fund) => (
-                        <li key={fund?._id || fund?.slug}>
-                          <a
-                            href={fund?.fundLink || "/funds"}
-                            target={fund?.fundLink ? "_blank" : undefined}
-                            rel={fund?.fundLink ? "noreferrer" : undefined}
-                          >
-                            {localize(fund?.title, lang)}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-lg-4 col-md-12 col-sm-12 footer-column">
-                <div className="footer-widget contact-widget" dir="ltr">
-                  <div className="widget-title">
-                    <h3 style={{ color: "#fff" }}>
-                      {t("contact_us") === "contact_us"
-                        ? "Contact"
-                        : t("contact_us")}
-                    </h3>
-                  </div>
-                  <ul>
-                    <li>
-                      <i className="fas fa-phone-alt"></i>
-                      <a
-                        href={`tel:${(contactData?.phones?.[0] || footerData?.phone || "").replace(/\s+/g, "")}`}
-                      >
-                        {contactData?.phones?.[0] ||
-                          footerData?.phone ||
-                          "+90 537 306 38 91"}
-                      </a>
-                    </li>
-                    <li>
-                      <i className="fas fa-envelope"></i>
-                      <a
-                        href={`mailto:${contactData?.emails?.[0] || footerData?.email || "info@jadwainvest.com"}`}
-                      >
-                        {contactData?.emails?.[0] ||
-                          footerData?.email ||
-                          "info@jadwainvest.com"}
-                      </a>
-                    </li>
-                    <li>
-                      <i className="fas fa-map-marker-alt"></i>
-                      <a
-                        href={
-                          contactData?.mapLink ||
-                          "https://maps.app.goo.gl/9GYrWv7hNnnmPyZf9"
-                        }
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        {mainAddress}
-                      </a>
-                    </li>
-                    {branches.slice(0, 2).map((branch) => (
-                      <li key={branch?._id || branch?.name?.en}>
-                        <i className="fas fa-location-dot"></i>
-                        <a
-                          href={branch?.mapLink || contactData?.mapLink || "#"}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          {localize(branch?.name, lang)}:{" "}
-                          {localize(branch?.address, lang)}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-4">
-              <div
-                style={{
-                  borderTop: "1px solid rgba(255,255,255,0.08)",
-                  marginTop: "10px",
-                  paddingTop: "32px",
-                }}
-              >
-                <div className="row clearfix align-items-center">
-                  <div className="col-lg-5 col-md-12 col-sm-12">
-                    <div className="footer-widget mb-3 mb-lg-0">
-                      <div className="widget-title">
-                        <h3 style={{ color: "#fff", marginBottom: "10px" }}>
-                          {copy.title}
-                        </h3>
-                      </div>
-                      <p
-                        style={{
-                          color: "rgba(255,255,255,0.75)",
-                          lineHeight: 1.8,
-                          marginBottom: 0,
-                        }}
-                      >
-                        {copy.text}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="col-lg-7 col-md-12 col-sm-12">
-                    <form onSubmit={(e) => e.preventDefault()}>
-                      <div
-                        style={{
-                          display: "flex",
-                          gap: "12px",
-                          flexWrap: "wrap",
-                        }}
-                      >
-                        <input
-                          type="email"
-                          placeholder={copy.email}
-                          style={{
-                            flex: "1 1 320px",
-                            minWidth: "260px",
-                            padding: "14px 16px",
-                            borderRadius: "12px",
-                            border: "1px solid rgba(255,255,255,0.16)",
-                            background: "rgba(255,255,255,0.04)",
-                            color: "#fff",
-                          }}
-                        />
-                        <button type="submit" className="theme-btn btn-two">
-                          {copy.button}
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div
-          className="footer-bottom"
-          style={{
-            borderTop: "1px solid rgba(255,255,255,0.08)",
-            background: "#081821",
-          }}
-        >
-          <div className="auto-container">
-            <div className="bottom-inner">
-              <div className="left-column">
-                <p>
-                  &copy; {currentYear}, {t("all_rights_reserved")}
+                <p className="footer-premium-desc">
+                  {localize(footerData?.description, lang) ||
+                    "Structured advisory, services, projects, and insights for better business decisions."}
                 </p>
-                <ul className="footer-nav clearfix">
-                  <li>
-                    <Link
-                      href={
-                        policyLinks.privacy
-                          ? `/policies/${policyLinks.privacy}`
-                          : "/policies"
-                      }
+                <div className="footer-premium-socials">
+                  {socialLinks.map((item) => (
+                    <a
+                      key={item.key}
+                      href={item.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={item.label}
+                      className="footer-premium-social-link"
                     >
-                      {t("privacy_policy")}
-                    </Link>
-                  </li>
+                      <i className={item.icon} />
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="col-lg-2 col-md-6 col-sm-12 footer-column">
+              <div className="footer-widget footer-premium-widget">
+                <div className="widget-title footer-premium-widget-title">
+                  <h3>Quick links</h3>
+                </div>
+                <ul className="links-list clearfix footer-premium-links">
+                  {siteLinks.map((item) => (
+                    <li key={item.href}>
+                      <Link href={item.href}>{item.label}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div className="col-lg-3 col-md-6 col-sm-12 footer-column">
+              <div className="footer-widget footer-premium-widget">
+                <div className="widget-title footer-premium-widget-title">
+                  <h3>Policies</h3>
+                </div>
+                <ul className="links-list clearfix footer-premium-links">
+                  {policies.map((policy) => (
+                    <li key={policy?._id || policy?.slug}>
+                      <Link href={`/policies/${policy?.slug}`}>
+                        {localize(policy?.title, lang)}
+                      </Link>
+                    </li>
+                  ))}
+                  {!policies.length ? (
+                    <li>
+                      <Link href="/policies">Privacy & Terms</Link>
+                    </li>
+                  ) : null}
+                </ul>
+                <div className="footer-premium-schedule">
+                  <strong>
+                    {lang === "ar"
+                      ? "أيام وساعات العمل"
+                      : "Work days and hours"}
+                  </strong>
+                  {workingSchedule.length ? (
+                    <ul className="footer-premium-schedule-list">
+                      {workingSchedule.map((item, index) => (
+                        <li key={`${item?.days}-${index}`}>
+                          <span>{item?.days}</span>
+                          <strong>{item?.hours}</strong>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p>
+                      {footerData?.workDays || "Monday - Friday"}
+                      <br />
+                      {footerData?.workingHours || "09:00 - 17:00"}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className="col-lg-4 col-md-12 col-sm-12 footer-column">
+              <div className="footer-widget contact-widget footer-premium-widget footer-premium-contact">
+                <div className="widget-title footer-premium-widget-title">
+                  <h3>Contact info</h3>
+                </div>
+                <ul className="footer-premium-contact-list">
+                  {phone ? (
+                    <li>
+                      <span className="footer-premium-contact-icon">
+                        <i className="fas fa-phone-alt" />
+                      </span>
+                      <a href={`tel:${phone.replace(/\s+/g, "")}`}>{phone}</a>
+                    </li>
+                  ) : null}
+                  {email ? (
+                    <li>
+                      <span className="footer-premium-contact-icon">
+                        <i className="fas fa-envelope" />
+                      </span>
+                      <a href={`mailto:${email}`}>{email}</a>
+                    </li>
+                  ) : null}
                   <li>
-                    <Link
-                      href={
-                        policyLinks.terms
-                          ? `/policies/${policyLinks.terms}`
-                          : "/policies"
-                      }
+                    <span className="footer-premium-contact-icon">
+                      <i className="fas fa-map-marker-alt" />
+                    </span>
+                    <a
+                      href={contactData?.mapLink || "#"}
+                      target="_blank"
+                      rel="noreferrer"
                     >
-                      {t("terms_conditions")}
-                    </Link>
+                      {address}
+                    </a>
                   </li>
                 </ul>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-    </>
-  );
-};
 
-export default CustomFooter;
+          <div className="footer-premium-newsletter-wrap">
+            <div className="row clearfix align-items-center">
+              <div className="col-lg-5 col-md-12 col-sm-12">
+                <div className="footer-widget footer-premium-widget">
+                  <div className="widget-title footer-premium-widget-title">
+                    <h3>Newsletter</h3>
+                  </div>
+                  <p className="footer-premium-newsletter-text">
+                    Subscribe for updates, insights, and service news.
+                  </p>
+                </div>
+              </div>
+              <div className="col-lg-7 col-md-12 col-sm-12">
+                <form onSubmit={(event) => event.preventDefault()}>
+                  <div className="footer-premium-newsletter-form">
+                    <input
+                      type="email"
+                      placeholder="Your email address"
+                      className="footer-premium-input"
+                    />
+                    <button
+                      type="submit"
+                      className="theme-btn btn-two footer-premium-btn"
+                    >
+                      <span>Subscribe</span>
+                      <i className="fas fa-paper-plane" />
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="footer-premium-bottom">
+        <div className="auto-container">
+          <div className="footer-premium-bottom-inner">
+            <div className="footer-premium-bottom-left">
+              <div className="footer-premium-bottom-brand">
+                <p>&copy; {currentYear}, All rights reserved</p>
+              </div>
+              <ul className="clearfix footer-premium-bottom-nav">
+                <li>
+                  <Link href="/policies">Privacy & Terms policies</Link>
+                </li>
+                {policies.slice(0, 2).map((item) => (
+                  <li key={item?._id || item?.slug}>
+                    <Link href={`/policies/${item?.slug}`}>
+                      {localize(item?.title, lang)}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

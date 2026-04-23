@@ -1,33 +1,52 @@
 const multer = require("multer");
 const ApiError = require("../utils/apiError");
 
-// إعدادات Multer العامة
-const multerOptions = () => {
-  // تخزين الملفات مؤقتًا في الذاكرة
-  const multerStorage = multer.memoryStorage();
-
-  // فلتر للتحقق من نوع الملف (يسمح فقط بالصور)
-  const multerFilter = (req, file, cb) => {
-    if (file.mimetype.startsWith("image")) {
-      cb(null, true);
-    } else {
-      cb(new ApiError("Only Images are allowed", 400), false);
-    }
-  };
-
-  // تهيئة Multer مع تحديد حدود الملفات والحقول
-  const upload = multer({
-    storage: multerStorage,
-    fileFilter: multerFilter,
+const createMulter = ({ fileFilter } = {}) =>
+  multer({
+    storage: multer.memoryStorage(),
+    fileFilter,
     limits: {
-      fieldSize: 5 * 1024 * 1024, // 5MB لكل حقل نصي
-      fileSize: 10 * 1024 * 1024, // 10MB لكل ملف
+      fieldSize: 5 * 1024 * 1024,
+      fileSize: 10 * 1024 * 1024,
     },
   });
 
-  return upload;
+const imageFileFilter = (req, file, cb) => {
+  if (file.mimetype.startsWith("image")) {
+    cb(null, true);
+    return;
+  }
+
+  cb(new ApiError("Only Images are allowed", 400), false);
 };
 
-exports.uploadSingleImage = (fieldName) => multerOptions().single(fieldName);
+const attachmentFileFilter = (req, file, cb) => {
+  const blockedMimeTypes = [
+    "application/x-msdownload",
+    "application/x-dosexec",
+    "application/x-sh",
+    "application/x-bat",
+    "application/x-executable",
+  ];
+  const blockedExtensions = [".exe", ".bat", ".cmd", ".sh", ".msi", ".com"];
+  const originalName = (file.originalname || "").toLowerCase();
 
-exports.uploadMixOfImages = (arrayOfFields) => multerOptions().fields(arrayOfFields);
+  if (
+    blockedMimeTypes.includes(file.mimetype) ||
+    blockedExtensions.some((extension) => originalName.endsWith(extension))
+  ) {
+    cb(new ApiError("This file type is not allowed", 400), false);
+    return;
+  }
+
+  cb(null, true);
+};
+
+exports.uploadSingleImage = (fieldName) =>
+  createMulter({ fileFilter: imageFileFilter }).single(fieldName);
+
+exports.uploadMixOfImages = (arrayOfFields) =>
+  createMulter({ fileFilter: imageFileFilter }).fields(arrayOfFields);
+
+exports.uploadSingleFile = (fieldName) =>
+  createMulter({ fileFilter: attachmentFileFilter }).single(fieldName);

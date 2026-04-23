@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 
 const TestimonialLangForm = ({
   language,
@@ -70,10 +68,10 @@ const TestimonialLangForm = ({
                 <span className="btn btn-input w-[20%] capitalize">
                   Content ({language})
                 </span>
-                <ReactQuill
+                <textarea
                   value={localState.content}
-                  onChange={(value) => handleChange("content", value)}
-                  className="bg-white text-black min-h-[220px] w-full pb-[3rem]"
+                  onChange={(e) => handleChange("content", e.target.value)}
+                  className="input min-h-[180px] w-full p-3 bg-white text-black min-h-[220px] w-full pb-[3rem] tracking-[1px] leading-[20px]"
                 />
               </div>
             </td>

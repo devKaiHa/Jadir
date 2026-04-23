@@ -6,7 +6,6 @@ import { useBoardMembers } from "../../hooks/useBoardMembers";
 const emptyLangState = {
   en: "",
   ar: "",
-  tr: "",
 };
 
 const useCreateBoardMember = () => {
@@ -19,9 +18,9 @@ const useCreateBoardMember = () => {
 
   const [img, setImg] = useState(null);
   const [imgPreview, setImgPreview] = useState("");
-
-  const [isActive, setIsActive] = useState(true);
   const [order, setOrder] = useState(0);
+
+  const [isBoardMember, setIsBoardMember] = useState(true);
 
   const handleNameChange = (lang, value) => {
     setName((prev) => ({ ...prev, [lang]: value }));
@@ -53,7 +52,6 @@ const useCreateBoardMember = () => {
     setDescription({ ...emptyLangState });
     setImg(null);
     setImgPreview("");
-    setIsActive(true);
     setOrder(0);
   };
 
@@ -64,8 +62,8 @@ const useCreateBoardMember = () => {
       formData.append("name", JSON.stringify(name));
       formData.append("position", JSON.stringify(position));
       formData.append("bio", JSON.stringify(description));
-      formData.append("isActive", isActive);
       formData.append("order", order);
+      formData.append("isFounder", isBoardMember);
 
       if (img) {
         formData.append("image", img);
@@ -93,11 +91,10 @@ const useCreateBoardMember = () => {
     img,
     imgPreview,
 
-    isActive,
-    setIsActive,
-
     order,
     setOrder,
+    isBoardMember,
+    setIsBoardMember,
 
     handleNameChange,
     handlePositionChange,

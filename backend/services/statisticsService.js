@@ -12,7 +12,6 @@ exports.getStatistics = asyncHandler(async (req, res) => {
     query.$or = [
       { "title.ar": { $regex: keyword, $options: "i" } },
       { "title.en": { $regex: keyword, $options: "i" } },
-      { "title.tr": { $regex: keyword, $options: "i" } },
     ];
   }
 
@@ -39,7 +38,7 @@ exports.getStatistics = asyncHandler(async (req, res) => {
 
 // Public
 exports.getPublicStatistics = asyncHandler(async (req, res) => {
-  const stats = await StatisticsModel.find({ isActive: true }).sort({
+  const stats = await StatisticsModel.find({}).sort({
     order: 1,
   });
 

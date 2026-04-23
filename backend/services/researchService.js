@@ -31,15 +31,10 @@ exports.getResearch = asyncHandler(async (req, res) => {
     page = 1,
     limit = 10,
     sort = "order createdAt",
-    isActive,
     isPublished,
   } = req.query;
 
   const query = {};
-
-  if (isActive !== undefined) {
-    query.isActive = isActive === "true";
-  }
 
   if (isPublished !== undefined) {
     query.isPublished = isPublished === "true";
@@ -49,7 +44,6 @@ exports.getResearch = asyncHandler(async (req, res) => {
     query.$or = [
       { "title.ar": { $regex: keyword, $options: "i" } },
       { "title.en": { $regex: keyword, $options: "i" } },
-      { "title.tr": { $regex: keyword, $options: "i" } },
       { slug: { $regex: keyword, $options: "i" } },
     ];
   }
@@ -78,7 +72,6 @@ exports.getResearch = asyncHandler(async (req, res) => {
 // Public list
 exports.getPublicResearch = asyncHandler(async (req, res) => {
   const research = await ResearchModel.find({
-    isActive: true,
     isPublished: true,
   }).sort({ order: 1, createdAt: -1 });
 
@@ -90,7 +83,6 @@ exports.getResearchBySlug = asyncHandler(async (req, res, next) => {
 
   const item = await ResearchModel.findOne({
     slug,
-    isActive: true,
     isPublished: true,
   });
 

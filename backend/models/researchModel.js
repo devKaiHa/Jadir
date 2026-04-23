@@ -7,7 +7,6 @@ const researchSchema = new mongoose.Schema(
     slug: { type: String, unique: true },
     content: { type: multilingualSchema },
     image: { type: String, default: "" },
-    isActive: { type: Boolean, default: true },
     isPublished: { type: Boolean, default: false },
     order: { type: Number, default: 0 },
   },

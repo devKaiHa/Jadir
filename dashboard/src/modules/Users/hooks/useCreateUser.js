@@ -11,7 +11,6 @@ const useCreateUser = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
-  const [isActive, setIsActive] = useState(true);
 
   const [errors, setErrors] = useState({});
 
@@ -31,7 +30,6 @@ const useCreateUser = () => {
     setEmail("");
     setPhone("");
     setPassword("");
-    setIsActive(true);
     setErrors({});
   };
 
@@ -44,7 +42,6 @@ const useCreateUser = () => {
         email,
         phone,
         password,
-        isActive,
       };
 
       await postUser(payload).unwrap();
@@ -70,8 +67,6 @@ const useCreateUser = () => {
     setPhone,
     password,
     setPassword,
-    isActive,
-    setIsActive,
     errors,
     isLoading: isPosting,
     handleSave,

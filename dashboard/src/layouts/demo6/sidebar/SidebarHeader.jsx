@@ -8,12 +8,12 @@ const SidebarHeader = forwardRef((props, ref) => {
       <div className="flex items-center gap-2.5 px-3.5 h-[70px]">
         <Link to="/">
           <img
-            src={"../../../../public/judy-favicon.ico"}
+            src={"../../../../public/assets/jadir-symbol.ico"}
             className="dark:hidden h-[42px]"
           />
         </Link>
         <span className="text-base font-medium text-gray-900 grow justify-center">
-          Jadwa Website
+          Jadir Website
         </span>
       </div>
 

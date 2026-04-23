@@ -7,12 +7,16 @@ const {
   getOneMessage,
   replyToMessage,
   deleteMessage,
+  uploadMessageAttachment,
+  persistMessageAttachment,
 } = require("../services/MessagesService");
 
 const messagesRouter = express.Router();
 
 // Public
-messagesRouter.route("/").post(createMessage);
+messagesRouter
+  .route("/")
+  .post(uploadMessageAttachment, persistMessageAttachment, createMessage);
 
 // Admin
 messagesRouter.route("/").get(authService.protect, getMessages);

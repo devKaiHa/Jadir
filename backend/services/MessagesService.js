@@ -1,7 +1,56 @@
+const fs = require("fs");
+const path = require("path");
 const asyncHandler = require("express-async-handler");
 const ApiError = require("../utils/apiError");
 const messagesModel = require("../models/MessagesModel");
 const sendEmail = require("../utils/sendEmail");
+const { uploadSingleFile } = require("../middlewares/uploadingImage");
+
+const REQUEST_TYPE_LABELS = {
+  inquiry: "Inquiry",
+  "consult-inquiry": "Inquiry",
+  "service-request": "Service Request",
+  partnership: "Partnership",
+  media: "Media",
+  support: "Support",
+  complaint: "Complaint",
+  "investment-inquiry": "Service Request",
+};
+
+const normalizeRequestType = (value = "") => {
+  if (value === "consult-inquiry") return "inquiry";
+  if (value === "investment-inquiry") return "service-request";
+  return value || "inquiry";
+};
+
+exports.uploadMessageAttachment = uploadSingleFile("attachment");
+
+exports.persistMessageAttachment = asyncHandler(async (req, res, next) => {
+  if (!req.file) return next();
+
+  const uploadDir = path.join(__dirname, "..", "uploads", "messages");
+  fs.mkdirSync(uploadDir, { recursive: true });
+
+  const sanitizedOriginalName = (req.file.originalname || "attachment").replace(
+    /[^a-zA-Z0-9._-]/g,
+    "-",
+  );
+  const filename = `message-${Date.now()}-${sanitizedOriginalName}`;
+  const absolutePath = path.join(uploadDir, filename);
+
+  fs.writeFileSync(absolutePath, req.file.buffer);
+
+  req.body.attachment = {
+    filename,
+    originalName: req.file.originalname,
+    mimetype: req.file.mimetype,
+    size: req.file.size,
+    path: `uploads/messages/${filename}`,
+    url: `/messages/${filename}`,
+  };
+
+  next();
+});
 
 exports.getMessages = asyncHandler(async (req, res) => {
   const {
@@ -38,11 +87,17 @@ exports.getMessages = asyncHandler(async (req, res) => {
       { requestType: { $regex: safeKeyword, $options: "i" } },
       { message: { $regex: safeKeyword, $options: "i" } },
       { reply: { $regex: safeKeyword, $options: "i" } },
+      { "attachment.originalName": { $regex: safeKeyword, $options: "i" } },
     ];
   }
 
   const [messages, total] = await Promise.all([
-    messagesModel.find(query).sort(sort).skip(skip).limit(perPage),
+    messagesModel
+      .find(query)
+      .populate("service", "title slug")
+      .sort(sort)
+      .skip(skip)
+      .limit(perPage),
     messagesModel.countDocuments(query),
   ]);
 
@@ -63,10 +118,28 @@ exports.getMessages = asyncHandler(async (req, res) => {
 });
 
 exports.createMessage = asyncHandler(async (req, res) => {
+  req.body.requestType = normalizeRequestType(req.body.requestType);
+
+  if (req.body.service === "") {
+    req.body.service = null;
+  }
+
   const createdMessage = await messagesModel.create(req.body);
+  const populatedMessage = await createdMessage.populate("service", "title slug");
+  const attachments = createdMessage?.attachment?.path
+    ? [
+        {
+          filename:
+            createdMessage.attachment.originalName ||
+            createdMessage.attachment.filename,
+          path: path.join(__dirname, "..", createdMessage.attachment.path),
+          contentType: createdMessage.attachment.mimetype,
+        },
+      ]
+    : [];
 
   await sendEmail({
-    to: "contact@jadwainvest.com",
+    to: "contact@jadirconsult.com",
     replyTo: createdMessage.email,
     subject: "New Contact Form Message",
     html: `
@@ -74,24 +147,31 @@ exports.createMessage = asyncHandler(async (req, res) => {
       <p><strong>Name:</strong> ${createdMessage.name}</p>
       <p><strong>Email:</strong> ${createdMessage.email}</p>
       <p><strong>Phone:</strong> ${createdMessage.phone || "N/A"}</p>
-      <p><strong>Request Type:</strong> ${createdMessage.requestType}</p>
+      <p><strong>Request Type:</strong> ${REQUEST_TYPE_LABELS[createdMessage.requestType] || createdMessage.requestType}</p>
+      <p><strong>Requested Service:</strong> ${populatedMessage?.service?.title?.en || populatedMessage?.service?.title?.ar || "N/A"}</p>
       <p><strong>Subject:</strong> ${createdMessage.subject || "N/A"}</p>
       <p><strong>Message:</strong><br/>${createdMessage.message}</p>
+      <p><strong>Attachment:</strong> ${createdMessage?.attachment?.originalName || "N/A"}</p>
     `,
+    attachments,
   });
 
   res.status(201).json({
     status: true,
     message: "Message sent successfully",
-    data: createdMessage,
+    data: populatedMessage,
   });
 });
 
 exports.getOneMessage = asyncHandler(async (req, res, next) => {
-  const message = await messagesModel.findById(req.params.id);
+  const message = await messagesModel
+    .findById(req.params.id)
+    .populate("service", "title slug");
 
   if (!message) {
-    return next(new ApiError(`No message found for this id ${req.params.id}`, 404));
+    return next(
+      new ApiError(`No message found for this id ${req.params.id}`, 404),
+    );
   }
 
   res.status(200).json({
@@ -140,7 +220,9 @@ exports.deleteMessage = asyncHandler(async (req, res, next) => {
   const message = await messagesModel.findByIdAndDelete(req.params.id);
 
   if (!message) {
-    return next(new ApiError(`No message found for this id ${req.params.id}`, 404));
+    return next(
+      new ApiError(`No message found for this id ${req.params.id}`, 404),
+    );
   }
 
   res.status(200).json({

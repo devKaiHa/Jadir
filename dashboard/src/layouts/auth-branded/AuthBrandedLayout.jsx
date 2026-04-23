@@ -44,7 +44,7 @@ const Layout = () => {
                 <span className="text-gray-900 font-semibold">
                   efficient user access
                 </span>
-                &nbsp;to the Jadwa
+                &nbsp;to the Jadir
                 <br /> Dashboard interface.
               </div>
             </div>

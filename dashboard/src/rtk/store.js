@@ -26,6 +26,7 @@ import { projectsApi } from "./projectsApi";
 import { contactUsApi } from "./contactUsApi";
 import { testimonialsApi } from "./testimonialsApi";
 import { policiesApi } from "./policiesApi";
+import { careersApi } from "./careersApi";
 
 const store = configureStore({
   reducer: {
@@ -53,6 +54,7 @@ const store = configureStore({
     [contactUsApi.reducerPath]: contactUsApi.reducer,
     [testimonialsApi.reducerPath]: testimonialsApi.reducer,
     [policiesApi.reducerPath]: policiesApi.reducer,
+    [careersApi.reducerPath]: careersApi.reducer,
   },
 
   middleware: (getDefaultMiddleware) =>
@@ -80,7 +82,8 @@ const store = configureStore({
       .concat(projectsApi.middleware)
       .concat(contactUsApi.middleware)
       .concat(testimonialsApi.middleware)
-      .concat(policiesApi.middleware),
+      .concat(policiesApi.middleware)
+      .concat(careersApi.middleware),
 });
 
 setupListeners(store.dispatch);

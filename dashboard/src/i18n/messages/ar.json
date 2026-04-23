@@ -12,5 +12,10 @@
   "USER.MENU.PAYMENT_&_SUBSCRIPTION_INFO": "معلومات الدفع والاشتراك",
   "USER.MENU.DARK_MODE": "الوضع المظلم",
   "USER.MENU.LOGOUT": "تسجيل الخروج",
-  "USER.MENU.LANGUAGE": "لغة"
+  "USER.MENU.LANGUAGE": "لغة",
+  "GENERAL.CANCEL": "إلغاء",
+  "GENERAL.DELETE": "حذف",
+  "GENERAL.DELETING": "جاري الحذف...",
+  "GENERAL.UPDATE": "تحديث",
+  "GENERAL.UPDATING": "جاري التحديث..."
 }

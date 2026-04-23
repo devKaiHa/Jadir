@@ -1,50 +1,35 @@
 import Layout from "@/components/layout/Layout";
 import Link from "next/link";
+import { EmptyState, SectionTitle } from "@/components/website/PublicSections";
+import { getWebsiteData, localize, truncate } from "@/components/website/websiteUtils";
 import { useTranslation } from "react-i18next";
-import { fetchJSON, pickArray } from "@/GlobalHooks/GlobalHooks";
-import baseURL from "@/api/GlobalData";
 
 export default function PoliciesPage({ policies = [] }) {
   const { i18n } = useTranslation();
-  const lang = i18n.language || "en";
+  const lang = i18n?.language || "en";
 
   return (
-    <Layout breadcrumbTitle={lang === "ar" ? "السياسات" : "Policies"}>
-      <section className="news-style-two sec-pad">
+    <Layout breadcrumbTitle="Policies">
+      <section className="site-band">
         <div className="auto-container">
-          <div className="sec-title">
-            <span className="sub-title">
-              {lang === "ar" ? "السياسات القانونية" : "Legal Pages"}
-            </span>
-            <h2>{lang === "ar" ? "سياسات الموقع" : "Site Policies"}</h2>
-          </div>
-          <div className="row clearfix">
-            {policies.map((policy) => (
-              <div
-                key={policy?._id}
-                className="col-lg-4 col-md-6 col-sm-12 news-block"
-              >
-                <div className="news-block-one h-100">
-                  <div className="inner-box h-100">
-                    <div className="lower-box">
-                      <span className="category">
-                        {policy?.policyType || "policy"}
-                      </span>
-                      <h3>{policy?.title?.[lang] || policy?.title?.en}</h3>
-                      <p>{policy?.summary?.[lang] || policy?.summary?.en}</p>
-                      <div className="link">
-                        <Link href={`/policies/${policy?.slug}`}>
-                          <span>
-                            {lang === "ar" ? "اقرأ المزيد" : "Read More"}
-                          </span>
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+          <SectionTitle
+            eyebrow="Policies"
+            title="Privacy, Terms and Conditions"
+            text="Review the legal and operational policies that govern the website and services."
+          />
+          {policies.length ? (
+            <div className="site-card-grid">
+              {policies.map((policy) => (
+                <Link className="site-card" href={`/policies/${policy?.slug}`} key={policy?._id || policy?.slug}>
+                  <span>{policy?.policyType || "Policy"}</span>
+                  <h3>{localize(policy?.title, lang)}</h3>
+                  <p>{truncate(localize(policy?.summary, lang), 140)}</p>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <EmptyState title="No policies available yet." />
+          )}
         </div>
       </section>
     </Layout>
@@ -52,21 +37,6 @@ export default function PoliciesPage({ policies = [] }) {
 }
 
 export async function getStaticProps() {
-  try {
-    const payload = await fetchJSON(`${baseURL}policies/public`);
-
-    return {
-      props: {
-        policies: pickArray(payload),
-      },
-      revalidate: 300,
-    };
-  } catch (error) {
-    return {
-      props: {
-        policies: [],
-      },
-      revalidate: 60,
-    };
-  }
+  const data = await getWebsiteData();
+  return { props: { policies: data.policies || [] }, revalidate: 300 };
 }

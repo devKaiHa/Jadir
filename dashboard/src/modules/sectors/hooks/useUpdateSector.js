@@ -6,7 +6,6 @@ import { useOneSector, useSectors } from "../../hooks/useSectors";
 const emptyLangState = {
   en: "",
   ar: "",
-  tr: "",
 };
 
 const useUpdateSector = () => {
@@ -22,8 +21,6 @@ const useUpdateSector = () => {
   const [img, setImg] = useState(null);
   const [imgPreview, setImgPreview] = useState("");
   const [currentImg, setCurrentImg] = useState("");
-
-  const [isActive, setIsActive] = useState(true);
   const [order, setOrder] = useState(0);
 
   useEffect(() => {
@@ -32,20 +29,16 @@ const useUpdateSector = () => {
     setName({
       en: sector?.name?.en || "",
       ar: sector?.name?.ar || "",
-      tr: sector?.name?.tr || "",
     });
 
     setDescription({
       en: sector?.description?.en || "",
       ar: sector?.description?.ar || "",
-      tr: sector?.description?.tr || "",
     });
 
     setCurrentImg(sector?.image || sector?.img || "");
     setImgPreview("");
     setImg(null);
-
-    setIsActive(sector?.isActive ?? true);
     setOrder(sector?.order ?? 0);
   }, [sector]);
 
@@ -75,7 +68,6 @@ const useUpdateSector = () => {
 
       formData.append("name", JSON.stringify(name));
       formData.append("description", JSON.stringify(description));
-      formData.append("isActive", isActive);
       formData.append("order", order);
 
       if (img) {
@@ -109,9 +101,6 @@ const useUpdateSector = () => {
     img,
     imgPreview,
     currentImg,
-
-    isActive,
-    setIsActive,
 
     order,
     setOrder,

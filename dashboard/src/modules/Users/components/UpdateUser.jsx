@@ -19,8 +19,6 @@ const UpdateUser = () => {
     setPhone,
     password,
     setPassword,
-    isActive,
-    setIsActive,
 
     errors,
     handleSave,
@@ -41,8 +39,6 @@ const UpdateUser = () => {
         setPhone={setPhone}
         password={password}
         setPassword={setPassword}
-        isActive={isActive}
-        setIsActive={setIsActive}
         errors={errors}
       />
 

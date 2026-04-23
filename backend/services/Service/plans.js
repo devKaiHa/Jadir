@@ -9,14 +9,9 @@ exports.getPlans = asyncHandler(async (req, res) => {
     page = 1,
     limit = 10,
     sort = "order createdAt",
-    isActive,
   } = req.query;
 
   const query = {};
-
-  if (isActive !== undefined) {
-    query.isActive = isActive === "true";
-  }
 
   if (keyword && keyword.trim() !== "") {
     const safeKeyword = keyword.trim();
@@ -24,7 +19,6 @@ exports.getPlans = asyncHandler(async (req, res) => {
     query.$or = [
       { "title.ar": { $regex: safeKeyword, $options: "i" } },
       { "title.en": { $regex: safeKeyword, $options: "i" } },
-      { "title.tr": { $regex: safeKeyword, $options: "i" } },
     ];
   }
 
@@ -57,7 +51,7 @@ exports.getPlans = asyncHandler(async (req, res) => {
 
 // Public list
 exports.getPublicPlans = asyncHandler(async (req, res) => {
-  const plans = await plansModel.find({ isActive: true }).sort({
+  const plans = await plansModel.find({}).sort({
     order: 1,
     createdAt: -1,
   });

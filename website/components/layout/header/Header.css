@@ -8,35 +8,40 @@
   transform: translateX(-50%);
   width: 97%;
   z-index: 999;
-  transition: all 0.35s ease;
+  transition:
+    top 0.3s ease,
+    box-shadow 0.3s ease,
+    background 0.3s ease;
 }
 
 .jadwa-header.is-sticky {
   position: fixed;
   top: 0;
+  left: 0;
+  transform: none;
   width: 100%;
-  animation: slideInDown 0.4s ease;
+  animation: slideInDown 0.35s ease;
 }
 
 .jadwa-header-wrap {
   border-radius: 18px;
   overflow: hidden;
   box-shadow: var(--header-shadow);
-  border: 1px solid rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  transition:
+    border-radius 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .jadwa-header.is-sticky .jadwa-header-wrap {
   border-radius: 0;
   box-shadow: var(--header-shadow-sticky);
-  border-left: 0;
-  border-right: 0;
 }
 
 /* =========================================
-     HEADER TOP
-  ========================================= */
+   HEADER TOP
+========================================= */
 .jadwa-header-top {
   min-height: 48px;
   padding: 0 24px;
@@ -82,12 +87,6 @@
   transform: translateY(-2px);
 }
 
-.jadwa-language-label {
-  color: rgba(255, 255, 255, 0.88);
-  font-size: 13px;
-  font-weight: 500;
-}
-
 .jadwa-select-box {
   position: relative;
 }
@@ -110,8 +109,8 @@
 }
 
 /* =========================================
-     HEADER LOWER
-  ========================================= */
+   HEADER LOWER
+========================================= */
 .jadwa-header-lower {
   position: relative;
   background: linear-gradient(
@@ -146,8 +145,8 @@
 }
 
 /* =========================================
-     HEADER INNER LAYOUT
-  ========================================= */
+   HEADER INNER LAYOUT
+========================================= */
 .jadwa-header-inner {
   min-height: 86px;
   padding: 0 26px;
@@ -171,9 +170,41 @@
   object-fit: contain;
 }
 
+.jadwa-search {
+  flex: 0 1 230px;
+  min-width: 170px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(0, 106, 253, 0.38);
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.jadwa-search input {
+  min-width: 0;
+  flex: 1;
+  height: 100%;
+  padding: 0 12px;
+  color: #fff;
+  background: transparent;
+}
+
+.jadwa-search input::placeholder {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.jadwa-search button {
+  width: 42px;
+  height: 42px;
+  color: #fff;
+  background: #006afd;
+}
+
 /* =========================================
-     CENTER NAV
-  ========================================= */
+   CENTER NAV
+========================================= */
 .jadwa-nav {
   flex: 1 1 auto;
   display: flex;
@@ -203,12 +234,16 @@
   color: rgba(255, 255, 255, 0.9) !important;
   padding: 0 18px;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 18px;
+  text-transform: uppercase;
   position: relative;
   display: inline-flex;
   align-items: center;
   min-height: 86px;
-  transition: color 0.35s ease, transform 0.35s ease, opacity 0.35s ease;
+  transition:
+    color 0.35s ease,
+    transform 0.35s ease,
+    opacity 0.35s ease;
   will-change: transform;
 }
 
@@ -231,7 +266,9 @@
   opacity: 0;
   font-weight: 400;
   color: var(--secondary);
-  transition: opacity 0.35s ease, transform 0.35s ease;
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
 }
 
 .jadwa-nav .navigation > li > a:hover::before,
@@ -242,8 +279,8 @@
 }
 
 /* =========================================
-     INVEST BUTTON
-  ========================================= */
+   INVEST BUTTON
+========================================= */
 .jadwa-invest-btn {
   flex: 0 0 auto;
   display: inline-flex;
@@ -253,7 +290,7 @@
   padding: 0 20px;
   border-radius: 10px;
   background: linear-gradient(135deg, var(--secondary-dark), var(--secondary));
-  color: var(--primary-dark) !important;
+  color: #fff /*var(--primary-dark) !important*/;
   font-size: 14px;
   font-weight: 700;
   text-transform: uppercase;
@@ -273,8 +310,8 @@
 }
 
 /* =========================================
-     MOBILE TOGGLER
-  ========================================= */
+   MOBILE TOGGLER
+========================================= */
 .jadwa-mobile-toggler {
   display: none;
   width: 46px;
@@ -302,11 +339,261 @@
 }
 
 /* =========================================
-     RESPONSIVE
-  ========================================= */
+   MOBILE MENU
+========================================= */
+.jadwa-mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  pointer-events: none;
+}
+
+.jadwa-mobile-menu.is-open {
+  pointer-events: auto;
+}
+
+.jadwa-mobile-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(3, 24, 21, 0.55);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.jadwa-mobile-menu.is-open .jadwa-mobile-backdrop {
+  opacity: 1;
+}
+
+.jadwa-mobile-panel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: min(92vw, 380px);
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(185, 167, 122, 0.12),
+      transparent 28%
+    ),
+    linear-gradient(180deg, #08211d 0%, #061815 100%);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
+  overflow: hidden;
+  transition: transform 0.35s ease;
+}
+
+.jadwa-mobile-panel.ltr {
+  right: 0;
+  transform: translateX(100%);
+  border-left: 1px solid rgba(185, 167, 122, 0.14);
+}
+
+.jadwa-mobile-panel.rtl {
+  left: 0;
+  transform: translateX(-100%);
+  border-right: 1px solid rgba(185, 167, 122, 0.14);
+}
+
+.jadwa-mobile-menu.is-open .jadwa-mobile-panel {
+  transform: translateX(0);
+}
+
+.jadwa-mobile-panel-inner {
+  height: 100%;
+  overflow-y: auto;
+  padding: 22px 18px 24px;
+}
+
+.jadwa-mobile-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.jadwa-mobile-logo {
+  display: inline-flex;
+  align-items: center;
+}
+
+.jadwa-mobile-logo img {
+  max-height: 42px;
+  width: auto;
+}
+
+.jadwa-mobile-close {
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(185, 167, 122, 0.2);
+  background: rgba(255, 255, 255, 0.04);
+  color: #f6f3ea;
+  border-radius: 14px;
+  transition: all 0.3s ease;
+}
+
+.jadwa-mobile-close:hover {
+  background: rgba(185, 167, 122, 0.12);
+  border-color: rgba(185, 167, 122, 0.35);
+}
+
+.jadwa-mobile-top {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  column-gap: 14px;
+  row-gap: 12px;
+  margin-bottom: 22px;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(185, 167, 122, 0.12);
+  border-radius: 18px;
+}
+
+.jadwa-mobile-socials {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  min-width: 0;
+}
+
+.jadwa-mobile-lang {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.jadwa-mobile-social-link {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  color: #f4f7f5;
+  border: 1px solid rgba(185, 167, 122, 0.16);
+  background: rgba(255, 255, 255, 0.04);
+  transition: all 0.3s ease;
+}
+
+.jadwa-mobile-social-link:hover {
+  color: #06211d;
+  background: #b9a77a;
+  border-color: #b9a77a;
+}
+
+.jadwa-mobile-lang button {
+  min-width: 42px;
+  height: 36px;
+  padding: 0 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.jadwa-mobile-lang button {
+  min-width: 42px;
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid rgba(185, 167, 122, 0.16);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.8);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  transition: all 0.3s ease;
+}
+
+.jadwa-mobile-lang button.active {
+  background: linear-gradient(135deg, #b9a77a 0%, #d5c49a 100%);
+  color: #06211d;
+  border-color: transparent;
+}
+
+.jadwa-mobile-nav-wrap {
+  margin-bottom: 22px;
+}
+
+.jadwa-mobile-nav {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.jadwa-mobile-nav li + li {
+  margin-top: 10px;
+}
+
+.jadwa-mobile-nav li a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px;
+  color: #f6f7f6;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(185, 167, 122, 0.1);
+  border-radius: 18px;
+  transition: all 0.3s ease;
+}
+
+.jadwa-mobile-nav li a:hover {
+  transform: translateY(-2px);
+  background: rgba(185, 167, 122, 0.08);
+  border-color: rgba(185, 167, 122, 0.28);
+}
+
+.jadwa-mobile-nav li a i {
+  font-size: 12px;
+  color: #b9a77a;
+  flex-shrink: 0;
+}
+
+.jadwa-mobile-cta {
+  margin-top: 8px;
+}
+
+.jadwa-mobile-invest-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 54px;
+  padding: 14px 22px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #06211d;
+  background: linear-gradient(135deg, #b9a77a 0%, #d7c79f 100%);
+  box-shadow: 0 16px 34px rgba(185, 167, 122, 0.22);
+  transition: all 0.3s ease;
+}
+
+.jadwa-mobile-invest-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px rgba(185, 167, 122, 0.28);
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
 @media (max-width: 991px) {
+  .jadwa-header-top {
+    display: none;
+  }
+
   .jadwa-nav,
-  .jadwa-invest-btn {
+  .jadwa-invest-btn,
+  .jadwa-search {
     display: none;
   }
 
@@ -316,10 +603,6 @@
 
   .jadwa-header-inner {
     min-height: 76px;
-    padding: 0 18px;
-  }
-
-  .jadwa-header-top {
     padding: 0 18px;
   }
 
@@ -333,21 +616,51 @@
     top: 10px;
   }
 
-  .jadwa-header-top {
-    min-height: auto;
-    padding: 10px 14px;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .jadwa-header-top-left,
-  .jadwa-header-top-right {
-    width: 100%;
-    justify-content: space-between;
-  }
-
   .jadwa-header-inner {
     min-height: 70px;
     padding: 0 14px;
+  }
+
+  .jadwa-mobile-panel-inner {
+    padding: 18px 14px 20px;
+  }
+
+  .jadwa-mobile-top {
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .jadwa-mobile-socials,
+  .jadwa-mobile-lang {
+    width: 100%;
+  }
+
+  .jadwa-mobile-socials {
+    justify-content: flex-start;
+  }
+
+  .jadwa-mobile-lang {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .jadwa-mobile-panel {
+    width: 100%;
+  }
+
+  .jadwa-mobile-logo img {
+    max-height: 38px;
+  }
+
+  .jadwa-mobile-close {
+    width: 40px;
+    height: 40px;
+  }
+
+  .jadwa-mobile-nav li a {
+    padding: 14px;
+    font-size: 14px;
   }
 }

@@ -52,7 +52,7 @@ const SliderLangForm = ({ language, value = {}, onChange }) => {
                   value={localValue.description}
                   onChange={(e) => handleChange("description", e.target.value)}
                   placeholder={`Enter description in ${language.toUpperCase()}`}
-                  className="input min-h-[180px] py-3"
+                  className="input min-h-[180px] py-3 tracking-[1px] leading-[20px]"
                 />
               </div>
             </td>

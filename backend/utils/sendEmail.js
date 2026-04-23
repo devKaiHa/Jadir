@@ -1,11 +1,11 @@
 const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
-  host: "mail.judyinvest.com",
+  host: "mail.jadirconsult.com",
   port: 465,
   secure: true,
   auth: {
-    user: "no-reply@judyinvest.com",
+    user: "no-reply@jadirconsult.com",
     pass: ")!hZdz=;5N?x",
   },
 });
@@ -13,11 +13,12 @@ const transporter = nodemailer.createTransport({
 const sendEmail = async (options) => {
   try {
     const mailOpts = {
-      from: `"JadwaInvest" <no-reply@judyinvest.com>`,
+      from: `"JadirConsult" <no-reply@jadirconsult.com>`,
       to: options.to,
       replyTo: options.replyTo,
       subject: options.subject,
       html: options.html,
+      attachments: options.attachments || [],
     };
 
     //3-Send email

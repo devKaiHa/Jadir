@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 const slugify = require("slugify");
 
 exports.signup = asyncHandler(async (req, res, next) => {
-  const { name, email, password, phone, isActive } = req.body;
+  const { name, email, password, phone} = req.body;
 
   if (!name || !email || !password) {
     return res.status(400).json({
@@ -32,8 +32,6 @@ exports.signup = asyncHandler(async (req, res, next) => {
     email,
     phone,
     password: hashedPassword,
-    isActive:
-      isActive === undefined ? true : isActive === true || isActive === "true",
   });
 
   res.status(201).json({
@@ -44,7 +42,6 @@ exports.signup = asyncHandler(async (req, res, next) => {
       slug: user.slug,
       email: user.email,
       phone: user.phone,
-      isActive: user.isActive,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
     },
@@ -60,13 +57,6 @@ exports.login = asyncHandler(async (req, res, next) => {
     return res.status(401).json({
       status: false,
       message: "This email isn't registered on the system",
-    });
-  }
-
-  if (!user.isActive) {
-    return res.status(401).json({
-      status: false,
-      message: "Your account is not active! Contact your supervisor",
     });
   }
 
@@ -92,7 +82,6 @@ exports.login = asyncHandler(async (req, res, next) => {
       slug: user.slug,
       email: user.email,
       phone: user.phone,
-      isActive: user.isActive,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
     },
@@ -126,13 +115,6 @@ exports.protect = asyncHandler(async (req, res, next) => {
     return res.status(401).json({
       status: false,
       message: "This user is not registered on the system",
-    });
-  }
-
-  if (!currentUser.isActive) {
-    return res.status(401).json({
-      status: false,
-      message: "Your account is not active! Contact your supervisor",
     });
   }
 

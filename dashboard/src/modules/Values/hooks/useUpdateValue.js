@@ -6,7 +6,6 @@ import { useOneValue, useValues } from "../../hooks/useValues";
 const emptyLangState = {
   en: "",
   ar: "",
-  tr: "",
 };
 
 const useUpdateValue = () => {
@@ -20,7 +19,6 @@ const useUpdateValue = () => {
   const [content, setContent] = useState({ ...emptyLangState });
   const [description, setDescription] = useState({ ...emptyLangState });
 
-  const [isActive, setIsActive] = useState(true);
   const [order, setOrder] = useState(0);
 
   useEffect(() => {
@@ -29,22 +27,18 @@ const useUpdateValue = () => {
     setName({
       en: value?.name?.en || "",
       ar: value?.name?.ar || "",
-      tr: value?.name?.tr || "",
     });
 
     setContent({
       en: value?.content?.en || "",
       ar: value?.content?.ar || "",
-      tr: value?.content?.tr || "",
     });
 
     setDescription({
       en: value?.description?.en || "",
       ar: value?.description?.ar || "",
-      tr: value?.description?.tr || "",
     });
 
-    setIsActive(value?.isActive ?? true);
     setOrder(value?.order || 0);
   }, [value]);
 
@@ -66,7 +60,6 @@ const useUpdateValue = () => {
         name,
         content,
         description,
-        isActive,
         order,
       };
 
@@ -94,9 +87,6 @@ const useUpdateValue = () => {
     name,
     content,
     description,
-
-    isActive,
-    setIsActive,
 
     order,
     setOrder,

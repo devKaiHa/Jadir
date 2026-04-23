@@ -12,8 +12,6 @@ const AddStatistic = () => {
     description,
     value,
     setValue,
-    isActive,
-    setIsActive,
     order,
     setOrder,
     handleLangChange,
@@ -30,14 +28,12 @@ const AddStatistic = () => {
         <StatisticGeneralInfoTab
           value={value}
           setValue={setValue}
-          isActive={isActive}
-          setIsActive={setIsActive}
           order={order}
           setOrder={setOrder}
         />
       ),
     },
-    ...["en", "ar", "tr"].map((lang) => ({
+    ...["en", "ar"].map((lang) => ({
       key: `statistic_${lang}`,
       label: `Statistic ${lang.toUpperCase()}`,
       icon: "ki-outline ki-clipboard",

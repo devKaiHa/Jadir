@@ -1,7 +1,7 @@
 import { Container } from "@mui/material";
 import { ToastContainer } from "react-toastify";
 import AboutHomeLangForm from "../components/AboutHomeLangForm";
-import AboutHomeGeneralTab from "../components/AboutHomeGeneralTab";
+// import AboutHomeGeneralTab from "../components/AboutHomeGeneralTab";
 import Tabs from "../../../../components/Global/Tabs";
 import LoadingCard from "../../../../components/Global/LoadingCard";
 import ErrorMessageCard from "../../../../components/Global/ErrorMessageCard";
@@ -20,9 +20,9 @@ const EditAboutHome = () => {
     messageDescription,
     businessApproach,
     whyUs,
-    governance,
-    prizes,
-    certificates,
+    whoWeServe,
+    // prizes,
+    // certificates,
 
     handleContentChange,
     handleVisionChange,
@@ -31,15 +31,15 @@ const EditAboutHome = () => {
     handleMessageDescriptionChange,
     handleBusinessApproachChange,
     handleWhyUsChange,
-    handleGovernanceChange,
-    addPrize,
-    removePrize,
-    updatePrizeField,
-    updatePrizeName,
-    addCertificate,
-    removeCertificate,
-    updateCertificateField,
-    updateCertificateName,
+    handleWhoWeServeChange,
+    // addPrize,
+    // removePrize,
+    // updatePrizeField,
+    // updatePrizeName,
+    // addCertificate,
+    // removeCertificate,
+    // updateCertificateField,
+    // updateCertificateName,
 
     handleSave,
   } = useAboutHomeForm();
@@ -48,26 +48,26 @@ const EditAboutHome = () => {
   if (error) return <ErrorMessageCard />;
 
   const tabConfig = [
-    {
-      key: "about_home_general",
-      label: "General Info",
-      icon: "ki-outline ki-setting-2",
-      content: (
-        <AboutHomeGeneralTab
-          prizes={prizes}
-          certificates={certificates}
-          addPrize={addPrize}
-          removePrize={removePrize}
-          updatePrizeField={updatePrizeField}
-          updatePrizeName={updatePrizeName}
-          addCertificate={addCertificate}
-          removeCertificate={removeCertificate}
-          updateCertificateField={updateCertificateField}
-          updateCertificateName={updateCertificateName}
-        />
-      ),
-    },
-    ...["en", "ar", "tr"].map((lang) => ({
+    // {
+    //   key: "about_home_general",
+    //   label: "General Info",
+    //   icon: "ki-outline ki-setting-2",
+    //   content: (
+    //     <AboutHomeGeneralTab
+    //       prizes={prizes}
+    //       certificates={certificates}
+    //       addPrize={addPrize}
+    //       removePrize={removePrize}
+    //       updatePrizeField={updatePrizeField}
+    //       updatePrizeName={updatePrizeName}
+    //       addCertificate={addCertificate}
+    //       removeCertificate={removeCertificate}
+    //       updateCertificateField={updateCertificateField}
+    //       updateCertificateName={updateCertificateName}
+    //     />
+    //   ),
+    // },
+    ...["en", "ar"].map((lang) => ({
       key: `about_home_${lang}`,
       label: `About Home ${lang.toUpperCase()}`,
       icon: "ki-outline ki-clipboard",
@@ -81,7 +81,7 @@ const EditAboutHome = () => {
           messageDescriptionValue={messageDescription[lang]}
           businessApproachValue={businessApproach[lang]}
           whyUsValue={whyUs[lang]}
-          governanceValue={governance[lang]}
+          whoWeServeValue={whoWeServe[lang]}
           onContentChange={handleContentChange}
           onVisionChange={handleVisionChange}
           onVisionDescriptionChange={handleVisionDescriptionChange}
@@ -89,7 +89,7 @@ const EditAboutHome = () => {
           onMessageDescriptionChange={handleMessageDescriptionChange}
           onBusinessApproachChange={handleBusinessApproachChange}
           onWhyUsChange={handleWhyUsChange}
-          onGovernanceChange={handleGovernanceChange}
+          onWhoWeServeChange={handleWhoWeServeChange}
         />
       ),
     })),

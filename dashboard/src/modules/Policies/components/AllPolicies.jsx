@@ -51,16 +51,16 @@ const AllPolicies = () => {
                 <tbody>
                   {policies.map((policy) => (
                     <tr key={policy._id}>
-                      <td>{policy?.title?.en || policy?.title?.ar || policy?.title?.tr || "-"}</td>
+                      <td>{policy?.title?.en || policy?.title?.ar || "-"}</td>
                       <td className="capitalize">{policy?.policyType || "-"}</td>
                       <td>{policy?.order ?? 0}</td>
                       <td>
                         <span
                           className={`badge ${
-                            policy?.isActive ? "badge-success" : "badge-danger"
+                            "badge-success"
                           }`}
                         >
-                          {policy?.isActive ? "Active" : "Inactive"}
+                          {"Active"}
                         </span>
                       </td>
                       <td>

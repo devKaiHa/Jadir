@@ -38,7 +38,7 @@ export default function ProjectsPage({ projects = [] }) {
               return (
                 <div
                   key={project?._id}
-                  className="col-lg-4 col-md-6 col-sm-12 news-block"
+                  className="col-lg-4 col-md-6 col-sm-12 news-block my-2"
                 >
                   <div className="news-block-one h-100">
                     <div className="inner-box h-100">
@@ -102,9 +102,9 @@ const ProjectBrief = ({ project, lang }) => {
         )}
       </p>
 
-      {project?.projectLink && (
+      {(project?.slug || project?._id) && (
         <div className="link">
-          <Link href={project.projectLink} target="_blank">
+          <Link href={`/projects/${project?.slug || project?._id}`}>
             <span>
               {lang === "ar"
                 ? "فتح المشروع"

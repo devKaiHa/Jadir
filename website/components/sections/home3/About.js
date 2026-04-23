@@ -1,9 +1,10 @@
 "use client";
 
 import AboutUsSlider from "@/components/slider/AboutUsSlider";
+import Link from "next/link";
 import { useTranslation } from "react-i18next";
 
-export default function About({ aboutUs = [] }) {
+export default function About({ aboutUs = [], ishomePage = false }) {
   const { i18n, t } = useTranslation();
   const lang = i18n?.language || "en";
   const isRtl = lang === "ar";
@@ -12,7 +13,7 @@ export default function About({ aboutUs = [] }) {
 
   const pick = (obj) =>
     obj && typeof obj === "object"
-      ? obj[lang] ?? obj.en ?? obj.ar ?? obj.tr ?? ""
+      ? (obj[lang] ?? obj.en ?? obj.ar ?? obj.tr ?? "")
       : "";
 
   const content = pick(item?.content);
@@ -51,13 +52,13 @@ export default function About({ aboutUs = [] }) {
                   <img src="/assets/images/about-1.jpg" alt="about" />
                 </figure>
 
-                <div className="jadwa-about-stat-card">
+                {/* <div className="jadwa-about-stat-card">
                   <span className="jadwa-about-stat-year">Since 2013</span>
                   <h3>
                     1000<span>+</span>
                   </h3>
                   <p>{t("about.investor")}</p>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -66,20 +67,32 @@ export default function About({ aboutUs = [] }) {
             <div className="jadwa-about-content">
               <div className="jadwa-section-head">
                 <span className="jadwa-section-kicker">
-                  {lang === "ar" ? "جدوى اليقين" : "Jadwa Al Yaqeen"}
+                  {lang === "ar" ? "جدير اليقين" : "Jadir Al Yaqeen"}
                 </span>
 
                 <h2 className="jadwa-section-title">
-                  {lang === "ar" ? "نبذة عن الشركة" : "About the Company"}
+                  {lang === "ar" ? "نبذة عن الشركة" : "About us"}
                 </h2>
                 <div className="jadwa-section-line" />
               </div>
 
               <div className="jadwa-about-text">
-                <p dangerouslySetInnerHTML={{ __html: content }} />
+                <p>{content}</p>
               </div>
 
               <AboutUsSlider slides={sliderItems} />
+
+              {ishomePage && (
+                <div className="jadwa-about-actions">
+                  <Link href="/about" className="jadwa-invest-btn">
+                    {lang === "ar"
+                      ? "اعرف المزيد"
+                      : lang === "tr"
+                        ? "Daha Fazla"
+                        : "Learn More"}
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         </div>

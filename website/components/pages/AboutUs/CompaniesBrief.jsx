@@ -1,14 +1,21 @@
+"use client";
+
 import Link from "next/link";
 import { imageURL } from "@/api/GlobalData";
 import { truncateText } from "@/GlobalHooks/GlobalHooks";
 import { getCountryNameByCode } from "@/lib/helpers";
 import { useTranslation } from "react-i18next";
-import { useRouter } from "next/router";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
+
+import "swiper/css";
+import "swiper/css/pagination";
 
 export default function CompaniesBrief({ companies = [] }) {
-  const router = useRouter();
   const { i18n, t } = useTranslation();
   const lang = i18n.language || "en";
+  const isRtl = lang === "ar";
 
   const visibleCompanies = [...companies]
     .filter(
@@ -24,163 +31,199 @@ export default function CompaniesBrief({ companies = [] }) {
     return value === key ? defaultValue : value;
   };
 
-  return (
-    <div className="mt-5">
-      <div className="sec-title text-center mb-4">
-        <span className="sub-title">
-          {fallbackLabel("companies.title", "Companies")}
-        </span>
-        <h2>
-          {fallbackLabel(
-            "about.ourCompaniesBrief",
-            "A Brief Look At Our Companies",
+  const getSafeWebsite = (website) => {
+    if (!website) return null;
+    return /^https?:\/\//i.test(website) ? website : `https://${website}`;
+  };
+
+  const renderCompanyCard = (company, index, mobile = false) => {
+    const companyName =
+      company?.companyName?.[lang] ||
+      company?.companyName?.en ||
+      company?.aboutus?.[lang] ||
+      company?.aboutus?.en ||
+      "";
+
+    const companyAbout = company?.about?.[lang] || company?.about?.en || "";
+
+    const experienceField =
+      company?.ExperienceField?.[lang] || company?.ExperienceField?.en || "";
+
+    const companyCountry = company?.country
+      ? getCountryNameByCode(company.country, lang)
+      : "";
+
+    const companyHref = `/company-details/${company?.slug}`;
+    const websiteHref = getSafeWebsite(company?.website);
+
+    return (
+      <article
+        className={`companies-brief-card ${
+          mobile ? "companies-brief-card-mobile" : ""
+        }`}
+      >
+        <div className="companies-brief-top-line" />
+
+        <div className="companies-brief-media">
+          <div className="companies-brief-media-overlay" />
+
+          {company?.background ? (
+            <img
+              src={`${imageURL}companies/${company.background}`}
+              alt={companyName}
+              className="companies-brief-background-image"
+            />
+          ) : (
+            <div className="companies-brief-media-pattern" />
           )}
-        </h2>
-      </div>
+        </div>
 
-      <div className="row clearfix">
-        {visibleCompanies.map((company) => {
-          const companyName =
-            company?.companyName?.[lang] ||
-            company?.companyName?.en ||
-            company?.aboutus?.[lang] ||
-            company?.aboutus?.en;
-          const companyAbout =
-            company?.about?.[lang] || company?.about?.en || "";
-          const experienceField =
-            company?.ExperienceField?.[lang] ||
-            company?.ExperienceField?.en ||
-            "";
-          const companyCountry = company?.country
-            ? getCountryNameByCode(company.country, lang)
-            : "";
+        <div className="companies-brief-logo-wrap">
+          {company?.logo ? (
+            <img
+              src={`${imageURL}companies/${company.logo}`}
+              alt={companyName}
+              className="companies-brief-logo"
+            />
+          ) : (
+            <div className="companies-brief-fallback-icon">
+              {companyName?.charAt(0)}
+            </div>
+          )}
+        </div>
 
-          return (
+        <div className="companies-brief-content">
+          {(experienceField || companyCountry) && (
             <div
-              key={company?._id || company?.slug}
+              className={`companies-brief-tags ${
+                isRtl ? "companies-brief-tags-rtl" : ""
+              }`}
+            >
+              {experienceField ? (
+                <span className="companies-brief-primary-tag">
+                  {experienceField}
+                </span>
+              ) : null}
+
+              {companyCountry ? (
+                <span className="companies-brief-secondary-tag">
+                  {companyCountry}
+                </span>
+              ) : null}
+            </div>
+          )}
+
+          <h3 className="companies-brief-company-title">
+            <Link href={companyHref}>{companyName}</Link>
+          </h3>
+
+          <div
+            className="companies-brief-company-text"
+            dangerouslySetInnerHTML={{
+              __html: truncateText(companyAbout, mobile ? 85 : 110),
+            }}
+          />
+
+          <div className="companies-brief-footer">
+            <Link href={companyHref} className="companies-brief-read-more">
+              <span className="companies-brief-read-more-text">
+                {fallbackLabel("read_more", "Read more")}
+              </span>
+
+              <span className="companies-brief-arrow">
+                <i
+                  className={`fas ${
+                    isRtl ? "fa-arrow-left" : "fa-arrow-right"
+                  }`}
+                />
+              </span>
+            </Link>
+
+            {websiteHref ? (
+              <a
+                href={websiteHref}
+                target="_blank"
+                rel="noreferrer"
+                className="companies-brief-website"
+                aria-label={`${companyName} website`}
+              >
+                <span className="companies-brief-website-icon">
+                  <i className="fas fa-globe-americas" />
+                </span>
+                <span>{fallbackLabel("website", "Website")}</span>
+              </a>
+            ) : (
+              <div
+                className="companies-brief-website companies-brief-website-placeholder"
+                aria-hidden="true"
+              />
+            )}
+          </div>
+        </div>
+      </article>
+    );
+  };
+
+  return (
+    <section className="companies-brief-section">
+      <div className="auto-container">
+        <div className="jadwa-testimonials-head companies-brief-head">
+          <div className="jadwa-pill">
+            <span className="jadwa-pill-dot" />
+            <span>{fallbackLabel("companies.title", "Companies")}</span>
+          </div>
+
+          <h2 className="jadwa-testimonials-title">
+            {fallbackLabel(
+              "about.ourCompaniesBrief",
+              "A Brief Look At Our Companies",
+            )}
+          </h2>
+
+          <p className="jadwa-testimonials-subtitle">
+            {fallbackLabel(
+              "companies.description",
+              "A curated view of selected companies within our ecosystem.",
+            )}
+          </p>
+        </div>
+
+        {/* Desktop / Tablet Grid */}
+        <div className="row clearfix companies-brief-grid">
+          {visibleCompanies.map((company, index) => (
+            <div
+              key={company?._id || company?.slug || index}
               className="col-lg-4 col-md-6 col-sm-12 mb-4"
             >
-              <div
-                style={{
-                  background: "#fff",
-                  borderRadius: "18px",
-                  overflow: "hidden",
-                  boxShadow: "0 12px 34px rgba(0,0,0,0.08)",
-                  height: "100%",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <div
-                  style={{
-                    height: "180px",
-                    background:
-                      "linear-gradient(135deg, rgba(15,86,98,0.12), rgba(222,176,131,0.2))",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    padding: "24px",
-                  }}
-                >
-                  {company?.logo ? (
-                    <img
-                      src={`${imageURL}companies/${company.logo}`}
-                      alt={companyName}
-                      style={{
-                        maxWidth: "170px",
-                        maxHeight: "110px",
-                        objectFit: "contain",
-                      }}
-                    />
-                  ) : company?.background ? (
-                    <img
-                      src={`${imageURL}companies/${company.background}`}
-                      alt={companyName}
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                        borderRadius: "12px",
-                      }}
-                    />
-                  ) : null}
-                </div>
-
-                <div
-                  style={{
-                    padding: "24px",
-                    display: "flex",
-                    flexDirection: "column",
-                    flexGrow: 1,
-                  }}
-                >
-                  <h3 style={{ fontSize: "24px", marginBottom: "10px" }}>
-                    {companyName}
-                  </h3>
-
-                  {experienceField ? (
-                    <p
-                      style={{
-                        color: "#0f5662",
-                        fontWeight: 600,
-                        marginBottom: "8px",
-                      }}
-                    >
-                      {experienceField}
-                    </p>
-                  ) : null}
-
-                  {companyCountry ? (
-                    <p style={{ color: "#6b7280", marginBottom: "10px" }}>
-                      {companyCountry}
-                    </p>
-                  ) : null}
-
-                  <p
-                    style={{ marginBottom: "18px", flexGrow: 1 }}
-                    dangerouslySetInnerHTML={{
-                      __html: truncateText(companyAbout, 160),
-                    }}
-                  />
-
-                  <div
-                    style={{
-                      display: "flex",
-                      gap: "16px",
-                      alignItems: "center",
-                      flexWrap: "wrap",
-                    }}
-                  >
-                    <span
-                      className="cursor-pointer"
-                      onClick={() =>
-                        router.push(`/company-details/${company?.slug}`)
-                      }
-                      style={{ color: "#0f5662", fontWeight: 700 }}
-                    >
-                      {fallbackLabel("read_more", "Read more")}
-                    </span>
-                    {company?.website ? (
-                      <a
-                        href={
-                          /^https?:\/\//i.test(company.website)
-                            ? company.website
-                            : `https://${company.website}`
-                        }
-                        target="_blank"
-                        rel="noreferrer"
-                        style={{ color: "#de934f", fontWeight: 700 }}
-                      >
-                        {fallbackLabel("website", "Website")}
-                      </a>
-                    ) : null}
-                  </div>
-                </div>
-              </div>
+              {renderCompanyCard(company, index, false)}
             </div>
-          );
-        })}
+          ))}
+        </div>
+
+        {/* Mobile Swiper */}
+        <div
+          key={`companies-mobile-slider-${lang}`}
+          className="companies-brief-mobile-slider"
+        >
+          <Swiper
+            key={`companies-swiper-${lang}-${isRtl ? "rtl" : "ltr"}`}
+            modules={[Pagination]}
+            spaceBetween={14}
+            slidesPerView={1.08}
+            pagination={{ clickable: true }}
+            dir={isRtl ? "rtl" : "ltr"}
+            className="companies-brief-swiper"
+          >
+            {visibleCompanies.map((company, index) => (
+              <SwiperSlide
+                key={`${lang}-${company?._id || company?.slug || index}`}
+              >
+                {renderCompanyCard(company, index, true)}
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }

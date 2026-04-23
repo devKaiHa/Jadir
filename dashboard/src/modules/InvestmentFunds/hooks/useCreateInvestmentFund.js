@@ -7,7 +7,6 @@ import { useCompanies } from "../../hooks/useCompanies";
 const emptyLangState = {
   en: "",
   ar: "",
-  tr: "",
 };
 
 const useCreateInvestmentFund = () => {
@@ -20,7 +19,6 @@ const useCreateInvestmentFund = () => {
   const [shortAbout, setShortAbout] = useState({ ...emptyLangState });
 
   const [fundLink, setFundLink] = useState("");
-  const [isActive, setIsActive] = useState(true);
   const [order, setOrder] = useState(0);
 
   const [launchDate, setLaunchDate] = useState("");
@@ -74,7 +72,6 @@ const useCreateInvestmentFund = () => {
       formData.append("sharePrice", String(sharePrice || 0));
       formData.append("minInvestAmount", String(minInvestAmount || 0));
       formData.append("irr", String(irr || 0));
-      formData.append("isActive", isActive ? "true" : "false");
       formData.append("order", String(order || 0));
 
       companiesAssociated.forEach((company) => {
@@ -125,9 +122,6 @@ const useCreateInvestmentFund = () => {
     companiesAssociated,
     setCompaniesAssociated,
     companies,
-
-    isActive,
-    setIsActive,
 
     order,
     setOrder,

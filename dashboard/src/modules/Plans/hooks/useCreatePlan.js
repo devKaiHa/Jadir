@@ -6,7 +6,6 @@ import { usePlans } from "../../hooks/usePlans";
 const emptyLangState = {
   en: "",
   ar: "",
-  tr: "",
 };
 
 const useCreatePlan = () => {
@@ -15,7 +14,6 @@ const useCreatePlan = () => {
 
   const [title, setTitle] = useState({ ...emptyLangState });
   const [description, setDescription] = useState({ ...emptyLangState });
-  const [isActive, setIsActive] = useState(true);
   const [order, setOrder] = useState(0);
 
   const handleTitleChange = (lang, value) => {
@@ -31,7 +29,6 @@ const useCreatePlan = () => {
       const payload = {
         title,
         description,
-        isActive,
         order,
       };
 
@@ -51,8 +48,6 @@ const useCreatePlan = () => {
   return {
     title,
     description,
-    isActive,
-    setIsActive,
     order,
     setOrder,
     handleTitleChange,

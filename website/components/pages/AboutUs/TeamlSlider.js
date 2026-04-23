@@ -1,89 +1,93 @@
 "use client";
+
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useTranslation } from "react-i18next";
-import { useRouter } from "next/router";
 import { truncateText } from "@/GlobalHooks/GlobalHooks";
-import { useIsMobile } from "@/lib/helpers";
 import { imageURL } from "@/api/GlobalData";
 
 const swiperOptions = {
   modules: [Autoplay, Pagination, Navigation],
-  slidesPerView: 2,
-  spaceBetween: 30,
+  slidesPerView: 1,
+  spaceBetween: 18,
   autoplay: {
     delay: 50000000,
     disableOnInteraction: false,
   },
   loop: true,
   navigation: {
-    nextEl: ".h1n",
-    prevEl: ".h1p",
+    nextEl: ".jadwa-team-next",
+    prevEl: ".jadwa-team-prev",
   },
   pagination: {
-    el: ".swiper-pagination",
+    el: ".jadwa-team-pagination",
     clickable: true,
   },
   breakpoints: {
-    320: { slidesPerView: 1 },
-    991: { slidesPerView: 2 },
-    1199: { slidesPerView: 3 },
+    576: { slidesPerView: 2, spaceBetween: 18 },
+    992: { slidesPerView: 3, spaceBetween: 20 },
+    1200: { slidesPerView: 4, spaceBetween: 22 },
   },
 };
 
-export default function TeamSlider({ team }) {
-  const router = useRouter();
+export default function TeamSlider({ team = [] }) {
   const { i18n } = useTranslation();
   const lang = i18n.language || "en";
-  const isMobile = useIsMobile();
+
+  const getText = (field) =>
+    field?.[lang] || field?.en || field?.ar || field?.tr || "";
 
   return (
-    <Swiper
-      {...swiperOptions}
-      className="theme_carousel owl-theme"
-      style={{ padding: "30px 10px" }}
-    >
-      {team?.map((member, index) => {
-        return (
-          <SwiperSlide key={index} className="slide">
-            <div className="team-block-one">
-              <div className="inner-box" style={{ height: "465px" }}>
-                <figure
-                  className="image-box p-0 m-0"
-                  onClick={() => {
-                    if (member?.slug) router.push(`/member/${member?.slug}`);
-                  }}
-                >
+    <div className="jadwa-mini-team-slider">
+      <Swiper {...swiperOptions} className="jadwa-mini-team-swiper">
+        {team?.map((member, index) => {
+          const name = getText(member?.name);
+          const position = getText(member?.position);
+          const bio = getText(member?.bio);
+
+          return (
+            <SwiperSlide
+              key={member?._id || index}
+              className="jadwa-mini-team-slide"
+            >
+              <article className="jadwa-mini-team-card">
+                <div className="jadwa-mini-team-image-wrap">
                   <img
-                    className="d-block"
+                    className="jadwa-mini-team-image"
                     src={`${imageURL}boardMember/${member.image}`}
-                    alt={member?.name?.[lang]}
+                    alt={name}
                   />
-                </figure>
-                <div className="lower-content">
-                  <h3
-                    style={{
-                      cursor: "pointer",
-                      fontSize: isMobile ? "16px" : "24px",
-                    }}
-                    onClick={() =>
-                      member?.slug && router.push(`/member/${member?.slug}`)
-                    }
-                  >
-                    {member?.name?.[lang]}
-                  </h3>
-                  <h6>{member?.position?.[lang]}</h6>
-                  <p
-                    dangerouslySetInnerHTML={{
-                      __html: truncateText(member?.bio?.[lang], 50),
-                    }}
-                  />
+                  <div className="jadwa-mini-team-image-overlay" />
+
+                  <div className="jadwa-mini-team-topbar">
+                    <span className="jadwa-mini-team-badge">Team</span>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </SwiperSlide>
-        );
-      })}
-    </Swiper>
+
+                <div className="jadwa-mini-team-content">
+                  <h3 className="jadwa-mini-team-name">{name}</h3>
+
+                  <div className="jadwa-mini-team-position">{position}</div>
+
+                  <p className="jadwa-mini-team-bio">{truncateText(bio, 78)}</p>
+                </div>
+              </article>
+            </SwiperSlide>
+          );
+        })}
+      </Swiper>
+
+      <div className="jadwa-mini-team-controls">
+        <button className="jadwa-mini-team-nav jadwa-team-prev" type="button">
+          <i className="fa-solid fa-arrow-left" />
+        </button>
+
+        <div className="jadwa-team-pagination" />
+
+        <button className="jadwa-mini-team-nav jadwa-team-next" type="button">
+          <i className="fa-solid fa-arrow-right" />
+        </button>
+      </div>
+    </div>
   );
 }

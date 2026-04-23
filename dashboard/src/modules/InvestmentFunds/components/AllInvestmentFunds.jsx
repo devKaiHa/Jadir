@@ -30,18 +30,68 @@ const AllInvestmentFunds = () => {
 
   if (isLoading) return <LoadingCard />;
   if (error) return <ErrorMessageCard />;
+  const linkedCount = investmentFunds.filter(
+    (fund) => (fund?.companiesAssociated?.length || 0) > 0,
+  ).length;
 
   return (
     <Container>
-      <div className="grid">
-        <div className="card card-grid min-w-full">
+      <div className="space-y-6">
+        <div className="overflow-hidden rounded-[28px] border border-slate-200 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white shadow-xl">
+          <div className="grid gap-6 px-6 py-7 lg:grid-cols-[1.2fr_0.8fr] lg:px-8">
+            <div>
+              <span className="inline-flex rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-slate-200">
+                Investment Funds
+              </span>
+              <h2 className="mt-4 text-2xl font-semibold">
+                Manage fund profiles with the same clean admin experience as board members
+              </h2>
+              <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-200">
+                Track active funds, review linked companies, and edit public
+                fund pages from a consistent overview.
+              </p>
+            </div>
+
+            <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+              <div className="rounded-2xl bg-white/10 p-4 backdrop-blur-sm">
+                <div className="text-xs uppercase tracking-[0.18em] text-slate-300">Total</div>
+                <div className="mt-2 text-2xl font-semibold">{investmentFunds.length}</div>
+              </div>
+              <div className="rounded-2xl bg-white/10 p-4 backdrop-blur-sm">
+                <div className="text-xs uppercase tracking-[0.18em] text-slate-300">Active</div>
+                <div className="mt-2 text-2xl font-semibold">{activeCount}</div>
+              </div>
+              <div className="rounded-2xl bg-white/10 p-4 backdrop-blur-sm">
+                <div className="text-xs uppercase tracking-[0.18em] text-slate-300">Linked Companies</div>
+                <div className="mt-2 text-2xl font-semibold">{linkedCount}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="rounded-3xl border border-gray-200 bg-white p-5 shadow-sm">
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900">Investment Funds</h3>
+              <p className="mt-1 text-sm text-gray-500">
+                {activeCount} active and {inactiveCount} inactive funds
+              </p>
+            </div>
+
+            <AddButton
+              label="New Investment Fund"
+              onClick={() => navigate("/add-investment-fund")}
+            />
+          </div>
+        </div>
+
+        <div className="card card-grid min-w-full rounded-3xl border border-gray-200 shadow-sm">
           <div className="card-header py-5 flex-wrap">
-            <h3 className="card-title">Investment Funds</h3>
-            <div className="flex gap-6">
-              <AddButton
-                label="New Investment Fund"
-                onClick={() => navigate("/add-investment-fund")}
-              />
+            <div>
+              <h3 className="card-title">Funds List</h3>
+              <p className="mt-1 text-sm text-gray-500">
+                Showing {investmentFunds.length} investment funds
+              </p>
             </div>
           </div>
 
@@ -52,6 +102,7 @@ const AllInvestmentFunds = () => {
                   <tr>
                     <th className="min-w-[90px]">Image</th>
                     <th className="min-w-[220px]">Title</th>
+                    <th className="min-w-[140px]">Companies</th>
                     <th className="min-w-[180px]">Fund Link</th>
                     <th className="min-w-[100px]">Order</th>
                     <th className="min-w-[100px]">Status</th>
@@ -80,10 +131,11 @@ const AllInvestmentFunds = () => {
                         <span className="text-sm font-medium text-gray-800">
                           {fund?.title?.en ||
                             fund?.title?.ar ||
-                            fund?.title?.tr ||
                             "-"}
                         </span>
                       </td>
+
+                      <td>{fund?.companiesAssociated?.length || 0}</td>
 
                       <td>
                         {fund?.fundLink ? (
@@ -105,10 +157,10 @@ const AllInvestmentFunds = () => {
                       <td>
                         <span
                           className={`badge ${
-                            fund?.isActive ? "badge-success" : "badge-danger"
+                            "badge-success"
                           }`}
                         >
-                          {fund?.isActive ? "Active" : "Inactive"}
+                          {"Active"}
                         </span>
                       </td>
 
@@ -142,7 +194,7 @@ const AllInvestmentFunds = () => {
                   {!investmentFunds?.length && (
                     <tr>
                       <td
-                        colSpan={6}
+                        colSpan={7}
                         className="text-center py-6 text-gray-500"
                       >
                         No investment funds found

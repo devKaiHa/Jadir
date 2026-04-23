@@ -21,195 +21,174 @@ const InvestmentFundGeneralInfoTab = ({
   companiesAssociated,
   setCompaniesAssociated,
   companies,
-  isActive,
-  setIsActive,
   order,
   setOrder,
   imagePreview,
   onImageChange,
 }) => {
   return (
-    <div className="flex flex-col lg:flex-row gap-4">
-      <div className="flex-1 card">
-        <div className="card-header flex items-center justify-between">
-          <h3 className="card-title">General Info</h3>
+    <div className="grid gap-6 xl:grid-cols-[1.2fr_0.8fr]">
+      <div className="space-y-6">
+        <div className="rounded-3xl border border-gray-200 bg-white p-5 shadow-sm">
+          <div className="mb-5">
+            <h3 className="text-lg font-semibold text-gray-900">Fund Settings</h3>
+            <p className="mt-1 text-sm text-gray-500">
+              Configure publishing, timeline, performance numbers, and linked companies.
+            </p>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-2">
+            <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4 md:col-span-2">
+              <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.18em] text-gray-400">
+                Fund Link
+              </label>
+              <input
+                type="text"
+                className="input"
+                value={fundLink}
+                onChange={(e) => setFundLink(e.target.value)}
+                placeholder="Enter fund link"
+              />
+            </div>
+
+            <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4">
+              <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.18em] text-gray-400">
+                Display Order
+              </label>
+              <input
+                type="number"
+                className="input"
+                value={order}
+                onChange={(e) => setOrder(Number(e.target.value))}
+              />
+            </div>
+
+            <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4">
+              <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.18em] text-gray-400">
+                Launch Date
+              </label>
+              <input
+                type="date"
+                className="input"
+                value={launchDate}
+                onChange={(e) => setLaunchDate(e.target.value)}
+              />
+            </div>
+
+            <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4">
+              <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.18em] text-gray-400">
+                Associated Companies
+              </label>
+              <MultiSelect
+                options={companies}
+                selected={companiesAssociated}
+                onChange={setCompaniesAssociated}
+                placeholder="Select companies"
+              />
+            </div>
+          </div>
         </div>
 
-        <div className="card-table scrollable-x-auto pb-3 overflow-visible">
-          <table className="table-auto w-full text-sm text-gray-600">
-            <tbody>
-              <tr>
-                <td className="p-2 pt-4">
-                  <div className="input-group">
-                    <span className="btn btn-input w-[20%]">Fund Link</span>
-                    <input
-                      type="text"
-                      className="input"
-                      value={fundLink}
-                      onChange={(e) => setFundLink(e.target.value)}
-                      placeholder="Enter fund link"
-                    />
-                  </div>
-                </td>
-              </tr>
+        <div className="rounded-3xl border border-gray-200 bg-white p-5 shadow-sm">
+          <div className="mb-5">
+            <h3 className="text-lg font-semibold text-gray-900">Fund Metrics</h3>
+            <p className="mt-1 text-sm text-gray-500">
+              Keep the fund duration, investment thresholds, and return metrics up to date.
+            </p>
+          </div>
 
-              <tr>
-                <td className="p-2 pt-4">
-                  <div className="input-group">
-                    <span className="btn btn-input w-[20%]">Order</span>
-                    <input
-                      type="number"
-                      className="input"
-                      value={order}
-                      onChange={(e) => setOrder(Number(e.target.value))}
-                    />
-                  </div>
-                </td>
-              </tr>
+          <div className="grid gap-4 md:grid-cols-2">
+            <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4">
+              <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.18em] text-gray-400">
+                Fund Duration
+              </label>
+              <input
+                type="number"
+                className="input"
+                value={fundDuration}
+                onChange={(e) => setFundDuration(Number(e.target.value))}
+              />
+            </div>
 
-              <tr>
-                <td className="p-2 pt-4">
-                  <div className="input-group">
-                    <span className="btn btn-input w-[20%]">Launch Date</span>
-                    <input
-                      type="date"
-                      className="input"
-                      value={launchDate}
-                      onChange={(e) => setLaunchDate(e.target.value)}
-                    />
-                  </div>
-                </td>
-              </tr>
+            <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4">
+              <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.18em] text-gray-400">
+                Duration Suffix
+              </label>
+              <select
+                className="input"
+                name="duration-suffix"
+                value={durationSuffix}
+                onChange={(e) => setDurationSuffix(e.target.value)}
+              >
+                <option value="">Select</option>
+                <option value="days">Days</option>
+                <option value="weeks">Weeks</option>
+                <option value="months">Months</option>
+                <option value="months">Years</option>
+              </select>
+            </div>
 
-              <tr>
-                <td className="p-2 pt-4 flex gap-x-2">
-                  <div className="input-group w-[50%]">
-                    <span className="btn btn-input w-[40%]">Fund Duration</span>
-                    <input
-                      type="number"
-                      className="input"
-                      value={fundDuration}
-                      onChange={(e) => setFundDuration(Number(e.target.value))}
-                    />
-                  </div>
-                  <div className="input-group w-[50%]">
-                    <span className="btn btn-input w-[40%]">
-                      Duration suffix
-                    </span>
-                    <select
-                      className="select w-full"
-                      name="duration-suffix"
-                      value={durationSuffix}
-                      onChange={(e) => setDurationSuffix(e.target.value)}
-                    >
-                      <option value="">Select</option>
-                      <option value="days">Days</option>
-                      <option value="weeks">Weeks</option>
-                      <option value="months">Months</option>
-                      <option value="months">Years</option>
-                    </select>
-                  </div>
-                </td>
-              </tr>
+            <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4">
+              <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.18em] text-gray-400">
+                Assets Volume
+              </label>
+              <input
+                type="number"
+                className="input"
+                value={assetsVolume}
+                onChange={(e) => setAssetsVolume(Number(e.target.value))}
+              />
+            </div>
 
-              <tr>
-                <td className="p-2 pt-4 flex gap-x-2">
-                  <div className="input-group w-[50%]">
-                    <span className="btn btn-input w-[40%]">Assets Volume</span>
-                    <input
-                      type="number"
-                      className="input"
-                      value={assetsVolume}
-                      onChange={(e) => setAssetsVolume(Number(e.target.value))}
-                    />
-                  </div>
-                  <div className="input-group w-[50%]">
-                    <span className="btn btn-input w-[40%]">Share Price</span>
-                    <input
-                      type="number"
-                      className="input"
-                      value={sharePrice}
-                      onChange={(e) => setSharePrice(Number(e.target.value))}
-                    />
-                  </div>
-                </td>
-              </tr>
+            <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4">
+              <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.18em] text-gray-400">
+                Share Price
+              </label>
+              <input
+                type="number"
+                className="input"
+                value={sharePrice}
+                onChange={(e) => setSharePrice(Number(e.target.value))}
+              />
+            </div>
 
-              <tr>
-                <td className="p-2 pt-4">
-                  <div className="input-group">
-                    <span className="btn btn-input w-[20%]">Min Invest</span>
-                    <input
-                      type="number"
-                      className="input"
-                      value={minInvestAmount}
-                      onChange={(e) =>
-                        setMinInvestAmount(Number(e.target.value))
-                      }
-                    />
-                  </div>
-                </td>
-              </tr>
+            <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4">
+              <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.18em] text-gray-400">
+                Minimum Investment
+              </label>
+              <input
+                type="number"
+                className="input"
+                value={minInvestAmount}
+                onChange={(e) => setMinInvestAmount(Number(e.target.value))}
+              />
+            </div>
 
-              <tr>
-                <td className="p-2 pt-4">
-                  <div className="input-group">
-                    <span className="btn btn-input w-[20%]">IRR</span>
-                    <input
-                      type="number"
-                      className="input"
-                      value={irr}
-                      onChange={(e) => setIrr(Number(e.target.value))}
-                    />
-                  </div>
-                </td>
-              </tr>
-
-              <tr>
-                <td className="p-2 pt-4">
-                  <div className="input-group">
-                    <span className="btn btn-input w-[20%]">Status</span>
-                    <select
-                      className="input"
-                      value={isActive ? "true" : "false"}
-                      onChange={(e) => setIsActive(e.target.value === "true")}
-                    >
-                      <option value="true">Active</option>
-                      <option value="false">Inactive</option>
-                    </select>
-                  </div>
-                </td>
-              </tr>
-
-              <tr>
-                <td className="p-2 pt-4">
-                  <div className="input-group items-start">
-                    <span className="btn btn-input w-[20%]">
-                      Associated Companies
-                    </span>
-                    <div className="w-full">
-                      <MultiSelect
-                        options={companies}
-                        selected={companiesAssociated}
-                        onChange={setCompaniesAssociated}
-                        placeholder="Select companies"
-                      />
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+            <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4">
+              <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.18em] text-gray-400">
+                IRR
+              </label>
+              <input
+                type="number"
+                className="input"
+                value={irr}
+                onChange={(e) => setIrr(Number(e.target.value))}
+              />
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="lg:w-[35%] self-start">
-        <div className="card">
-          <div className="card-header">
-            <h3 className="card-title">Fund Image</h3>
+      <div className="space-y-6">
+        <div className="rounded-3xl border border-gray-200 bg-white p-5 shadow-sm">
+          <div className="mb-4">
+            <h3 className="text-lg font-semibold text-gray-900">Fund Image</h3>
+            <p className="mt-1 text-sm text-gray-500">
+              Upload the image used to represent this fund on listing and detail pages.
+            </p>
           </div>
 
-          <div className="p-6">
+          <div className="p-2">
             <CrudAvatarUpload
               onChange={onImageChange}
               value={imagePreview}

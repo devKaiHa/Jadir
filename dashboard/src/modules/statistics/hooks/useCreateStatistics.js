@@ -6,7 +6,6 @@ import { useStatistics } from "../../hooks/useStatistics";
 const emptyLangState = {
   en: "",
   ar: "",
-  tr: "",
 };
 
 const useCreateStatistic = () => {
@@ -17,7 +16,6 @@ const useCreateStatistic = () => {
   const [suffix, setSuffix] = useState({ ...emptyLangState });
   const [description, setDescription] = useState({ ...emptyLangState });
   const [value, setValue] = useState("");
-  const [isActive, setIsActive] = useState(true);
   const [order, setOrder] = useState(0);
 
   const handleLangChange = (group, lang, valueText) => {
@@ -39,7 +37,6 @@ const useCreateStatistic = () => {
         suffix,
         description,
         value,
-        isActive,
         order,
       };
 
@@ -62,8 +59,6 @@ const useCreateStatistic = () => {
     description,
     value,
     setValue,
-    isActive,
-    setIsActive,
     order,
     setOrder,
     handleLangChange,

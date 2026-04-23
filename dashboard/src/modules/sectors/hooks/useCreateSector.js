@@ -6,7 +6,6 @@ import { useSectors } from "../../hooks/useSectors";
 const emptyLangState = {
   en: "",
   ar: "",
-  tr: "",
 };
 
 const useCreateSector = () => {
@@ -17,8 +16,6 @@ const useCreateSector = () => {
   const [description, setDescription] = useState({ ...emptyLangState });
 
   const [slug, setSlug] = useState("");
-
-  const [isActive, setIsActive] = useState(true);
   const [order, setOrder] = useState(0);
 
   const handleNameChange = (lang, value) => {
@@ -33,7 +30,6 @@ const useCreateSector = () => {
     setName({ ...emptyLangState });
     setDescription({ ...emptyLangState });
     setSlug("");
-    setIsActive(true);
     setOrder(0);
   };
 
@@ -44,7 +40,6 @@ const useCreateSector = () => {
       formData.append("name", JSON.stringify(name));
       formData.append("description", JSON.stringify(description));
       formData.append("slug", slug);
-      formData.append("isActive", isActive);
       formData.append("order", order);
 
       await postSector(formData).unwrap();
@@ -66,9 +61,6 @@ const useCreateSector = () => {
     description,
     slug,
     setSlug,
-
-    isActive,
-    setIsActive,
 
     order,
     setOrder,

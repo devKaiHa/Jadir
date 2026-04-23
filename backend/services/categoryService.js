@@ -11,14 +11,9 @@ exports.getCategories = asyncHandler(async (req, res) => {
     page = 1,
     limit = 10,
     sort = "order createdAt",
-    isActive,
   } = req.query;
 
   const query = {};
-
-  if (isActive !== undefined) {
-    query.isActive = isActive === "true";
-  }
 
   if (keyword && keyword.trim() !== "") {
     const safeKeyword = keyword.trim();
@@ -26,7 +21,6 @@ exports.getCategories = asyncHandler(async (req, res) => {
     query.$or = [
       { "name.ar": { $regex: safeKeyword, $options: "i" } },
       { "name.en": { $regex: safeKeyword, $options: "i" } },
-      { "name.tr": { $regex: safeKeyword, $options: "i" } },
       { slug: { $regex: safeKeyword, $options: "i" } },
     ];
   }
@@ -59,7 +53,7 @@ exports.getCategories = asyncHandler(async (req, res) => {
 // Public list
 exports.getPublicCategories = asyncHandler(async (req, res) => {
   const categories = await categoryModel
-    .find({ isActive: true })
+    .find({})
     .sort({ order: 1, createdAt: -1 });
 
   res.status(200).json({
@@ -71,11 +65,6 @@ exports.getPublicCategories = asyncHandler(async (req, res) => {
 exports.createCategory = asyncHandler(async (req, res) => {
   req.body.name = safeParseJSON(req.body.name, "name");
   req.body.slug = buildSlug(req.body.name);
-
-  if (req.body.isActive !== undefined) {
-    req.body.isActive =
-      req.body.isActive === true || req.body.isActive === "true";
-  }
 
   const category = await categoryModel.create(req.body);
 
@@ -104,7 +93,7 @@ exports.getOneCategory = asyncHandler(async (req, res, next) => {
 exports.getCategoryBySlug = asyncHandler(async (req, res, next) => {
   const { slug } = req.params;
 
-  const category = await categoryModel.findOne({ slug, isActive: true });
+  const category = await categoryModel.findOne({ slug });
 
   if (!category) {
     return next(
@@ -124,11 +113,6 @@ exports.updateCategory = asyncHandler(async (req, res, next) => {
   if (req.body.name !== undefined) {
     req.body.name = safeParseJSON(req.body.name, "name");
     req.body.slug = buildSlug(req.body.name);
-  }
-
-  if (req.body.isActive !== undefined) {
-    req.body.isActive =
-      req.body.isActive === true || req.body.isActive === "true";
   }
 
   const updatedCategory = await categoryModel.findByIdAndUpdate(id, req.body, {

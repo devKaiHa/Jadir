@@ -11,7 +11,6 @@ import { imageURL } from "../../../Api/GlobalData";
 const emptyLangState = {
   en: "",
   ar: "",
-  tr: "",
 };
 
 const useUpdateInvestmentFund = () => {
@@ -34,7 +33,6 @@ const useUpdateInvestmentFund = () => {
   const [sharePrice, setSharePrice] = useState(0);
   const [minInvestAmount, setMinInvestAmount] = useState(0);
   const [irr, setIrr] = useState(0);
-  const [isActive, setIsActive] = useState(true);
   const [order, setOrder] = useState(0);
   const [companiesAssociated, setCompaniesAssociated] = useState([]);
 
@@ -47,19 +45,16 @@ const useUpdateInvestmentFund = () => {
     setTitle({
       en: investmentFund?.title?.en || "",
       ar: investmentFund?.title?.ar || "",
-      tr: investmentFund?.title?.tr || "",
     });
 
     setContent({
       en: investmentFund?.content?.en || "",
       ar: investmentFund?.content?.ar || "",
-      tr: investmentFund?.content?.tr || "",
     });
 
     setShortAbout({
       en: investmentFund?.shortAbout?.en || "",
       ar: investmentFund?.shortAbout?.ar || "",
-      tr: investmentFund?.shortAbout?.tr || "",
     });
 
     setFundLink(investmentFund?.fundLink || "");
@@ -74,7 +69,6 @@ const useUpdateInvestmentFund = () => {
     setSharePrice(investmentFund?.sharePrice || 0);
     setMinInvestAmount(investmentFund?.minInvestAmount || 0);
     setIrr(investmentFund?.irr || 0);
-    setIsActive(investmentFund?.isActive ?? true);
     setOrder(investmentFund?.order || 0);
     setCompaniesAssociated(investmentFund?.companiesAssociated || []);
 
@@ -127,7 +121,6 @@ const useUpdateInvestmentFund = () => {
       formData.append("sharePrice", String(sharePrice || 0));
       formData.append("minInvestAmount", String(minInvestAmount || 0));
       formData.append("irr", String(irr || 0));
-      formData.append("isActive", isActive ? "true" : "false");
       formData.append("order", String(order || 0));
 
       companiesAssociated.forEach((company) => {
@@ -185,9 +178,6 @@ const useUpdateInvestmentFund = () => {
     companiesAssociated,
     setCompaniesAssociated,
     companies,
-
-    isActive,
-    setIsActive,
 
     order,
     setOrder,

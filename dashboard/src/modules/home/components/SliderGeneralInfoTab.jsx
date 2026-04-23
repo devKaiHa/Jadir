@@ -1,14 +1,8 @@
 import { CrudAvatarUpload } from "../../../partials/crud/CrudAvatarUpload";
 
 const SliderGeneralInfoTab = ({
-  sliderType,
-  setSliderType,
-  btnLink,
-  setBtnLink,
   order,
   setOrder,
-  isActive,
-  setIsActive,
   imagePreview,
   onImageChange,
 }) => {
@@ -25,37 +19,6 @@ const SliderGeneralInfoTab = ({
               <tr>
                 <td className="p-2 pt-4">
                   <div className="input-group">
-                    <span className="btn btn-input w-[20%]">Slider Type</span>
-                    <select
-                      className="input"
-                      value={sliderType}
-                      onChange={(e) => setSliderType(e.target.value)}
-                    >
-                      <option value="main">Main</option>
-                      <option value="secondary">Secondary</option>
-                    </select>
-                  </div>
-                </td>
-              </tr>
-
-              <tr>
-                <td className="p-2 pt-4">
-                  <div className="input-group">
-                    <span className="btn btn-input w-[20%]">Button Link</span>
-                    <input
-                      type="text"
-                      className="input"
-                      placeholder="Enter button link"
-                      value={btnLink}
-                      onChange={(e) => setBtnLink(e.target.value)}
-                    />
-                  </div>
-                </td>
-              </tr>
-
-              <tr>
-                <td className="p-2 pt-4">
-                  <div className="input-group">
                     <span className="btn btn-input w-[20%]">Order</span>
                     <input
                       type="number"
@@ -67,21 +30,6 @@ const SliderGeneralInfoTab = ({
                 </td>
               </tr>
 
-              <tr>
-                <td className="p-2 pt-4">
-                  <div className="input-group">
-                    <span className="btn btn-input w-[20%]">Status</span>
-                    <select
-                      className="input"
-                      value={isActive ? "true" : "false"}
-                      onChange={(e) => setIsActive(e.target.value === "true")}
-                    >
-                      <option value="true">Active</option>
-                      <option value="false">Inactive</option>
-                    </select>
-                  </div>
-                </td>
-              </tr>
             </tbody>
           </table>
         </div>

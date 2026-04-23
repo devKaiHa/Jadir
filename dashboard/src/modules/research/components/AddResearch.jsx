@@ -11,8 +11,6 @@ const AddResearch = () => {
     content,
     imagePreview,
     onImageChange,
-    isActive,
-    setIsActive,
     isPublished,
     setIsPublished,
     order,
@@ -30,8 +28,6 @@ const AddResearch = () => {
       icon: "ki-outline ki-user-square",
       content: (
         <ResearchGeneralInfoTab
-          isActive={isActive}
-          setIsActive={setIsActive}
           isPublished={isPublished}
           setIsPublished={setIsPublished}
           order={order}
@@ -41,7 +37,7 @@ const AddResearch = () => {
         />
       ),
     },
-    ...["en", "ar", "tr"].map((lang) => ({
+    ...["en", "ar"].map((lang) => ({
       key: `research_${lang}`,
       label: `Research ${lang.toUpperCase()}`,
       icon: "ki-outline ki-clipboard",

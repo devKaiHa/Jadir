@@ -5,6 +5,5 @@ export const createEmptyAboutServiceItem = () => ({
   contentTitle: { en: "", ar: "", tr: "" },
   contentText: { en: [""], ar: [""], tr: [""] },
   highlight: { en: "", ar: "", tr: "" },
-  isActive: true,
   order: 0,
 });

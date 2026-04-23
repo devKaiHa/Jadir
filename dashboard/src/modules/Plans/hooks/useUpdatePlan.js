@@ -6,7 +6,6 @@ import { useOnePlan, usePlans } from "../../hooks/usePlans";
 const emptyLangState = {
   en: "",
   ar: "",
-  tr: "",
 };
 
 const useUpdatePlan = () => {
@@ -18,7 +17,6 @@ const useUpdatePlan = () => {
 
   const [title, setTitle] = useState({ ...emptyLangState });
   const [description, setDescription] = useState({ ...emptyLangState });
-  const [isActive, setIsActive] = useState(true);
   const [order, setOrder] = useState(0);
 
   useEffect(() => {
@@ -27,16 +25,12 @@ const useUpdatePlan = () => {
     setTitle({
       en: plan?.title?.en || "",
       ar: plan?.title?.ar || "",
-      tr: plan?.title?.tr || "",
     });
 
     setDescription({
       en: plan?.description?.en || "",
       ar: plan?.description?.ar || "",
-      tr: plan?.description?.tr || "",
     });
-
-    setIsActive(plan?.isActive ?? true);
     setOrder(plan?.order || 0);
   }, [plan]);
 
@@ -53,7 +47,6 @@ const useUpdatePlan = () => {
       const payload = {
         title,
         description,
-        isActive,
         order,
       };
 
@@ -79,8 +72,6 @@ const useUpdatePlan = () => {
     isUpdating,
     title,
     description,
-    isActive,
-    setIsActive,
     order,
     setOrder,
     handleTitleChange,

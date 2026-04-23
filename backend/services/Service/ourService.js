@@ -1,6 +1,104 @@
 const asyncHandler = require("express-async-handler");
+const fs = require("fs");
 const ApiError = require("../../utils/apiError");
 const OurServiceModel = require("../../models/Service/ourServicesModel");
+const { uploadSingleImage } = require("../../middlewares/uploadingImage");
+const { v4: uuidv4 } = require("uuid");
+const sharp = require("sharp");
+const safeParseJSON = require("../../utils/safeParseJson");
+const buildSlug = require("../../utils/buildSlug");
+
+const parseLocalizedArray = (value, fieldName) => {
+  const parsed = safeParseJSON(value, fieldName);
+
+  if (parsed === undefined || parsed === null) return undefined;
+
+  const ensureArray = (items) =>
+    Array.isArray(items)
+      ? items
+          .map((item) => `${item ?? ""}`.trim())
+          .filter(Boolean)
+      : [];
+
+  return {
+    ar: ensureArray(parsed?.ar),
+    en: ensureArray(parsed?.en),
+  };
+};
+
+const parseIdArray = (value, fieldName) => {
+  const parsed = safeParseJSON(value, fieldName);
+
+  if (parsed === undefined || parsed === null) return undefined;
+  if (!Array.isArray(parsed)) {
+    throw new ApiError(`Invalid JSON format for ${fieldName}`, 400);
+  }
+
+  return parsed.filter(Boolean);
+};
+
+const servicePopulate = [
+  { path: "relatedProjects", select: "title slug image brief challenge solution result" },
+  { path: "relatedServices", select: "title slug bannerImage description" },
+];
+
+exports.uploadServiceBannerImage = uploadSingleImage("bannerImage");
+exports.resizeServiceBannerImage = asyncHandler(async (req, res, next) => {
+  if (!req.file) return next();
+
+  const filename = `service-${uuidv4()}-${Date.now()}.webp`;
+  fs.mkdirSync("uploads/ourServices", { recursive: true });
+
+  await sharp(req.file.buffer)
+    .toFormat("webp")
+    .webp({ quality: 70 })
+    .toFile(`uploads/ourServices/${filename}`);
+
+  req.body.bannerImage = filename;
+  next();
+});
+
+const normalizeServicePayload = (body) => {
+  if (body.title !== undefined) {
+    body.title = safeParseJSON(body.title, "title");
+    body.slug = buildSlug(body.title);
+  }
+
+  if (body.description !== undefined) {
+    body.description = safeParseJSON(body.description, "description");
+  }
+
+  if (body.features !== undefined) {
+    body.features = parseLocalizedArray(body.features, "features");
+  }
+
+  if (body.steps !== undefined) {
+    body.steps = parseLocalizedArray(body.steps, "steps");
+  }
+
+  if (body.targetingSectors !== undefined) {
+    body.targetingSectors = parseLocalizedArray(
+      body.targetingSectors,
+      "targetingSectors",
+    );
+  }
+
+  if (body.testimonial !== undefined) {
+    body.testimonial = safeParseJSON(body.testimonial, "testimonial");
+  }
+
+  if (body.relatedProjects !== undefined) {
+    body.relatedProjects = parseIdArray(body.relatedProjects, "relatedProjects");
+  }
+
+  if (body.relatedServices !== undefined) {
+    body.relatedServices = parseIdArray(body.relatedServices, "relatedServices");
+  }
+
+  if (body.order !== undefined) {
+    body.order = Number(body.order) || 0;
+  }
+};
 
 // Admin list
 exports.getOurServices = asyncHandler(async (req, res) => {
@@ -9,14 +107,9 @@ exports.getOurServices = asyncHandler(async (req, res) => {
     page = 1,
     limit = 10,
     sort = "order createdAt",
-    isActive,
   } = req.query;
 
   const query = {};
-
-  if (isActive !== undefined) {
-    query.isActive = isActive === "true";
-  }
 
   if (keyword && keyword.trim() !== "") {
     const safeKeyword = keyword.trim();
@@ -24,7 +117,8 @@ exports.getOurServices = asyncHandler(async (req, res) => {
     query.$or = [
       { "title.ar": { $regex: safeKeyword, $options: "i" } },
       { "title.en": { $regex: safeKeyword, $options: "i" } },
-      { "title.tr": { $regex: safeKeyword, $options: "i" } },
+      { "description.ar": { $regex: safeKeyword, $options: "i" } },
+      { "description.en": { $regex: safeKeyword, $options: "i" } },
     ];
   }
 
@@ -33,7 +127,11 @@ exports.getOurServices = asyncHandler(async (req, res) => {
   const skip = (pageNum - 1) * limitNum;
 
   const [services, total] = await Promise.all([
-    OurServiceModel.find(query).sort(sort).skip(skip).limit(limitNum),
+    OurServiceModel.find(query)
+      .populate(servicePopulate)
+      .sort(sort)
+      .skip(skip)
+      .limit(limitNum),
     OurServiceModel.countDocuments(query),
   ]);
 
@@ -59,10 +157,12 @@ exports.getOurServices = asyncHandler(async (req, res) => {
 
 // Public list
 exports.getPublicOurServices = asyncHandler(async (req, res) => {
-  const services = await OurServiceModel.find({ isActive: true }).sort({
-    order: 1,
-    createdAt: -1,
-  });
+  const services = await OurServiceModel.find({})
+    .populate(servicePopulate)
+    .sort({
+      order: 1,
+      createdAt: -1,
+    });
 
   res.status(200).json({
     status: true,
@@ -71,6 +171,7 @@ exports.getPublicOurServices = asyncHandler(async (req, res) => {
 });
 
 exports.createOurService = asyncHandler(async (req, res) => {
+  normalizeServicePayload(req.body);
   const service = await OurServiceModel.create(req.body);
 
   res.status(201).json({
@@ -83,7 +184,7 @@ exports.createOurService = asyncHandler(async (req, res) => {
 exports.getOneOurService = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
 
-  const service = await OurServiceModel.findById(id);
+  const service = await OurServiceModel.findById(id).populate(servicePopulate);
 
   if (!service) {
     return next(new ApiError(`No Service found for this id: ${id}`, 404));
@@ -97,11 +198,12 @@ exports.getOneOurService = asyncHandler(async (req, res, next) => {
 
 exports.updateOurService = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
+  normalizeServicePayload(req.body);
 
   const updatedService = await OurServiceModel.findByIdAndUpdate(id, req.body, {
     new: true,
     runValidators: true,
-  });
+  }).populate(servicePopulate);
 
   if (!updatedService) {
     return next(new ApiError(`No Service found for this id: ${id}`, 404));

@@ -11,14 +11,9 @@ exports.getSectors = asyncHandler(async (req, res) => {
     page = 1,
     limit = 10,
     sort = "order createdAt",
-    isActive,
   } = req.query;
 
   const query = {};
-
-  if (isActive !== undefined) {
-    query.isActive = isActive === "true";
-  }
 
   if (keyword && keyword.trim() !== "") {
     const safeKeyword = keyword.trim();
@@ -26,10 +21,8 @@ exports.getSectors = asyncHandler(async (req, res) => {
     query.$or = [
       { "name.ar": { $regex: safeKeyword, $options: "i" } },
       { "name.en": { $regex: safeKeyword, $options: "i" } },
-      { "name.tr": { $regex: safeKeyword, $options: "i" } },
       { "content.ar": { $regex: safeKeyword, $options: "i" } },
       { "content.en": { $regex: safeKeyword, $options: "i" } },
-      { "content.tr": { $regex: safeKeyword, $options: "i" } },
     ];
   }
 
@@ -60,7 +53,7 @@ exports.getSectors = asyncHandler(async (req, res) => {
 
 // Public list
 exports.getPublicSectors = asyncHandler(async (req, res) => {
-  const sectors = await SectorModel.find({ isActive: true }).sort({
+  const sectors = await SectorModel.find({}).sort({
     order: 1,
     createdAt: -1,
   });

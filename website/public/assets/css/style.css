@@ -625,7 +625,7 @@ img {
 }
 
 .sec-pad {
-  padding: 140px 0px;
+  padding: 100px 0px;
 }
 
 .mr-0 {
@@ -9387,7 +9387,7 @@ div#mCSB_1_container {
 
 .chooseus-style-three {
   position: relative;
-  background: #e7f5f5;
+  background: var(--site-navy-soft);
   padding: 140px 0px 110px 0px;
 }
 
@@ -9408,7 +9408,7 @@ div#mCSB_1_container {
   width: 30px;
   height: 30px;
   background-repeat: no-repeat;
-  background-image: url(../images/icons/decor-1.png);
+  /* background-image: url(../images/icons/decor-1.png); */
 }
 
 .chooseus-block-three .inner-box .count-text {
@@ -9423,14 +9423,14 @@ div#mCSB_1_container {
   text-align: center;
   font-size: 24px;
   font-family: var(--urbanist);
-  color: #272e39;
+  color: var(--site-navy);
   font-weight: 600;
   border-radius: 50% 50% 0px 50%;
   transition: all 500ms ease;
 }
 
 .chooseus-block-three .inner-box:hover .count-text {
-  color: #fff;
+  color: var(--site-blue) !important;
 }
 
 .chooseus-block-three .inner-box h3 {

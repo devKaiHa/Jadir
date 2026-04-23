@@ -4,39 +4,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 
-const partners = [
-  {
-    name: "Jadwa Investment",
-    description: {
-      en: "Accounting, financial auditing, and economic feasibility studies",
-      ar: "محاسبة، تحقيق مالي، ودراسات جدوى اقتصادية",
-      tr: "Muhasebe, finansal denetim ve ekonomik fizibilite çalışmaları",
-    },
-    logo: "/assets/images/logos/1.jpeg",
-    url: "#",
-  },
-  {
-    name: "SMARTINB",
-    description: {
-      en: "Integrated technology solutions and professional website development",
-      ar: "حلول تكنولوجية متكاملة وتطوير مواقع إلكترونية احترافية",
-      tr: "Entegre teknoloji çözümleri ve profesyonel web sitesi geliştirme",
-    },
-    logo: "/assets/images/logos/17.png",
-    url: "#",
-  },
-  {
-    name: "Logistics Network",
-    description: {
-      en: "Office setup services, field operations, and logistics services in Syria",
-      ar: "خدمات تجهيز المكاتب، العمليات الميدانية، والخدمات اللوجستية داخل سوريا",
-      tr: "Suriye'de ofis kurulum hizmetleri, saha operasyonları ve lojistik hizmetler",
-    },
-    logo: "/assets/images/logos/NoonExpress.png",
-    url: "#",
-  },
-];
-
 const swiperOptions = {
   modules: [Autoplay, Pagination, Navigation],
   slidesPerView: 3,

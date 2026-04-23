@@ -9,8 +9,6 @@ const AddPlan = () => {
   const {
     title,
     description,
-    isActive,
-    setIsActive,
     order,
     setOrder,
     handleTitleChange,
@@ -26,14 +24,12 @@ const AddPlan = () => {
       icon: "ki-outline ki-user-square",
       content: (
         <PlanGeneralInfoTab
-          isActive={isActive}
-          setIsActive={setIsActive}
           order={order}
           setOrder={setOrder}
         />
       ),
     },
-    ...["en", "ar", "tr"].map((lang) => ({
+    ...["en", "ar"].map((lang) => ({
       key: `plan_${lang}`,
       label: `Plan ${lang.toUpperCase()}`,
       icon: "ki-outline ki-clipboard",

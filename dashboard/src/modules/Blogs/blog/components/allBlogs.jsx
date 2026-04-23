@@ -24,13 +24,9 @@ const AllEmployees = () => {
     blogs,
     pagination,
     isLoading,
-    isFetching,
     error,
     refetch,
-    postBlog,
-    isPosting,
     updateBlog,
-    isUpdating,
     deleteBlog,
     isDeleting,
   } = useBlogs({
@@ -41,6 +37,10 @@ const AllEmployees = () => {
 
   if (isLoading) return <LoadingCard />;
   if (error) return <ErrorMessageCard />;
+
+  const publishedCount = blogs.filter((blog) => blog?.published).length;
+  const draftCount = blogs.length - publishedCount;
+  const withCategoryCount = blogs.filter((blog) => blog?.category).length;
 
   const handleDelete = () => {
     try {
@@ -58,38 +58,75 @@ const AllEmployees = () => {
         `Blog ${!currentPublished ? "published" : "unpublished"} successfully`,
       );
     } catch (err) {
-      console.log("error", err);
-      toast.error("error", "Something went wrong");
+      toast.error("Something went wrong");
     }
   };
+
   const onEnterHit = (e) => {
     if (e.key === "Enter") {
       setQuery(searchQuery);
       setCurrentPage(1);
     }
   };
+
   return (
     <Container>
-      <div className="grid">
-        <div className="card card-grid min-w-full">
-          <div className="card-header py-5 flex-wrap">
-            <h3 className="card-title">Blogs</h3>
-            <div className="flex gap-6">
-              <AddButton
-                label="New Blog"
-                onClick={() => navigate("/add-blog")}
-              />
+      <div className="space-y-6">
+        <div className="overflow-hidden rounded-[28px] border border-slate-200 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white shadow-xl">
+          <div className="grid gap-6 px-6 py-7 lg:grid-cols-[1.2fr_0.8fr] lg:px-8">
+            <div>
+              <span className="inline-flex rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-slate-200">
+                Blog Management
+              </span>
+              <h2 className="mt-4 text-2xl font-semibold">
+                Manage articles, publishing state, and editorial coverage
+              </h2>
+              <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-200">
+                Browse posts faster, filter the list, and move from draft to
+                published content without working through a plain table.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="rounded-3xl border border-gray-200 bg-white p-5 shadow-sm">
+          <div className="grid gap-4 lg:grid-cols-[1fr_auto]">
+            <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4">
+              <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.18em] text-gray-400">
+                Search Blogs
+              </label>
               <div className="relative">
-                <i className="ki-outline ki-magnifier absolute top-1/2 left-2 -translate-y-1/2 text-md text-gray-500"></i>
+                <i className="ki-outline ki-magnifier absolute top-1/2 left-3 -translate-y-1/2 text-md text-gray-500"></i>
                 <input
-                  className="input input-sm pl-8"
+                  className="input pl-10"
                   type="text"
-                  placeholder="Search for a blog..."
+                  placeholder="Search by title or keyword and press Enter"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onKeyDown={onEnterHit}
                 />
               </div>
+            </div>
+
+            <div className="flex items-end gap-3">
+              <button className="btn btn-light-primary" onClick={refetch}>
+                Refresh
+              </button>
+              <AddButton
+                label="New Blog"
+                onClick={() => navigate("/add-blog")}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="card card-grid min-w-full rounded-3xl border border-gray-200 shadow-sm">
+          <div className="card-header py-5 flex-wrap">
+            <div>
+              <h3 className="card-title">Blogs</h3>
+              <p className="mt-1 text-sm text-gray-500">
+                Showing {blogs.length} posts on this page
+              </p>
             </div>
           </div>
 
@@ -98,60 +135,75 @@ const AllEmployees = () => {
               <table className="table table-auto table-border" id="blogs_table">
                 <thead>
                   <tr>
-                    <th className="min-w-[200px]">Title</th>
+                    <th className="min-w-[240px]">Title</th>
                     <th className="min-w-[150px]">Category</th>
-                    <th className="min-w-[200px]">Tags</th>
+                    <th className="min-w-[220px]">Tags</th>
                     <th className="min-w-[150px]">Status</th>
                     <th className="min-w-[200px]">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {blogs?.length > 0 ? (
-                    blogs?.map((blog) => (
+                    blogs.map((blog) => (
                       <tr key={blog?._id}>
                         <td>
-                          <span className="text-sm font-medium text-gray-800">
-                            {blog?.title?.en ||
-                              blog?.title?.ar ||
-                              blog?.title?.tr ||
-                              "No Title"}
-                          </span>
-                        </td>
-                        <td>
-                          <span className="text-sm text-gray-600">
-                            <span className="badge badge-outline">
-                              {blog?.category?.name?.en ||
-                                blog?.category?.toString() ||
-                                "-"}
+                          <div className="space-y-1">
+                            <span className="text-sm font-medium text-gray-800">
+                              {blog?.title?.en || blog?.title?.ar || "No Title"}
                             </span>
-                          </span>
-                        </td>
-                        <td>
-                          <div className="flex gap-1 flex-wrap">
-                            {blog?.tags?.map((tag, i) => (
-                              <span
-                                key={i}
-                                className="bg-gray-200 text-gray-700 px-2 py-1 rounded text-xs"
-                              >
-                                {tag?.en}
-                              </span>
-                            ))}
+                            <div className="text-xs text-gray-500">
+                              {blog?.author?.name || "No author"}
+                              {blog?.author?.role?.en || blog?.author?.role?.ar
+                                ? ` • ${
+                                    blog?.author?.role?.en ||
+                                    blog?.author?.role?.ar
+                                  }`
+                                : ""}
+                            </div>
                           </div>
                         </td>
                         <td>
-                          <span className="text-sm text-gray-600">
-                            {blog?.published ? (
-                              <span className="badge badge-outline badge-primary ml-2">
-                                Published
-                              </span>
-                            ) : (
-                              <span className="badge badge-outline badge-warning ml-2">
-                                Draft
-                              </span>
-                            )}
+                          <span className="badge badge-outline">
+                            {blog?.category?.name?.en ||
+                              blog?.category?.name?.ar ||
+                              blog?.category?.toString() ||
+                              "-"}
                           </span>
                         </td>
-
+                        <td>
+                          {blog?.tags?.length ? (
+                            <div className="flex gap-1 flex-wrap">
+                              {blog.tags.slice(0, 3).map((tag, i) => (
+                                <span
+                                  key={i}
+                                  className="bg-gray-200 text-gray-700 px-2 py-1 rounded text-xs"
+                                >
+                                  {tag?.en || tag?.ar}
+                                </span>
+                              ))}
+                              {blog.tags.length > 3 ? (
+                                <span className="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs">
+                                  +{blog.tags.length - 3} more
+                                </span>
+                              ) : null}
+                            </div>
+                          ) : (
+                            <span className="text-sm text-gray-400">
+                              No tags
+                            </span>
+                          )}
+                        </td>
+                        <td>
+                          {blog?.published ? (
+                            <span className="badge badge-outline badge-primary ml-2">
+                              Published
+                            </span>
+                          ) : (
+                            <span className="badge badge-outline badge-warning ml-2">
+                              Draft
+                            </span>
+                          )}
+                        </td>
                         <td>
                           <div className="flex gap-3">
                             <Tooltip title="Edit" placement="top">

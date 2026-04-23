@@ -3,87 +3,138 @@ import { CrudAvatarUpload } from "../../../partials/crud/CrudAvatarUpload";
 const PartnerFormCard = ({
   title,
   setTitle,
-  isActive,
-  setIsActive,
+  brief,
+  setBrief,
+  testimonial,
+  setTestimonial,
   order,
   setOrder,
   imagePreview,
   onImageChange,
 }) => {
   return (
-    <div className="flex flex-col lg:flex-row gap-4">
-      <div className="flex-1 card">
-        <div className="card-header flex items-center justify-between">
-          <h3 className="card-title">Partner Info</h3>
-        </div>
+    <div className="space-y-6">
+      <div className="grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
+        <div className="space-y-6">
+          <div className="rounded-3xl border border-gray-200 bg-white p-5 shadow-sm">
+            <div className="mb-5">
+              <h3 className="text-lg font-semibold text-gray-900">
+                Partner Info
+              </h3>
+              <p className="mt-1 text-sm text-gray-500">
+                Add the partner title, short brief, ordering, and visibility.
+              </p>
+            </div>
 
-        <div className="card-table scrollable-x-auto pb-3">
-          <table className="table-auto w-full text-sm text-gray-600">
-            <tbody>
-              <tr>
-                <td className="p-2 pt-4">
-                  <div className="input-group">
-                    <span className="btn btn-input w-[20%]">Title</span>
-                    <input
-                      type="text"
-                      className="input"
-                      placeholder="Enter partner title"
-                      value={title}
-                      onChange={(e) => setTitle(e.target.value)}
-                    />
-                  </div>
-                </td>
-              </tr>
+            <div className="space-y-4">
+              <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4">
+                <div className="grid gap-4 md:grid-cols-2">
+                  {["en", "ar"].map((lang) => (
+                    <div key={lang}>
+                      <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.18em] text-gray-400">
+                        Title ({lang})
+                      </label>
+                      <input
+                        type="text"
+                        className="input"
+                        placeholder={`Enter title in ${lang.toUpperCase()}`}
+                        value={title[lang] || ""}
+                        onChange={(e) =>
+                          setTitle((prev) => ({
+                            ...prev,
+                            [lang]: e.target.value,
+                          }))
+                        }
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
 
-              <tr>
-                <td className="p-2 pt-4">
-                  <div className="input-group">
-                    <span className="btn btn-input w-[20%]">Order</span>
-                    <input
-                      type="number"
-                      className="input"
-                      value={order}
-                      onChange={(e) => setOrder(Number(e.target.value))}
-                    />
-                  </div>
-                </td>
-              </tr>
+              <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4">
+                <div className="grid gap-4 md:grid-cols-2">
+                  {["en", "ar"].map((lang) => (
+                    <div key={lang}>
+                      <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.18em] text-gray-400">
+                        Brief ({lang})
+                      </label>
+                      <textarea
+                        className="input min-h-[120px] w-full p-3 tracking-[1px] leading-[20px]"
+                        placeholder={`Enter brief in ${lang.toUpperCase()}`}
+                        value={brief[lang] || ""}
+                        onChange={(e) =>
+                          setBrief((prev) => ({
+                            ...prev,
+                            [lang]: e.target.value,
+                          }))
+                        }
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
 
-              <tr>
-                <td className="p-2 pt-4">
-                  <div className="input-group">
-                    <span className="btn btn-input w-[20%]">Status</span>
-                    <select
-                      className="input"
-                      value={isActive ? "true" : "false"}
-                      onChange={(e) => setIsActive(e.target.value === "true")}
-                    >
-                      <option value="true">Active</option>
-                      <option value="false">Inactive</option>
-                    </select>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+              <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4">
+                <div className="grid gap-4 md:grid-cols-2">
+                  {["en", "ar"].map((lang) => (
+                    <div key={lang}>
+                      <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.18em] text-gray-400">
+                        Testimonial ({lang})
+                      </label>
+                      <textarea
+                        className="input min-h-[120px] w-full p-3 tracking-[1px] leading-[20px]"
+                        placeholder={`Enter testimonial in ${lang.toUpperCase()}`}
+                        value={testimonial[lang] || ""}
+                        onChange={(e) =>
+                          setTestimonial((prev) => ({
+                            ...prev,
+                            [lang]: e.target.value,
+                          }))
+                        }
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
 
-      <div className="lg:w-[35%] self-start">
-        <div className="card">
-          <div className="card-header">
-            <h3 className="card-title">Partner Image</h3>
+              <div className="grid gap-4 md:grid-cols-2">
+                <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4">
+                  <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.18em] text-gray-400">
+                    Order
+                  </label>
+                  <input
+                    type="number"
+                    className="input"
+                    value={order}
+                    onChange={(e) => setOrder(Number(e.target.value))}
+                  />
+                </div>
+              </div>
+            </div>
           </div>
+        </div>
 
-          <div className="p-6">
-            <CrudAvatarUpload
-              onChange={onImageChange}
-              value={imagePreview}
-              initialImageURL={
-                typeof imagePreview === "string" ? `${imagePreview}` : ""
-              }
-              adviceMessage="Partner Logo | Max 1MB"
-            />
+        <div className="space-y-6">
+          <div className="rounded-3xl border border-gray-200 bg-white p-5 shadow-sm">
+            <div className="mb-4">
+              <h3 className="text-lg font-semibold text-gray-900">
+                Partner Image
+              </h3>
+              <p className="mt-1 text-sm text-gray-500">
+                Upload the partner logo or visual used in the partner section.
+              </p>
+            </div>
+
+            <div className="p-2">
+              <CrudAvatarUpload
+                onChange={onImageChange}
+                value={imagePreview}
+                initialImageURL={
+                  typeof imagePreview === "string" ? `${imagePreview}` : ""
+                }
+                adviceMessage="Partner Logo | Max 1MB"
+              />
+            </div>
           </div>
         </div>
       </div>

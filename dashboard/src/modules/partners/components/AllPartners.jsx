@@ -29,16 +29,37 @@ const AllPartners = () => {
 
   return (
     <Container>
-      <div className="grid">
-        <div className="card card-grid min-w-full">
-          <div className="card-header py-5 flex-wrap">
-            <h3 className="card-title">Partners</h3>
-            <div className="flex gap-6">
-              <AddButton
-                label="New Partner"
-                onClick={() => navigate("/add-partner")}
-              />
+      <div className="space-y-6">
+        <div className="overflow-hidden rounded-[28px] border border-slate-200 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white shadow-xl">
+          <div className="grid gap-6 px-6 py-7 lg:grid-cols-[1.2fr_0.8fr] lg:px-8">
+            <div>
+              <span className="inline-flex rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-slate-200">
+                Partners Management
+              </span>
+              <h2 className="mt-4 text-2xl font-semibold">
+                Keep partner and client logos organized and presentation-ready
+              </h2>
+              <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-200">
+                Maintain partner entries, control display order, and keep
+                supporting brief text consistent.
+              </p>
             </div>
+          </div>
+        </div>
+
+        <div className="card card-grid min-w-full rounded-3xl border border-gray-200 shadow-sm">
+          <div className="card-header py-5 flex-wrap">
+            <div>
+              <h3 className="card-title">Partners List</h3>
+              <p className="mt-1 text-sm text-gray-500">
+                Showing {partners.length} partner records
+              </p>
+            </div>
+
+            <AddButton
+              label="New Partner"
+              onClick={() => navigate("/add-partner")}
+            />
           </div>
 
           <div className="card-body">
@@ -47,9 +68,8 @@ const AllPartners = () => {
                 <thead>
                   <tr>
                     <th className="min-w-[100px]">Image</th>
-                    <th className="min-w-[200px]">Title</th>
-                    <th className="min-w-[100px]">Order</th>
-                    <th className="min-w-[100px]">Status</th>
+                    <th className="min-w-[220px]">Title</th>
+                    <th className="min-w-[120px]">Order</th>
                     <th className="w-[120px]">Actions</th>
                   </tr>
                 </thead>
@@ -61,8 +81,8 @@ const AllPartners = () => {
                         {partner?.img ? (
                           <img
                             src={`${imageURL}/partners/${partner.img}`}
-                            alt={partner?.title || "partner"}
-                            className="w-[70px] h-[70px] rounded object-contain border"
+                            alt={partner?.title?.en || partner?.title?.ar || "partner"}
+                            className="w-[70px] h-[70px] rounded-xl object-contain border"
                           />
                         ) : (
                           <span className="text-gray-400 text-sm">
@@ -73,21 +93,11 @@ const AllPartners = () => {
 
                       <td>
                         <span className="text-sm font-medium text-gray-800">
-                          {partner?.title || "-"}
+                          {partner?.title?.en || partner?.title?.ar || "-"}
                         </span>
                       </td>
 
                       <td>{partner?.order ?? 0}</td>
-
-                      <td>
-                        <span
-                          className={`badge ${
-                            partner?.isActive ? "badge-success" : "badge-danger"
-                          }`}
-                        >
-                          {partner?.isActive ? "Active" : "Inactive"}
-                        </span>
-                      </td>
 
                       <td>
                         <div className="flex gap-3">
@@ -119,7 +129,7 @@ const AllPartners = () => {
                   {!partners?.length && (
                     <tr>
                       <td
-                        colSpan={5}
+                        colSpan={6}
                         className="text-center py-6 text-gray-500"
                       >
                         No partners found

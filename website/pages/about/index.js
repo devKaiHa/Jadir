@@ -1,14 +1,98 @@
 "use client";
+
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import Layout from "@/components/layout/Layout";
-import AboutUsSlider from "@/components/slider/AboutUsSlider";
-import { getOtherData } from "@/api/getOtherData";
-import TeamlSlider from "@/components/pages/AboutUs/TeamlSlider";
-import CompaniesBrief from "@/components/pages/AboutUs/CompaniesBrief";
-import TestimonialSlider03 from "@/components/slider/TestimonialSlider03";
+import About_us from "@/components/sections/home3/About";
+import Statistics from "@/components/sections/home3/Statistics";
 import Sectors from "@/components/sections/home1/Sectors";
+import TeamlSlider from "@/components/pages/AboutUs/TeamlSlider";
+import FounderSlides from "@/components/pages/AboutUs/FounderSlider";
+import CompaniesBrief from "@/components/pages/AboutUs/CompaniesBrief";
+import { getOtherData } from "@/api/getOtherData";
 import { getHomeData } from "@/api/getHomeData";
-import { imageURL } from "@/api/GlobalData";
+import {
+  Testimonials,
+  TrustedLogos,
+} from "@/components/website/PublicSections";
+
+const PAGE_COPY = {
+  en: {
+    title: "About Jadir",
+    subtitle: "Company profile",
+    description:
+      "Explore Jadir through our story, the people who trust us, and the numbers that reflect our work.",
+    sections: {
+      about: {
+        tab: "About",
+        title: "About our company",
+        description:
+          "A closer look at Jadir's approach, values, leadership, and team.",
+      },
+      trusted: {
+        tab: "Who trusted us",
+        title: "Partners and clients who trusted Jadir",
+        description:
+          "A view of the companies, partners, and client voices connected to our work.",
+      },
+      numbers: {
+        tab: "Jadir in numbers",
+        title: "Jadir in numbers",
+        description:
+          "A quick look at the company indicators and milestones behind our progress.",
+      },
+    },
+  },
+  tr: {
+    title: "Jadir Hakkinda",
+    subtitle: "Sirket profili",
+    description:
+      "Jadir'i hikayemiz, bize guvenenler ve calismamizi yansitan rakamlar uzerinden kesfedin.",
+    sections: {
+      about: {
+        tab: "Hakkimizda",
+        title: "Sirketimiz hakkinda",
+        description:
+          "Jadir'in yaklasimina, degerlerine, liderligine ve ekibine daha yakindan bakin.",
+      },
+      trusted: {
+        tab: "Bize guvenenler",
+        title: "Jadir'e guvenen ortaklar ve musteriler",
+        description:
+          "Calismalarimizla baglantili sirketleri, ortaklari ve musteri goruslerini inceleyin.",
+      },
+      numbers: {
+        tab: "Rakamlarla Jadir",
+        title: "Rakamlarla Jadir",
+        description:
+          "Ilerlememizin arkasindaki sirket gostergelerine ve kilometre taslarina hizli bir bakis.",
+      },
+    },
+  },
+  ar: {
+    title: "عن جدير",
+    subtitle: "الملف التعريفي",
+    description:
+      "تعرف على جدير من خلال قصتنا، والجهات التي وثقت بنا، والأرقام التي تعكس عملنا.",
+    sections: {
+      about: {
+        tab: "من نحن",
+        title: "نبذة عن الشركة",
+        description: "نظرة أقرب على نهج جدير وقيمها وقيادتها وفريقها.",
+      },
+      trusted: {
+        tab: "من وثق بنا",
+        title: "شركاء وعملاء وثقوا بجدير",
+        description: "استعراض للشركات والشركاء وآراء العملاء المرتبطين بعملنا.",
+      },
+      numbers: {
+        tab: "جدير بالأرقام",
+        title: "جدير بالأرقام",
+        description: "نظرة سريعة على مؤشرات الشركة ومحطاتها التي تعكس تقدمنا.",
+      },
+    },
+  },
+};
 
 export async function getStaticProps() {
   try {
@@ -17,82 +101,70 @@ export async function getStaticProps() {
     return { props: { data, homeData }, revalidate: 300 };
   } catch (err) {
     console.error("Other data error:", err);
-    return { props: { data: {} }, revalidate: 300 };
+    return { props: { data: {}, homeData: {} }, revalidate: 300 };
   }
 }
 
 export default function About({ data = {}, homeData = {} }) {
   const { i18n, t } = useTranslation();
   const lang = i18n?.language || "en";
+  const isArabic = lang === "ar";
+  const copy = PAGE_COPY[lang] || PAGE_COPY.en;
+  const [activeTab, setActiveTab] = useState("about");
+  const [activeAboutCard, setActiveAboutCard] = useState("business");
 
   const {
     aboutUs = [],
     members = [],
     testimonials = [],
     companies = [],
+    statistics = [],
   } = data;
-  const { values } = homeData;
+
+  const { values = [], about = {}, partners = [] } = homeData;
+
   const boardMembers = members?.filter((item) => item.isFounder);
   const team = members?.filter((item) => !item.isFounder);
-
-  // Normalize: allow array or object
   const item = Array.isArray(aboutUs) ? aboutUs[0] || {} : aboutUs || {};
 
-  // helper: pick current lang, then fall back
-  const pick = (obj) =>
-    obj && typeof obj === "object"
-      ? obj[lang] ?? obj.en ?? obj.ar ?? obj.tr ?? ""
-      : "";
+  const localizedText = (field, currentLang) =>
+    field?.[currentLang] || field?.en || "";
 
-  // Support both shapes:
-  const title = pick(item?.aboutUsTitle?.title) || pick(item?.title);
-  const subtitle = pick(item?.aboutUsTitle?.subtitle) || pick(item?.subtitle);
-  const content = pick(item?.content);
   const businessApproach = item?.businessApproach;
   const whyUs = item?.whyUs;
-  const governance = item?.governance;
+  const whoWeServe = item?.whoWeServe;
   const prizes = item?.prizes || [];
   const certificates = item?.certificates || [];
 
-  // Build slider items from API (no static):
-  const sliderItems = [
-    {
-      title: item?.message || { en: "Our Mission" },
-      content: item?.messageDescription || { en: "" },
-      url: "/mission",
+  const aboutCards = [
+    businessApproach && {
+      key: "business",
+      icon: "fa-solid fa-chart-line",
+      title: t("about.businessApproach"),
+      content: localizedText(businessApproach, lang),
     },
-    {
-      title: item?.vision || { en: "Our Vision" },
-      content: item?.visionDescription || { en: "" },
-      url: "/vision",
+    whoWeServe && {
+      key: "whoWeServe",
+      icon: "fa-solid fa-scale-balanced",
+      title: t("about.whoWeServe"),
+      content: localizedText(whoWeServe, lang),
     },
-  ];
+    whyUs && {
+      key: "whyus",
+      icon: "fa-solid fa-shield-heart",
+      title: t("about.whyUs"),
+      content: localizedText(whyUs, lang),
+    },
+  ].filter(Boolean);
 
-  const hasAny =
-    title ||
-    subtitle ||
-    content ||
-    sliderItems.some((s) => pick(s.title) || pick(s.content));
+  const hasAboutBlocks =
+    businessApproach ||
+    whyUs ||
+    whoWeServe ||
+    prizes?.length ||
+    certificates?.length;
 
-  if (!hasAny) return null;
-
-  const localizedText = (field, lang) => field?.[lang] || field?.en || "";
-
-  const formatDate = (date, locale = "en") => {
-    if (!date) return "";
-    try {
-      return new Date(date).toLocaleDateString(
-        locale === "ar" ? "ar" : locale === "tr" ? "tr-TR" : "en-US",
-        {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        }
-      );
-    } catch {
-      return "";
-    }
-  };
+  const activeCopy = copy.sections[activeTab];
 
   return (
     <Layout
@@ -100,355 +172,184 @@ export default function About({ data = {}, homeData = {} }) {
       footerStyle={1}
       breadcrumbTitle={t("about.about-us")}
     >
-      <section className="about-style-three sec-pad">
+      <section
+        className={`about-tabs-page sec-pad ${isArabic ? "rtl" : ""}`}
+        dir={isArabic ? "rtl" : "ltr"}
+      >
         <div className="auto-container">
-          <div className="row clearfix" dir="ltr" style={{ direction: "ltr" }}>
-            <div className="col-lg-7 col-md-12 col-sm-12 image-column">
-              <div className="image-box">
-                <div
-                  className="image-shape"
-                  style={{
-                    backgroundImage: "url(/assets/images/shape/shape-24.png)",
-                  }}
-                />
-                <figure className="image image-1">
-                  <img src="/assets/images/about-2.jpg" alt="about" />
-                </figure>
-                <figure className="image image-2">
-                  <img src="/assets/images/about-1.jpg" alt="about" />
-                </figure>
-                <div className="image-content">
-                  <h6>2013</h6>
-                  <div className="icon-box">
-                    <i className="flaticon-diagonal-arrow" />
-                  </div>
-                  <h2>
-                    1000<span>+</span>
-                  </h2>
-                  <p>{t("about.investor")}</p>
-                </div>
-              </div>
+          <div className="jadwa-testimonials-head about-tabs-page-head">
+            <div className="jadwa-pill">
+              <span className="jadwa-pill-dot" />
+              <span>{copy.subtitle}</span>
             </div>
 
-            <div className="col-lg-5 col-md-12 col-sm-12 content-column">
-              <div className="content-box">
-                <div className="sec-title">
-                  <span className="sub-title">Who are we?</span>
-                  <h2>About Jadwa Invest</h2>
-                </div>
-
-                <div className="text-box">
-                  <p dangerouslySetInnerHTML={{ __html: content }} />
-                </div>
-
-                {/* Pass API-driven slides */}
-                <AboutUsSlider slides={sliderItems} />
-              </div>
-            </div>
-
-            {values && <Sectors values={values} />}
-
-            {(businessApproach ||
-              whyUs ||
-              governance ||
-              prizes?.length ||
-              certificates?.length) && (
-              <div className="mt-5 w-full">
-                <div className="row clearfix">
-                  {(businessApproach || whyUs || governance) && (
-                    <div className="col-lg-12 col-md-12 col-sm-12">
-                      <div className="content-box">
-                        <div className="sec-title text-center mb-4">
-                          <span className="sub-title">
-                            {t("about.about-us")}
-                          </span>
-                          <h2>{t("about.moreAboutUs")}</h2>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {businessApproach && (
-                    <div className="col-lg-4 col-md-6 col-sm-12 mb-4">
-                      <div
-                        className="content-box h-full"
-                        style={{
-                          background: "#fff",
-                          padding: "30px",
-                          borderRadius: "16px",
-                          boxShadow: "0 10px 30px rgba(0,0,0,0.05)",
-                          height: "100%",
-                        }}
-                      >
-                        <div className="sec-title mb-3">
-                          <span className="sub-title">
-                            {t("about.section")}
-                          </span>
-                          <h3 style={{ fontSize: "28px" }}>
-                            {t("about.businessApproach")}
-                          </h3>
-                        </div>
-
-                        <div className="text-box">
-                          <p
-                            dangerouslySetInnerHTML={{
-                              __html: localizedText(businessApproach, lang),
-                            }}
-                          ></p>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {whyUs && (
-                    <div className="col-lg-4 col-md-6 col-sm-12 mb-4">
-                      <div
-                        className="content-box h-full"
-                        style={{
-                          background: "#fff",
-                          padding: "30px",
-                          borderRadius: "16px",
-                          boxShadow: "0 10px 30px rgba(0,0,0,0.05)",
-                          height: "100%",
-                        }}
-                      >
-                        <div className="sec-title mb-3">
-                          <span className="sub-title">
-                            {t("about.section")}
-                          </span>
-                          <h3 style={{ fontSize: "28px" }}>
-                            {t("about.whyUs")}
-                          </h3>
-                        </div>
-
-                        <div className="text-box">
-                          <p
-                            dangerouslySetInnerHTML={{
-                              __html: localizedText(whyUs, lang),
-                            }}
-                          ></p>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {governance && (
-                    <div className="col-lg-4 col-md-6 col-sm-12 mb-4">
-                      <div
-                        className="content-box h-full"
-                        style={{
-                          background: "#fff",
-                          padding: "30px",
-                          borderRadius: "16px",
-                          boxShadow: "0 10px 30px rgba(0,0,0,0.05)",
-                          height: "100%",
-                        }}
-                      >
-                        <div className="sec-title mb-3">
-                          <span className="sub-title">
-                            {t("about.section")}
-                          </span>
-                          <h3 style={{ fontSize: "28px" }}>
-                            {t("about.governance")}
-                          </h3>
-                        </div>
-
-                        <div className="text-box">
-                          <p
-                            dangerouslySetInnerHTML={{
-                              __html: localizedText(governance, lang),
-                            }}
-                          ></p>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                {!!prizes?.length && (
-                  <div className="mt-5">
-                    <div className="sec-title text-center mb-4">
-                      <span className="sub-title">
-                        {t("about.recognition")}
-                      </span>
-                      <h2>{t("about.prizes")}</h2>
-                    </div>
-
-                    <div className="row clearfix">
-                      {prizes.map((item, index) => (
-                        <div
-                          key={item?._id || index}
-                          className="col-lg-4 col-md-6 col-sm-12 mb-4"
-                        >
-                          <div
-                            style={{
-                              background: "#fff",
-                              borderRadius: "16px",
-                              overflow: "hidden",
-                              boxShadow: "0 10px 30px rgba(0,0,0,0.05)",
-                              height: "100%",
-                            }}
-                          >
-                            {item?.image ? (
-                              <div
-                                style={{ height: "220px", overflow: "hidden" }}
-                              >
-                                <img
-                                  src={`${imageURL}homeAbout/${item.image}`}
-                                  alt={localizedText(item?.name, lang)}
-                                  style={{
-                                    width: "100%",
-                                    height: "100%",
-                                    objectFit: "cover",
-                                    display: "block",
-                                  }}
-                                />
-                              </div>
-                            ) : null}
-
-                            <div style={{ padding: "24px" }}>
-                              <h4
-                                style={{
-                                  fontSize: "22px",
-                                  marginBottom: "10px",
-                                }}
-                              >
-                                {localizedText(item?.name, lang)}
-                              </h4>
-
-                              {item?.provider ? (
-                                <p
-                                  style={{ marginBottom: "8px", color: "#666" }}
-                                >
-                                  <strong>{t("about.provider")}:</strong>{" "}
-                                  {item.provider}
-                                </p>
-                              ) : null}
-
-                              <p style={{ marginBottom: 0, color: "#888" }}>
-                                <strong>{t("about.date")}:</strong>{" "}
-                                {formatDate(item?.date, lang)}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {!!certificates?.length && (
-                  <div className="mt-5">
-                    <div className="sec-title text-center mb-4">
-                      <span className="sub-title">
-                        {t("about.credentials")}
-                      </span>
-                      <h2>{t("about.certificates")}</h2>
-                    </div>
-
-                    <div className="row clearfix">
-                      {certificates.map((item, index) => (
-                        <div
-                          key={item?._id || index}
-                          className="col-lg-4 col-md-6 col-sm-12 mb-4"
-                        >
-                          <div
-                            style={{
-                              background: "#fff",
-                              borderRadius: "16px",
-                              overflow: "hidden",
-                              boxShadow: "0 10px 30px rgba(0,0,0,0.05)",
-                              height: "100%",
-                            }}
-                          >
-                            {item?.image ? (
-                              <div
-                                style={{ height: "220px", overflow: "hidden" }}
-                              >
-                                <img
-                                  src={`${imageURL}homeAbout/${item.image}`}
-                                  alt={localizedText(item?.name, lang)}
-                                  style={{
-                                    width: "100%",
-                                    height: "100%",
-                                    objectFit: "cover",
-                                    display: "block",
-                                  }}
-                                />
-                              </div>
-                            ) : null}
-
-                            <div style={{ padding: "24px" }}>
-                              <h4
-                                style={{
-                                  fontSize: "22px",
-                                  marginBottom: "10px",
-                                }}
-                              >
-                                {localizedText(item?.name, lang)}
-                              </h4>
-
-                              {item?.provider ? (
-                                <p
-                                  style={{ marginBottom: "8px", color: "#666" }}
-                                >
-                                  <strong>{t("about.provider")}:</strong>{" "}
-                                  {item.provider}
-                                </p>
-                              ) : null}
-
-                              <p style={{ marginBottom: 0, color: "#888" }}>
-                                <strong>{t("about.date")}:</strong>{" "}
-                                {formatDate(item?.date, lang)}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
-
-            {boardMembers && (
-              <div className="mt-5">
-                <h2
-                  className="sec-title mb-0 text-center"
-                  style={{ fontSize: "40px" }}
-                >
-                  {t("about.theFounders")}
-                </h2>
-                <TeamlSlider team={boardMembers} />
-              </div>
-            )}
-
-            {team && (
-              <div className="mt-5">
-                <h2
-                  className="sec-title mb-0 text-center"
-                  style={{ fontSize: "40px" }}
-                >
-                  {t("about.ourTeam")}
-                </h2>
-                <TeamlSlider team={team} />
-              </div>
-            )}
-
-            {!!companies?.length && <CompaniesBrief companies={companies} />}
-
-            {testimonials && (
-              <div className="mt-5">
-                <h2
-                  className="sec-title mb-0 text-center"
-                  style={{ fontSize: "40px" }}
-                >
-                  {t("about.testimonials")}
-                </h2>
-                <TestimonialSlider03 testimonials={testimonials} />
-              </div>
-            )}
+            <h2 className="jadwa-testimonials-title">{copy.title}</h2>
+            <p className="jadwa-testimonials-subtitle">{copy.description}</p>
           </div>
+
+          <div className="about-tabs-toolbar">
+            <div className="about-tabs-list" role="tablist">
+              {Object.keys(copy.sections).map((key) => (
+                <button
+                  key={key}
+                  type="button"
+                  role="tab"
+                  aria-selected={activeTab === key}
+                  onClick={() => setActiveTab(key)}
+                  className={`about-tab-btn ${
+                    activeTab === key ? "active" : ""
+                  }`}
+                >
+                  {copy.sections[key].tab}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="about-tabs-section-head">
+            <div className="about-tabs-section-head-copy">
+              <h2>{activeCopy.title}</h2>
+              <p>{activeCopy.description}</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="about-tabs-content">
+          {activeTab === "about" && (
+            <div className="about-page-content">
+              <About_us aboutUs={about} />
+
+              {values?.length > 0 && <Sectors values={values} />}
+
+              {hasAboutBlocks && (
+                <div className="about-page-group about-page-more">
+                  <div className="auto-container">
+                    {!!aboutCards.length && (
+                      <>
+                        <div className="jadwa-testimonials-head about-page-head">
+                          <div className="jadwa-pill">
+                            <span className="jadwa-pill-dot" />
+                            <span>{t("about.about-us")}</span>
+                          </div>
+
+                          <h2 className="jadwa-testimonials-title">
+                            {t("about.moreAboutUs")}
+                          </h2>
+
+                          <p className="jadwa-testimonials-subtitle">
+                            {lang === "ar"
+                              ? "نقدم نهجاً استشارياً قائماً على الانضباط والحوكمة والرؤية طويلة المدى."
+                              : lang === "tr"
+                                ? "Disiplin, yonetisim ve uzun vadeli bakis acisina dayali bir danismanlik yaklasimi sunuyoruz."
+                                : "We bring together disciplined strategy, strong governance, and a long-term business perspective."}
+                          </p>
+                        </div>
+
+                        <div className="about-value-dynamic-layout">
+                          {aboutCards.map((card) => {
+                            const isActive = activeAboutCard === card.key;
+
+                            return (
+                              <div
+                                key={card.key}
+                                className={`about-value-dynamic-card ${
+                                  isActive ? "is-active" : "is-inactive"
+                                }`}
+                                onMouseEnter={() =>
+                                  setActiveAboutCard(card.key)
+                                }
+                              >
+                                <div className="about-value-pattern" />
+
+                                <div
+                                  className={`about-value-icon ${
+                                    isActive ? "" : "about-value-icon-light"
+                                  }`}
+                                >
+                                  <i className={card.icon} />
+                                </div>
+
+                                <div className="about-value-content">
+                                  <h3
+                                    className={`about-value-title ${
+                                      isActive ? "" : "about-value-title-light"
+                                    }`}
+                                  >
+                                    {card.title}
+                                  </h3>
+
+                                  <div
+                                    className={`about-value-text ${
+                                      isActive ? "" : "about-value-text-light"
+                                    }`}
+                                  >
+                                    <p
+                                      dangerouslySetInnerHTML={{
+                                        __html: card.content,
+                                      }}
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {!!boardMembers?.length && (
+                <div className="auto-container sec-pad">
+                  <div className="jadwa-testimonials-head about-page-head">
+                    <div className="jadwa-pill">
+                      <span className="jadwa-pill-dot" />
+                      <span>{t("about.about-us")}</span>
+                    </div>
+
+                    <h2 className="jadwa-testimonials-title">
+                      {t("about.theFounders")}
+                    </h2>
+                  </div>
+
+                  <FounderSlides founders={boardMembers} variant="founders" />
+                </div>
+              )}
+
+              {!!team?.length && (
+                <div className="auto-container">
+                  <div className="jadwa-testimonials-head about-page-head">
+                    <div className="jadwa-pill">
+                      <span className="jadwa-pill-dot" />
+                      <span>{t("about.about-us")}</span>
+                    </div>
+
+                    <h2 className="jadwa-testimonials-title">
+                      {t("about.ourTeam")}
+                    </h2>
+                  </div>
+
+                  <TeamlSlider team={team} variant="team" />
+                </div>
+              )}
+
+              {!!companies?.length && <CompaniesBrief companies={companies} />}
+            </div>
+          )}
+
+          {activeTab === "trusted" && (
+            <div className="about-page-content">
+              <TrustedLogos partners={partners} companies={companies} />
+              <Testimonials testimonials={testimonials} length={10} />
+            </div>
+          )}
+
+          {activeTab === "numbers" && (
+            <div className="about-page-content">
+              <Statistics statistics={statistics} isAbout={true} />
+            </div>
+          )}
         </div>
       </section>
     </Layout>

@@ -9,7 +9,6 @@ import ContactUsGeneralInfoTab from "./ContactUsGeneralInfoTab";
 const emptyLangState = {
   en: "",
   ar: "",
-  tr: "",
 };
 
 const mapBranchesFromApi = (branches = []) =>
@@ -18,29 +17,21 @@ const mapBranchesFromApi = (branches = []) =>
     name: {
       en: branch?.name?.en || "",
       ar: branch?.name?.ar || "",
-      tr: branch?.name?.tr || "",
     },
     address: {
       en: branch?.address?.en || "",
       ar: branch?.address?.ar || "",
-      tr: branch?.address?.tr || "",
     },
-    phonesText: Array.isArray(branch?.phones) ? branch.phones.join("\n") : "",
+    phones: Array.isArray(branch?.phones) ? branch.phones : [],
   }));
-
-const toLinesArray = (value = "") =>
-  value
-    .split(/\r?\n/)
-    .map((item) => item.trim())
-    .filter(Boolean);
 
 const EditContactUs = () => {
   const { contactUs, isLoading, error, updateContactUs, isUpdating } =
     useContactUs();
 
   const [address, setAddress] = useState({ ...emptyLangState });
-  const [emailsText, setEmailsText] = useState("");
-  const [phonesText, setPhonesText] = useState("");
+  const [emails, setEmails] = useState([]);
+  const [phones, setPhones] = useState([]);
   const [mapLink, setMapLink] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
   const [branches, setBranches] = useState([]);
@@ -51,14 +42,9 @@ const EditContactUs = () => {
     setAddress({
       en: contactUs?.address?.en || "",
       ar: contactUs?.address?.ar || "",
-      tr: contactUs?.address?.tr || "",
     });
-    setEmailsText(
-      Array.isArray(contactUs?.emails) ? contactUs.emails.join("\n") : "",
-    );
-    setPhonesText(
-      Array.isArray(contactUs?.phones) ? contactUs.phones.join("\n") : "",
-    );
+    setEmails(Array.isArray(contactUs?.emails) ? contactUs.emails : []);
+    setPhones(Array.isArray(contactUs?.phones) ? contactUs.phones : []);
     setMapLink(contactUs?.mapLink || "");
     setWhatsapp(contactUs?.whatsapp || "");
     setBranches(mapBranchesFromApi(contactUs?.branches || []));
@@ -72,8 +58,8 @@ const EditContactUs = () => {
     try {
       const payload = {
         address,
-        emails: toLinesArray(emailsText),
-        phones: toLinesArray(phonesText),
+        emails,
+        phones,
         mapLink,
         whatsapp,
         branches: branches.map((branch) => ({
@@ -81,9 +67,8 @@ const EditContactUs = () => {
           name: branch.name || { ...emptyLangState },
           address: branch.address || { ...emptyLangState },
           mapLink: branch.mapLink || "",
-          phones: toLinesArray(branch.phonesText || ""),
+          phones: Array.isArray(branch.phones) ? branch.phones.filter(Boolean) : [],
           whatsapp: branch.whatsapp || "",
-          isActive: branch.isActive ?? true,
           order: Number(branch.order || 0),
         })),
       };
@@ -102,10 +87,10 @@ const EditContactUs = () => {
   return (
     <Container>
       <ContactUsGeneralInfoTab
-        emailsText={emailsText}
-        setEmailsText={setEmailsText}
-        phonesText={phonesText}
-        setPhonesText={setPhonesText}
+        emails={emails}
+        setEmails={setEmails}
+        phones={phones}
+        setPhones={setPhones}
         mapLink={mapLink}
         setMapLink={setMapLink}
         whatsapp={whatsapp}
@@ -116,14 +101,16 @@ const EditContactUs = () => {
         setBranches={setBranches}
       />
 
-      <div className="mt-6">
-        <button
-          className="btn btn-primary"
-          onClick={handleSave}
-          disabled={isUpdating}
-        >
-          {isUpdating ? "Saving..." : "Save Contact Info"}
-        </button>
+      <div className="sticky bottom-4 z-20 mt-6 flex justify-end">
+        <div className="rounded-2xl border border-gray-200 bg-white/95 p-3 shadow-lg backdrop-blur">
+          <button
+            className="btn btn-primary"
+            onClick={handleSave}
+            disabled={isUpdating}
+          >
+            {isUpdating ? "Saving..." : "Save Contact Info"}
+          </button>
+        </div>
       </div>
 
       <ToastContainer pauseOnHover />

@@ -61,10 +61,10 @@ const AllCustomPages = () => {
                       <td>
                         <span
                           className={`badge ${
-                            page?.isActive ? "badge-success" : "badge-danger"
+                            "badge-success"
                           }`}
                         >
-                          {page?.isActive ? "Active" : "Inactive"}
+                          {"Active"}
                         </span>
                       </td>
 

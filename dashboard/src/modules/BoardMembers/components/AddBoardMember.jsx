@@ -13,11 +13,11 @@ const AddBoardMember = () => {
 
     imgPreview,
 
-    isActive,
-    setIsActive,
-
     order,
     setOrder,
+
+    isBoardMember,
+    setIsBoardMember,
 
     handleNameChange,
     handlePositionChange,
@@ -35,17 +35,17 @@ const AddBoardMember = () => {
       icon: "ki-outline ki-user-square",
       content: (
         <BoardMemberGeneralTab
-          isActive={isActive}
-          setIsActive={setIsActive}
           order={order}
           setOrder={setOrder}
           onImageChange={handleImageChange}
           imgPreview={imgPreview}
           currentImg=""
+          isBoardMember={isBoardMember}
+          setIsBoardMember={setIsBoardMember}
         />
       ),
     },
-    ...["en", "ar", "tr"].map((lang) => ({
+    ...["en", "ar"].map((lang) => ({
       key: `board_member_${lang}`,
       label: `Board Member ${lang.toUpperCase()}`,
       icon: "ki-outline ki-clipboard",
@@ -65,16 +65,20 @@ const AddBoardMember = () => {
 
   return (
     <Container>
-      <Tabs tabs={tabConfig} />
+      <div className="space-y-6">
+        <Tabs tabs={tabConfig} />
 
-      <div className="mt-6">
-        <button
-          className="btn btn-primary"
-          onClick={handleSave}
-          disabled={isLoading}
-        >
-          {isLoading ? "Submitting..." : "Create Board Member"}
-        </button>
+        <div className="sticky bottom-4 z-20 mt-6 flex justify-end">
+          <div className="rounded-2xl border border-gray-200 bg-white/95 p-3 shadow-lg backdrop-blur">
+            <button
+              className="btn btn-primary"
+              onClick={handleSave}
+              disabled={isLoading}
+            >
+              {isLoading ? "Submitting..." : "Create Board Member"}
+            </button>
+          </div>
+        </div>
       </div>
 
       <ToastContainer pauseOnHover />

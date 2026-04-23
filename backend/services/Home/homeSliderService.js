@@ -6,6 +6,7 @@ const { v4: uuidv4 } = require("uuid");
 const sharp = require("sharp");
 
 exports.uploadSliderImages = uploadSingleImage("img");
+
 exports.resizeSliderImages = asyncHandler(async (req, res, next) => {
   if (!req.file) return next();
 
@@ -17,54 +18,27 @@ exports.resizeSliderImages = asyncHandler(async (req, res, next) => {
     .toFile(`uploads/homeSlider/${filename}`);
 
   req.body.img = filename;
-
   next();
 });
 
-const safeParseJSON = (value, fieldName) => {
-  if (value === undefined || value === null) return value;
-  if (typeof value !== "string") return value;
-
-  try {
-    return JSON.parse(value);
-  } catch (error) {
-    throw new ApiError(`Invalid JSON format for ${fieldName}`, 400);
+const normalizeSliderPayload = (body) => {
+  delete body.title;
+  delete body.description;
+  if (body.order !== undefined) {
+    body.order = Number(body.order) || 0;
   }
 };
 
 exports.getSliders = asyncHandler(async (req, res) => {
-  const {
-    keyword,
-    page = 1,
-    limit = 10,
-    sort = "order createdAt",
-    sliderType,
-    isActive,
-  } = req.query;
+  const { page = 1, limit = 10, sort = "order createdAt" } = req.query;
 
-  const query = {};
-
-  if (sliderType) query.sliderType = sliderType;
-  if (isActive !== undefined) query.isActive = isActive === "true";
-
-  if (keyword && keyword.trim() !== "") {
-    query.$or = [
-      { "title.ar": { $regex: keyword, $options: "i" } },
-      { "title.en": { $regex: keyword, $options: "i" } },
-      { "title.tr": { $regex: keyword, $options: "i" } },
-      { "description.ar": { $regex: keyword, $options: "i" } },
-      { "description.en": { $regex: keyword, $options: "i" } },
-      { "description.tr": { $regex: keyword, $options: "i" } },
-    ];
-  }
-
-  const pageNum = parseInt(page);
-  const limitNum = parseInt(limit);
+  const pageNum = parseInt(page, 10);
+  const limitNum = parseInt(limit, 10);
   const skip = (pageNum - 1) * limitNum;
 
   const [data, total] = await Promise.all([
-    HomeSliderModel.find(query).sort(sort).skip(skip).limit(limitNum),
-    HomeSliderModel.countDocuments(query),
+    HomeSliderModel.find({}).sort(sort).skip(skip).limit(limitNum),
+    HomeSliderModel.countDocuments({}),
   ]);
 
   res.status(200).json({
@@ -79,14 +53,11 @@ exports.getSliders = asyncHandler(async (req, res) => {
   });
 });
 
-//For website access
 exports.getPublicSliders = asyncHandler(async (req, res) => {
-  const { sliderType = "main" } = req.query;
-
-  const sliders = await HomeSliderModel.find({
-    sliderType,
-    isActive: true,
-  }).sort({ order: 1, createdAt: -1 });
+  const sliders = await HomeSliderModel.find({}).sort({
+    order: 1,
+    createdAt: -1,
+  });
 
   res.status(200).json({
     status: true,
@@ -95,12 +66,10 @@ exports.getPublicSliders = asyncHandler(async (req, res) => {
 });
 
 exports.getOneSlider = asyncHandler(async (req, res, next) => {
-  const { id } = req.params;
-
-  const slider = await HomeSliderModel.findById(id);
+  const slider = await HomeSliderModel.findById(req.params.id);
 
   if (!slider) {
-    return next(new ApiError(`No Slider found for this id: ${id}`, 404));
+    return next(new ApiError(`No Slider found for this id: ${req.params.id}`, 404));
   }
 
   res.status(200).json({
@@ -110,17 +79,7 @@ exports.getOneSlider = asyncHandler(async (req, res, next) => {
 });
 
 exports.createSlider = asyncHandler(async (req, res) => {
-  req.body.title = safeParseJSON(req.body.title, "title");
-  req.body.description = safeParseJSON(req.body.description, "description");
-
-  if (req.body.isActive !== undefined) {
-    req.body.isActive =
-      req.body.isActive === true || req.body.isActive === "true";
-  }
-
-  if (req.body.order !== undefined) {
-    req.body.order = Number(req.body.order) || 0;
-  }
+  normalizeSliderPayload(req.body);
 
   const slider = await HomeSliderModel.create(req.body);
 
@@ -132,32 +91,19 @@ exports.createSlider = asyncHandler(async (req, res) => {
 });
 
 exports.updateSlider = asyncHandler(async (req, res, next) => {
-  const { id } = req.params;
+  normalizeSliderPayload(req.body);
 
-  if (req.body.title !== undefined) {
-    req.body.title = safeParseJSON(req.body.title, "title");
-  }
-
-  if (req.body.description !== undefined) {
-    req.body.description = safeParseJSON(req.body.description, "description");
-  }
-
-  if (req.body.isActive !== undefined) {
-    req.body.isActive =
-      req.body.isActive === true || req.body.isActive === "true";
-  }
-
-  if (req.body.order !== undefined) {
-    req.body.order = Number(req.body.order) || 0;
-  }
-
-  const slider = await HomeSliderModel.findByIdAndUpdate(id, req.body, {
-    new: true,
-    runValidators: true,
-  });
+  const slider = await HomeSliderModel.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    {
+      new: true,
+      runValidators: true,
+    },
+  );
 
   if (!slider) {
-    return next(new ApiError(`No Slider found for this id: ${id}`, 404));
+    return next(new ApiError(`No Slider found for this id: ${req.params.id}`, 404));
   }
 
   res.status(200).json({
@@ -168,12 +114,10 @@ exports.updateSlider = asyncHandler(async (req, res, next) => {
 });
 
 exports.deleteSlider = asyncHandler(async (req, res, next) => {
-  const { id } = req.params;
-
-  const slider = await HomeSliderModel.findByIdAndDelete(id);
+  const slider = await HomeSliderModel.findByIdAndDelete(req.params.id);
 
   if (!slider) {
-    return next(new ApiError(`No Slider found for this id: ${id}`, 404));
+    return next(new ApiError(`No Slider found for this id: ${req.params.id}`, 404));
   }
 
   res.status(200).json({
@@ -183,15 +127,7 @@ exports.deleteSlider = asyncHandler(async (req, res, next) => {
 });
 
 exports.updateSliderBulk = asyncHandler(async (req, res) => {
-  const { sliderType } = req.query;
   const slides = req.body;
-
-  if (!sliderType) {
-    return res.status(400).json({
-      status: false,
-      message: "sliderType is required",
-    });
-  }
 
   if (!Array.isArray(slides)) {
     return res.status(400).json({
@@ -200,35 +136,31 @@ exports.updateSliderBulk = asyncHandler(async (req, res) => {
     });
   }
 
-  // existing slides
-  const existingSlides = await HomeSliderModel.find({ sliderType });
+  const incomingIds = slides.filter((slide) => slide._id).map((slide) => slide._id);
 
-  const incomingIds = slides.filter((s) => s._id).map((s) => s._id);
-
-  // delete removed
   await HomeSliderModel.deleteMany({
-    sliderType,
     _id: { $nin: incomingIds },
   });
 
-  // update/create
-  const operations = slides.map((slide) => {
-    if (slide._id) {
-      return HomeSliderModel.findByIdAndUpdate(slide._id, slide, {
-        new: true,
-        runValidators: true,
-      });
-    } else {
-      return HomeSliderModel.create({
-        ...slide,
-        sliderType,
-      });
-    }
-  });
+  await Promise.all(
+    slides.map((slide) => {
+      const payload = {
+        img: slide.img || "",
+        order: Number(slide.order) || 0,
+      };
 
-  await Promise.all(operations);
+      if (slide._id) {
+        return HomeSliderModel.findByIdAndUpdate(slide._id, payload, {
+          new: true,
+          runValidators: true,
+        });
+      }
 
-  const updated = await HomeSliderModel.find({ sliderType }).sort({ order: 1 });
+      return HomeSliderModel.create(payload);
+    }),
+  );
+
+  const updated = await HomeSliderModel.find({}).sort({ order: 1 });
 
   res.status(200).json({
     status: true,

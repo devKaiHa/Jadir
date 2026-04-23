@@ -1,0 +1,84 @@
+.jadwa-description-section {
+  margin: 40px 0 50px;
+}
+
+.jadwa-description-shell {
+  position: relative;
+  padding: 34px 36px;
+  border-radius: 28px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbfc 100%);
+  border: 1px solid rgba(18, 92, 121, 0.1);
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.06);
+}
+
+.jadwa-description-head {
+  margin-bottom: 26px;
+}
+
+.jadwa-description-title {
+  margin: 14px 0 0;
+  font-size: 34px;
+  line-height: 1.25;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.jadwa-description-body {
+  display: flex;
+  align-items: stretch;
+  gap: 22px;
+}
+
+.jadwa-description-bar {
+  width: 5px;
+  min-width: 5px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #125c79 0%, #4ab1d4 100%);
+}
+
+.jadwa-description-content {
+  flex: 1;
+  font-size: 16px;
+  line-height: 2;
+  color: #475569;
+  white-space: pre-line;
+}
+
+.jadwa-description-content p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 991px) {
+  .jadwa-description-shell {
+    padding: 28px 24px;
+    border-radius: 22px;
+  }
+
+  .jadwa-description-title {
+    font-size: 28px;
+  }
+
+  .jadwa-description-body {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 767px) {
+  .jadwa-description-section {
+    margin: 30px 0 40px;
+  }
+
+  .jadwa-description-shell {
+    padding: 22px 18px;
+    border-radius: 18px;
+  }
+
+  .jadwa-description-title {
+    font-size: 24px;
+  }
+
+  .jadwa-description-content {
+    font-size: 15px;
+    line-height: 1.9;
+  }
+}

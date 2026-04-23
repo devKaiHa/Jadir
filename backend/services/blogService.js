@@ -10,7 +10,7 @@ const categoryModel = require("../models/categoryModel");
 const safeParseJSON = require("../utils/safeParseJson");
 
 const buildSlug = (name = {}) => {
-  const base = name?.en || name?.ar || name?.tr || "";
+  const base = name?.en || name?.ar || "";
   return slugify(base, { lower: true, strict: true, trim: true });
 };
 
@@ -63,10 +63,8 @@ exports.getBlogs = asyncHandler(async (req, res) => {
     query.$or = [
       { "tags.ar": keywordRegex },
       { "tags.en": keywordRegex },
-      { "tags.tr": keywordRegex },
       { "title.ar": keywordRegex },
       { "title.en": keywordRegex },
-      { "title.tr": keywordRegex },
       { "author.name": keywordRegex },
     ];
   }
@@ -87,7 +85,6 @@ exports.getBlogs = asyncHandler(async (req, res) => {
     categoryQuery.$or.push(
       { "name.ar": { $regex: category, $options: "i" } },
       { "name.en": { $regex: category, $options: "i" } },
-      { "name.tr": { $regex: category, $options: "i" } },
       { slug: { $regex: `^${category}$`, $options: "i" } },
     );
 
@@ -149,10 +146,8 @@ exports.getPublicBlogs = asyncHandler(async (req, res) => {
     query.$or = [
       { "tags.ar": keywordRegex },
       { "tags.en": keywordRegex },
-      { "tags.tr": keywordRegex },
       { "title.ar": keywordRegex },
       { "title.en": keywordRegex },
-      { "title.tr": keywordRegex },
       { "author.name": keywordRegex },
     ];
   }
@@ -167,7 +162,6 @@ exports.getPublicBlogs = asyncHandler(async (req, res) => {
     categoryQuery.$or.push(
       { "name.ar": { $regex: category, $options: "i" } },
       { "name.en": { $regex: category, $options: "i" } },
-      { "name.tr": { $regex: category, $options: "i" } },
       { slug: { $regex: `^${category}$`, $options: "i" } },
     );
 

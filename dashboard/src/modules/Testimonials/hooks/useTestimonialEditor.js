@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 const emptyLangState = {
   en: "",
   ar: "",
-  tr: "",
 };
 
 export const useTestimonialEditorState = (testimonial, initialImage = "") => {
@@ -13,7 +12,6 @@ export const useTestimonialEditorState = (testimonial, initialImage = "") => {
   const [content, setContent] = useState({ ...emptyLangState });
   const [rating, setRating] = useState(5);
   const [isFeatured, setIsFeatured] = useState(false);
-  const [isActive, setIsActive] = useState(true);
   const [order, setOrder] = useState(0);
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(initialImage || "");
@@ -25,21 +23,17 @@ export const useTestimonialEditorState = (testimonial, initialImage = "") => {
     setRole({
       en: testimonial?.role?.en || "",
       ar: testimonial?.role?.ar || "",
-      tr: testimonial?.role?.tr || "",
     });
     setCompany({
       en: testimonial?.company?.en || "",
       ar: testimonial?.company?.ar || "",
-      tr: testimonial?.company?.tr || "",
     });
     setContent({
       en: testimonial?.content?.en || "",
       ar: testimonial?.content?.ar || "",
-      tr: testimonial?.content?.tr || "",
     });
     setRating(testimonial?.rating ?? 5);
     setIsFeatured(testimonial?.isFeatured ?? false);
-    setIsActive(testimonial?.isActive ?? true);
     setOrder(testimonial?.order ?? 0);
     setImageFile(null);
     setImagePreview(initialImage || "");
@@ -77,7 +71,6 @@ export const useTestimonialEditorState = (testimonial, initialImage = "") => {
     formData.append("content", JSON.stringify(content));
     formData.append("rating", String(rating || 5));
     formData.append("isFeatured", isFeatured ? "true" : "false");
-    formData.append("isActive", isActive ? "true" : "false");
     formData.append("order", String(order || 0));
 
     if (imageFile) {
@@ -97,8 +90,6 @@ export const useTestimonialEditorState = (testimonial, initialImage = "") => {
     setRating,
     isFeatured,
     setIsFeatured,
-    isActive,
-    setIsActive,
     order,
     setOrder,
     imagePreview,

@@ -15,6 +15,8 @@ const EditFooter = () => {
 
     description,
     handleDescriptionChange,
+    address,
+    handleAddressChange,
 
     facebook,
     setFacebook,
@@ -28,6 +30,12 @@ const EditFooter = () => {
     setPhone,
     email,
     setEmail,
+    workDays,
+    setWorkDays,
+    workingHours,
+    setWorkingHours,
+    workingSchedule,
+    setWorkingSchedule,
 
     links,
     addLink,
@@ -59,6 +67,12 @@ const EditFooter = () => {
           setPhone={setPhone}
           email={email}
           setEmail={setEmail}
+          workDays={workDays}
+          setWorkDays={setWorkDays}
+          workingHours={workingHours}
+          setWorkingHours={setWorkingHours}
+          workingSchedule={workingSchedule}
+          setWorkingSchedule={setWorkingSchedule}
           links={links}
           addLink={addLink}
           removeLink={removeLink}
@@ -66,7 +80,7 @@ const EditFooter = () => {
         />
       ),
     },
-    ...["en", "ar", "tr"].map((lang) => ({
+    ...["en", "ar"].map((lang) => ({
       key: `footer_${lang}`,
       label: `Footer ${lang.toUpperCase()}`,
       icon: "ki-outline ki-clipboard",
@@ -75,6 +89,7 @@ const EditFooter = () => {
           language={lang}
           descriptionValue={description[lang]}
           onDescriptionChange={handleDescriptionChange}
+          onAddressChange={handleAddressChange}
         />
       ),
     })),
@@ -84,14 +99,16 @@ const EditFooter = () => {
     <Container>
       <Tabs tabs={tabConfig} />
 
-      <div className="mt-6">
-        <button
-          className="btn btn-primary"
-          onClick={handleSave}
-          disabled={isUpdating}
-        >
-          {isUpdating ? "Saving..." : "Save Footer"}
-        </button>
+      <div className="sticky bottom-4 z-20 mt-6 flex justify-end">
+        <div className="rounded-2xl border border-gray-200 bg-white/95 p-3 shadow-lg backdrop-blur">
+          <button
+            className="btn btn-primary"
+            onClick={handleSave}
+            disabled={isUpdating}
+          >
+            {isUpdating ? "Saving..." : "Save Footer"}
+          </button>
+        </div>
       </div>
 
       <ToastContainer pauseOnHover />
