@@ -4,6 +4,7 @@ import Link from "next/link";
 import Menu from "../Menu";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useIsMobile } from "@/lib/helpers";
 
 const languages = [
   { value: "en", label: "English" },
@@ -24,8 +25,10 @@ export default function Header({
   sticky,
   footerData,
 }) {
+  const isMobile = useIsMobile();
   const { i18n } = useTranslation();
   const [activeLang, setActiveLang] = useState("en");
+  const [openSearch, setOpenSearch] = useState(false);
 
   useEffect(() => {
     const match = document.cookie.match(/site_lang=(\w+)/);
@@ -127,15 +130,40 @@ export default function Header({
                 </div>
               </nav>
 
-              <form
-                className="jadwa-search"
-                onSubmit={(event) => event.preventDefault()}
-              >
-                <input type="search" aria-label="Search" placeholder="Search" />
-                <button type="submit" aria-label="Search">
+              {isMobile ? null : !openSearch ? (
+                <button
+                  type="button"
+                  aria-label="Open search"
+                  onClick={() => setOpenSearch(true)}
+                  className="jadwa-search-icon"
+                >
                   <i className="fa-solid fa-magnifying-glass" />
                 </button>
-              </form>
+              ) : (
+                <form
+                  className="jadwa-search"
+                  onSubmit={(event) => event.preventDefault()}
+                >
+                  <input
+                    type="search"
+                    aria-label="Search"
+                    placeholder="Search"
+                    autoFocus
+                  />
+                  <button type="submit" aria-label="Search">
+                    <i className="fa-solid fa-magnifying-glass" />
+                  </button>
+
+                  <button
+                    type="button"
+                    aria-label="Close search"
+                    onClick={() => setOpenSearch(false)}
+                    className="jadwa-search-close"
+                  >
+                    ×
+                  </button>
+                </form>
+              )}
 
               <Link href="/contact" className="jadwa-invest-btn">
                 Request a consult

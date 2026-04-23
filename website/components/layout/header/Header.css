@@ -583,6 +583,15 @@
   box-shadow: 0 20px 40px rgba(185, 167, 122, 0.28);
 }
 
+.jadwa-search-icon {
+  background-color: var(--site-blue);
+  color: var(--site-white);
+  padding: 8px;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+}
+
 /* =========================================
    RESPONSIVE
 ========================================= */
