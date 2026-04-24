@@ -37,6 +37,32 @@ const parseIdArray = (value, fieldName) => {
   return parsed.filter(Boolean);
 };
 
+const parseTestimonials = (value, fieldName) => {
+  const parsed = safeParseJSON(value, fieldName);
+
+  if (parsed === undefined || parsed === null) return undefined;
+
+  const rawItems = Array.isArray(parsed)
+    ? parsed
+    : typeof parsed === "object"
+      ? [parsed]
+      : [];
+
+  return rawItems
+    .map((item) => ({
+      clientName: item?.clientName || {},
+      clientRole: item?.clientRole || {},
+      quote: item?.quote || {},
+    }))
+    .filter((item) => {
+      const hasQuote = item.quote?.en || item.quote?.ar;
+      const hasName = item.clientName?.en || item.clientName?.ar;
+      const hasRole = item.clientRole?.en || item.clientRole?.ar;
+
+      return hasQuote || hasName || hasRole;
+    });
+};
+
 const servicePopulate = [
   { path: "relatedProjects", select: "title slug image brief challenge solution result" },
   { path: "relatedServices", select: "title slug bannerImage description" },
@@ -83,8 +109,11 @@ const normalizeServicePayload = (body) => {
     );
   }
 
-  if (body.testimonial !== undefined) {
-    body.testimonial = safeParseJSON(body.testimonial, "testimonial");
+  if (body.testimonials !== undefined) {
+    body.testimonials = parseTestimonials(body.testimonials, "testimonials");
+  } else if (body.testimonial !== undefined) {
+    body.testimonials = parseTestimonials(body.testimonial, "testimonial");
+    delete body.testimonial;
   }
 
   if (body.relatedProjects !== undefined) {

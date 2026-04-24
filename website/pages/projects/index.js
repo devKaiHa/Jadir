@@ -2,9 +2,9 @@ import Layout from "@/components/layout/Layout";
 import Link from "next/link";
 import { getOtherData } from "@/api/getOtherData";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
 import { imageURL } from "@/api/GlobalData";
 import { getPageBanners, resolvePageBanner } from "@/lib/pageBanners";
+import { stripHtml } from "@/components/utils/helpers";
 
 export default function ProjectsPage({ projects = [], pageBanners = {} }) {
   const { i18n } = useTranslation();
@@ -42,8 +42,8 @@ export default function ProjectsPage({ projects = [], pageBanners = {} }) {
                   key={project?._id}
                   className="col-lg-4 col-md-6 col-sm-12 news-block my-2"
                 >
-                  <div className="news-block-one h-100">
-                    <div className="inner-box h-100">
+                  <div className="news-block-one h-100 project-grid-card">
+                    <div className="inner-box h-100 project-grid-card-inner">
                       <div className="image-box">
                         <figure className="image">
                           <img
@@ -70,42 +70,19 @@ export default function ProjectsPage({ projects = [], pageBanners = {} }) {
 }
 
 const ProjectBrief = ({ project, lang }) => {
-  const [expanded, setExpanded] = useState(false);
-
-  const brief = project?.brief?.[lang] || project?.brief?.en || "";
-
-  const shortText = brief.slice(0, 120); // adjust length
+  const briefHtml = project?.brief?.[lang] || project?.brief?.en || "";
+  const plainText = stripHtml(briefHtml);
 
   return (
-    <div className="lower-box">
-      <h3>{project?.title?.[lang] || project?.title?.en}</h3>
+    <div className="lower-box project-grid-card-body">
+      <h3 className="project-grid-card-title">
+        {project?.title?.[lang] || project?.title?.en}
+      </h3>
 
-      <p>
-        {expanded ? brief : shortText}
-        {brief.length > 120 && !expanded && "... "}
-
-        {brief.length > 120 && (
-          <span
-            onClick={() => setExpanded(!expanded)}
-            className="cursor-pointer text-primary ms-2"
-          >
-            {expanded
-              ? lang === "ar"
-                ? "عرض أقل"
-                : lang === "tr"
-                  ? "Daha az"
-                  : "See less"
-              : lang === "ar"
-                ? "عرض المزيد"
-                : lang === "tr"
-                  ? "Daha fazla"
-                  : "See more"}
-          </span>
-        )}
-      </p>
+      <p className="project-grid-card-brief">{plainText}</p>
 
       {(project?.slug || project?._id) && (
-        <div className="link">
+        <div className="link project-grid-card-link">
           <Link href={`/projects/${project?.slug || project?._id}`}>
             <span>
               {lang === "ar"

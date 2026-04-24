@@ -15,6 +15,7 @@ import {
 import { formatDate } from "@/GlobalHooks/GlobalHooks";
 import baseURL, { imageURL } from "@/api/GlobalData";
 import ShareArticle from "@/components/elements/ShareArticle";
+import { useIsMobile } from "@/lib/helpers";
 
 const fallbackHero = [
   { image: "banner-4.jpg", folder: "banner" },
@@ -292,6 +293,7 @@ export function ConsultCTA() {
 }
 
 export function TrustedLogos({ partners = [], companies = [] }) {
+  const isMobile = useIsMobile();
   const { i18n } = useTranslation();
   const lang = i18n.language || "en";
 
@@ -320,8 +322,8 @@ export function TrustedLogos({ partners = [], companies = [] }) {
         <Swiper
           key={"trusted-logos"}
           modules={[Autoplay]}
-          spaceBetween={20}
-          slidesPerView={5}
+          spaceBetween={isMobile ? 10 : 20}
+          slidesPerView={isMobile ? 2 : 5}
           loop={true}
           speed={5000}
           autoplay={{

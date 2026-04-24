@@ -29,7 +29,7 @@ const serviceSchema = new mongoose.Schema(
     relatedProjects: [
       { type: mongoose.Schema.Types.ObjectId, ref: "projects" },
     ],
-    testimonial: { type: testimonialSchema },
+    testimonials: { type: [testimonialSchema], default: [] },
     relatedServices: [{ type: mongoose.Schema.Types.ObjectId, ref: "service" }],
     slug: { type: String, unique: true, index: true },
     order: { type: Number, default: 0 },

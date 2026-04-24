@@ -1,6 +1,8 @@
+import { useIsMobile } from "@/lib/helpers";
 import { useTranslation } from "react-i18next";
 
 export default function Statistics({ statistics = [], isAbout = false }) {
+  const isMobile = useIsMobile();
   const { i18n } = useTranslation();
   const lang = i18n.language || "en";
   const isRtl = lang === "ar";
@@ -37,8 +39,12 @@ export default function Statistics({ statistics = [], isAbout = false }) {
               className="col-lg-4 col-md-6 col-sm-12 statistics-col"
             >
               <div className="statistics-card">
-                <div className="statistics-card-content">
-                  <h2 className="statistics-number">
+                <div
+                  className={`statistics-card-content ${isMobile && "text-center"}`}
+                >
+                  <h2
+                    className={`statistics-number ${isMobile && "justify-content-center"}`}
+                  >
                     <span className="statistics-value">{item?.value}</span>
                     <span className="statistics-suffix">
                       {item?.suffix?.[lang] || item?.suffix?.en}

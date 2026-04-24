@@ -9,6 +9,12 @@ const emptyLangState = {
   ar: "",
 };
 
+const createEmptyTestimonial = () => ({
+  clientName: { ...emptyLangState },
+  clientRole: { ...emptyLangState },
+  quote: { ...emptyLangState },
+});
+
 const useCreateOurService = () => {
   const navigate = useNavigate();
   const { postOurService, isPosting, services } = useOurServices({ limit: 100 });
@@ -28,11 +34,7 @@ const useCreateOurService = () => {
     en: [],
     ar: [],
   });
-  const [testimonial, setTestimonial] = useState({
-    clientName: { ...emptyLangState },
-    clientRole: { ...emptyLangState },
-    quote: { ...emptyLangState },
-  });
+  const [testimonials, setTestimonials] = useState([]);
   const [order, setOrder] = useState(0);
   const [relatedProjects, setRelatedProjects] = useState([]);
   const [relatedServices, setRelatedServices] = useState([]);
@@ -59,11 +61,25 @@ const useCreateOurService = () => {
     setTargetingSectors((prev) => ({ ...prev, [lang]: value }));
   };
 
-  const handleTestimonialFieldChange = (field, lang, value) => {
-    setTestimonial((prev) => ({
-      ...prev,
-      [field]: { ...prev[field], [lang]: value },
-    }));
+  const addTestimonial = () => {
+    setTestimonials((prev) => [...prev, createEmptyTestimonial()]);
+  };
+
+  const removeTestimonial = (index) => {
+    setTestimonials((prev) => prev.filter((_, itemIndex) => itemIndex !== index));
+  };
+
+  const handleTestimonialFieldChange = (index, field, lang, value) => {
+    setTestimonials((prev) =>
+      prev.map((item, itemIndex) =>
+        itemIndex === index
+          ? {
+              ...item,
+              [field]: { ...item[field], [lang]: value },
+            }
+          : item,
+      ),
+    );
   };
 
   const onImageChange = (selectedAvatar) => {
@@ -86,7 +102,7 @@ const useCreateOurService = () => {
       formData.append("features", JSON.stringify(features));
       formData.append("steps", JSON.stringify(steps));
       formData.append("targetingSectors", JSON.stringify(targetingSectors));
-      formData.append("testimonial", JSON.stringify(testimonial));
+      formData.append("testimonials", JSON.stringify(testimonials));
       formData.append(
         "relatedProjects",
         JSON.stringify(relatedProjects.map((item) => item._id || item.id)),
@@ -120,7 +136,9 @@ const useCreateOurService = () => {
     features,
     steps,
     targetingSectors,
-    testimonial,
+    testimonials,
+    addTestimonial,
+    removeTestimonial,
     order,
     setOrder,
     relatedProjects,

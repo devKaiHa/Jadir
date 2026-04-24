@@ -1964,6 +1964,10 @@ html[dir="rtl"] .companies-brief-read-more:hover .companies-brief-arrow {
   background: linear-gradient(90deg, #0f5662 0%, #de934f 100%);
 }
 
+.fs-18 {
+  font-size: 18px !important;
+}
+
 /* Tablet */
 @media (max-width: 991px) {
   .companies-brief-media {

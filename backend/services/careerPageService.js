@@ -41,7 +41,12 @@ const parseCareerBody = (body) => {
 };
 
 exports.getCareers = asyncHandler(async (req, res) => {
-  const { keyword, page = 1, limit = 10, sort = "endDate createdAt" } = req.query;
+  const {
+    keyword,
+    page = 1,
+    limit = 10,
+    sort = "endDate createdAt",
+  } = req.query;
   const query = {};
 
   if (keyword?.trim()) {
@@ -76,12 +81,11 @@ exports.getCareers = asyncHandler(async (req, res) => {
 });
 
 exports.getPublicCareers = asyncHandler(async (req, res) => {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
+  // const today = new Date();
+  // today.setHours(0, 0, 0, 0);
 
-  const careers = await CareerModel.find({
-    $or: [{ endDate: null }, { endDate: { $gte: today } }],
-  }).sort({ endDate: 1, createdAt: -1 });
+  // {$or: [{ endDate: null }, { endDate: { $gte: today } }],}
+  const careers = await CareerModel.find().sort({ endDate: 1, createdAt: -1 });
 
   res.status(200).json({
     status: true,

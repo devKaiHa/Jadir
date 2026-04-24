@@ -18,6 +18,8 @@ import { getPageBanners, resolvePageBanner } from "@/lib/pageBanners";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { stripHtml } from "@/components/utils/helpers";
+import { useIsMobile } from "@/lib/helpers";
 
 const BLOGS_PER_PAGE = 9;
 
@@ -38,6 +40,7 @@ export default function BlogPage({
   initialCategories,
   pageBanners = {},
 }) {
+  const isMobile = useIsMobile();
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language || "en";
   const isRtl = currentLang === "ar";
@@ -319,16 +322,18 @@ export default function BlogPage({
                             </Link>
                           </h3>
 
-                          <p className="jadwa-blog-hero-excerpt">
-                            {truncateText(
-                              blog?.excerpt?.[currentLang] ||
-                                blog?.excerpt?.en ||
-                                "",
-                              130,
-                            )
-                              .replace("<p>", "")
-                              .replace("</p>", "")}
-                          </p>
+                          {!isMobile && (
+                            <p className="jadwa-blog-hero-excerpt">
+                              {stripHtml(
+                                truncateText(
+                                  blog?.excerpt?.[currentLang] ||
+                                    blog?.excerpt?.en ||
+                                    "",
+                                  130,
+                                ),
+                              )}
+                            </p>
+                          )}
                         </div>
 
                         <div className="big-blog-bottom-content">

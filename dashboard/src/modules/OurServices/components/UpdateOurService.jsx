@@ -17,7 +17,9 @@ const UpdateOurService = () => {
     features,
     steps,
     targetingSectors,
-    testimonial,
+    testimonials,
+    addTestimonial,
+    removeTestimonial,
     order,
     setOrder,
     relatedProjects,
@@ -72,23 +74,15 @@ const UpdateOurService = () => {
           featuresValue={features[lang]}
           stepsValue={steps[lang]}
           targetingSectorsValue={targetingSectors[lang]}
-          testimonialQuoteValue={testimonial.quote[lang]}
-          testimonialClientNameValue={testimonial.clientName[lang]}
-          testimonialClientRoleValue={testimonial.clientRole[lang]}
+          testimonialsValue={testimonials}
           onTitleChange={handleTitleChange}
           onDescriptionChange={handleDescriptionChange}
           onFeaturesChange={handleFeaturesChange}
           onStepsChange={handleStepsChange}
           onTargetingSectorsChange={handleTargetingSectorsChange}
-          onTestimonialQuoteChange={(language, value) =>
-            handleTestimonialFieldChange("quote", language, value)
-          }
-          onTestimonialClientNameChange={(language, value) =>
-            handleTestimonialFieldChange("clientName", language, value)
-          }
-          onTestimonialClientRoleChange={(language, value) =>
-            handleTestimonialFieldChange("clientRole", language, value)
-          }
+          onAddTestimonial={addTestimonial}
+          onRemoveTestimonial={removeTestimonial}
+          onTestimonialFieldChange={handleTestimonialFieldChange}
         />
       ),
     })),
@@ -97,44 +91,6 @@ const UpdateOurService = () => {
   return (
     <Container>
       <div className="space-y-6">
-        <div className="overflow-hidden rounded-[28px] border border-slate-200 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white shadow-xl">
-          <div className="grid gap-6 px-6 py-7 lg:grid-cols-[1.2fr_0.8fr] lg:px-8">
-            <div>
-              <span className="inline-flex rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-slate-200">
-                Update Service
-              </span>
-              <h2 className="mt-4 text-2xl font-semibold">
-                Refine the service page from the same structured editing workspace
-              </h2>
-              <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-200">
-                Keep media, linked content, and multilingual service copy aligned
-                without switching layouts.
-              </p>
-            </div>
-
-            <div className="grid gap-3 sm:grid-cols-2">
-              <div className="rounded-2xl bg-white/10 p-4 backdrop-blur-sm">
-                <div className="text-xs uppercase tracking-[0.18em] text-slate-300">Status</div>
-                <div className="mt-2 text-sm font-semibold">
-                  Active
-                </div>
-              </div>
-              <div className="rounded-2xl bg-white/10 p-4 backdrop-blur-sm">
-                <div className="text-xs uppercase tracking-[0.18em] text-slate-300">Order</div>
-                <div className="mt-2 text-sm font-semibold">{order}</div>
-              </div>
-              <div className="rounded-2xl bg-white/10 p-4 backdrop-blur-sm">
-                <div className="text-xs uppercase tracking-[0.18em] text-slate-300">Projects Linked</div>
-                <div className="mt-2 text-sm font-semibold">{relatedProjects.length}</div>
-              </div>
-              <div className="rounded-2xl bg-white/10 p-4 backdrop-blur-sm">
-                <div className="text-xs uppercase tracking-[0.18em] text-slate-300">Services Linked</div>
-                <div className="mt-2 text-sm font-semibold">{relatedServices.length}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <Tabs tabs={tabConfig} />
 
         <div className="sticky bottom-4 z-20 mt-6 flex justify-end">

@@ -12,7 +12,9 @@ const AddOurService = () => {
     features,
     steps,
     targetingSectors,
-    testimonial,
+    testimonials,
+    addTestimonial,
+    removeTestimonial,
     order,
     setOrder,
     relatedProjects,
@@ -65,23 +67,15 @@ const AddOurService = () => {
           featuresValue={features[lang]}
           stepsValue={steps[lang]}
           targetingSectorsValue={targetingSectors[lang]}
-          testimonialQuoteValue={testimonial.quote[lang]}
-          testimonialClientNameValue={testimonial.clientName[lang]}
-          testimonialClientRoleValue={testimonial.clientRole[lang]}
+          testimonialsValue={testimonials}
           onTitleChange={handleTitleChange}
           onDescriptionChange={handleDescriptionChange}
           onFeaturesChange={handleFeaturesChange}
           onStepsChange={handleStepsChange}
           onTargetingSectorsChange={handleTargetingSectorsChange}
-          onTestimonialQuoteChange={(language, value) =>
-            handleTestimonialFieldChange("quote", language, value)
-          }
-          onTestimonialClientNameChange={(language, value) =>
-            handleTestimonialFieldChange("clientName", language, value)
-          }
-          onTestimonialClientRoleChange={(language, value) =>
-            handleTestimonialFieldChange("clientRole", language, value)
-          }
+          onAddTestimonial={addTestimonial}
+          onRemoveTestimonial={removeTestimonial}
+          onTestimonialFieldChange={handleTestimonialFieldChange}
         />
       ),
     })),

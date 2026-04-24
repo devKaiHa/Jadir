@@ -4,7 +4,6 @@ import {
   ProjectCards,
   SectionTitle,
   ServiceRequestModal,
-  Testimonials,
 } from "@/components/website/PublicSections";
 import {
   asset,
@@ -32,8 +31,8 @@ function ListBlock({ title, items = [] }) {
   );
 }
 
-function Testimonial({ testimonial, lang = "en" }) {
-  if (!testimonial) return null;
+function TestimonialsList({ testimonials = [], lang = "en" }) {
+  if (!testimonials.length) return null;
 
   return (
     <section className="site-band site-testimonial-showcase">
@@ -44,23 +43,29 @@ function Testimonial({ testimonial, lang = "en" }) {
           text="Clear feedback from the people and teams who trusted Jadir."
         />
 
-        <article className="site-testimonial-featured">
-          <div className="site-quote-mark">"</div>
-          <p>
-            {localize(
-              testimonial?.quote ||
-                testimonial?.content ||
-                testimonial?.description,
-              lang,
-            )}
-          </p>
-          <h3>
-            {localize(testimonial?.clientName || testimonial?.name, lang)}
-          </h3>
-          <span>
-            {localize(testimonial?.clientRole || testimonial?.role, lang)}
-          </span>
-        </article>
+        <div className="row g-4">
+          {testimonials.map((testimonial, index) => (
+            <div className="col-12" key={`service-testimonial-${index}`}>
+              <article className="site-testimonial-featured h-100">
+                <div className="site-quote-mark mb-0">"</div>
+                <p className="fs-18">
+                  {localize(
+                    testimonial?.quote ||
+                      testimonial?.content ||
+                      testimonial?.description,
+                    lang,
+                  )}
+                </p>
+                <h3>
+                  {localize(testimonial?.clientName || testimonial?.name, lang)}
+                </h3>
+                <span>
+                  {localize(testimonial?.clientRole || testimonial?.role, lang)}
+                </span>
+              </article>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -82,6 +87,11 @@ export default function ServiceDetailsPage({
   const steps = service?.steps?.[lang] || service?.steps?.en || [];
   const sectors =
     service?.targetingSectors?.[lang] || service?.targetingSectors?.en || [];
+  const testimonials = Array.isArray(service?.testimonials)
+    ? service.testimonials
+    : service?.testimonial
+      ? [service.testimonial]
+      : [];
   const relatedProjects = projects.filter((project) =>
     (service?.relatedProjects || []).some(
       (item) => (item?._id || item) === project?._id,
@@ -199,8 +209,8 @@ export default function ServiceDetailsPage({
           </div>
         </div>
       </section>
-      {service?.testimonial ? (
-        <Testimonial testimonial={service.testimonial} />
+      {testimonials.length ? (
+        <TestimonialsList testimonials={testimonials} lang={lang} />
       ) : null}
       {requestOpen ? (
         <ServiceRequestModal

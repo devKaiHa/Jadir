@@ -8,9 +8,11 @@ import { imageURL } from "@/api/GlobalData";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { useIsMobile } from "@/lib/helpers";
 
 export default function FounderSlider({ founders = [] }) {
-  const { i18n, t } = useTranslation();
+  const isMobile = useIsMobile();
+  const { i18n } = useTranslation();
   const lang = i18n.language || "en";
 
   const items = Array.isArray(founders) ? founders : [];
@@ -26,7 +28,7 @@ export default function FounderSlider({ founders = [] }) {
         key={i18n.dir()}
         dir={i18n.dir()}
         modules={[Navigation, Pagination, Autoplay]}
-        slidesPerView={items.length > 1 ? 2 : 1}
+        slidesPerView={items.length > 1 && !isMobile ? 2 : 1}
         spaceBetween={24}
         loop={items.length > 1}
         speed={700}
@@ -34,7 +36,7 @@ export default function FounderSlider({ founders = [] }) {
         observeParents={true}
         updateOnWindowResize={true}
         autoplay={{
-          delay: 5500,
+          delay: 55000,
           disableOnInteraction: false,
         }}
         navigation={{

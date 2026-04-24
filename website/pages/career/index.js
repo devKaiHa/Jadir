@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { truncate } from "@/components/website/websiteUtils";
 import { useState } from "react";
 import { getPageBanners, resolvePageBanner } from "@/lib/pageBanners";
+import { CareerModal } from "./CareerModal";
 
 const labels = {
   en: {
@@ -150,59 +151,12 @@ export default function CareerPage({ careers = [], pageBanners = {} }) {
         </div>
       </section>
 
-      {selectedCareer && (
-        <div
-          onClick={() => setSelectedCareer(null)}
-          style={{
-            position: "fixed",
-            inset: 0,
-            background: "rgba(0,0,0,0.55)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            zIndex: 9999,
-            padding: "20px",
-          }}
-        >
-          <div
-            onClick={(e) => e.stopPropagation()}
-            style={{
-              width: "100%",
-              maxWidth: "700px",
-              maxHeight: "80vh",
-              overflowY: "auto",
-              background: "#fff",
-              borderRadius: "16px",
-              padding: "24px",
-              boxShadow: "0 20px 60px rgba(0,0,0,0.2)",
-            }}
-          >
-            <div className="d-flex justify-content-between align-items-center mb-3">
-              <h3 style={{ margin: 0 }}>
-                {localize(selectedCareer?.title, lang)}
-              </h3>
-
-              <button
-                type="button"
-                onClick={() => setSelectedCareer(null)}
-                style={{
-                  border: "none",
-                  background: "transparent",
-                  fontSize: "24px",
-                  lineHeight: 1,
-                  cursor: "pointer",
-                }}
-              >
-                ×
-              </button>
-            </div>
-
-            <p style={{ margin: 0 }}>
-              {localize(selectedCareer?.description, lang)}
-            </p>
-          </div>
-        </div>
-      )}
+      <CareerModal
+        isOpen={selectedCareer}
+        setSelectedCareer={setSelectedCareer}
+        selectedCareer={selectedCareer}
+        lang={lang}
+      />
     </Layout>
   );
 }

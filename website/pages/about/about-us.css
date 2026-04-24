@@ -1200,7 +1200,14 @@ html[dir="rtl"] .jadwa-founder-next i {
   }
 
   .jadwa-founder-image-box {
-    min-height: 320px;
+    min-height: 215px;
+  }
+  .jadwa-founder-image {
+    width: 50%;
+    margin: 0 auto;
+  }
+  .jadwa-founder-slider-wrap {
+    padding: 20px;
   }
 
   .jadwa-founder-name {
