@@ -2,6 +2,7 @@ import Layout from "@/components/layout/Layout";
 import { useTranslation } from "react-i18next";
 import { getOtherData } from "@/api/getOtherData";
 import AboutService from "@/components/pages/OurServices/AboutService";
+import { resolvePageBanner } from "@/lib/pageBanners";
 
 export async function getStaticProps() {
   try {
@@ -24,7 +25,7 @@ const OurServices = ({ data = {} }) => {
         footerStyle={1}
         breadcrumbTitle={t("Services")}
         sticky={true}
-        image={"/assets/images/background/services.png"}
+        image={resolvePageBanner("services", data?.pageBanners)}
       >
         <AboutService data={servicesList} length={servicesList?.length} />
       </Layout>

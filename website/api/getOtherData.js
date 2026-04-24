@@ -22,6 +22,7 @@ import {
   normalizeFund,
   normalizeStatistic,
 } from "@/api/serverData";
+import { getPageBanners } from "@/lib/pageBanners";
 
 export async function getAllBlogs({
   page = 1,
@@ -153,7 +154,10 @@ export async function getOtherData() {
     `${baseURL}${testimonialsEndPoint}`,
   ];
 
-  const results = await Promise.allSettled(urls.map((u) => fetchJSON(u)));
+  const [results, pageBanners] = await Promise.all([
+    Promise.allSettled(urls.map((u) => fetchJSON(u))),
+    getPageBanners(),
+  ]);
   const safe = (i, fb = []) =>
     results[i].status === "fulfilled" ? results[i].value : fb;
 
@@ -170,6 +174,7 @@ export async function getOtherData() {
     research: pickArray(safe(9, [])),
     customPages: pickArray(safe(10, [])),
     testimonials: pickArray(safe(11, [])),
+    pageBanners,
     investPortfolio: {},
   };
 }

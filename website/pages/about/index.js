@@ -15,6 +15,7 @@ import {
   Testimonials,
   TrustedLogos,
 } from "@/components/website/PublicSections";
+import { resolvePageBanner } from "@/lib/pageBanners";
 
 const PAGE_COPY = {
   en: {
@@ -167,11 +168,12 @@ export default function About({ data = {}, homeData = {} }) {
   const activeCopy = copy.sections[activeTab];
 
   return (
-    <Layout
-      headerStyle={1}
-      footerStyle={1}
-      breadcrumbTitle={t("about.about-us")}
-    >
+      <Layout
+        headerStyle={1}
+        footerStyle={1}
+        breadcrumbTitle={t("about.about-us")}
+        image={resolvePageBanner("about", data?.pageBanners)}
+      >
       <section
         className={`about-tabs-page sec-pad ${isArabic ? "rtl" : ""}`}
         dir={isArabic ? "rtl" : "ltr"}
@@ -318,7 +320,7 @@ export default function About({ data = {}, homeData = {} }) {
               )}
 
               {!!team?.length && (
-                <div className="auto-container">
+                <div className="auto-container" id="team">
                   <div className="jadwa-testimonials-head about-page-head">
                     <div className="jadwa-pill">
                       <span className="jadwa-pill-dot" />

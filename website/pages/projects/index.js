@@ -4,13 +4,15 @@ import { getOtherData } from "@/api/getOtherData";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import { imageURL } from "@/api/GlobalData";
+import { getPageBanners, resolvePageBanner } from "@/lib/pageBanners";
 
-export default function ProjectsPage({ projects = [] }) {
+export default function ProjectsPage({ projects = [], pageBanners = {} }) {
   const { i18n } = useTranslation();
   const lang = i18n.language || "en";
 
   return (
     <Layout
+      image={resolvePageBanner("projects", pageBanners)}
       breadcrumbTitle={
         lang === "ar" ? "المشاريع" : lang === "tr" ? "Projeler" : "Projects"
       }
@@ -120,10 +122,13 @@ const ProjectBrief = ({ project, lang }) => {
 };
 
 export async function getStaticProps() {
-  const { projects = [] } = await getOtherData();
+  const [{ projects = [] }, pageBanners] = await Promise.all([
+    getOtherData(),
+    getPageBanners(),
+  ]);
 
   return {
-    props: { projects },
+    props: { projects, pageBanners },
     revalidate: 300,
   };
 }

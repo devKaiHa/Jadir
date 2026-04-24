@@ -121,6 +121,11 @@ export const SECONDARY_MENU_SIDEBAR = [
         path: "/careers",
         icon: "sms",
       },
+      {
+        title: "Page Banners",
+        path: "/page-banners",
+        icon: "picture",
+      },
     ],
   },
   {

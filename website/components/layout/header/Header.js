@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Menu from "../Menu";
+import SearchBox from "../SearchBox";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useIsMobile } from "@/lib/helpers";
@@ -114,7 +115,7 @@ export default function Header({
               <div className="jadwa-logo-box">
                 <Link href="/">
                   <img
-                    src={"/assets/images/logos/jadir.png"}
+                    src="/assets/images/logos/jadir.png"
                     alt="Jadir"
                     className="jadwa-logo"
                   />
@@ -140,29 +141,11 @@ export default function Header({
                   <i className="fa-solid fa-magnifying-glass" />
                 </button>
               ) : (
-                <form
-                  className="jadwa-search"
-                  onSubmit={(event) => event.preventDefault()}
-                >
-                  <input
-                    type="search"
-                    aria-label="Search"
-                    placeholder="Search"
-                    autoFocus
-                  />
-                  <button type="submit" aria-label="Search">
-                    <i className="fa-solid fa-magnifying-glass" />
-                  </button>
-
-                  <button
-                    type="button"
-                    aria-label="Close search"
-                    onClick={() => setOpenSearch(false)}
-                    className="jadwa-search-close"
-                  >
-                    ×
-                  </button>
-                </form>
+                <SearchBox
+                  autoFocus
+                  variant="desktop"
+                  onClose={() => setOpenSearch(false)}
+                />
               )}
 
               <Link href="/contact" className="jadwa-invest-btn">

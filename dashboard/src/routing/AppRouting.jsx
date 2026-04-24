@@ -46,6 +46,7 @@ const PAGE_TITLES = [
   { path: "/all-statistics", title: "Statistics" },
   { path: "/add-statistic", title: "Add Statistic" },
   { path: "/update-statistic/:id", title: "Update Statistic" },
+  { path: "/page-banners", title: "Page Banners" },
   { path: "/auth/login", title: "Login" },
   { path: "/error/404", title: "Page Not Found" },
   { path: "/error/500", title: "Server Error" },

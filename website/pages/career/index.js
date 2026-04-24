@@ -4,6 +4,7 @@ import { fetchJSON, pickArray } from "@/GlobalHooks/GlobalHooks";
 import { useTranslation } from "react-i18next";
 import { truncate } from "@/components/website/websiteUtils";
 import { useState } from "react";
+import { getPageBanners, resolvePageBanner } from "@/lib/pageBanners";
 
 const labels = {
   en: {
@@ -47,14 +48,17 @@ const formatDate = (value, lang) => {
   });
 };
 
-export default function CareerPage({ careers = [] }) {
+export default function CareerPage({ careers = [], pageBanners = {} }) {
   const [selectedCareer, setSelectedCareer] = useState(null);
   const { i18n } = useTranslation();
   const lang = i18n.language || "en";
   const copy = labels[lang] || labels.en;
 
   return (
-    <Layout breadcrumbTitle={copy.breadcrumb}>
+    <Layout
+      breadcrumbTitle={copy.breadcrumb}
+      image={resolvePageBanner("careers", pageBanners)}
+    >
       <section className="news-style-two sec-pad career-page">
         <div className="auto-container">
           <div className="sec-title">
@@ -76,6 +80,7 @@ export default function CareerPage({ careers = [] }) {
               return (
                 <div
                   key={career?._id}
+                  id={`career-${career?._id}`}
                   className="col-lg-4 col-md-6 col-sm-12 news-block my-2"
                 >
                   <div className="news-block-one h-100 career-card">
@@ -204,11 +209,15 @@ export default function CareerPage({ careers = [] }) {
 
 export async function getStaticProps() {
   try {
-    const payload = await fetchJSON(`${baseURL}${CareersEndPoint}`);
+    const [payload, pageBanners] = await Promise.all([
+      fetchJSON(`${baseURL}${CareersEndPoint}`),
+      getPageBanners(),
+    ]);
 
     return {
       props: {
         careers: pickArray(payload),
+        pageBanners,
       },
       revalidate: 300,
     };
@@ -218,6 +227,7 @@ export async function getStaticProps() {
     return {
       props: {
         careers: [],
+        pageBanners: {},
       },
       revalidate: 60,
     };

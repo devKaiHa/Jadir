@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { siteLinks } from "@/components/website/websiteUtils";
+import SearchBox from "./SearchBox";
 
 const languages = [
   { value: "en", label: "EN" },
@@ -108,6 +109,12 @@ const MobileMenu = ({ handleMobileMenu, isMobileMenu, footerData }) => {
           </div>
 
           <div className="jadwa-mobile-nav-wrap">
+            <SearchBox
+              variant="mobile"
+              className="jadwa-mobile-search"
+              onClose={handleMobileMenu}
+            />
+
             <ul className="jadwa-mobile-nav">
               {siteLinks.map((link) => (
                 <li key={link.href}>

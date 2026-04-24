@@ -27,6 +27,7 @@ import { contactUsApi } from "./contactUsApi";
 import { testimonialsApi } from "./testimonialsApi";
 import { policiesApi } from "./policiesApi";
 import { careersApi } from "./careersApi";
+import { pageBannersApi } from "./pageBannersApi";
 
 const store = configureStore({
   reducer: {
@@ -55,6 +56,7 @@ const store = configureStore({
     [testimonialsApi.reducerPath]: testimonialsApi.reducer,
     [policiesApi.reducerPath]: policiesApi.reducer,
     [careersApi.reducerPath]: careersApi.reducer,
+    [pageBannersApi.reducerPath]: pageBannersApi.reducer,
   },
 
   middleware: (getDefaultMiddleware) =>
@@ -83,7 +85,8 @@ const store = configureStore({
       .concat(contactUsApi.middleware)
       .concat(testimonialsApi.middleware)
       .concat(policiesApi.middleware)
-      .concat(careersApi.middleware),
+      .concat(careersApi.middleware)
+      .concat(pageBannersApi.middleware),
 });
 
 setupListeners(store.dispatch);

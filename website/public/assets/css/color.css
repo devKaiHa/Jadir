@@ -72,7 +72,7 @@
 }
 
 .sec-title .sub-title {
-  color: #2c9497;
+  color: var(--site-blue);
 }
 
 .about-section .content-box .list-item li:after {

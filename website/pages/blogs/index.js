@@ -14,6 +14,7 @@ import {
   Pagination as SwiperPagination,
   Autoplay,
 } from "swiper/modules";
+import { getPageBanners, resolvePageBanner } from "@/lib/pageBanners";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -32,7 +33,11 @@ const getBlogImage = (blog) =>
     ? `${imageURL}blogs/${blog.photo}`
     : "/assets/images/news/news-5.jpg";
 
-export default function BlogPage({ initialBlogs, initialCategories }) {
+export default function BlogPage({
+  initialBlogs,
+  initialCategories,
+  pageBanners = {},
+}) {
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language || "en";
   const isRtl = currentLang === "ar";
@@ -152,7 +157,7 @@ export default function BlogPage({ initialBlogs, initialCategories }) {
   return (
     <Layout
       breadcrumbTitle={t("blog.Blogs")}
-      image="/assets/images/background/blogs.png"
+      image={resolvePageBanner("blogs", pageBanners)}
     >
       <section className="jadwa-blog-page sec-pad">
         <div className="auto-container">
@@ -479,15 +484,17 @@ export default function BlogPage({ initialBlogs, initialCategories }) {
 }
 
 export async function getStaticProps() {
-  const [blogs, categories] = await Promise.all([
+  const [blogs, categories, pageBanners] = await Promise.all([
     getAllBlogs({ page: 1, limit: BLOGS_PER_PAGE }),
     getAllCategories(),
+    getPageBanners(),
   ]);
 
   return {
     props: {
       initialBlogs: blogs,
       initialCategories: categories,
+      pageBanners,
     },
     revalidate: 60,
   };

@@ -55,6 +55,7 @@ import UpdatePolicy from "../modules/Policies/components/UpdatePolicy";
 import AllCareers from "../modules/Careers/components/AllCareers";
 import AddCareer from "../modules/Careers/components/AddCareer";
 import UpdateCareer from "../modules/Careers/components/UpdateCareer";
+import EditPageBanners from "../modules/PageBanners/components/EditPageBanners";
 
 const AppRoutingSetup = () => {
   return (
@@ -162,6 +163,9 @@ const AppRoutingSetup = () => {
           <Route path="/careers" element={<AllCareers />} />
           <Route path="/add-career" element={<AddCareer />} />
           <Route path="/update-career/:id" element={<UpdateCareer />} />
+
+          {/* Page banners */}
+          <Route path="/page-banners" element={<EditPageBanners />} />
         </Route>
       </Route>
 

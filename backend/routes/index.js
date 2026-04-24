@@ -25,6 +25,8 @@ const researchRouter = require("./researchRoute");
 const testimonialRouter = require("./testimonialRoute");
 const policyRouter = require("./policyRoute");
 const careerPageRouter = require("./careerPageRoute");
+const searchRouter = require("./searchRoute");
+const pageBannerRouter = require("./pageBannerRoute");
 
 const router = express.Router();
 
@@ -53,5 +55,7 @@ router.use("/research", researchRouter);
 router.use("/testimonials", testimonialRouter);
 router.use("/policies", policyRouter);
 router.use("/careers", careerPageRouter);
+router.use("/search", searchRouter);
+router.use("/page-banners", pageBannerRouter);
 
 module.exports = router;

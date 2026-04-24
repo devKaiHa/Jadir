@@ -1,7 +1,5 @@
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
-import About from "../sections/home2/About";
-import AboutCompany from "../pages/Companies/AboutCompany";
 
 export default function Breadcrumb({ breadcrumbTitle, img }) {
   const { t } = useTranslation();

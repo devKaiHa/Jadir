@@ -1,16 +1,26 @@
 import Layout from "@/components/layout/Layout";
 import ContactForm from "@/components/pages/Contact-us/ContactForm";
 import { useTranslation } from "react-i18next";
+import { getPageBanners, resolvePageBanner } from "@/lib/pageBanners";
 
-export default function ContactUsPage() {
+export default function ContactUsPage({ pageBanners = {} }) {
   const { t } = useTranslation();
 
   return (
     <Layout
       breadcrumbTitle={t("contact_us") || "Contact"}
-      image="/assets/images/background/partners.png"
+      image={resolvePageBanner("contact", pageBanners)}
     >
       <ContactForm />
     </Layout>
   );
+}
+
+export async function getStaticProps() {
+  return {
+    props: {
+      pageBanners: await getPageBanners(),
+    },
+    revalidate: 300,
+  };
 }
