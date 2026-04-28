@@ -2,8 +2,10 @@
 
 import { useMemo, useState } from "react";
 import { stripHtml } from "../utils/helpers";
+import { useTranslation } from "react-i18next";
 
 const ShareArticle = ({ title = "", description = "", className = "" }) => {
+  const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
 
   const shareUrl = useMemo(() => {
@@ -95,7 +97,7 @@ const ShareArticle = ({ title = "", description = "", className = "" }) => {
               color: "#0f172a",
             }}
           >
-            Share this article
+            {t("shareArticle")}
           </h5>
           <p
             style={{
@@ -104,7 +106,7 @@ const ShareArticle = ({ title = "", description = "", className = "" }) => {
               color: "#64748b",
             }}
           >
-            Send it to someone who may find it useful.
+            {t("shareArticleText")}
           </p>
         </div>
 
@@ -139,7 +141,7 @@ const ShareArticle = ({ title = "", description = "", className = "" }) => {
             aria-label="Copy link"
           >
             <i className="fa-solid fa-link" />
-            <span>{copied ? "Copied" : "Copy link"}</span>
+            <span>{copied ? t("copied") : t("copyLink")}</span>
           </button>
 
           {links.map((item) => (

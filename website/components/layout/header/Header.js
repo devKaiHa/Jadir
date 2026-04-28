@@ -9,8 +9,8 @@ import { useIsMobile } from "@/lib/helpers";
 
 const languages = [
   { value: "en", label: "English" },
-  { value: "ar", label: "Arabic" },
-  { value: "tr", label: "Turkish" },
+  { value: "ar", label: "عربي" },
+  { value: "tr", label: "Türkçe" },
 ];
 
 const socialConfig = [
@@ -27,7 +27,7 @@ export default function Header({
   footerData,
 }) {
   const isMobile = useIsMobile();
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const [activeLang, setActiveLang] = useState("en");
   const [openSearch, setOpenSearch] = useState(false);
 
@@ -47,7 +47,7 @@ export default function Header({
       socialConfig
         .filter((item) => footerData?.[item.key])
         .map((item) => ({ ...item, href: footerData[item.key] })),
-    [footerData]
+    [footerData],
   );
 
   const saveLanguage = (lng) => {
@@ -56,7 +56,11 @@ export default function Header({
   };
 
   return (
-    <header className={`jadwa-header ${scroll || sticky ? "is-sticky" : ""}`}>
+    <header
+      className={`jadwa-header ${scroll || sticky ? "is-sticky" : ""} ${
+        openSearch ? "is-search-open" : ""
+      }`}
+    >
       <div className="outer-container">
         <div className="jadwa-header-wrap">
           <div className="jadwa-header-lower">
@@ -74,7 +78,7 @@ export default function Header({
               <div className="jadwa-header-stack">
                 <div className="jadwa-header-meta">
                   <div className="jadwa-header-tagline">
-                    Digital financial solutions
+                    {t("digitalFinancialSolutions")}
                   </div>
 
                   <div className="jadwa-header-meta-actions">
@@ -159,7 +163,7 @@ export default function Header({
                     )}
 
                     <Link href="/contact" className="jadwa-invest-btn">
-                      Request a consult
+                      {t("requestConsult")}
                     </Link>
 
                     <button

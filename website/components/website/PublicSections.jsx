@@ -75,16 +75,16 @@ export function HeroImages({ slides = [] }) {
 }
 
 export function AboutPreview({ about, isAboutPage = false }) {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const lang = i18n.language || "en";
   const title =
     localize(about?.aboutUsTitle?.title, lang) ||
     localize(about?.title, lang) ||
-    "About Jadir";
+    t("aboutJadir");
   const text =
     localize(about?.content, lang) ||
     localize(about?.description, lang) ||
-    "We support companies and investors with structured advisory, practical planning, and reliable execution.";
+    t("weSupport");
 
   return (
     <section className="site-band site-about-preview">
@@ -97,8 +97,8 @@ export function AboutPreview({ about, isAboutPage = false }) {
             <img src="/assets/images/about-1.jpg" alt="" />
           </figure>
           <div className="site-about-badge">
-            <strong>Jadir</strong>
-            <span>Consulting with clear execution</span>
+            <strong>{t("jadir")}</strong>
+            <span>{t("consultingClearExec")}</span>
           </div>
         </div>
         <div className="site-about-content">
@@ -108,12 +108,12 @@ export function AboutPreview({ about, isAboutPage = false }) {
             text={isAboutPage ? text : truncate(text, 260)}
           />
           <div className="site-about-mini-panel">
-            <h3>Focused consults for growth decisions</h3>
+            <h3>{t("focusedGrowth")}</h3>
             <p>{isAboutPage ? text : truncate(text, 360)}</p>
           </div>
           {!isAboutPage && (
             <Link className="site-btn" href="/about">
-              About us
+              {t("about.about-us")}
             </Link>
           )}
         </div>
@@ -123,49 +123,49 @@ export function AboutPreview({ about, isAboutPage = false }) {
 }
 
 export function AboutOverview({ data = {} }) {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const lang = i18n.language || "en";
   const about = data.about || {};
   const values = Array.isArray(data.values) ? data.values : [];
   const aboutTitle =
     localize(about?.aboutUsTitle?.title, lang) ||
     localize(about?.title, lang) ||
-    "About";
+    t("about.about-us");
   const items = [
     {
       id: "about",
-      title: "About",
+      title: t("about.about-us"),
       content:
         localize(about?.content, lang) || localize(about?.description, lang),
     },
     {
       id: "vision",
-      title: localize(about?.vision, lang) || "Vision",
+      title: localize(about?.vision, lang) || t("vision"),
       content: localize(about?.visionDescription, lang),
     },
     {
       id: "message",
-      title: localize(about?.message, lang) || "Message",
+      title: localize(about?.message, lang) || t("message"),
       content: localize(about?.messageDescription, lang),
     },
     {
       id: "values",
-      title: "Values",
+      title: t("values"),
       values,
     },
     {
       id: "business-approach",
-      title: "Business approach",
+      title: t("about.businessApproach"),
       content: localize(about?.businessApproach, lang),
     },
     {
       id: "who-we-serve",
-      title: "Who we serve",
+      title: t("whoWeServe"),
       content: localize(about?.whoWeServe, lang),
     },
     {
       id: "why-us",
-      title: "Why us",
+      title: t("why_choose"),
       content: localize(about?.whyUs, lang),
     },
   ];
@@ -191,7 +191,7 @@ export function AboutOverview({ data = {} }) {
                           {truncate(
                             localize(value?.content, lang) ||
                               localize(value?.description, lang),
-                            120
+                            120,
                           )}
                         </span>
                       </li>
@@ -237,7 +237,7 @@ export function Statistics({ statistics = [] }) {
 }
 
 export function ServicesPreview({ services = [] }) {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const lang = i18n.language || "en";
   if (!services.length) return null;
 
@@ -246,12 +246,12 @@ export function ServicesPreview({ services = [] }) {
       <div className="auto-container">
         <div className="site-title-row">
           <SectionTitle
-            eyebrow="Services"
-            title="What we can help with"
-            text="Advisory services organized around practical decisions, staged delivery, and measurable outcomes."
+            eyebrow={t("services.title")}
+            title={t("whatCanWeHelp")}
+            text={t("servicesSectionTitle")}
           />
           <Link className="site-link" href="/services">
-            All services
+            {t("allServices")}
           </Link>
         </div>
 
@@ -280,6 +280,7 @@ export function ServicesPreview({ services = [] }) {
 }
 
 export function ConsultCTA() {
+  const { t } = useTranslation();
   return (
     <section className="site-cta">
       <div className="site-cta-bg" />
@@ -287,18 +288,15 @@ export function ConsultCTA() {
       <div className="auto-container">
         <div className="site-cta-inner">
           <div className="site-cta-content">
-            <span className="site-cta-kicker">Advisory support</span>
+            <span className="site-cta-kicker">{t("advisorySupport")}</span>
 
-            <h2>Need a custom consult?</h2>
+            <h2>{t("needCustomConsult")}</h2>
 
-            <p>
-              Speak with our team to explore tailored financial and corporate
-              advisory solutions for your business.
-            </p>
+            <p>{t("speakWithTeam")}</p>
           </div>
 
           <Link className="site-cta-btn" href="/contact">
-            Request a consult
+            {t("requestConsult")}
           </Link>
         </div>
       </div>
@@ -308,7 +306,7 @@ export function ConsultCTA() {
 
 export function TrustedLogos({ partners = [], companies = [] }) {
   const isMobile = useIsMobile();
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const lang = i18n.language || "en";
   const isRtl = lang === "ar";
 
@@ -337,21 +335,9 @@ export function TrustedLogos({ partners = [], companies = [] }) {
 
       <div className="auto-container">
         <div className="jadwa-trusted-head">
-          <span className="jadwa-trusted-kicker">
-            {lang === "ar"
-              ? "موثوق من قبل"
-              : lang === "tr"
-              ? "Güvenenler"
-              : "Trusted by"}
-          </span>
+          <span className="jadwa-trusted-kicker">{t("trustedBy")}</span>
 
-          <h2 className="jadwa-trusted-title">
-            {lang === "ar"
-              ? "شركاء وجهات وثقوا بنا"
-              : lang === "tr"
-              ? "Bize güvenen iş ortakları"
-              : "Partners and companies who trusted us"}
-          </h2>
+          <h2 className="jadwa-trusted-title">{t("trustedPartners")}</h2>
         </div>
 
         <div className="jadwa-trusted-rail">
@@ -392,7 +378,7 @@ export function TrustedLogos({ partners = [], companies = [] }) {
 }
 
 export function Testimonials({ testimonials = [] }) {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const lang = i18n.language || "en";
 
   if (!testimonials.length) return null;
@@ -426,27 +412,9 @@ export function Testimonials({ testimonials = [] }) {
     >
       <div className="auto-container">
         <SectionTitle
-          eyebrow={
-            lang === "ar"
-              ? "آراء العملاء"
-              : lang === "tr"
-              ? "Referanslar"
-              : "Testimonials"
-          }
-          title={
-            lang === "ar"
-              ? "ماذا يقول عملاؤنا"
-              : lang === "tr"
-              ? "Müşterilerimiz ne söylüyor"
-              : "What clients say"
-          }
-          text={
-            lang === "ar"
-              ? "آراء واضحة من العملاء والفرق التي وثقت بجدير."
-              : lang === "tr"
-              ? "Jadir’e güvenen kişi ve ekiplerden net geri bildirimler."
-              : "Clear feedback from the people and teams who trusted Jadir."
-          }
+          eyebrow={t("about.testimonials")}
+          title={t("whatClientsSay")}
+          text={t("trustedPeopleFeedback")}
         />
 
         <div className="jadir-about-testimonials-layout">
@@ -535,11 +503,11 @@ export function Testimonials({ testimonials = [] }) {
 }
 
 export function ProjectCards({ projects = [], limit }) {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const lang = i18n.language || "en";
   const items = limit ? projects.slice(0, limit) : projects;
 
-  if (!items.length) return <EmptyState title="No projects available yet." />;
+  if (!items.length) return <EmptyState title={t("noProjects")} />;
 
   return (
     <div className="site-card-grid">
@@ -553,7 +521,7 @@ export function ProjectCards({ projects = [], limit }) {
             src={asset(
               "projects",
               project?.image,
-              "/assets/images/project/project-5.jpg"
+              "/assets/images/project/project-5.jpg",
             )}
             alt={localize(project?.title, lang)}
           />
@@ -563,7 +531,7 @@ export function ProjectCards({ projects = [], limit }) {
               {truncate(
                 localize(project?.brief, lang) ||
                   localize(project?.challenge, lang),
-                120
+                120,
               )}
             </p>
           </div>
@@ -574,11 +542,11 @@ export function ProjectCards({ projects = [], limit }) {
 }
 
 export function BlogCards({ blogs = [], limit }) {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const lang = i18n.language || "en";
   const items = limit ? blogs.slice(0, limit) : blogs;
 
-  if (!items.length) return <EmptyState title="No blogs available yet." />;
+  if (!items.length) return <EmptyState title={t("noBlogs")} />;
 
   return (
     <div className="site-card-grid">
@@ -592,7 +560,7 @@ export function BlogCards({ blogs = [], limit }) {
             src={asset(
               "blogs",
               blog?.image || blog?.photo,
-              "/assets/images/news/news-1.jpg"
+              "/assets/images/news/news-1.jpg",
             )}
             alt={localize(blog?.title, lang)}
           />
@@ -602,7 +570,7 @@ export function BlogCards({ blogs = [], limit }) {
             <p>
               {truncate(
                 localize(blog?.excerpt, lang) || localize(blog?.content, lang),
-                110
+                110,
               )}
             </p>
           </div>
@@ -613,14 +581,13 @@ export function BlogCards({ blogs = [], limit }) {
 }
 
 export function HomeProjects({ projects }) {
-  const { i18n } = useTranslation();
-  const lang = i18n.language || "en";
+  const { t } = useTranslation();
   const items = (projects || []).slice(0, 4);
 
   return (
     <section className="site-band site-project-showcase">
       <div className="auto-container">
-        <SectionTitle eyebrow="Projects" title="Latest projects" />
+        <SectionTitle eyebrow={t("projeler")} title={t("latestProjects")} />
         <ProjectCards projects={items} />
       </div>
     </section>
@@ -628,17 +595,16 @@ export function HomeProjects({ projects }) {
 }
 
 export function HomeBlogs({ blogs }) {
-  const { i18n } = useTranslation();
-  const lang = i18n.language || "en";
+  const { t } = useTranslation();
   const items = (blogs || []).slice(0, 3);
 
   return (
     <section className="site-band site-band-soft site-blog-showcase">
       <div className="auto-container">
         <div className="site-title-row">
-          <SectionTitle eyebrow="Blogs" title="Latest insights" />
+          <SectionTitle eyebrow={t("blog.Blogs")} title={t("latestInsights")} />
           <Link className="site-link" href="/blogs">
-            Go to blogs
+            {t("goToBlogs")}
           </Link>
         </div>
         <BlogCards blogs={items} />
@@ -648,13 +614,13 @@ export function HomeBlogs({ blogs }) {
 }
 
 export function AboutTabs({ data }) {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const lang = i18n.language || "en";
   const [active, setActive] = useState("team");
   const tabs = [
-    { id: "team", label: "Team" },
-    { id: "customers", label: "Customers & Partners" },
-    { id: "statistics", label: "Statistics" },
+    { id: "team", label: t("team") },
+    { id: "customers", label: t("customersPartners") },
+    { id: "statistics", label: t("statistics") },
   ];
 
   return (
@@ -681,7 +647,7 @@ export function AboutTabs({ data }) {
                   src={asset(
                     "boardMember",
                     member?.image,
-                    "/assets/images/team/1.jpg"
+                    "/assets/images/team/1.jpg",
                   )}
                   alt={localize(member?.name, lang)}
                 />
@@ -690,9 +656,9 @@ export function AboutTabs({ data }) {
                   {truncate(
                     localize(
                       member?.brief || member?.description || member?.position,
-                      lang
+                      lang,
                     ),
-                    120
+                    120,
                   )}
                 </p>
               </article>
@@ -709,7 +675,7 @@ export function AboutTabs({ data }) {
                   src={asset(
                     "companies",
                     company?.logo,
-                    "/assets/images/logos/jadir.png"
+                    "/assets/images/logos/jadir.png",
                   )}
                   alt={localize(company?.companyName, lang)}
                 />
@@ -718,9 +684,9 @@ export function AboutTabs({ data }) {
                   {truncate(
                     localize(
                       company?.about || company?.content || company?.aboutus,
-                      lang
+                      lang,
                     ),
-                    150
+                    150,
                   )}
                 </p>
               </article>
@@ -735,6 +701,7 @@ export function AboutTabs({ data }) {
 }
 
 export function ServiceRequestModal({ service, onClose }) {
+  const { t } = useTranslation();
   const [sent, setSent] = useState(false);
   const [form, setForm] = useState({
     name: "",
@@ -771,12 +738,12 @@ export function ServiceRequestModal({ service, onClose }) {
         </button>
         {sent ? (
           <div className="site-thanks">
-            <h2>Thank you</h2>
-            <p>Your service request has been received.</p>
+            <h2>{t("thankYou")}</h2>
+            <p>{t("serviceRequestSent")}</p>
           </div>
         ) : (
           <form className="site-form" onSubmit={submit}>
-            <h2>Request this service</h2>
+            <h2>{t("requestService")}</h2>
             <input
               required
               placeholder="Name"
@@ -801,7 +768,7 @@ export function ServiceRequestModal({ service, onClose }) {
               onChange={(e) => setForm({ ...form, message: e.target.value })}
             />
             <button className="site-btn" type="submit">
-              Send request
+              {t("sendRequest")}
             </button>
           </form>
         )}
@@ -811,7 +778,7 @@ export function ServiceRequestModal({ service, onClose }) {
 }
 
 export function BlogFilters({ blogs = [], categories = [] }) {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const lang = i18n.language || "en";
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("");
@@ -830,7 +797,7 @@ export function BlogFilters({ blogs = [], categories = [] }) {
       const tagMatch =
         !query ||
         (blog?.tags || []).some((tag) =>
-          localize(tag, lang).toLowerCase().includes(query.toLowerCase())
+          localize(tag, lang).toLowerCase().includes(query.toLowerCase()),
         );
       return (titleMatch || tagMatch) && categoryMatch;
     });
@@ -848,7 +815,7 @@ export function BlogFilters({ blogs = [], categories = [] }) {
             setQuery(e.target.value);
             setPage(1);
           }}
-          placeholder="Search by title or tag"
+          placeholder={t("searchTitleTag")}
         />
         <select
           value={category}
@@ -857,7 +824,7 @@ export function BlogFilters({ blogs = [], categories = [] }) {
             setPage(1);
           }}
         >
-          <option value="">All categories</option>
+          <option value="">{t("allCategories")}</option>
           {categories.map((item) => (
             <option key={item?._id} value={item?._id}>
               {localize(item?.name || item?.title, lang)}
@@ -883,7 +850,7 @@ export function BlogFilters({ blogs = [], categories = [] }) {
 }
 
 export function BlogDetails({ blog, related = [] }) {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const lang = i18n.language || "en";
   const title = localize(blog?.title, lang);
   const content = localize(blog?.content, lang);
@@ -897,7 +864,7 @@ export function BlogDetails({ blog, related = [] }) {
             src={asset(
               "blogs",
               blog?.image || blog?.photo,
-              "/assets/images/news/news-1.jpg"
+              "/assets/images/news/news-1.jpg",
             )}
             alt={title}
           />
@@ -910,7 +877,7 @@ export function BlogDetails({ blog, related = [] }) {
         </main>
         <aside className="site-detail-side">
           <div className="site-card">
-            <h3>Tags</h3>
+            <h3>{t("tags")}</h3>
             <div className="site-tags">
               {(blog?.tags || []).map((tag, index) => (
                 <span key={index}>{localize(tag, lang)}</span>
@@ -918,14 +885,14 @@ export function BlogDetails({ blog, related = [] }) {
             </div>
           </div>
           <div className="site-card">
-            <h3>Share</h3>
+            <h3>{t("share")}</h3>
             <ShareArticle
               title={title}
               description={stripHtml(content).slice(0, 120)}
             />
           </div>
           <div className="site-card">
-            <h3>Related blogs</h3>
+            <h3>{t("relatedBlogs")}</h3>
             {related.map((item) => (
               <Link
                 href={`/blogs/${item?.slug || item?._id}`}
@@ -942,6 +909,7 @@ export function BlogDetails({ blog, related = [] }) {
 }
 
 export function ContactExperience({ contact = {}, services = [] }) {
+  const { t } = useTranslation();
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -967,10 +935,10 @@ export function ContactExperience({ contact = {}, services = [] }) {
     return (
       <section className="site-band">
         <div className="auto-container site-thanks">
-          <h1>Thank you</h1>
-          <p>Your message has been received. Our team will contact you soon.</p>
+          <h1>{t("thankYou")}</h1>
+          <p>{t("messageReceived")}</p>
           <Link className="site-btn" href="/">
-            Back home
+            {t("backToHome")}
           </Link>
         </div>
       </section>
@@ -981,7 +949,7 @@ export function ContactExperience({ contact = {}, services = [] }) {
     <section className="site-band">
       <div className="auto-container site-contact-grid">
         <form className="site-form" onSubmit={submit}>
-          <h2>Contact us</h2>
+          <h2>{t("contact.formTitle")}</h2>
           <input
             required
             placeholder="Name"
@@ -1004,19 +972,19 @@ export function ContactExperience({ contact = {}, services = [] }) {
             value={form.requestType}
             onChange={(e) => setForm({ ...form, requestType: e.target.value })}
           >
-            <option value="consult-inquiry">Consult Inquiry</option>
-            <option value="partnership">Partnership</option>
-            <option value="media">Media</option>
-            <option value="support">Support</option>
-            <option value="service-request">Service request</option>
-            <option value="complaint">Complaint</option>
+            <option value="consult-inquiry">{t("consultInquiry")}</option>
+            <option value="partnership">{t("partnership")}</option>
+            <option value="media">{t("media")}</option>
+            <option value="support">{t("support")}</option>
+            <option value="service-request">{t("serviceRequest")}</option>
+            <option value="complaint">{t("complaint")}</option>
           </select>
           {form.requestType === "service-request" ? (
             <select
               value={form.service}
               onChange={(e) => setForm({ ...form, service: e.target.value })}
             >
-              <option value="">Select service</option>
+              <option value="">{t("selectService")}</option>
               {services.map((service) => (
                 <option key={service?._id} value={service?._id}>
                   {localize(service?.title, "en")}
@@ -1031,16 +999,16 @@ export function ContactExperience({ contact = {}, services = [] }) {
             onChange={(e) => setForm({ ...form, message: e.target.value })}
           />
           <button className="site-btn" type="submit">
-            Send message
+            {t("contact.submit")}
           </button>
         </form>
 
         <div className="site-info-panel">
-          <h2>Company branches</h2>
+          <h2>{t("companyBranches")}</h2>
           <p>{localize(contact?.address, "en")}</p>
           {contact?.mapLink ? (
             <a href={contact.mapLink} target="_blank" rel="noreferrer">
-              Open main branch
+              {t("openMainBranch")}
             </a>
           ) : null}
           {contact?.whatsapp ? (
@@ -1049,7 +1017,7 @@ export function ContactExperience({ contact = {}, services = [] }) {
               target="_blank"
               rel="noreferrer"
             >
-              WhatsApp support: {contact.whatsapp}
+              {t("whatsappSupport")}: {contact.whatsapp}
             </a>
           ) : null}
           {(contact?.phones || []).map((phone) => (
@@ -1068,7 +1036,7 @@ export function ContactExperience({ contact = {}, services = [] }) {
               ))}
               {branch?.mapLink ? (
                 <a href={branch.mapLink} target="_blank" rel="noreferrer">
-                  Branch link
+                  {t("branchLink")}
                 </a>
               ) : null}
             </div>

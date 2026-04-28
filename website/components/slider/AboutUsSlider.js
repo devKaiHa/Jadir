@@ -11,7 +11,7 @@ export default function AboutUsSlider({ slides = [] }) {
 
   const pick = (obj) =>
     obj && typeof obj === "object"
-      ? obj[lang] ?? obj.en ?? obj.ar ?? obj.tr ?? ""
+      ? (obj[lang] ?? obj.en ?? obj.ar ?? obj.tr ?? "")
       : "";
 
   if (!slides.length) return null;
@@ -58,20 +58,6 @@ export default function AboutUsSlider({ slides = [] }) {
                     {String(idx + 1).padStart(2, "0")}
                   </span>
                 </div>
-
-                {/* <span className="jadwa-about-slide-label">
-                  {isVision
-                    ? lang === "ar"
-                      ? "رؤيتنا"
-                      : lang === "tr"
-                      ? "Vizyon"
-                      : "Vision"
-                    : lang === "ar"
-                    ? "رسالتنا"
-                    : lang === "tr"
-                    ? "Misyon"
-                    : "Mission"}
-                </span> */}
 
                 <h3>{pick(slide?.title)}</h3>
 

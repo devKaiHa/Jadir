@@ -8,7 +8,7 @@ export default function ContactUsPage({ pageBanners = {} }) {
 
   return (
     <Layout
-      breadcrumbTitle={t("contact_us") || "Contact"}
+      breadcrumbTitle={t("contact.formTitle")}
       image={resolvePageBanner("contact", pageBanners)}
     >
       <ContactForm />

@@ -7,80 +7,14 @@ import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { getPageBanners, resolvePageBanner } from "@/lib/pageBanners";
 
-const labels = {
-  en: {
-    breadcrumb: "Search",
-    eyebrow: "Search",
-    title: "Search Results",
-    input: "Search for a service, project, or blog...",
-    button: "Search",
-    empty: "No matching results found.",
-    count: "results",
-    filter: "Content type",
-    sort: "Sort by",
-    all: "All",
-    relevant: "Relevant",
-    newest: "Newest",
-    oldest: "Oldest",
-    suggestionsTitle: "Suggested results",
-    suggestionsCopy:
-      "No exact matches turned up, but these are close and probably useful.",
-    suggested: "Suggested",
-    keyword: "Keyword",
-    updating: "Updating results...",
-  },
-  ar: {
-    breadcrumb: "Search",
-    eyebrow: "Search",
-    title: "Search Results",
-    input: "Search for a service, project, or blog...",
-    button: "Search",
-    empty: "No matching results found.",
-    count: "results",
-    filter: "Content type",
-    sort: "Sort by",
-    all: "All",
-    relevant: "Relevant",
-    newest: "Newest",
-    oldest: "Oldest",
-    suggestionsTitle: "Suggested results",
-    suggestionsCopy:
-      "No exact matches turned up, but these are close and probably useful.",
-    suggested: "Suggested",
-    keyword: "Keyword",
-    updating: "Updating results...",
-  },
-  tr: {
-    breadcrumb: "Arama",
-    eyebrow: "Arama",
-    title: "Arama Sonuclari",
-    input: "Ada veya basliga gore ara",
-    button: "Ara",
-    empty: "Eslesen sonuc bulunamadi.",
-    count: "sonuc",
-    filter: "Icerik turu",
-    sort: "Siralama",
-    all: "Tumu",
-    relevant: "Relevant",
-    newest: "Newest",
-    oldest: "Oldest",
-    suggestionsTitle: "Suggested results",
-    suggestionsCopy:
-      "No exact matches turned up, but these are close and probably useful.",
-    suggested: "Suggested",
-    keyword: "Keyword",
-    updating: "Sonuclar guncelleniyor...",
-  },
-};
-
 const typeOptions = [
-  { value: "all", label: "All" },
-  { value: "services", label: "Services" },
-  { value: "projects", label: "Projects" },
-  { value: "blogs", label: "Blogs" },
-  { value: "pages", label: "Pages" },
-  { value: "team", label: "Team" },
-  { value: "careers", label: "Careers" },
+  { value: "all", labelKey: "all" },
+  { value: "services", labelKey: "services" },
+  { value: "projects", labelKey: "projects" },
+  { value: "blogs", labelKey: "blogs" },
+  { value: "pages", labelKey: "pages" },
+  { value: "team", labelKey: "team" },
+  { value: "careers", labelKey: "careers" },
 ];
 
 const sortOptions = [
@@ -158,9 +92,9 @@ export default function SearchPage({
   pageBanners = {},
 }) {
   const router = useRouter();
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const lang = i18n.language || "en";
-  const copy = labels[lang] || labels.en;
+  const isArabic = lang === "ar";
 
   const [queryValue, setQueryValue] = useState(initialQuery);
   const [activeType, setActiveType] = useState(selectedType);
@@ -184,6 +118,8 @@ export default function SearchPage({
   const total = pagination?.totalItems || results?.total || 0;
   const currentPage = pagination?.currentPage || 1;
   const totalPages = pagination?.totalPages || 0;
+  const getTypeLabel = (item) =>
+    t(`search.types.${item?.type}`, item?.typeLabel);
 
   const typeCounts = useMemo(
     () =>
@@ -248,14 +184,19 @@ export default function SearchPage({
 
   return (
     <Layout
-      breadcrumbTitle={copy.breadcrumb}
+      breadcrumbTitle={t("search.breadcrumb")}
       image={resolvePageBanner("search", pageBanners)}
     >
-      <section className="search-page-section sec-pad jadwa-search-page">
+      <section
+        className={`search-page-section sec-pad jadwa-search-page ${
+          isArabic ? "rtl" : ""
+        }`}
+        dir={isArabic ? "rtl" : "ltr"}
+      >
         <div className="auto-container">
           <div className="sec-title">
-            <span className="sub-title">{copy.eyebrow}</span>
-            <h2>{copy.title}</h2>
+            <span className="sub-title">{t("search.eyebrow")}</span>
+            <h2>{t("search.title")}</h2>
           </div>
 
           <form
@@ -271,19 +212,19 @@ export default function SearchPage({
             }}
           >
             <div className="search-page-control">
-              <span>{copy.keyword}</span>
+              <span>{t("search.keyword")}</span>
               <input
                 type="search"
                 name="q"
                 value={queryValue}
                 onChange={(event) => setQueryValue(event.target.value)}
-                placeholder={copy.input}
-                aria-label={copy.input}
+                placeholder={t("search.input")}
+                aria-label={t("search.input")}
               />
             </div>
 
             <div className="search-page-control">
-              <span>{copy.sort}</span>
+              <span>{t("search.sort")}</span>
               <select
                 name="sort"
                 value={activeSort}
@@ -300,7 +241,7 @@ export default function SearchPage({
               >
                 {sortOptions.map((option) => (
                   <option key={option.value} value={option.value}>
-                    {copy[option.labelKey]}
+                    {t(`search.${option.labelKey}`)}
                   </option>
                 ))}
               </select>
@@ -308,7 +249,7 @@ export default function SearchPage({
 
             <button type="submit" disabled={isLoading}>
               <i className="fa-solid fa-magnifying-glass" />
-              <span>{isLoading ? "..." : copy.button}</span>
+              <span>{isLoading ? "..." : t("search.button")}</span>
             </button>
           </form>
 
@@ -328,29 +269,29 @@ export default function SearchPage({
                 }}
                 className={activeType === option.value ? "active" : ""}
               >
-                <span>{option.value === "all" ? copy.all : option.label}</span>
+                <span>{t(`search.types.${option.labelKey}`)}</span>
                 <strong>{option.count}</strong>
               </button>
             ))}
           </div>
 
           <div className="search-page-summary">
-            <strong>{total}</strong> {copy.count}
+            <strong>{total}</strong> {t("search.count")}
           </div>
 
           {isLoading && (
-            <div className="search-page-loading">{copy.updating}</div>
+            <div className="search-page-loading">{t("search.updating")}</div>
           )}
 
           {total === 0 ? (
             <>
-              <div className="search-page-empty">{copy.empty}</div>
+              <div className="search-page-empty">{t("search.empty")}</div>
 
               {!!suggestions.length && (
                 <div className="search-page-suggestions">
                   <div className="search-page-suggestions-head">
-                    <h3>{copy.suggestionsTitle}</h3>
-                    <p>{copy.suggestionsCopy}</p>
+                    <h3>{t("search.suggestionsTitle")}</h3>
+                    <p>{t("search.suggestionsCopy")}</p>
                   </div>
 
                   <div className="search-page-list">
@@ -373,14 +314,18 @@ export default function SearchPage({
                           </span>
                           <span className="search-page-result-copy">
                             <span className="search-page-result-meta">
-                              <span>{item.typeLabel}</span>
-                              <em>{copy.suggested}</em>
+                              <span>{getTypeLabel(item)}</span>
+                              <em>{t("search.suggested")}</em>
                             </span>
                             <strong>
                               <Highlight text={title} keyword={queryValue} />
                             </strong>
                           </span>
-                          <i className="fa-solid fa-arrow-right" />
+                          <i
+                            className={`fa-solid ${
+                              isArabic ? "fa-arrow-left" : "fa-arrow-right"
+                            }`}
+                          />
                         </Link>
                       );
                     })}
@@ -412,21 +357,30 @@ export default function SearchPage({
                       </span>
                       <span className="search-page-result-copy">
                         <span className="search-page-result-meta">
-                          <span>{item.typeLabel}</span>
-                          {item.suggested ? <em>{copy.suggested}</em> : null}
+                          <span>{getTypeLabel(item)}</span>
+                          {item.suggested ? (
+                            <em>{t("search.suggested")}</em>
+                          ) : null}
                         </span>
                         <strong>
                           <Highlight text={title} keyword={queryValue} />
                         </strong>
                       </span>
-                      <i className="fa-solid fa-arrow-right" />
+                      <i
+                        className={`fa-solid ${
+                          isArabic ? "fa-arrow-left" : "fa-arrow-right"
+                        }`}
+                      />
                     </Link>
                   );
                 })}
               </div>
 
               {totalPages > 1 && (
-                <nav className="search-page-pagination" aria-label="Pagination">
+                <nav
+                  className="search-page-pagination"
+                  aria-label={t("search.pagination")}
+                >
                   <button
                     type="button"
                     className={!pagination.hasPreviousPage ? "disabled" : ""}
@@ -440,7 +394,11 @@ export default function SearchPage({
                       })
                     }
                   >
-                    <i className="fa-solid fa-arrow-left" />
+                    <i
+                      className={`fa-solid ${
+                        isArabic ? "fa-arrow-right" : "fa-arrow-left"
+                      }`}
+                    />
                   </button>
 
                   {Array.from({ length: totalPages }).map((_, index) => {
@@ -493,7 +451,11 @@ export default function SearchPage({
                       })
                     }
                   >
-                    <i className="fa-solid fa-arrow-right" />
+                    <i
+                      className={`fa-solid ${
+                        isArabic ? "fa-arrow-left" : "fa-arrow-right"
+                      }`}
+                    />
                   </button>
                 </nav>
               )}

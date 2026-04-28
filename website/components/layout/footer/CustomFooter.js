@@ -63,7 +63,7 @@ const groupWorkingSchedule = (schedule, lang) => {
 };
 
 export default function CustomFooter() {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const lang = i18n?.language === "ar" ? "ar" : "en";
   const [footerData, setFooterData] = useState(null);
   const [contactData, setContactData] = useState(null);
@@ -73,7 +73,7 @@ export default function CustomFooter() {
     const schedule = Array.isArray(footerData?.workingSchedule)
       ? [...footerData.workingSchedule]
           .filter(
-            (item) => localize(item?.day, lang) || localize(item?.hours, lang)
+            (item) => localize(item?.day, lang) || localize(item?.hours, lang),
           )
           .sort((a, b) => (a?.order || 0) - (b?.order || 0))
       : [];
@@ -94,15 +94,15 @@ export default function CustomFooter() {
       setFooterData(
         results[0].status === "fulfilled"
           ? results[0].value?.data || null
-          : null
+          : null,
       );
       setContactData(
         results[1].status === "fulfilled"
           ? results[1].value?.data || null
-          : null
+          : null,
       );
       setPolicies(
-        results[2].status === "fulfilled" ? pickArray(results[2].value) : []
+        results[2].status === "fulfilled" ? pickArray(results[2].value) : [],
       );
     });
 
@@ -116,20 +116,13 @@ export default function CustomFooter() {
       socialConfig
         .filter((item) => footerData?.[item.key])
         .map((item) => ({ ...item, href: footerData[item.key] })),
-    [footerData]
+    [footerData],
   );
 
   const currentYear = new Date().getFullYear();
   const address = localize(contactData?.address, lang) || "Istanbul, Turkey";
   const phone = contactData?.phones?.[0] || footerData?.phone || "";
   const email = contactData?.emails?.[0] || footerData?.email || "";
-  // const workingSchedule = Array.isArray(footerData?.workingSchedule)
-  //   ? [...footerData.workingSchedule]
-  //       .filter(
-  //         (item) => localize(item?.day, lang) || localize(item?.hours, lang),
-  //       )
-  //       .sort((a, b) => (a?.order || 0) - (b?.order || 0))
-  //   : [];
 
   return (
     <section className="footer-premium">
@@ -171,12 +164,12 @@ export default function CustomFooter() {
             <div className="col-lg-2 col-md-6 col-sm-12 footer-column">
               <div className="footer-widget footer-premium-widget">
                 <div className="widget-title footer-premium-widget-title">
-                  <h3>Quick links</h3>
+                  <h3>{t("quickLinks")}</h3>
                 </div>
                 <ul className="links-list clearfix footer-premium-links">
                   {siteLinks.map((item) => (
                     <li key={item.href}>
-                      <Link href={item.href}>{item.label}</Link>
+                      <Link href={item.href}>{t(item.label)}</Link>
                     </li>
                   ))}
                 </ul>
@@ -186,7 +179,7 @@ export default function CustomFooter() {
             <div className="col-lg-3 col-md-6 col-sm-12 footer-column">
               <div className="footer-widget footer-premium-widget">
                 <div className="widget-title footer-premium-widget-title">
-                  <h3>Policies</h3>
+                  <h3>{t("policies")}</h3>
                 </div>
                 <ul className="links-list clearfix footer-premium-links">
                   {policies.map((policy) => (
@@ -198,16 +191,12 @@ export default function CustomFooter() {
                   ))}
                   {!policies.length ? (
                     <li>
-                      <Link href="/policies">Privacy & Terms</Link>
+                      <Link href="/policies">{t("privacyTerms")}</Link>
                     </li>
                   ) : null}
                 </ul>
                 <div className="footer-premium-schedule">
-                  <strong>
-                    {lang === "ar"
-                      ? "أيام وساعات العمل"
-                      : "Work days and hours"}
-                  </strong>
+                  <strong>{t("workDaysHours")}</strong>
                   {workingSchedule.length ? (
                     <ul className="footer-premium-schedule-list">
                       {workingSchedule.map((item, index) => (
@@ -231,7 +220,7 @@ export default function CustomFooter() {
             <div className="col-lg-4 col-md-12 col-sm-12 footer-column">
               <div className="footer-widget contact-widget footer-premium-widget footer-premium-contact">
                 <div className="widget-title footer-premium-widget-title">
-                  <h3>Contact info</h3>
+                  <h3>{t("contactInfo")}</h3>
                 </div>
                 <ul className="footer-premium-contact-list">
                   {phone ? (
@@ -272,10 +261,10 @@ export default function CustomFooter() {
               <div className="col-lg-5 col-md-12 col-sm-12">
                 <div className="footer-widget footer-premium-widget">
                   <div className="widget-title footer-premium-widget-title">
-                    <h3>Newsletter</h3>
+                    <h3>{t("newsletter")}</h3>
                   </div>
                   <p className="footer-premium-newsletter-text">
-                    Subscribe for updates, insights, and service news.
+                    {t("newsletterText")}
                   </p>
                 </div>
               </div>
@@ -291,7 +280,7 @@ export default function CustomFooter() {
                       type="submit"
                       className="theme-btn btn-two footer-premium-btn"
                     >
-                      <span>Subscribe</span>
+                      <span>{t("subscribe")}</span>
                       <i className="fas fa-paper-plane" />
                     </button>
                   </div>
@@ -306,12 +295,14 @@ export default function CustomFooter() {
           <div className="footer-premium-bottom-inner">
             <div className="footer-premium-bottom-left">
               <div className="footer-premium-bottom-brand">
-                <p>&copy; {currentYear}, All rights reserved</p>
+                <p>
+                  &copy; {currentYear}, {t("allRightsReserved")}
+                </p>
               </div>
 
               <ul className="clearfix footer-premium-bottom-nav">
                 <li>
-                  <Link href="/policies">Privacy & Terms policies</Link>
+                  <Link href="/policies">{t("privacyTerms")}</Link>
                 </li>
                 {policies.slice(0, 2).map((item) => (
                   <li key={item?._id || item?.slug}>
@@ -329,7 +320,9 @@ export default function CustomFooter() {
                 className="footer-premium-credit"
                 aria-label="Developed by Smartinb"
               >
-                <span className="footer-premium-credit-text">Developed by</span>
+                <span className="footer-premium-credit-text">
+                  {t("developedBy")}
+                </span>
                 <span className="footer-premium-credit-brand">
                   <span className="footer-premium-credit-dot" />
                   Smartinb

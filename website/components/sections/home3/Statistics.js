@@ -12,28 +12,11 @@ const statIcons = [
 
 export default function Statistics({ statistics = [], isAbout = false }) {
   const isMobile = useIsMobile();
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const lang = i18n.language || "en";
   const isRtl = lang === "ar";
 
   if (!statistics.length) return null;
-
-  const sectionTitle =
-    lang === "ar" ? "إحصاءات" : lang === "tr" ? "İstatistikler" : "Statistics";
-
-  const sectionHeading =
-    lang === "ar"
-      ? "نظرة سريعة على بيانات الشركة"
-      : lang === "tr"
-      ? "Şirket verilerine hızlı bakış"
-      : "A Quick Look At Company Data";
-
-  const sectionText =
-    lang === "ar"
-      ? "أرقام مختصرة تعكس نطاق أعمالنا ونمو خدماتنا وثقة عملائنا."
-      : lang === "tr"
-      ? "Faaliyet kapsamımızı, hizmet büyümemizi ve müşteri güvenini yansıtan kısa göstergeler."
-      : "Key indicators that reflect our business scale, service growth, and client trust.";
 
   const displayedStats = isAbout ? statistics : statistics.slice(0, 3);
 
@@ -46,11 +29,11 @@ export default function Statistics({ statistics = [], isAbout = false }) {
 
       <div className="auto-container statistics-container">
         <div className="statistics-head">
-          <span className="statistics-subtitle">{sectionTitle}</span>
+          <span className="statistics-subtitle">{t("statistics")}</span>
 
           <div className="statistics-head-main">
-            <h2 className="statistics-heading">{sectionHeading}</h2>
-            <p className="statistics-intro">{sectionText}</p>
+            <h2 className="statistics-heading">{t("quickLook")}</h2>
+            <p className="statistics-intro">{t("statisticsSubtitle")}</p>
           </div>
         </div>
 

@@ -11,12 +11,12 @@ import SearchableSelect from "@/components/elements/SearchableSelect";
 import LoadingCard from "@/components/utils/LoadingCard";
 
 const requestTypeOptions = [
-  { value: "investment-inquiry", label: "Investment Inquiry" },
-  { value: "partnership", label: "Partnership" },
-  { value: "media", label: "Media" },
-  { value: "support", label: "Support" },
-  { value: "request-service", label: "Request a service" },
-  { value: "complaint", label: "Complaint" },
+  { value: "investment-inquiry", label: "consultInquiry" },
+  { value: "partnership", label: "partnership" },
+  { value: "media", label: "media" },
+  { value: "support", label: "support" },
+  { value: "request-service", label: "serviceRequest" },
+  { value: "complaint", label: "complaint" },
 ];
 
 const localize = (value, lang) =>
@@ -156,7 +156,9 @@ const ContactForm = () => {
         email: formData.email.trim(),
         phone: formData.phone.trim(),
         subject: formData.subject.trim(),
-        requestType: isServiceRequest ? "service-request" : formData.requestType,
+        requestType: isServiceRequest
+          ? "service-request"
+          : formData.requestType,
         service: isServiceRequest ? formData.service : null,
         message: formData.message.trim(),
       }).unwrap();
@@ -414,7 +416,7 @@ const ContactForm = () => {
                       >
                         {requestTypeOptions.map((option) => (
                           <option key={option.value} value={option.value}>
-                            {option.label}
+                            {t(option.label)}
                           </option>
                         ))}
                       </select>

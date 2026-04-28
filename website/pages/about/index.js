@@ -165,8 +165,6 @@ export default function About({ data = {}, homeData = {} }) {
     prizes?.length ||
     certificates?.length;
 
-  const activeCopy = copy.sections[activeTab];
-
   return (
     <Layout
       headerStyle={1}
@@ -235,8 +233,8 @@ export default function About({ data = {}, homeData = {} }) {
                             {lang === "ar"
                               ? "نقدم نهجاً استشارياً قائماً على الانضباط والحوكمة والرؤية طويلة المدى."
                               : lang === "tr"
-                              ? "Disiplin, yonetisim ve uzun vadeli bakis acisina dayali bir danismanlik yaklasimi sunuyoruz."
-                              : "We bring together disciplined strategy, strong governance, and a long-term business perspective."}
+                                ? "Disiplin, yonetisim ve uzun vadeli bakis acisina dayali bir danismanlik yaklasimi sunuyoruz."
+                                : "We bring together disciplined strategy, strong governance, and a long-term business perspective."}
                           </p>
                         </div>
 

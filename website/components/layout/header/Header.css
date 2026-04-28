@@ -36,6 +36,10 @@
   transition: top 0.3s ease, width 0.3s ease;
 }
 
+.jadwa-header.is-search-open {
+  z-index: 100000;
+}
+
 .jadwa-header.is-sticky {
   position: fixed;
   top: 12px;
@@ -74,7 +78,7 @@
 ========================================= */
 .jadwa-header-lower {
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   border-radius: 34px;
   background: radial-gradient(
       circle at top left,
@@ -429,6 +433,8 @@ html[dir="rtl"] .jadwa-nav-icon {
    DESKTOP ACTIONS
 ========================================= */
 .jadwa-header-actions {
+  position: relative;
+  z-index: 10;
   flex: 0 0 auto;
   display: flex;
   align-items: center;
@@ -524,7 +530,7 @@ html[dir="rtl"] .jadwa-invest-btn:hover::after {
 ========================================= */
 .jadwa-global-search {
   position: relative;
-  z-index: 5;
+  z-index: 100;
 }
 
 .jadwa-global-search-desktop {
@@ -583,6 +589,7 @@ html[dir="rtl"] .jadwa-invest-btn:hover::after {
 ========================================= */
 .jadwa-search-results-popover {
   position: absolute;
+  z-index: 100001;
   top: calc(100% + 10px);
   right: 0;
   width: min(420px, 88vw);

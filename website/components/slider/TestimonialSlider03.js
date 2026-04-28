@@ -19,7 +19,7 @@ function getInitials(name = "") {
 }
 
 export default function TestimonialsShowcase({ testimonials = [] }) {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const lang = i18n.language || "en";
   const isRtl = lang === "ar";
 
@@ -49,30 +49,14 @@ export default function TestimonialsShowcase({ testimonials = [] }) {
           <div className="jadwa-testimonials-head">
             <div className="jadwa-pill">
               <span className="jadwa-pill-dot" />
-              <span>
-                {lang === "ar"
-                  ? "الشهادات"
-                  : lang === "tr"
-                    ? "Yorumlar"
-                    : "Testimonials"}
-              </span>
+              <span>{t("about.testimonials")}</span>
             </div>
 
             <h2 className="jadwa-testimonials-title">
-              {lang === "ar"
-                ? "موثوق به من الفرق الطموحة"
-                : lang === "tr"
-                  ? "Hırslı ekipler tarafından güveniliyor"
-                  : "Trusted by ambitious teams"}
+              {t("trustedAmbitious")}
             </h2>
 
-            <p className="jadwa-testimonials-subtitle">
-              {lang === "ar"
-                ? "يستخدمه مؤسسون يهتمون بالسرعة والوضوح وثقة المستثمرين"
-                : lang === "tr"
-                  ? "Hız, netlik ve yatırımcı güvenine önem veren ekipler tarafından kullanılır"
-                  : "Used by founders who care about speed, clarity, and investor confidence"}
-            </p>
+            <p className="jadwa-testimonials-subtitle">{t("usedByFounders")}</p>
           </div>
 
           <div className="jadwa-layout">
@@ -166,35 +150,17 @@ export default function TestimonialsShowcase({ testimonials = [] }) {
               <div className="jadwa-stats-card">
                 <div className="jadwa-stat">
                   <h3>120+</h3>
-                  <p>
-                    {lang === "ar"
-                      ? "شريك موثوق"
-                      : lang === "tr"
-                        ? "Güvenilir ortak"
-                        : "SaaS Founders Helped"}
-                  </p>
+                  <p>{t("trustedPartner")}</p>
                 </div>
 
                 <div className="jadwa-stat">
                   <h3>18M+</h3>
-                  <p>
-                    {lang === "ar"
-                      ? "قيمة مستهدفة"
-                      : lang === "tr"
-                        ? "Hedeflenen değer"
-                        : "Tons CO₂ tracked"}
-                  </p>
+                  <p>{t("targetedValue")}</p>
                 </div>
 
                 <div className="jadwa-stat">
                   <h3>95%</h3>
-                  <p>
-                    {lang === "ar"
-                      ? "كفاءة أعلى"
-                      : lang === "tr"
-                        ? "Daha hızlı iş akışı"
-                        : "Faster ESG workflows"}
-                  </p>
+                  <p>{t("higherEfficiency")}</p>
                 </div>
               </div>
             </div>

@@ -129,9 +129,7 @@ export default function BlogDetailsPage({ blog, relatedBlogs = [] }) {
                 {relatedBlogs.length ? (
                   <div className="jadwa-blog-side-card">
                     <div className="jadwa-blog-side-card-title">
-                      {t("blog.RelatedBlogs") === "blog.RelatedBlogs"
-                        ? "Related Reads"
-                        : t("blog.RelatedBlogs")}
+                      {t("relatedBlogs")}
                     </div>
 
                     <div className="jadwa-blog-side-list">

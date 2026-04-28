@@ -32,7 +32,7 @@ const navIcons = {
 };
 
 const MobileMenu = ({ handleMobileMenu, isMobileMenu, footerData }) => {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const currentLang = i18n?.language || "en";
   const isAr = currentLang === "ar";
 
@@ -41,7 +41,7 @@ const MobileMenu = ({ handleMobileMenu, isMobileMenu, footerData }) => {
       socialConfig
         .filter((item) => footerData?.[item.key])
         .map((item) => ({ ...item, href: footerData?.[item.key] })),
-    [footerData]
+    [footerData],
   );
 
   const changeLanguage = (lng) => {
@@ -88,10 +88,10 @@ const MobileMenu = ({ handleMobileMenu, isMobileMenu, footerData }) => {
             <div className="jadwa-mobile-quickbox-head">
               <div className="jadwa-mobile-quickbox-copy">
                 <span className="jadwa-mobile-brand-kicker">
-                  Digital financial solutions
+                  {t("digitalFinancialSolutions")}
                 </span>
                 <strong className="jadwa-mobile-brand-title">
-                  Smarter access to investment opportunities
+                  {t("smarterAccess")}
                 </strong>
               </div>
 
@@ -178,7 +178,7 @@ const MobileMenu = ({ handleMobileMenu, isMobileMenu, footerData }) => {
                           }
                         />
                       </span>
-                      <span>{link.label}</span>
+                      <span>{t(link.label)}</span>
                     </span>
 
                     <span className="jadwa-mobile-nav-arrow">
@@ -200,7 +200,7 @@ const MobileMenu = ({ handleMobileMenu, isMobileMenu, footerData }) => {
               className="jadwa-mobile-invest-btn"
               onClick={handleMobileMenu}
             >
-              Request a consult
+              {t("requestConsult")}
             </Link>
           </div>
         </div>

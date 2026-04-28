@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { siteLinks } from "@/components/website/websiteUtils";
+import { useTranslation } from "react-i18next";
 
 const navIcons = {
   "/": "fa-solid fa-house",
@@ -16,6 +17,7 @@ const navIcons = {
 };
 
 export default function Menu() {
+  const { t } = useTranslation();
   return (
     <ul className="navigation clearfix">
       {siteLinks.map(({ href, label }) => (
@@ -24,7 +26,7 @@ export default function Menu() {
             <span className="jadwa-nav-icon">
               <i className={navIcons[href] || "fa-regular fa-circle"} />
             </span>
-            <span className="jadwa-nav-label">{label}</span>
+            <span className="jadwa-nav-label">{t(label)}</span>
           </Link>
         </li>
       ))}
