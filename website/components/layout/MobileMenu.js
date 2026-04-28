@@ -19,6 +19,18 @@ const socialConfig = [
   { key: "linkedin", icon: "fa-brands fa-linkedin-in", label: "LinkedIn" },
 ];
 
+const navIcons = {
+  "/": "fa-solid fa-house",
+  "/about": "fa-regular fa-building",
+  "/services": "fa-solid fa-layer-group",
+  "/projects": "fa-regular fa-folder-open",
+  "/companies": "fa-regular fa-building",
+  "/investment-funds": "fa-solid fa-chart-line",
+  "/research": "fa-regular fa-newspaper",
+  "/contact": "fa-regular fa-paper-plane",
+  "/policies": "fa-solid fa-shield-halved",
+};
+
 const MobileMenu = ({ handleMobileMenu, isMobileMenu, footerData }) => {
   const { i18n } = useTranslation();
   const currentLang = i18n?.language || "en";
@@ -29,7 +41,7 @@ const MobileMenu = ({ handleMobileMenu, isMobileMenu, footerData }) => {
       socialConfig
         .filter((item) => footerData?.[item.key])
         .map((item) => ({ ...item, href: footerData?.[item.key] })),
-    [footerData],
+    [footerData]
   );
 
   const changeLanguage = (lng) => {
@@ -38,7 +50,9 @@ const MobileMenu = ({ handleMobileMenu, isMobileMenu, footerData }) => {
     if (typeof document !== "undefined") {
       document.documentElement.dir = lng === "ar" ? "rtl" : "ltr";
       document.documentElement.lang = lng;
-      document.cookie = `site_lang=${lng}; path=/; max-age=${30 * 24 * 60 * 60}`;
+      document.cookie = `site_lang=${lng}; path=/; max-age=${
+        30 * 24 * 60 * 60
+      }`;
     }
 
     handleMobileMenu?.();
@@ -55,15 +69,9 @@ const MobileMenu = ({ handleMobileMenu, isMobileMenu, footerData }) => {
               href="/"
               className="jadwa-mobile-logo"
               onClick={handleMobileMenu}
+              aria-label="Go to homepage"
             >
-              <img
-                src={
-                  currentLang === "ar"
-                    ? "/assets/images/logos/jadwa-ar-light.png"
-                    : "/assets/images/logos/jadwa-en-light.png"
-                }
-                alt="Jadir"
-              />
+              <img src="/assets/images/logos/jadir-dark.png" alt="Jadir" />
             </Link>
 
             <button
@@ -72,8 +80,51 @@ const MobileMenu = ({ handleMobileMenu, isMobileMenu, footerData }) => {
               onClick={handleMobileMenu}
               aria-label="Close menu"
             >
-              <i className="fas fa-times" />
+              <i className="fa-solid fa-xmark" />
             </button>
+          </div>
+
+          <div className="jadwa-mobile-quickbox">
+            <div className="jadwa-mobile-quickbox-head">
+              <div className="jadwa-mobile-quickbox-copy">
+                <span className="jadwa-mobile-brand-kicker">
+                  Digital financial solutions
+                </span>
+                <strong className="jadwa-mobile-brand-title">
+                  Smarter access to investment opportunities
+                </strong>
+              </div>
+
+              {!!socialLinks.length && (
+                <div className="jadwa-mobile-socials">
+                  {socialLinks.map((item) => (
+                    <a
+                      key={item.key}
+                      href={item.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={item.label}
+                      className="jadwa-mobile-social-link"
+                    >
+                      <i className={item.icon} />
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div className="jadwa-mobile-lang">
+              {languages.map((lang) => (
+                <button
+                  key={lang.value}
+                  type="button"
+                  className={currentLang === lang.value ? "active" : ""}
+                  onClick={() => changeLanguage(lang.value)}
+                >
+                  {lang.label}
+                </button>
+              ))}
+            </div>
           </div>
 
           <div className="jadwa-mobile-top">
@@ -119,10 +170,24 @@ const MobileMenu = ({ handleMobileMenu, isMobileMenu, footerData }) => {
               {siteLinks.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} onClick={handleMobileMenu}>
-                    <span>{link.label}</span>
-                    <i
-                      className={`fas ${isAr ? "fa-arrow-left" : "fa-arrow-right"}`}
-                    />
+                    <span className="jadwa-mobile-nav-left">
+                      <span className="jadwa-mobile-nav-icon">
+                        <i
+                          className={
+                            navIcons[link.href] || "fa-regular fa-circle"
+                          }
+                        />
+                      </span>
+                      <span>{link.label}</span>
+                    </span>
+
+                    <span className="jadwa-mobile-nav-arrow">
+                      <i
+                        className={`fa-solid ${
+                          isAr ? "fa-arrow-left" : "fa-arrow-right"
+                        }`}
+                      />
+                    </span>
                   </Link>
                 </li>
               ))}

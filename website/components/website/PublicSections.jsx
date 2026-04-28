@@ -191,7 +191,7 @@ export function AboutOverview({ data = {} }) {
                           {truncate(
                             localize(value?.content, lang) ||
                               localize(value?.description, lang),
-                            120,
+                            120
                           )}
                         </span>
                       </li>
@@ -282,11 +282,25 @@ export function ServicesPreview({ services = [] }) {
 export function ConsultCTA() {
   return (
     <section className="site-cta">
-      <div className="auto-container site-cta-inner">
-        <h2>Need a custom consult?</h2>
-        <Link className="site-btn site-btn-light" href="/contact">
-          Request a consult
-        </Link>
+      <div className="site-cta-bg" />
+
+      <div className="auto-container">
+        <div className="site-cta-inner">
+          <div className="site-cta-content">
+            <span className="site-cta-kicker">Advisory support</span>
+
+            <h2>Need a custom consult?</h2>
+
+            <p>
+              Speak with our team to explore tailored financial and corporate
+              advisory solutions for your business.
+            </p>
+          </div>
+
+          <Link className="site-cta-btn" href="/contact">
+            Request a consult
+          </Link>
+        </div>
       </div>
     </section>
   );
@@ -296,6 +310,7 @@ export function TrustedLogos({ partners = [], companies = [] }) {
   const isMobile = useIsMobile();
   const { i18n } = useTranslation();
   const lang = i18n.language || "en";
+  const isRtl = lang === "ar";
 
   const items = partners.length
     ? partners.map((item) => ({
@@ -311,41 +326,66 @@ export function TrustedLogos({ partners = [], companies = [] }) {
 
   if (!items.length) return null;
 
-  return (
-    <section className="site-band site-band-soft site-trusted-showcase">
-      <div className="auto-container">
-        <SectionTitle
-          eyebrow="Trusted by"
-          title="Partners and people who trusted us"
-        />
+  const repeatedItems = [...items, ...items, ...items];
 
-        <Swiper
-          key={"trusted-logos"}
-          modules={[Autoplay]}
-          spaceBetween={isMobile ? 10 : 20}
-          slidesPerView={isMobile ? 2 : 5}
-          loop={true}
-          speed={5000}
-          autoplay={{
-            delay: 1,
-            disableOnInteraction: false,
-          }}
-          breakpoints={{
-            480: { slidesPerView: 3 },
-            768: { slidesPerView: 4 },
-            1024: { slidesPerView: 5 },
-            1280: { slidesPerView: 5 },
-          }}
-          className="trusted-logos-swiper"
-        >
-          {[...items, ...items].map((item, index) => (
-            <SwiperSlide key={`${item.id || item.title}-${index}`}>
-              <div className="site-logo-card">
-                <img src={item.image} alt={item.title || "Partner"} />
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+  return (
+    <section
+      className={`jadwa-trusted-section ${isRtl ? "rtl" : "ltr"}`}
+      dir={isRtl ? "rtl" : "ltr"}
+    >
+      <div className="jadwa-trusted-bg" />
+
+      <div className="auto-container">
+        <div className="jadwa-trusted-head">
+          <span className="jadwa-trusted-kicker">
+            {lang === "ar"
+              ? "موثوق من قبل"
+              : lang === "tr"
+              ? "Güvenenler"
+              : "Trusted by"}
+          </span>
+
+          <h2 className="jadwa-trusted-title">
+            {lang === "ar"
+              ? "شركاء وجهات وثقوا بنا"
+              : lang === "tr"
+              ? "Bize güvenen iş ortakları"
+              : "Partners and companies who trusted us"}
+          </h2>
+        </div>
+
+        <div className="jadwa-trusted-rail">
+          <Swiper
+            key={`trusted-logos-${lang}`}
+            modules={[Autoplay]}
+            spaceBetween={isMobile ? 18 : 40}
+            slidesPerView={isMobile ? 2 : 3}
+            loop
+            speed={5200}
+            allowTouchMove={false}
+            autoplay={{
+              delay: 1,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: false,
+            }}
+            breakpoints={{
+              480: { slidesPerView: 2.4, spaceBetween: 12 },
+              640: { slidesPerView: 3, spaceBetween: 14 },
+              768: { slidesPerView: 4, spaceBetween: 16 },
+              1024: { slidesPerView: 5, spaceBetween: 18 },
+              1280: { slidesPerView: 5.6, spaceBetween: 18 },
+            }}
+            className="jadwa-trusted-swiper"
+          >
+            {repeatedItems.map((item, index) => (
+              <SwiperSlide key={`${item.id || item.title}-${index}`}>
+                <div className="jadwa-trusted-logo-card">
+                  <img src={item.image} alt={item.title || "Partner"} />
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
       </div>
     </section>
   );
@@ -354,68 +394,139 @@ export function TrustedLogos({ partners = [], companies = [] }) {
 export function Testimonials({ testimonials = [] }) {
   const { i18n } = useTranslation();
   const lang = i18n.language || "en";
+
   if (!testimonials.length) return null;
+
   const featured = testimonials[0];
   const side = testimonials.slice(1, 3);
   const rest = testimonials.slice(3);
 
+  const getQuote = (item) =>
+    localize(item?.quote || item?.content || item?.description, lang);
+
+  const getName = (item) => localize(item?.clientName || item?.name, lang);
+
+  const getRole = (item) => localize(item?.clientRole || item?.role, lang);
+
+  const getInitials = (name = "") =>
+    name
+      .split(" ")
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((part) => part[0])
+      .join("")
+      .toUpperCase();
+
+  const featuredName = getName(featured);
+
   return (
-    <section className="site-band site-testimonial-showcase">
+    <section
+      className={`jadir-about-testimonials ${lang === "ar" ? "rtl" : "ltr"}`}
+      dir={lang === "ar" ? "rtl" : "ltr"}
+    >
       <div className="auto-container">
         <SectionTitle
-          eyebrow="Testimonials"
-          title="What clients say"
-          text="Clear feedback from the people and teams who trusted Jadir."
+          eyebrow={
+            lang === "ar"
+              ? "آراء العملاء"
+              : lang === "tr"
+              ? "Referanslar"
+              : "Testimonials"
+          }
+          title={
+            lang === "ar"
+              ? "ماذا يقول عملاؤنا"
+              : lang === "tr"
+              ? "Müşterilerimiz ne söylüyor"
+              : "What clients say"
+          }
+          text={
+            lang === "ar"
+              ? "آراء واضحة من العملاء والفرق التي وثقت بجدير."
+              : lang === "tr"
+              ? "Jadir’e güvenen kişi ve ekiplerden net geri bildirimler."
+              : "Clear feedback from the people and teams who trusted Jadir."
+          }
         />
-        <div className="site-testimonial-layout">
-          <article className="site-testimonial-featured">
-            <div className="site-quote-mark">"</div>
-            <p>
-              {localize(
-                featured?.quote || featured?.content || featured?.description,
-                lang,
-              )}
+
+        <div className="jadir-about-testimonials-layout">
+          <article className="jadir-about-testimonial-featured">
+            <div className="jadir-about-testimonial-quote">"</div>
+
+            <p className="jadir-about-testimonial-featured-text">
+              {getQuote(featured)}
             </p>
-            <h3>{localize(featured?.clientName || featured?.name, lang)}</h3>
-            <span>
-              {localize(featured?.clientRole || featured?.role, lang)}
-            </span>
+
+            <div className="jadir-about-testimonial-person">
+              <div className="jadir-about-testimonial-avatar">
+                {getInitials(featuredName || "Client")}
+              </div>
+
+              <div>
+                <h3>{featuredName}</h3>
+                {getRole(featured) && <span>{getRole(featured)}</span>}
+              </div>
+            </div>
           </article>
-          <div className="site-testimonial-stack">
-            {side.map((item) => (
-              <article className="site-testimonial-card" key={item?._id}>
-                <p>
-                  {truncate(
-                    localize(
-                      item?.quote || item?.content || item?.description,
-                      lang,
-                    ),
-                    150,
-                  )}
-                </p>
-                <h3>{localize(item?.clientName || item?.name, lang)}</h3>
-                <span>{localize(item?.clientRole || item?.role, lang)}</span>
-              </article>
-            ))}
-          </div>
+
+          {!!side.length && (
+            <div className="jadir-about-testimonial-stack">
+              {side.map((item) => {
+                const name = getName(item);
+
+                return (
+                  <article
+                    className="jadir-about-testimonial-card"
+                    key={item?._id || name}
+                  >
+                    <div className="jadir-about-testimonial-small-quote">"</div>
+
+                    <p>{truncate(getQuote(item), 150)}</p>
+
+                    <div className="jadir-about-testimonial-person compact">
+                      <div className="jadir-about-testimonial-avatar">
+                        {getInitials(name || "Client")}
+                      </div>
+
+                      <div>
+                        <h3>{name}</h3>
+                        {getRole(item) && <span>{getRole(item)}</span>}
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          )}
         </div>
+
         {rest.length > 0 && (
-          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mt-4">
-            {rest.map((item) => (
-              <article className="site-testimonial-card mt-4" key={item?._id}>
-                <p>
-                  {truncate(
-                    localize(
-                      item?.quote || item?.content || item?.description,
-                      lang,
-                    ),
-                    150,
-                  )}
-                </p>
-                <h3>{localize(item?.clientName || item?.name, lang)}</h3>
-                <span>{localize(item?.clientRole || item?.role, lang)}</span>
-              </article>
-            ))}
+          <div className="jadir-about-testimonial-grid">
+            {rest.map((item) => {
+              const name = getName(item);
+
+              return (
+                <article
+                  className="jadir-about-testimonial-card"
+                  key={item?._id || name}
+                >
+                  <div className="jadir-about-testimonial-small-quote">"</div>
+
+                  <p>{truncate(getQuote(item), 150)}</p>
+
+                  <div className="jadir-about-testimonial-person compact">
+                    <div className="jadir-about-testimonial-avatar">
+                      {getInitials(name || "Client")}
+                    </div>
+
+                    <div>
+                      <h3>{name}</h3>
+                      {getRole(item) && <span>{getRole(item)}</span>}
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
           </div>
         )}
       </div>
@@ -442,7 +553,7 @@ export function ProjectCards({ projects = [], limit }) {
             src={asset(
               "projects",
               project?.image,
-              "/assets/images/project/project-5.jpg",
+              "/assets/images/project/project-5.jpg"
             )}
             alt={localize(project?.title, lang)}
           />
@@ -452,7 +563,7 @@ export function ProjectCards({ projects = [], limit }) {
               {truncate(
                 localize(project?.brief, lang) ||
                   localize(project?.challenge, lang),
-                120,
+                120
               )}
             </p>
           </div>
@@ -481,7 +592,7 @@ export function BlogCards({ blogs = [], limit }) {
             src={asset(
               "blogs",
               blog?.image || blog?.photo,
-              "/assets/images/news/news-1.jpg",
+              "/assets/images/news/news-1.jpg"
             )}
             alt={localize(blog?.title, lang)}
           />
@@ -491,7 +602,7 @@ export function BlogCards({ blogs = [], limit }) {
             <p>
               {truncate(
                 localize(blog?.excerpt, lang) || localize(blog?.content, lang),
-                110,
+                110
               )}
             </p>
           </div>
@@ -570,7 +681,7 @@ export function AboutTabs({ data }) {
                   src={asset(
                     "boardMember",
                     member?.image,
-                    "/assets/images/team/1.jpg",
+                    "/assets/images/team/1.jpg"
                   )}
                   alt={localize(member?.name, lang)}
                 />
@@ -579,9 +690,9 @@ export function AboutTabs({ data }) {
                   {truncate(
                     localize(
                       member?.brief || member?.description || member?.position,
-                      lang,
+                      lang
                     ),
-                    120,
+                    120
                   )}
                 </p>
               </article>
@@ -598,7 +709,7 @@ export function AboutTabs({ data }) {
                   src={asset(
                     "companies",
                     company?.logo,
-                    "/assets/images/logos/jadir.png",
+                    "/assets/images/logos/jadir.png"
                   )}
                   alt={localize(company?.companyName, lang)}
                 />
@@ -607,9 +718,9 @@ export function AboutTabs({ data }) {
                   {truncate(
                     localize(
                       company?.about || company?.content || company?.aboutus,
-                      lang,
+                      lang
                     ),
-                    150,
+                    150
                   )}
                 </p>
               </article>
@@ -719,7 +830,7 @@ export function BlogFilters({ blogs = [], categories = [] }) {
       const tagMatch =
         !query ||
         (blog?.tags || []).some((tag) =>
-          localize(tag, lang).toLowerCase().includes(query.toLowerCase()),
+          localize(tag, lang).toLowerCase().includes(query.toLowerCase())
         );
       return (titleMatch || tagMatch) && categoryMatch;
     });
@@ -786,7 +897,7 @@ export function BlogDetails({ blog, related = [] }) {
             src={asset(
               "blogs",
               blog?.image || blog?.photo,
-              "/assets/images/news/news-1.jpg",
+              "/assets/images/news/news-1.jpg"
             )}
             alt={title}
           />

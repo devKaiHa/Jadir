@@ -24,6 +24,7 @@ export default function Banner({ HomeSlides }) {
           delay: 5000,
           disableOnInteraction: false,
         }}
+        pagination={false}
         dir="ltr"
         loop
         navigation={{
@@ -45,7 +46,7 @@ export default function Banner({ HomeSlides }) {
             }
           });
         }}
-        className="banner-carousel"
+        className="banner-carousel no-banner-pagination"
       >
         {HomeSlides?.map((slide, idx) => (
           <SwiperSlide key={idx} className="slide-item p_relative">

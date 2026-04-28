@@ -30,14 +30,14 @@ const AboutService = ({ data = [], length = 3 }) => {
             {lang === "ar"
               ? "حلول وخدمات مصممة لدعم النمو، ورفع الكفاءة، وتقديم قيمة حقيقية للعملاء."
               : lang === "tr"
-                ? "Büyümeyi desteklemek, verimliliği artırmak ve müşterilere gerçek değer sunmak için tasarlanmış hizmetler."
-                : "Purpose-built services designed to support growth, improve efficiency, and deliver real value to clients."}
+              ? "Büyümeyi desteklemek, verimliliği artırmak ve müşterilere gerçek değer sunmak için tasarlanmış hizmetler."
+              : "Purpose-built services designed to support growth, improve efficiency, and deliver real value to clients."}
           </p>
         </div>
 
         <div className="row g-4">
           {displayedServices.map((service, index) => {
-            const href = `/services/${service?.slug || service?._id}`;
+            const href = `/Services/${service?.slug || service?._id}`;
             const title = service?.title?.[lang] || service?.title?.en || "";
             const description =
               service?.description?.[lang] || service?.description?.en || "";
@@ -59,8 +59,8 @@ const AboutService = ({ data = [], length = 3 }) => {
                       {lang === "ar"
                         ? "خدمة"
                         : lang === "tr"
-                          ? "Hizmet"
-                          : "Service"}
+                        ? "Hizmet"
+                        : "Service"}
                     </div>
                   </div>
 
@@ -78,8 +78,8 @@ const AboutService = ({ data = [], length = 3 }) => {
                         {lang === "ar"
                           ? "تفاصيل الخدمة"
                           : lang === "tr"
-                            ? "Hizmet Detayları"
-                            : "Service Details"}
+                          ? "Hizmet Detayları"
+                          : "Service Details"}
                       </span>
                       <i
                         className={`services-redesign-arrow ${

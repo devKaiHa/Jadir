@@ -9,6 +9,7 @@ import { stripHtml } from "@/components/utils/helpers";
 export default function ProjectsPage({ projects = [], pageBanners = {} }) {
   const { i18n } = useTranslation();
   const lang = i18n.language || "en";
+  const isRtl = lang === "ar";
 
   return (
     <Layout
@@ -17,51 +18,47 @@ export default function ProjectsPage({ projects = [], pageBanners = {} }) {
         lang === "ar" ? "المشاريع" : lang === "tr" ? "Projeler" : "Projects"
       }
     >
-      <section className="news-style-two sec-pad">
+      <section
+        className={`jadir-projects-page sec-pad ${isRtl ? "rtl" : "ltr"}`}
+        dir={isRtl ? "rtl" : "ltr"}
+      >
         <div className="auto-container">
-          <div className="sec-title">
-            <span className="sub-title">
+          <div className="jadir-projects-head">
+            <span className="jadir-projects-eyebrow">
               {lang === "ar"
                 ? "مشاريعنا"
                 : lang === "tr"
-                  ? "Projelerimiz"
-                  : "Our Projects"}
+                ? "Projelerimiz"
+                : "Our Projects"}
             </span>
+
             <h2>
               {lang === "ar"
-                ? "المشاريع المنشورة"
+                ? "مشاريع مختارة تعكس طريقة عملنا"
                 : lang === "tr"
-                  ? "Yayinlanan projeler"
-                  : "Published projects"}
+                ? "Çalışma yaklaşımımızı yansıtan seçili projeler"
+                : "Selected projects that reflect how we work"}
             </h2>
+
+            <p>
+              {lang === "ar"
+                ? "استعرض نماذج من المشاريع التي تجمع بين الفهم الاستراتيجي والتنفيذ العملي."
+                : lang === "tr"
+                ? "Stratejik anlayış ile pratik uygulamayı bir araya getiren projeleri inceleyin."
+                : "Explore selected work shaped by strategic insight, practical execution, and measurable business value."}
+            </p>
           </div>
-          <div className="row clearfix">
-            {projects.map((project) => {
-              return (
-                <div
-                  key={project?._id}
-                  className="col-lg-4 col-md-6 col-sm-12 news-block my-2"
-                >
-                  <div className="news-block-one h-100 project-grid-card">
-                    <div className="inner-box h-100 project-grid-card-inner">
-                      <div className="image-box">
-                        <figure className="image">
-                          <img
-                            src={
-                              `${imageURL}projects/${project?.image}` ||
-                              "/assets/images/news/news-1.jpg"
-                            }
-                            alt={project?.title?.[lang] || project?.title?.en}
-                            style={{ height: "250px", objectFit: "cover" }}
-                          />
-                        </figure>
-                      </div>
-                      <ProjectBrief project={project} lang={lang} />
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+
+          <div className="jadir-projects-list">
+            {projects.map((project, index) => (
+              <ProjectRow
+                key={project?._id || index}
+                project={project}
+                lang={lang}
+                index={index}
+                isRtl={isRtl}
+              />
+            ))}
           </div>
         </div>
       </section>
@@ -69,32 +66,64 @@ export default function ProjectsPage({ projects = [], pageBanners = {} }) {
   );
 }
 
-const ProjectBrief = ({ project, lang }) => {
+const ProjectRow = ({ project, lang, index, isRtl }) => {
+  const title = project?.title?.[lang] || project?.title?.en || "";
   const briefHtml = project?.brief?.[lang] || project?.brief?.en || "";
   const plainText = stripHtml(briefHtml);
+  const href = `/projects/${project?.slug || project?._id}`;
+  const isReversed = index % 2 === 1;
+
+  const imageSrc = project?.image
+    ? `${imageURL}projects/${project.image}`
+    : "/assets/images/news/news-1.jpg";
 
   return (
-    <div className="lower-box project-grid-card-body">
-      <h3 className="project-grid-card-title">
-        {project?.title?.[lang] || project?.title?.en}
-      </h3>
+    <article className={`jadir-project-row ${isReversed ? "is-reversed" : ""}`}>
+      <Link href={href} className="jadir-project-visual">
+        <div className="jadir-project-visual-inner">
+          <img src={imageSrc} alt={title} />
 
-      <p className="project-grid-card-brief">{plainText}</p>
+          <div className="jadir-project-image-badge">
+            {String(index + 1).padStart(2, "0")}
+          </div>
+        </div>
+      </Link>
 
-      {(project?.slug || project?._id) && (
-        <div className="link project-grid-card-link">
-          <Link href={`/projects/${project?.slug || project?._id}`}>
+      <div className="jadir-project-copy">
+        <div className="jadir-project-kicker">
+          <span />
+          {lang === "ar"
+            ? "دراسة حالة"
+            : lang === "tr"
+            ? "Vaka çalışması"
+            : "Case study"}
+        </div>
+
+        <h3>
+          <Link href={href}>{title}</Link>
+        </h3>
+
+        <p>{plainText}</p>
+
+        <div className="jadir-project-footer">
+          <Link href={href} className="jadir-project-link">
             <span>
               {lang === "ar"
                 ? "فتح المشروع"
                 : lang === "tr"
-                  ? "Projeyi Aç"
-                  : "Open Project"}
+                ? "Projeyi Aç"
+                : "Open Project"}
             </span>
+
+            <i
+              className={
+                isRtl ? "fa-solid fa-arrow-left" : "fa-solid fa-arrow-right"
+              }
+            />
           </Link>
         </div>
-      )}
-    </div>
+      </div>
+    </article>
   );
 };
 

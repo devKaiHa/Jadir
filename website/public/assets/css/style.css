@@ -55,6 +55,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Urbanist:wght@100;200;300;400;500;600;700;800;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap");
 
 /* RTL Font */
 @import url("https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;700;900&display=swap");
@@ -80,7 +81,7 @@
 
  ***/
 :root {
-  --urbanist: "Roboto Flex", sans-serif;
+  --urbanist: "Google Sans", sans-serif;
   --mulish: "Roboto Flex", sans-serif;
   --dM-sans: "DM Sans", sans-serif;
 
@@ -167,7 +168,7 @@ body {
   line-height: 28px;
   font-weight: 400;
   background: #ffffff;
-  font-family: var(--mulish);
+  font-family: var(--urbanist);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center top;
@@ -2153,8 +2154,11 @@ div#mCSB_1_container {
 
 .banner-section {
   position: relative;
+  width: calc(100% - 100px);
+  max-width: 1600px;
+  margin: 10px auto 50px;
+  border-radius: 34px;
 }
-
 .banner-carousel .slide-item {
   position: relative;
   padding: 159px 0px 170px 0px;

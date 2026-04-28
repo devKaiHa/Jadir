@@ -5,15 +5,15 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import { truncateText } from "@/GlobalHooks/GlobalHooks";
 import { imageURL } from "@/api/GlobalData";
+
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { useIsMobile } from "@/lib/helpers";
 
 export default function FounderSlider({ founders = [] }) {
-  const isMobile = useIsMobile();
   const { i18n } = useTranslation();
   const lang = i18n.language || "en";
+  const isRtl = lang === "ar";
 
   const items = Array.isArray(founders) ? founders : [];
 
@@ -23,20 +23,20 @@ export default function FounderSlider({ founders = [] }) {
     field?.[lang] || field?.en || field?.ar || field?.tr || "";
 
   return (
-    <div className="jadwa-founder-slider-wrap">
+    <div className={`jadwa-founder-slider-wrap ${isRtl ? "rtl" : "ltr"}`}>
       <Swiper
-        key={i18n.dir()}
-        dir={i18n.dir()}
+        key={lang}
+        dir={isRtl ? "rtl" : "ltr"}
         modules={[Navigation, Pagination, Autoplay]}
-        slidesPerView={items.length > 1 && !isMobile ? 2 : 1}
+        slidesPerView={2}
         spaceBetween={24}
         loop={items.length > 1}
         speed={700}
-        observer={true}
-        observeParents={true}
-        updateOnWindowResize={true}
+        observer
+        observeParents
+        updateOnWindowResize
         autoplay={{
-          delay: 55000,
+          delay: 7000,
           disableOnInteraction: false,
         }}
         navigation={{
@@ -67,23 +67,25 @@ export default function FounderSlider({ founders = [] }) {
                         alt={name}
                         className="jadwa-founder-image"
                       />
-                      <div className="jadwa-founder-image-overlay" />
                     </div>
                   </div>
+
                   <div className="jadwa-founder-content">
-                    <div className="jadwa-pill jadwa-pill--dark jadwa-founder-pill">
-                      <span className="jadwa-pill-dot" />
-                      <span>
-                        {lang === "ar"
-                          ? "مؤسس"
-                          : lang === "tr"
+                    <div className="jadwa-founder-top">
+                      <div className="jadwa-pill jadwa-founder-pill">
+                        <span className="jadwa-pill-dot" />
+                        <span>
+                          {lang === "ar"
+                            ? "مؤسس"
+                            : lang === "tr"
                             ? "Kurucu"
                             : "Founder"}
-                      </span>
-                    </div>
+                        </span>
+                      </div>
 
-                    <div className="jadwa-founder-counter">
-                      {String(index + 1).padStart(2, "0")}
+                      <span className="jadwa-founder-counter">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
                     </div>
 
                     <h3 className="jadwa-founder-name">{name}</h3>
@@ -92,9 +94,11 @@ export default function FounderSlider({ founders = [] }) {
                       <div className="jadwa-founder-position">{position}</div>
                     )}
 
-                    <div className="jadwa-founder-bio">
-                      <p>{truncateText(bio, 260)}</p>
-                    </div>
+                    {bio && (
+                      <div className="jadwa-founder-bio">
+                        <p>{truncateText(bio, 320)}</p>
+                      </div>
+                    )}
                   </div>
                 </div>
               </article>
@@ -103,17 +107,25 @@ export default function FounderSlider({ founders = [] }) {
         })}
       </Swiper>
 
-      <div className="jadwa-founder-controls">
-        <button className="jadwa-founder-nav jadwa-founder-prev" type="button">
-          <i className="fa-solid fa-arrow-left" />
-        </button>
+      {items.length > 1 && (
+        <div className="jadwa-founder-controls">
+          <button
+            className="jadwa-founder-nav jadwa-founder-prev"
+            type="button"
+          >
+            <i className="fa-solid fa-arrow-left" />
+          </button>
 
-        <div className="jadwa-founder-pagination" />
+          <div className="jadwa-founder-pagination" />
 
-        <button className="jadwa-founder-nav jadwa-founder-next" type="button">
-          <i className="fa-solid fa-arrow-right" />
-        </button>
-      </div>
+          <button
+            className="jadwa-founder-nav jadwa-founder-next"
+            type="button"
+          >
+            <i className="fa-solid fa-arrow-right" />
+          </button>
+        </div>
+      )}
     </div>
   );
 }

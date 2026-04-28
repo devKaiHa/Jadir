@@ -8,77 +8,135 @@ import {
 } from "@/components/website/websiteUtils";
 import { useTranslation } from "react-i18next";
 
-function ProjectBlock({ title, text }) {
+const blockLabels = {
+  en: {
+    project: "Project",
+    back: "Back to projects",
+    challenge: "Challenge",
+    solution: "Solution",
+    result: "Result",
+  },
+  ar: {
+    project: "مشروع",
+    back: "العودة إلى المشاريع",
+    challenge: "التحدي",
+    solution: "الحل",
+    result: "النتيجة",
+  },
+  tr: {
+    project: "Proje",
+    back: "Projelere dön",
+    challenge: "Zorluk",
+    solution: "Çözüm",
+    result: "Sonuç",
+  },
+};
+
+function ProjectBlock({ title, text, index }) {
   if (!text) return null;
+
   return (
-    <div className="jadwa-detail-card">
-      <h3>{title}</h3>
-      <p dangerouslySetInnerHTML={{ __html: text }} />
-    </div>
+    <article className="jadir-project-detail-block">
+      <div className="jadir-project-detail-block-count">
+        {String(index).padStart(2, "0")}
+      </div>
+
+      <div className="jadir-project-detail-block-content">
+        <h3>{title}</h3>
+        <div
+          className="jadir-project-detail-richtext"
+          dangerouslySetInnerHTML={{ __html: text }}
+        />
+      </div>
+    </article>
   );
 }
 
 export default function ProjectDetailsPage({ project }) {
   const { i18n } = useTranslation();
   const lang = i18n.language || "en";
+  const isRtl = lang === "ar";
+  const copy = blockLabels[lang] || blockLabels.en;
 
   if (!project) return null;
 
+  const title = localize(project?.title, lang);
+  const brief = localize(project?.brief, lang);
+  const image = asset(
+    "projects",
+    project?.image,
+    "/assets/images/project/project-5.jpg"
+  );
+
+  const blocks = [
+    {
+      title: copy.challenge,
+      text: localize(project?.challenge, lang),
+    },
+    {
+      title: copy.solution,
+      text: localize(project?.solution, lang),
+    },
+    {
+      title: copy.result,
+      text: localize(project?.result, lang),
+    },
+  ].filter((item) => item.text);
+
   return (
-    <Layout
-      breadcrumbTitle={localize(project?.title, lang)}
-      image={asset(
-        "projects",
-        project?.image,
-        "/assets/images/project/project-5.jpg",
-      )}
-    >
-      <section className="jadwa-detail-page sec-pad">
+    <Layout breadcrumbTitle={title} image={image}>
+      <section
+        className={`jadir-project-detail-page sec-pad ${isRtl ? "rtl" : "ltr"}`}
+        dir={isRtl ? "rtl" : "ltr"}
+      >
         <div className="auto-container">
-          <div className="jadwa-detail-hero">
-            <div className="jadwa-detail-image-wrap">
+          <div className="jadir-project-detail-hero">
+            <div className="jadir-project-detail-media">
               <img
-                className="jadwa-detail-image"
-                src={asset(
-                  "projects",
-                  project?.image,
-                  "/assets/images/project/project-5.jpg",
-                )}
-                alt={localize(project?.title, lang)}
+                className="jadir-project-detail-image"
+                src={image}
+                alt={title}
               />
             </div>
-            <div className="jadwa-detail-hero-content">
-              <div className="jadwa-pill">
-                <span className="jadwa-pill-dot" />
-                <span>Projects</span>
+
+            <div className="jadir-project-detail-intro">
+              <div className="jadir-project-detail-eyebrow">
+                <span />
+                {copy.project}
               </div>
-              <h1>{localize(project?.title, lang)}</h1>
-              <p
-                dangerouslySetInnerHTML={{
-                  __html: localize(project?.brief, lang),
-                }}
-              />
-              <Link href="/projects" className="jadwa-detail-link">
-                <span>Back to projects</span>
-                <i className="fa-solid fa-arrow-right" />
+
+              <h1>{title}</h1>
+
+              {brief && (
+                <div
+                  className="jadir-project-detail-brief"
+                  dangerouslySetInnerHTML={{ __html: brief }}
+                />
+              )}
+
+              <Link href="/projects" className="jadir-project-detail-back">
+                <span>{copy.back}</span>
+                <i
+                  className={`fa-solid ${
+                    isRtl ? "fa-arrow-left" : "fa-arrow-right"
+                  }`}
+                />
               </Link>
             </div>
           </div>
 
-          <div className="d-flex flex-column gap-2">
-            <ProjectBlock
-              title="Challenge"
-              text={localize(project?.challenge, lang)}
-            />
-            <ProjectBlock
-              title="Solution"
-              text={localize(project?.solution, lang)}
-            />
-            <ProjectBlock
-              title="Result"
-              text={localize(project?.result, lang)}
-            />
-          </div>
+          {!!blocks.length && (
+            <div className="jadir-project-detail-content">
+              {blocks.map((block, index) => (
+                <ProjectBlock
+                  key={block.title}
+                  title={block.title}
+                  text={block.text}
+                  index={index + 1}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </section>
     </Layout>
@@ -87,6 +145,7 @@ export default function ProjectDetailsPage({ project }) {
 
 export async function getStaticPaths() {
   const data = await getWebsiteData();
+
   return {
     paths: (data.projects || [])
       .filter((project) => project?.slug)
@@ -97,6 +156,8 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const project = await getProjectBySlug(params?.slug);
+
   if (!project) return { notFound: true, revalidate: 60 };
+
   return { props: { project }, revalidate: 300 };
 }

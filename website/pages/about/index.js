@@ -168,12 +168,12 @@ export default function About({ data = {}, homeData = {} }) {
   const activeCopy = copy.sections[activeTab];
 
   return (
-      <Layout
-        headerStyle={1}
-        footerStyle={1}
-        breadcrumbTitle={t("about.about-us")}
-        image={resolvePageBanner("about", data?.pageBanners)}
-      >
+    <Layout
+      headerStyle={1}
+      footerStyle={1}
+      breadcrumbTitle={t("about.about-us")}
+      image={resolvePageBanner("about", data?.pageBanners)}
+    >
       <section
         className={`about-tabs-page sec-pad ${isArabic ? "rtl" : ""}`}
         dir={isArabic ? "rtl" : "ltr"}
@@ -207,13 +207,6 @@ export default function About({ data = {}, homeData = {} }) {
               ))}
             </div>
           </div>
-
-          <div className="about-tabs-section-head">
-            <div className="about-tabs-section-head-copy">
-              <h2>{activeCopy.title}</h2>
-              <p>{activeCopy.description}</p>
-            </div>
-          </div>
         </div>
 
         <div className="about-tabs-content">
@@ -242,8 +235,8 @@ export default function About({ data = {}, homeData = {} }) {
                             {lang === "ar"
                               ? "نقدم نهجاً استشارياً قائماً على الانضباط والحوكمة والرؤية طويلة المدى."
                               : lang === "tr"
-                                ? "Disiplin, yonetisim ve uzun vadeli bakis acisina dayali bir danismanlik yaklasimi sunuyoruz."
-                                : "We bring together disciplined strategy, strong governance, and a long-term business perspective."}
+                              ? "Disiplin, yonetisim ve uzun vadeli bakis acisina dayali bir danismanlik yaklasimi sunuyoruz."
+                              : "We bring together disciplined strategy, strong governance, and a long-term business perspective."}
                           </p>
                         </div>
 

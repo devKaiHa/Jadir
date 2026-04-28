@@ -55,7 +55,7 @@ export default function BlogPage({
 
   const categories = useMemo(
     () => initialCategories?.data || [],
-    [initialCategories],
+    [initialCategories]
   );
 
   useEffect(() => {
@@ -113,7 +113,7 @@ export default function BlogPage({
           query: nextQuery,
         },
         undefined,
-        { shallow: true },
+        { shallow: true }
       );
     }
   }, [router, router.isReady, currentPage, categoryId, keyword]);
@@ -149,8 +149,8 @@ export default function BlogPage({
   const totalItems = blogs?.pagination?.totalItems ?? blogs?.data?.length ?? 0;
   const blogItems = blogs?.data || [];
 
-  const featuredBlogs = blogItems.slice(0, 4);
-  const gridBlogs = blogItems.slice(4);
+  const featuredBlogs = blogItems.slice(0, 10);
+  const gridBlogs = blogItems;
 
   const handleCategoryChange = (nextCategoryId = "") => {
     setCategoryId(nextCategoryId);
@@ -171,8 +171,8 @@ export default function BlogPage({
                 {currentLang === "ar"
                   ? "المدونة"
                   : currentLang === "tr"
-                    ? "Blog"
-                    : "Blog"}
+                  ? "Blog"
+                  : "Blog"}
               </span>
             </div>
 
@@ -180,16 +180,16 @@ export default function BlogPage({
               {currentLang === "ar"
                 ? "تصفح مدوناتنا وأخبارنا"
                 : currentLang === "tr"
-                  ? "Bloglarımıza ve haberlerimize göz atın"
-                  : "Browse our blogs and news"}
+                ? "Bloglarımıza ve haberlerimize göz atın"
+                : "Browse our blogs and news"}
             </h2>
 
             <p className="jadwa-testimonials-subtitle">
               {currentLang === "ar"
                 ? "تحليلات ومقالات ورؤى تساعدك على متابعة الأسواق والفرص والقرارات الاستثمارية."
                 : currentLang === "tr"
-                  ? "Piyasalar, fırsatlar ve yatırım kararları hakkında analizler, makaleler ve içgörüler."
-                  : "Insights, articles, and market perspectives to help you follow opportunities and make informed decisions."}
+                ? "Piyasalar, fırsatlar ve yatırım kararları hakkında analizler, makaleler ve içgörüler."
+                : "Insights, articles, and market perspectives to help you follow opportunities and make informed decisions."}
             </p>
           </div>
           <div className="jadwa-blog-toolbar">
@@ -250,8 +250,8 @@ export default function BlogPage({
                   currentLang === "ar"
                     ? "ابحث في المقالات..."
                     : currentLang === "tr"
-                      ? "Yazılarda ara..."
-                      : "Search blog..."
+                    ? "Yazılarda ara..."
+                    : "Search blog..."
                 }
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
@@ -317,7 +317,7 @@ export default function BlogPage({
                             <Link href={`/blogs/${blog?.slug || blog?._id}`}>
                               {truncateText(
                                 blog?.title?.[currentLang] || blog?.title?.en,
-                                70,
+                                70
                               ) || "There is no title"}
                             </Link>
                           </h3>
@@ -329,8 +329,8 @@ export default function BlogPage({
                                   blog?.excerpt?.[currentLang] ||
                                     blog?.excerpt?.en ||
                                     "",
-                                  130,
-                                ),
+                                  130
+                                )
                               )}
                             </p>
                           )}
@@ -428,7 +428,7 @@ export default function BlogPage({
                           <Link href={`/blogs/${blog?.slug || blog?._id}`}>
                             {truncateText(
                               blog?.title?.[currentLang] || blog?.title?.en,
-                              52,
+                              52
                             ) || "There is no title"}
                           </Link>
                         </h3>
@@ -438,7 +438,7 @@ export default function BlogPage({
                             blog?.content?.[currentLang] ||
                               blog?.content?.en ||
                               "",
-                            90,
+                            90
                           )}
                         </p>
 

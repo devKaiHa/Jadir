@@ -1,620 +1,547 @@
 /* =========================================
-   HEADER WRAPPER
+   HEADER + MOBILE MENU THEME BASE
+========================================= */
+:root {
+  --site-blue: #006afd;
+  --site-blue-dark: #0052c7;
+  --site-blue-soft: rgba(0, 106, 253, 0.1);
+
+  --site-navy: #00024f;
+  --site-navy-dark: #01042f;
+
+  --site-white: #ffffff;
+  --site-soft: #f7faff;
+  --site-mist: #eef4ed;
+  --site-gray: #e5e5e5;
+  --site-slate: #8da9c4;
+
+  --site-text: #101828;
+  --site-muted: #667085;
+
+  --header-shadow: 0 22px 60px rgba(0, 2, 79, 0.11);
+  --header-shadow-sticky: 0 16px 44px rgba(0, 2, 79, 0.15);
+}
+
+/* =========================================
+   DESKTOP HEADER WRAPPER
 ========================================= */
 .jadwa-header {
   position: absolute;
-  top: 16px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 97%;
+  top: 18px;
+  left: 0;
+  right: 0;
+  width: min(96%, 1320px);
+  margin-inline: auto;
   z-index: 999;
-  transition:
-    top 0.3s ease,
-    box-shadow 0.3s ease,
-    background 0.3s ease;
+  transition: top 0.3s ease, width 0.3s ease;
 }
 
 .jadwa-header.is-sticky {
   position: fixed;
-  top: 0;
+  top: 12px;
   left: 0;
+  right: 0;
+  width: min(96%, 1320px);
+  margin-inline: auto;
   transform: none;
-  width: 100%;
-  animation: slideInDown 0.35s ease;
+  animation: headerDrop 0.35s ease;
+}
+
+@keyframes headerDrop {
+  from {
+    opacity: 0;
+    translate: 0 -14px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
 }
 
 .jadwa-header-wrap {
-  border-radius: 18px;
-  box-shadow: var(--header-shadow);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  transition:
-    border-radius 0.3s ease,
-    box-shadow 0.3s ease;
+  overflow: visible;
+  border-radius: 34px;
+  background: transparent;
+  box-shadow: none;
 }
 
-.jadwa-header.is-sticky .jadwa-header-wrap {
-  border-radius: 0;
-  box-shadow: var(--header-shadow-sticky);
-}
-
-.sec-title h2 {
-  color: var(--site-navy);
-}
-
-/* =========================================
-   HEADER TOP
-========================================= */
 .jadwa-header-top {
-  min-height: 48px;
-  padding: 0 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: linear-gradient(
-    90deg,
-    rgba(3, 39, 35, 0.82) 0%,
-    rgba(4, 53, 47, 0.76) 45%,
-    rgba(5, 66, 57, 0.82) 100%
-  );
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-
-.jadwa-header.is-sticky .jadwa-header-top {
-  border-radius: 0;
-}
-
-.jadwa-header-top-left,
-.jadwa-header-top-right {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.jadwa-social-link {
-  width: 34px;
-  height: 34px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  color: var(--white);
-  transition: all 0.3s ease;
-}
-
-.jadwa-social-link:hover {
-  background: var(--secondary);
-  color: var(--primary-dark);
-  transform: translateY(-2px);
-}
-
-.jadwa-select-box {
-  position: relative;
-}
-
-.jadwa-language-select {
-  color: var(--white);
-  text-transform: uppercase;
-  border-radius: 999px;
-  padding: 8px 14px;
-  min-width: 88px;
-  outline: none;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.jadwa-language-select option {
-  color: #111;
+  display: none;
 }
 
 /* =========================================
-   HEADER LOWER
+   DESKTOP MAIN PREMIUM BAR
 ========================================= */
 .jadwa-header-lower {
   position: relative;
-  background: linear-gradient(
-    135deg,
-    rgba(3, 39, 35, 0.78) 0%,
-    rgba(5, 66, 57, 0.72) 50%,
-    rgba(4, 53, 47, 0.78) 100%
-  );
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-top: 1px solid rgba(255, 255, 255, 0.04);
-}
-
-.jadwa-header.is-sticky .jadwa-header-lower {
-  background: linear-gradient(
-    135deg,
-    rgba(3, 39, 35, 0.88) 0%,
-    rgba(5, 66, 57, 0.84) 100%
-  );
+  overflow: hidden;
+  border-radius: 34px;
+  background: radial-gradient(
+      circle at top left,
+      rgba(0, 106, 253, 0.1),
+      transparent 28%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.92),
+      rgba(247, 250, 255, 0.84)
+    );
+  border: 1px solid rgba(0, 2, 79, 0.08);
+  box-shadow: var(--header-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.86);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
 }
 
 .jadwa-header-lower::before {
   content: "";
   position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.045) 0%,
-    rgba(255, 255, 255, 0.015) 100%
-  );
+  inset: 1px;
+  border-radius: inherit;
   pointer-events: none;
+  background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.58),
+      transparent 36%,
+      rgba(0, 106, 253, 0.055)
+    ),
+    radial-gradient(
+      circle at top right,
+      rgba(141, 169, 196, 0.14),
+      transparent 30%
+    );
+}
+
+.jadwa-header.is-sticky .jadwa-header-lower {
+  box-shadow: var(--header-shadow-sticky),
+    inset 0 1px 0 rgba(255, 255, 255, 0.88);
 }
 
 /* =========================================
-   HEADER INNER LAYOUT
+   DESKTOP HEADER INNER
 ========================================= */
 .jadwa-header-inner {
-  min-height: 86px;
-  padding: 0 26px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
   position: relative;
-  z-index: 1;
+  z-index: 2;
+  min-height: 98px;
+  padding: 14px 16px 14px 24px;
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  align-items: center;
+  gap: 20px;
 }
 
+html[dir="rtl"] .jadwa-header-inner {
+  padding: 14px 24px 14px 16px;
+}
+
+/* =========================================
+   LOGO
+========================================= */
 .jadwa-logo-box {
-  flex: 0 0 auto;
+  height: 100%;
+  min-height: 76px;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline-end: 20px;
+  border-inline-end: 1px solid rgba(0, 2, 79, 0.08);
+}
+
+html[dir="rtl"] .jadwa-logo-box {
+  padding-inline-end: 0;
+  padding-inline-start: 20px;
+  border-inline-end: 0;
+  border-inline-start: 1px solid rgba(0, 2, 79, 0.08);
+}
+
+.jadwa-logo-box a {
+  display: inline-flex;
   align-items: center;
 }
 
 .jadwa-logo {
-  max-height: 52px;
+  max-height: 64px;
+  max-width: 165px;
   width: auto;
   object-fit: contain;
 }
 
-.jadwa-search {
-  flex: 0 1 230px;
-  min-width: 170px;
-  height: 42px;
+/* =========================================
+   HEADER STACK + META ROW
+========================================= */
+.jadwa-header-stack {
+  min-width: 0;
+  display: grid;
+  gap: 9px;
+}
+
+.jadwa-header-meta {
+  min-height: 29px;
+  padding: 0 4px;
   display: flex;
   align-items: center;
-  border: 1px solid rgba(0, 106, 253, 0.38);
-  border-radius: 8px;
-  overflow: hidden;
-  background: rgba(255, 255, 255, 0.08);
+  justify-content: space-between;
+  gap: 12px;
 }
 
-.jadwa-search input {
+.jadwa-header-tagline {
   min-width: 0;
-  flex: 1;
-  height: 100%;
-  padding: 0 12px;
-  color: #fff;
-  background: transparent;
+  color: rgba(0, 2, 79, 0.42);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
 }
 
-.jadwa-search input::placeholder {
-  color: rgba(255, 255, 255, 0.72);
+html[dir="rtl"] .jadwa-header-tagline {
+  font-size: 13px;
 }
 
-.jadwa-search button {
-  width: 42px;
-  height: 42px;
-  color: #fff;
-  background: #006afd;
+.jadwa-header-meta-actions {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.jadwa-header-socials {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 /* =========================================
-   CENTER NAV
+   DESKTOP SOCIAL LINKS
+========================================= */
+.jadwa-social-link {
+  width: 29px;
+  height: 29px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  color: rgba(0, 2, 79, 0.5);
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(0, 2, 79, 0.055);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.78);
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.jadwa-social-link i {
+  font-size: 11.5px;
+  line-height: 1;
+}
+
+.jadwa-social-link:hover {
+  color: #ffffff;
+  background: var(--site-blue);
+  border-color: rgba(0, 106, 253, 0.26);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(0, 106, 253, 0.2);
+}
+
+/* =========================================
+   DESKTOP LANGUAGE SELECT
+========================================= */
+.jadwa-select-box {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.jadwa-select-box::before {
+  content: "\f0ac";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute;
+  top: 50%;
+  inset-inline-start: 10px;
+  transform: translateY(-50%);
+  font-size: 10.5px;
+  color: rgba(0, 106, 253, 0.85);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.jadwa-select-box::after {
+  content: "\f107";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute;
+  top: 50%;
+  inset-inline-end: 10px;
+  transform: translateY(-50%);
+  font-size: 10px;
+  color: rgba(0, 2, 79, 0.38);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.jadwa-language-select {
+  min-width: 118px;
+  height: 29px;
+  padding-inline-start: 29px;
+  padding-inline-end: 26px;
+  border-radius: 999px;
+  color: rgba(0, 2, 79, 0.68);
+  background: rgba(255, 255, 255, 0.52);
+  border: 1px solid rgba(0, 2, 79, 0.055);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.78);
+  outline: none;
+  font-size: 11px;
+  font-weight: 850;
+  cursor: pointer;
+  appearance: none;
+  transition: all 0.25s ease;
+}
+
+.jadwa-language-select:hover,
+.jadwa-language-select:focus {
+  color: var(--site-navy);
+  background: rgba(255, 255, 255, 0.78);
+  border-color: rgba(0, 106, 253, 0.18);
+}
+
+.jadwa-language-select option {
+  color: #111827;
+}
+
+/* =========================================
+   DESKTOP MAIN ROW
+========================================= */
+.jadwa-header-main-row {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* =========================================
+   DESKTOP NAVIGATION
 ========================================= */
 .jadwa-nav {
   flex: 1 1 auto;
-  display: flex;
-  justify-content: center;
   min-width: 0;
+  display: flex;
+  justify-content: flex-start;
 }
 
 .jadwa-nav .navbar-collapse {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .jadwa-nav .navigation {
-  display: flex;
+  max-width: 100%;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 10px;
+  justify-content: flex-start;
+  gap: 5px;
+  margin: 0;
+  padding: 5px;
+  list-style: none;
+  border-radius: 999px;
+  background: rgba(0, 2, 79, 0.035);
+  border: 1px solid rgba(0, 2, 79, 0.05);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
 }
 
 .jadwa-nav .navigation > li {
   position: relative;
-  margin: 0 4px;
+  margin: 0;
 }
 
 .jadwa-nav .navigation > li > a,
 .jadwa-nav .navigation > li.dropdown > a {
-  color: rgba(255, 255, 255, 0.9) !important;
-  padding: 0 18px;
-  font-weight: 600;
-  font-size: 18px;
-  text-transform: uppercase;
-  position: relative;
+  min-height: 38px;
+  padding: 0 13px 0 8px;
   display: inline-flex;
   align-items: center;
-  min-height: 86px;
-  transition:
-    color 0.35s ease,
-    transform 0.35s ease,
-    opacity 0.35s ease;
-  will-change: transform;
+  justify-content: center;
+  border-radius: 999px;
+  color: rgba(0, 2, 79, 0.62) !important;
+  background: transparent;
+  font-size: 11px;
+  font-weight: 850;
+  line-height: 1;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.25s ease;
+}
+
+html[dir="rtl"] .jadwa-nav .navigation > li > a,
+html[dir="rtl"] .jadwa-nav .navigation > li.dropdown > a {
+  padding: 0 8px 0 13px;
+}
+
+.jadwa-nav .navigation > li > a::before,
+.jadwa-nav .navigation > li.dropdown > a::before {
+  display: none;
 }
 
 .jadwa-nav .navigation > li > a:hover,
 .jadwa-nav .navigation > li.current > a,
 .jadwa-nav .navigation > li.current-menu-item > a {
-  color: var(--secondary) !important;
+  color: var(--site-navy) !important;
+  background: #ffffff;
+  box-shadow: 0 8px 22px rgba(0, 2, 79, 0.08);
   transform: translateY(-1px);
 }
 
-.jadwa-nav .navigation > li > a::before,
-.jadwa-nav .navigation > li.dropdown > a::before {
-  position: absolute;
-  content: "\f102";
-  font-family: "flaticon";
-  font-size: 14px;
-  left: -15px;
-  top: 50%;
-  transform: translateY(-50%) translateX(8px);
-  opacity: 0;
-  font-weight: 400;
-  color: var(--secondary);
-  transition:
-    opacity 0.35s ease,
-    transform 0.35s ease;
-}
-
-.jadwa-nav .navigation > li > a:hover::before,
-.jadwa-nav .navigation > li.current > a::before,
-.jadwa-nav .navigation > li.current-menu-item > a::before {
-  opacity: 1;
-  transform: translateY(-50%) translateX(0);
-}
-
-/* =========================================
-   INVEST BUTTON
-========================================= */
-.jadwa-invest-btn {
-  flex: 0 0 auto;
+.jadwa-nav-icon {
+  width: 24px;
+  height: 24px;
+  margin-inline-end: 7px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 42px;
-  padding: 0 20px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, var(--secondary-dark), var(--secondary));
-  color: #fff /*var(--primary-dark) !important*/;
-  font-size: 14px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  white-space: nowrap;
-  text-decoration: none;
+  border-radius: 999px;
+  color: rgba(0, 2, 79, 0.58);
+  background: rgba(255, 255, 255, 0.68);
+  border: 1px solid rgba(0, 2, 79, 0.055);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.78);
   transition: all 0.25s ease;
-  box-shadow: 0 8px 20px rgba(185, 167, 122, 0.26);
-  border: 1px solid rgba(159, 141, 97, 0.35);
 }
 
-.jadwa-invest-btn:hover {
-  transform: translateY(-1px);
-  background: linear-gradient(135deg, var(--secondary), var(--secondary-light));
-  color: var(--primary-dark) !important;
-  box-shadow: 0 12px 24px rgba(185, 167, 122, 0.34);
+html[dir="rtl"] .jadwa-nav-icon {
+  margin-inline-end: 0;
+  margin-inline-start: 7px;
 }
 
-/* =========================================
-   MOBILE TOGGLER
-========================================= */
-.jadwa-mobile-toggler {
-  display: none;
-  width: 46px;
-  height: 46px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.08);
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 5px;
-  cursor: pointer;
-  transition: all 0.3s ease;
+.jadwa-nav-icon i {
+  font-size: 10.5px;
+  line-height: 1;
 }
 
-.jadwa-mobile-toggler:hover {
-  background: rgba(255, 255, 255, 0.14);
-}
-
-.jadwa-mobile-toggler .icon-bar {
-  width: 18px;
-  height: 2px;
-  border-radius: 999px;
-  background: #fff;
-  display: block;
+.jadwa-nav .navigation > li > a:hover .jadwa-nav-icon,
+.jadwa-nav .navigation > li.current > a .jadwa-nav-icon,
+.jadwa-nav .navigation > li.current-menu-item > a .jadwa-nav-icon {
+  color: #ffffff;
+  background: var(--site-blue);
+  border-color: rgba(0, 106, 253, 0.24);
+  box-shadow: 0 6px 16px rgba(0, 106, 253, 0.22);
 }
 
 /* =========================================
-   MOBILE MENU
+   DESKTOP ACTIONS
 ========================================= */
-.jadwa-mobile-menu {
-  position: fixed;
-  inset: 0;
-  z-index: 99999;
-  pointer-events: none;
-}
-
-.jadwa-mobile-menu.is-open {
-  pointer-events: auto;
-}
-
-.jadwa-mobile-backdrop {
-  position: absolute;
-  inset: 0;
-  background: rgba(3, 24, 21, 0.55);
-  backdrop-filter: blur(6px);
-  opacity: 0;
-  transition: opacity 0.35s ease;
-}
-
-.jadwa-mobile-menu.is-open .jadwa-mobile-backdrop {
-  opacity: 1;
-}
-
-.jadwa-mobile-panel {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: min(92vw, 380px);
-  background:
-    radial-gradient(
-      circle at top left,
-      rgba(185, 167, 122, 0.12),
-      transparent 28%
-    ),
-    linear-gradient(180deg, #08211d 0%, #061815 100%);
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
-  overflow: hidden;
-  transition: transform 0.35s ease;
-}
-
-.jadwa-mobile-panel.ltr {
-  right: 0;
-  transform: translateX(100%);
-  border-left: 1px solid rgba(185, 167, 122, 0.14);
-}
-
-.jadwa-mobile-panel.rtl {
-  left: 0;
-  transform: translateX(-100%);
-  border-right: 1px solid rgba(185, 167, 122, 0.14);
-}
-
-.jadwa-mobile-menu.is-open .jadwa-mobile-panel {
-  transform: translateX(0);
-}
-
-.jadwa-mobile-panel-inner {
-  height: 100%;
-  overflow-y: auto;
-  padding: 22px 18px 24px;
-}
-
-.jadwa-mobile-header {
+.jadwa-header-actions {
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 18px;
-}
-
-.jadwa-mobile-logo {
-  display: inline-flex;
-  align-items: center;
-}
-
-.jadwa-mobile-logo img {
-  max-height: 42px;
-  width: auto;
-}
-
-.jadwa-mobile-close {
-  width: 44px;
-  height: 44px;
-  border: 1px solid rgba(185, 167, 122, 0.2);
-  background: rgba(255, 255, 255, 0.04);
-  color: #f6f3ea;
-  border-radius: 14px;
-  transition: all 0.3s ease;
-}
-
-.jadwa-mobile-close:hover {
-  background: rgba(185, 167, 122, 0.12);
-  border-color: rgba(185, 167, 122, 0.35);
-}
-
-.jadwa-mobile-top {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  column-gap: 14px;
-  row-gap: 12px;
-  margin-bottom: 22px;
-  padding: 14px 16px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(185, 167, 122, 0.12);
-  border-radius: 18px;
-}
-
-.jadwa-mobile-socials {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
   gap: 8px;
-  min-width: 0;
-}
-
-.jadwa-mobile-lang {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 8px;
-}
-
-.jadwa-mobile-social-link {
-  width: 36px;
-  height: 36px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 999px;
-  color: #f4f7f5;
-  border: 1px solid rgba(185, 167, 122, 0.16);
-  background: rgba(255, 255, 255, 0.04);
-  transition: all 0.3s ease;
-}
-
-.jadwa-mobile-social-link:hover {
-  color: #06211d;
-  background: #b9a77a;
-  border-color: #b9a77a;
-}
-
-.jadwa-mobile-lang button {
-  min-width: 42px;
-  height: 36px;
-  padding: 0 10px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-.jadwa-mobile-lang button {
-  min-width: 42px;
-  height: 36px;
-  padding: 0 10px;
-  border: 1px solid rgba(185, 167, 122, 0.16);
-  background: transparent;
-  color: rgba(255, 255, 255, 0.8);
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  transition: all 0.3s ease;
-}
-
-.jadwa-mobile-lang button.active {
-  background: linear-gradient(135deg, #b9a77a 0%, #d5c49a 100%);
-  color: #06211d;
-  border-color: transparent;
-}
-
-.jadwa-mobile-nav-wrap {
-  margin-bottom: 22px;
-}
-
-.jadwa-mobile-nav {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.jadwa-mobile-nav li + li {
-  margin-top: 10px;
-}
-
-.jadwa-mobile-nav li a {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 16px;
-  color: #f6f7f6;
-  text-decoration: none;
-  font-size: 15px;
-  font-weight: 600;
-  line-height: 1.5;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(185, 167, 122, 0.1);
-  border-radius: 18px;
-  transition: all 0.3s ease;
-}
-
-.jadwa-mobile-nav li a:hover {
-  transform: translateY(-2px);
-  background: rgba(185, 167, 122, 0.08);
-  border-color: rgba(185, 167, 122, 0.28);
-}
-
-.jadwa-mobile-nav li a i {
-  font-size: 12px;
-  color: #b9a77a;
-  flex-shrink: 0;
-}
-
-.jadwa-mobile-cta {
-  margin-top: 8px;
-}
-
-.jadwa-mobile-invest-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  min-height: 54px;
-  padding: 14px 22px;
-  border-radius: 999px;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: #06211d;
-  background: linear-gradient(135deg, #b9a77a 0%, #d7c79f 100%);
-  box-shadow: 0 16px 34px rgba(185, 167, 122, 0.22);
-  transition: all 0.3s ease;
-}
-
-.jadwa-mobile-invest-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 20px 40px rgba(185, 167, 122, 0.28);
 }
 
 .jadwa-search-icon {
-  background-color: var(--site-blue);
-  color: var(--site-white);
-  padding: 8px;
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 2, 79, 0.065);
+  background: rgba(255, 255, 255, 0.72);
+  color: rgba(0, 2, 79, 0.68);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.78);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
 }
 
+.jadwa-search-icon:hover {
+  background: var(--site-blue);
+  color: #ffffff;
+  border-color: rgba(0, 106, 253, 0.28);
+  transform: translateY(-1px);
+  box-shadow: 0 12px 26px rgba(0, 106, 253, 0.22);
+}
+
+.jadwa-invest-btn {
+  flex: 0 0 auto;
+  height: 42px;
+  padding: 0 16px 0 20px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: rgba(0, 2, 79, 0.94);
+  color: #ffffff !important;
+  border: 1px solid rgba(0, 2, 79, 0.1);
+  box-shadow: 0 13px 28px rgba(0, 2, 79, 0.18);
+  font-size: 13px;
+  font-weight: 900;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: 0;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.jadwa-invest-btn::after {
+  content: "\f061";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  width: 28px;
+  height: 28px;
+  margin-inline-start: 2px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  color: var(--site-navy);
+  background: #ffffff;
+  font-size: 11px;
+  transition: all 0.25s ease;
+}
+
+html[dir="rtl"] .jadwa-invest-btn::after {
+  content: "\f060";
+}
+
+.jadwa-invest-btn:hover {
+  background: var(--site-blue);
+  color: #ffffff !important;
+  transform: translateY(-1px);
+  box-shadow: 0 16px 34px rgba(0, 106, 253, 0.26);
+}
+
+.jadwa-invest-btn:hover::after {
+  color: var(--site-blue);
+  transform: translateX(2px);
+}
+
+html[dir="rtl"] .jadwa-invest-btn:hover::after {
+  transform: translateX(-2px);
+}
+
+/* =========================================
+   GLOBAL SEARCH
+========================================= */
 .jadwa-global-search {
   position: relative;
   z-index: 5;
 }
 
 .jadwa-global-search-desktop {
-  flex: 0 1 330px;
+  flex: 0 1 300px;
 }
 
 .jadwa-global-search-form {
   width: 100%;
   min-width: 260px;
-  height: 44px;
+  height: 42px;
   display: flex;
   align-items: center;
-  border: 1px solid rgba(185, 167, 122, 0.28);
-  border-radius: 10px;
+  border: 1px solid rgba(0, 2, 79, 0.065);
+  border-radius: 999px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.78);
 }
 
 .jadwa-global-search-form input {
@@ -622,19 +549,19 @@
   flex: 1;
   height: 100%;
   padding: 0 14px;
-  color: #fff;
+  color: var(--site-navy);
   background: transparent;
 }
 
 .jadwa-global-search-form input::placeholder {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(0, 2, 79, 0.42);
 }
 
 .jadwa-global-search-form button {
-  width: 44px;
-  height: 44px;
-  flex: 0 0 44px;
-  color: #fff;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  color: #ffffff;
   background: var(--site-blue);
   transition: all 0.25s ease;
 }
@@ -645,21 +572,30 @@
 }
 
 .jadwa-global-search-close {
-  background: rgba(255, 255, 255, 0.08) !important;
+  background: rgba(0, 2, 79, 0.06) !important;
+  color: var(--site-navy) !important;
   font-size: 22px;
   line-height: 1;
 }
 
+/* =========================================
+   SEARCH RESULTS
+========================================= */
 .jadwa-search-results-popover {
   position: absolute;
   top: calc(100% + 10px);
   right: 0;
   width: min(420px, 88vw);
   padding: 10px;
-  background: #fff;
-  border: 1px solid rgba(9, 31, 29, 0.08);
-  border-radius: 12px;
-  box-shadow: 0 24px 70px rgba(6, 24, 21, 0.22);
+  background: #ffffff;
+  border: 1px solid rgba(0, 2, 79, 0.08);
+  border-radius: 18px;
+  box-shadow: 0 24px 70px rgba(0, 2, 79, 0.18);
+}
+
+html[dir="rtl"] .jadwa-search-results-popover {
+  right: auto;
+  left: 0;
 }
 
 .jadwa-search-result-list {
@@ -673,14 +609,14 @@
   gap: 12px;
   align-items: center;
   padding: 9px;
-  color: #10211f;
-  border-radius: 10px;
+  color: var(--site-navy);
+  border-radius: 14px;
   text-decoration: none;
   transition: all 0.22s ease;
 }
 
 .jadwa-search-result-item:hover {
-  background: #f5f1e8;
+  background: #f1f6fa;
   transform: translateY(-1px);
 }
 
@@ -691,9 +627,9 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  color: #0f3c35;
-  background: #eef2ef;
-  border-radius: 8px;
+  color: var(--site-blue);
+  background: var(--site-mist);
+  border-radius: 12px;
 }
 
 .jadwa-search-result-thumb img {
@@ -709,14 +645,14 @@
 }
 
 .jadwa-search-result-type {
-  color: #6f7674;
+  color: var(--site-muted);
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
 }
 
 .jadwa-search-result-content strong {
-  color: #10211f;
+  color: var(--site-navy);
   font-size: 14px;
   line-height: 1.35;
 }
@@ -724,14 +660,14 @@
 .jadwa-search-result-content mark,
 .jadwa-search-page mark {
   padding: 0 3px;
-  color: #06211d;
-  background: var(--border-accent);
+  color: var(--site-navy);
+  background: rgba(0, 106, 253, 0.14);
   border-radius: 4px;
 }
 
 .jadwa-search-state {
   padding: 18px 14px;
-  color: #68716f;
+  color: var(--site-muted);
   text-align: center;
   font-size: 14px;
 }
@@ -743,97 +679,724 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  color: #06211d;
-  background: #f5f1e8;
-  border-radius: 10px;
+  color: var(--site-navy);
+  background: #f1f6fa;
+  border-radius: 14px;
   text-decoration: none;
-  font-weight: 800;
+  font-weight: 900;
 }
 
-.jadwa-mobile-search {
+/* =========================================
+   MOBILE TOGGLER
+========================================= */
+.jadwa-mobile-toggler {
+  display: none;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: var(--site-navy);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 12px 28px rgba(0, 2, 79, 0.18);
+}
+
+.jadwa-mobile-toggler:hover {
+  background: var(--site-blue);
+}
+
+.jadwa-mobile-toggler .icon-bar {
+  width: 18px;
+  height: 2px;
+  border-radius: 999px;
+  background: #ffffff;
+  display: block;
+}
+
+/* =========================================
+   MOBILE MENU BASE
+========================================= */
+.jadwa-mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  pointer-events: none;
+}
+
+.jadwa-mobile-menu.is-open {
+  pointer-events: auto;
+}
+
+.jadwa-mobile-backdrop {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+      circle at top left,
+      rgba(0, 106, 253, 0.16),
+      transparent 30%
+    ),
+    rgba(0, 2, 79, 0.34);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.jadwa-mobile-menu.is-open .jadwa-mobile-backdrop {
+  opacity: 1;
+}
+
+.jadwa-mobile-panel {
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  width: min(92vw, 390px);
+  overflow: hidden;
+  border-radius: 30px;
+  background: radial-gradient(
+      circle at top left,
+      rgba(0, 106, 253, 0.13),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(141, 169, 196, 0.16),
+      transparent 30%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.96),
+      rgba(247, 250, 255, 0.92)
+    );
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  box-shadow: 0 28px 90px rgba(0, 2, 79, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.88);
+  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.jadwa-mobile-panel.ltr {
+  right: 10px;
+  transform: translateX(calc(100% + 18px));
+}
+
+.jadwa-mobile-panel.rtl {
+  left: 10px;
+  transform: translateX(calc(-100% - 18px));
+}
+
+.jadwa-mobile-menu.is-open .jadwa-mobile-panel {
+  transform: translateX(0);
+}
+
+.jadwa-mobile-panel-inner {
+  height: 100%;
+  overflow-y: auto;
+  padding: 20px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.jadwa-mobile-panel-inner::-webkit-scrollbar {
+  width: 6px;
+}
+
+.jadwa-mobile-panel-inner::-webkit-scrollbar-thumb {
+  background: rgba(0, 2, 79, 0.14);
+  border-radius: 999px;
+}
+
+/* =========================================
+   MOBILE MENU HEADER
+========================================= */
+.jadwa-mobile-header {
+  min-height: 58px;
+  margin-bottom: 0;
+  padding: 8px 9px 8px 14px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(0, 2, 79, 0.06);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.84);
+}
+
+html[dir="rtl"] .jadwa-mobile-header {
+  padding: 8px 14px 8px 9px;
+}
+
+.jadwa-mobile-logo {
+  height: 42px;
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+}
+
+.jadwa-mobile-logo img {
+  max-height: 40px;
+  max-width: 145px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.jadwa-mobile-close {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 auto;
+  border: 0;
+  border-radius: 999px;
+  background: var(--site-navy);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 12px 28px rgba(0, 2, 79, 0.18);
+  transition: all 0.25s ease;
+}
+
+.jadwa-mobile-close:hover {
+  background: var(--site-blue);
+  transform: translateY(-1px);
+  box-shadow: 0 14px 32px rgba(0, 106, 253, 0.24);
+}
+
+/* =========================================
+   MOBILE QUICKBOX: BRAND + SOCIAL + LANGUAGE
+========================================= */
+.jadwa-mobile-brand-card,
+.jadwa-mobile-top {
+  display: none;
+}
+
+.jadwa-mobile-quickbox {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 0;
+  padding: 16px;
+  border-radius: 24px;
+  background: radial-gradient(
+      circle at top right,
+      rgba(0, 106, 253, 0.22),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(141, 169, 196, 0.14),
+      transparent 28%
+    ),
+    linear-gradient(135deg, rgba(0, 2, 79, 0.97), rgba(0, 18, 108, 0.92));
+  box-shadow: 0 18px 40px rgba(0, 2, 79, 0.18);
+}
+
+.jadwa-mobile-quickbox::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+      120deg,
+      rgba(255, 255, 255, 0.08),
+      transparent 36%
+    ),
+    radial-gradient(circle at 85% 85%, rgba(0, 106, 253, 0.28), transparent 34%);
+}
+
+.jadwa-mobile-quickbox::after {
+  content: "";
+  position: absolute;
+  width: 118px;
+  height: 118px;
+  right: -50px;
+  bottom: -54px;
+  border-radius: 999px;
+  background: rgba(0, 106, 253, 0.32);
+  pointer-events: none;
+}
+
+html[dir="rtl"] .jadwa-mobile-quickbox::after {
+  right: auto;
+  left: -50px;
+}
+
+.jadwa-mobile-quickbox-head {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 14px;
   margin-bottom: 14px;
+}
+
+.jadwa-mobile-quickbox-copy {
+  min-width: 0;
+}
+
+.jadwa-mobile-quickbox .jadwa-mobile-brand-kicker {
+  display: block;
+  margin-bottom: 8px;
+  color: rgba(255, 255, 255, 0.66);
+  font-size: 10.5px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 0.065em;
+  text-transform: uppercase;
+}
+
+.jadwa-mobile-quickbox .jadwa-mobile-brand-title {
+  max-width: 245px;
+  display: block;
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: 900;
+  line-height: 1.22;
+  letter-spacing: -0.02em;
+}
+
+.jadwa-mobile-quickbox .jadwa-mobile-socials {
+  display: grid;
+  grid-template-columns: repeat(2, 30px);
+  gap: 7px;
+  padding: 0;
+  overflow: visible;
+}
+
+.jadwa-mobile-quickbox .jadwa-mobile-social-link {
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: rgba(255, 255, 255, 0.78);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16);
+  text-decoration: none;
+}
+
+.jadwa-mobile-quickbox .jadwa-mobile-social-link i {
+  display: block;
+  font-size: 12px;
+  line-height: 1;
+}
+
+.jadwa-mobile-quickbox .jadwa-mobile-social-link i {
+  font-size: 12px;
+}
+
+.jadwa-mobile-quickbox .jadwa-mobile-social-link:hover {
+  color: var(--site-blue);
+  background: #ffffff;
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-1px);
+}
+
+.jadwa-mobile-quickbox .jadwa-mobile-lang {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 40px;
+  padding: 4px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.11);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.jadwa-mobile-quickbox .jadwa-mobile-lang button {
+  height: 30px;
+  min-width: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.jadwa-mobile-quickbox .jadwa-mobile-lang button.active {
+  color: var(--site-navy);
+  background: #ffffff;
+  box-shadow: 0 10px 22px rgba(0, 2, 79, 0.16);
+}
+
+/* =========================================
+   MOBILE SEARCH
+========================================= */
+.jadwa-mobile-search {
+  margin-bottom: 0;
 }
 
 .jadwa-mobile-search .jadwa-global-search-form {
   min-width: 0;
-  height: 52px;
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(185, 167, 122, 0.16);
+  height: 48px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(0, 2, 79, 0.065);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.86);
+}
+
+.jadwa-mobile-search .jadwa-global-search-form input {
+  padding-inline-start: 15px;
+  color: var(--site-navy);
+  font-size: 14px;
+}
+
+.jadwa-mobile-search .jadwa-global-search-form input::placeholder {
+  color: rgba(0, 2, 79, 0.42);
+}
+
+.jadwa-mobile-search .jadwa-global-search-form button {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  margin-inline-end: 4px;
+  border-radius: 999px;
+}
+
+.jadwa-mobile-search .jadwa-global-search-close {
+  margin-inline-end: 6px;
+  border-radius: 999px;
+  background: transparent !important;
 }
 
 .jadwa-mobile-search .jadwa-search-results-popover {
   position: relative;
   top: auto;
   right: auto;
+  left: auto;
   width: 100%;
   margin-top: 10px;
 }
 
 /* =========================================
-   RESPONSIVE
+   MOBILE NAVIGATION
 ========================================= */
-@media (max-width: 991px) {
-  .jadwa-header-top {
-    display: none;
+.jadwa-mobile-nav-wrap {
+  margin-bottom: 0;
+  display: grid;
+  gap: 14px;
+}
+
+.jadwa-mobile-nav {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+
+.jadwa-mobile-nav li {
+  margin: 0;
+}
+
+.jadwa-mobile-nav li a {
+  min-height: 64px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: rgba(0, 2, 79, 0.72);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 850;
+  line-height: 1.3;
+  background: rgba(255, 255, 255, 0.68);
+  border: 1px solid rgba(0, 2, 79, 0.06);
+  border-radius: 20px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.82);
+  transition: all 0.25s ease;
+}
+
+html[dir="rtl"] .jadwa-mobile-nav li a {
+  padding: 10px 14px;
+}
+
+.jadwa-mobile-nav li a:hover {
+  color: var(--site-navy);
+  background: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 12px 26px rgba(0, 2, 79, 0.08);
+}
+
+.jadwa-mobile-nav-left {
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.jadwa-mobile-nav-left > span:last-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px;
+  font-weight: 850;
+}
+
+.jadwa-mobile-nav-icon {
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  color: rgba(0, 2, 79, 0.62);
+  background: rgba(0, 2, 79, 0.04);
+  border: 1px solid rgba(0, 2, 79, 0.045);
+  transition: all 0.25s ease;
+}
+
+.jadwa-mobile-nav-icon i {
+  font-size: 13px;
+}
+
+.jadwa-mobile-nav-arrow {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  color: rgba(0, 2, 79, 0.48);
+  background: rgba(0, 2, 79, 0.035);
+  transition: all 0.25s ease;
+}
+
+.jadwa-mobile-nav-arrow i {
+  font-size: 11px;
+}
+
+.jadwa-mobile-nav li a:hover .jadwa-mobile-nav-icon {
+  color: #ffffff;
+  background: var(--site-blue);
+  border-color: rgba(0, 106, 253, 0.28);
+}
+
+.jadwa-mobile-nav li a:hover .jadwa-mobile-nav-arrow {
+  color: #ffffff;
+  background: var(--site-navy);
+}
+
+/* =========================================
+   MOBILE CTA
+========================================= */
+.jadwa-mobile-cta {
+  margin-top: auto;
+  position: sticky;
+  bottom: 0;
+  padding-top: 8px;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(247, 250, 255, 0.94) 42%
+  );
+}
+
+.jadwa-mobile-invest-btn {
+  width: 100%;
+  min-height: 58px;
+  padding: 14px 18px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 900;
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--site-blue), var(--site-blue-dark));
+  box-shadow: 0 18px 38px rgba(0, 106, 253, 0.26);
+  transition: all 0.25s ease;
+}
+
+.jadwa-mobile-invest-btn::after {
+  content: "\f061";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  width: 32px;
+  height: 32px;
+  margin-inline-start: 8px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--site-blue);
+  background: #ffffff;
+  font-size: 11px;
+}
+
+html[dir="rtl"] .jadwa-mobile-invest-btn::after {
+  content: "\f060";
+}
+
+.jadwa-mobile-invest-btn:hover {
+  color: #ffffff;
+  background: var(--site-navy);
+  transform: translateY(-1px);
+  box-shadow: 0 18px 38px rgba(0, 2, 79, 0.24);
+}
+
+/* =========================================
+   CLEANUP OLD TEMPLATE MOBILE LOGO
+========================================= */
+.nav-logo,
+.mobile-menu .nav-logo,
+.jadwa-mobile-menu .nav-logo {
+  display: none !important;
+}
+
+/* =========================================
+   RESPONSIVE: DESKTOP HEADER
+========================================= */
+@media (max-width: 1199px) {
+  .jadwa-header-inner {
+    grid-template-columns: 155px minmax(0, 1fr);
+    gap: 14px;
   }
 
+  .jadwa-logo {
+    max-width: 135px;
+    max-height: 54px;
+  }
+
+  .jadwa-nav .navigation > li > a,
+  .jadwa-nav .navigation > li.dropdown > a {
+    padding-inline: 8px;
+    font-size: 12px;
+  }
+
+  .jadwa-nav-icon {
+    width: 22px;
+    height: 22px;
+    margin-inline-end: 5px;
+  }
+
+  html[dir="rtl"] .jadwa-nav-icon {
+    margin-inline-start: 5px;
+  }
+
+  .jadwa-invest-btn {
+    padding-inline: 16px 12px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE: TABLET / MOBILE HEADER
+========================================= */
+@media (max-width: 991px) {
+  .jadwa-header {
+    top: 10px;
+    width: calc(100% - 24px);
+  }
+
+  .jadwa-header.is-sticky {
+    top: 10px;
+    width: calc(100% - 24px);
+  }
+
+  .jadwa-header-lower {
+    border-radius: 999px;
+  }
+
+  .jadwa-header-inner {
+    min-height: 64px;
+    padding: 8px 10px 8px 18px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  html[dir="rtl"] .jadwa-header-inner {
+    padding: 8px 18px 8px 10px;
+  }
+
+  .jadwa-logo-box {
+    min-height: 0;
+    height: auto;
+    justify-content: flex-start;
+    padding-inline: 0;
+    border-inline-end: 0;
+    border-inline-start: 0;
+  }
+
+  .jadwa-logo {
+    max-height: 42px;
+    max-width: 135px;
+  }
+
+  .jadwa-header-stack {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .jadwa-header-meta,
   .jadwa-nav,
   .jadwa-invest-btn,
-  .jadwa-search {
+  .jadwa-search-icon,
+  .jadwa-global-search-desktop {
     display: none;
   }
 
   .jadwa-mobile-toggler {
     display: inline-flex;
   }
-
-  .jadwa-header-inner {
-    min-height: 76px;
-    padding: 0 18px;
-  }
-
-  .jadwa-logo {
-    max-height: 44px;
-  }
 }
 
 @media (max-width: 767px) {
   .jadwa-header {
-    top: 10px;
+    top: 8px;
+    width: calc(100% - 18px);
+  }
+
+  .jadwa-header.is-sticky {
+    top: 8px;
+    width: calc(100% - 18px);
   }
 
   .jadwa-header-inner {
-    min-height: 70px;
-    padding: 0 14px;
-  }
-
-  .jadwa-mobile-panel-inner {
-    padding: 18px 14px 20px;
-  }
-
-  .jadwa-mobile-top {
-    flex-wrap: wrap;
-    align-items: flex-start;
-  }
-
-  .jadwa-mobile-socials,
-  .jadwa-mobile-lang {
-    width: 100%;
-  }
-
-  .jadwa-mobile-socials {
-    justify-content: flex-start;
-  }
-
-  .jadwa-mobile-lang {
-    justify-content: flex-start;
-    flex-wrap: wrap;
+    min-height: 60px;
+    padding-inline-start: 16px;
   }
 }
 
-@media (max-width: 480px) {
-  .jadwa-mobile-panel {
-    width: 100%;
+@media (max-width: 575px) {
+  .jadwa-header {
+    width: calc(100% - 16px);
+  }
+
+  .jadwa-header.is-sticky {
+    width: calc(100% - 16px);
+  }
+
+  .jadwa-header-inner {
+    min-height: 58px;
+    padding-inline-start: 15px;
+  }
+
+  .jadwa-logo {
+    max-height: 38px;
+    max-width: 120px;
   }
 
   .jadwa-mobile-logo img {
@@ -844,9 +1407,74 @@
     width: 40px;
     height: 40px;
   }
+}
+
+/* =========================================
+   RESPONSIVE: MOBILE MENU SMALL SCREENS
+========================================= */
+@media (max-width: 480px) {
+  .jadwa-mobile-panel {
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    border-radius: 0;
+  }
+
+  .jadwa-mobile-panel.ltr {
+    right: 0;
+  }
+
+  .jadwa-mobile-panel.rtl {
+    left: 0;
+  }
+
+  .jadwa-mobile-panel-inner {
+    padding: 14px;
+    gap: 12px;
+  }
+
+  .jadwa-mobile-header {
+    min-height: 56px;
+  }
+
+  .jadwa-mobile-logo img {
+    max-height: 38px;
+    max-width: 120px;
+  }
+
+  .jadwa-mobile-quickbox {
+    padding: 15px;
+  }
+
+  .jadwa-mobile-quickbox .jadwa-mobile-brand-title {
+    font-size: 16.5px;
+  }
 
   .jadwa-mobile-nav li a {
+    min-height: 60px;
+  }
+
+  .jadwa-mobile-invest-btn {
+    min-height: 56px;
+  }
+}
+
+@media (max-width: 360px) {
+  .jadwa-mobile-quickbox {
     padding: 14px;
-    font-size: 14px;
+  }
+
+  .jadwa-mobile-quickbox-head {
+    grid-template-columns: 1fr;
+  }
+
+  .jadwa-mobile-quickbox .jadwa-mobile-socials {
+    display: flex;
+    gap: 7px;
+  }
+
+  .jadwa-mobile-quickbox .jadwa-mobile-brand-title {
+    max-width: 100%;
+    font-size: 16px;
   }
 }

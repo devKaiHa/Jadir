@@ -1,6 +1,6 @@
 "use client";
 
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useTranslation } from "react-i18next";
 
@@ -9,48 +9,79 @@ export default function AboutUsSlider({ slides = [] }) {
   const lang = i18n.language || "en";
   const isRtl = lang === "ar";
 
+  const pick = (obj) =>
+    obj && typeof obj === "object"
+      ? obj[lang] ?? obj.en ?? obj.ar ?? obj.tr ?? ""
+      : "";
+
   if (!slides.length) return null;
 
   return (
     <div className={`jadwa-about-slider-wrap ${isRtl ? "is-rtl" : "is-ltr"}`}>
       <Swiper
         key={lang}
-        modules={[Autoplay, Pagination, Navigation]}
+        modules={[Autoplay]}
         slidesPerView={1}
-        spaceBetween={20}
+        spaceBetween={0}
         autoplay={{ delay: 7000, disableOnInteraction: false }}
         loop={slides.length > 1}
-        pagination={{ clickable: true }}
+        pagination={false}
         dir={isRtl ? "rtl" : "ltr"}
-        className="jadwa-about-slider"
+        className="jadwa-about-slider no-about-pagination"
       >
-        {slides.map((slide, idx) => (
-          <SwiperSlide className="slide" key={`${lang}-${idx}`}>
-            <div className="jadwa-about-slide-card">
-              <div className="jadwa-about-slide-top">
-                <div className="jadwa-about-slide-icon">
+        {slides.map((slide, idx) => {
+          const isVision = slide?.type === "vision";
+
+          return (
+            <SwiperSlide className="slide" key={`${lang}-${idx}`}>
+              <div className="jadwa-about-slide-card">
+                <div className="jadwa-about-slide-bg-icon">
                   <i
                     className={
-                      slide?.type === "vision"
-                        ? "fas fa-binoculars"
-                        : "fas fa-chart-line"
+                      isVision ? "fa-solid fa-eye" : "fa-solid fa-bullseye"
                     }
                   />
                 </div>
 
-                <span className="jadwa-about-slide-count">
-                  {String(idx + 1).padStart(2, "0")}
-                </span>
-              </div>
+                <div className="jadwa-about-slide-top">
+                  <div className="jadwa-about-slide-icon">
+                    <i
+                      className={
+                        isVision
+                          ? "fa-solid fa-binoculars"
+                          : "fa-solid fa-chart-line"
+                      }
+                    />
+                  </div>
 
-              <h3>{slide?.title?.[lang] || ""}</h3>
+                  <span className="jadwa-about-slide-count">
+                    {String(idx + 1).padStart(2, "0")}
+                  </span>
+                </div>
 
-              <div className="jadwa-about-slide-text">
-                {slide?.content?.[lang] || ""}
+                {/* <span className="jadwa-about-slide-label">
+                  {isVision
+                    ? lang === "ar"
+                      ? "رؤيتنا"
+                      : lang === "tr"
+                      ? "Vizyon"
+                      : "Vision"
+                    : lang === "ar"
+                    ? "رسالتنا"
+                    : lang === "tr"
+                    ? "Misyon"
+                    : "Mission"}
+                </span> */}
+
+                <h3>{pick(slide?.title)}</h3>
+
+                <div className="jadwa-about-slide-text">
+                  {pick(slide?.content)}
+                </div>
               </div>
-            </div>
-          </SwiperSlide>
-        ))}
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
     </div>
   );

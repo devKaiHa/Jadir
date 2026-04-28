@@ -47,7 +47,7 @@ export default function Header({
       socialConfig
         .filter((item) => footerData?.[item.key])
         .map((item) => ({ ...item, href: footerData[item.key] })),
-    [footerData],
+    [footerData]
   );
 
   const saveLanguage = (lng) => {
@@ -59,106 +59,121 @@ export default function Header({
     <header className={`jadwa-header ${scroll || sticky ? "is-sticky" : ""}`}>
       <div className="outer-container">
         <div className="jadwa-header-wrap">
-          <div className="jadwa-header-top">
-            <div className="jadwa-header-top-left">
-              {footerData?.phone ? (
-                <a
-                  href={`tel:${footerData.phone.replace(/\s+/g, "")}`}
-                  aria-label="Phone"
-                  className="jadwa-social-link"
-                >
-                  <i className="fa-solid fa-phone" />
-                </a>
-              ) : null}
-              {footerData?.email ? (
-                <a
-                  href={`mailto:${footerData.email}`}
-                  aria-label="Email"
-                  className="jadwa-social-link"
-                >
-                  <i className="fa-solid fa-envelope" />
-                </a>
-              ) : null}
-              {socialLinks.map((item) => (
-                <a
-                  key={item.key}
-                  href={item.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={item.label}
-                  className="jadwa-social-link"
-                >
-                  <i className={item.icon} />
-                </a>
-              ))}
-            </div>
-
-            <div className="jadwa-header-top-right">
-              <div className="jadwa-select-box">
-                <select
-                  className="jadwa-language-select"
-                  value={activeLang}
-                  onChange={(e) => saveLanguage(e.target.value)}
-                >
-                  {languages.map((lang) => (
-                    <option key={lang.value} value={lang.value}>
-                      {lang.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-          </div>
-
           <div className="jadwa-header-lower">
             <div className="jadwa-header-inner">
               <div className="jadwa-logo-box">
-                <Link href="/">
+                <Link href="/" aria-label="Go to homepage">
                   <img
-                    src="/assets/images/logos/jadir.png"
+                    src="/assets/images/logos/jadir-dark.png"
                     alt="Jadir"
                     className="jadwa-logo"
                   />
                 </Link>
               </div>
 
-              <nav className="jadwa-nav main-menu navbar-expand-md navbar-light">
-                <div
-                  className="collapse navbar-collapse clearfix"
-                  id="navbarSupportedContent"
-                >
-                  <Menu />
+              <div className="jadwa-header-stack">
+                <div className="jadwa-header-meta">
+                  <div className="jadwa-header-tagline">
+                    Digital financial solutions
+                  </div>
+
+                  <div className="jadwa-header-meta-actions">
+                    <div className="jadwa-header-socials">
+                      {footerData?.phone ? (
+                        <a
+                          href={`tel:${footerData.phone.replace(/\s+/g, "")}`}
+                          aria-label="Phone"
+                          className="jadwa-social-link"
+                        >
+                          <i className="fa-solid fa-phone" />
+                        </a>
+                      ) : null}
+
+                      {footerData?.email ? (
+                        <a
+                          href={`mailto:${footerData.email}`}
+                          aria-label="Email"
+                          className="jadwa-social-link"
+                        >
+                          <i className="fa-solid fa-envelope" />
+                        </a>
+                      ) : null}
+
+                      {socialLinks.map((item) => (
+                        <a
+                          key={item.key}
+                          href={item.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          aria-label={item.label}
+                          className="jadwa-social-link"
+                        >
+                          <i className={item.icon} />
+                        </a>
+                      ))}
+                    </div>
+
+                    <div className="jadwa-select-box">
+                      <select
+                        className="jadwa-language-select"
+                        value={activeLang}
+                        onChange={(e) => saveLanguage(e.target.value)}
+                        aria-label="Select language"
+                      >
+                        {languages.map((lang) => (
+                          <option key={lang.value} value={lang.value}>
+                            {lang.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
                 </div>
-              </nav>
 
-              {isMobile ? null : !openSearch ? (
-                <button
-                  type="button"
-                  aria-label="Open search"
-                  onClick={() => setOpenSearch(true)}
-                  className="jadwa-search-icon"
-                >
-                  <i className="fa-solid fa-magnifying-glass" />
-                </button>
-              ) : (
-                <SearchBox
-                  autoFocus
-                  variant="desktop"
-                  onClose={() => setOpenSearch(false)}
-                />
-              )}
+                <div className="jadwa-header-main-row">
+                  <nav className="jadwa-nav main-menu navbar-expand-md navbar-light">
+                    <div
+                      className="collapse navbar-collapse clearfix"
+                      id="navbarSupportedContent"
+                    >
+                      <Menu />
+                    </div>
+                  </nav>
 
-              <Link href="/contact" className="jadwa-invest-btn">
-                Request a consult
-              </Link>
+                  <div className="jadwa-header-actions">
+                    {isMobile ? null : !openSearch ? (
+                      <button
+                        type="button"
+                        aria-label="Open search"
+                        onClick={() => setOpenSearch(true)}
+                        className="jadwa-search-icon"
+                      >
+                        <i className="fa-solid fa-magnifying-glass" />
+                      </button>
+                    ) : (
+                      <SearchBox
+                        autoFocus
+                        variant="desktop"
+                        onClose={() => setOpenSearch(false)}
+                      />
+                    )}
 
-              <div
-                className="mobile-nav-toggler jadwa-mobile-toggler"
-                onClick={handleMobileMenu}
-              >
-                <i className="icon-bar" />
-                <i className="icon-bar" />
-                <i className="icon-bar" />
+                    <Link href="/contact" className="jadwa-invest-btn">
+                      Request a consult
+                    </Link>
+
+                    <button
+                      type="button"
+                      className="mobile-nav-toggler jadwa-mobile-toggler"
+                      onClick={handleMobileMenu}
+                      aria-label="Open mobile menu"
+                    >
+                      <i className="icon-bar" />
+                      <i className="icon-bar" />
+                      <i className="icon-bar" />
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

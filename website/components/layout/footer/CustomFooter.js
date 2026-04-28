@@ -73,7 +73,7 @@ export default function CustomFooter() {
     const schedule = Array.isArray(footerData?.workingSchedule)
       ? [...footerData.workingSchedule]
           .filter(
-            (item) => localize(item?.day, lang) || localize(item?.hours, lang),
+            (item) => localize(item?.day, lang) || localize(item?.hours, lang)
           )
           .sort((a, b) => (a?.order || 0) - (b?.order || 0))
       : [];
@@ -94,15 +94,15 @@ export default function CustomFooter() {
       setFooterData(
         results[0].status === "fulfilled"
           ? results[0].value?.data || null
-          : null,
+          : null
       );
       setContactData(
         results[1].status === "fulfilled"
           ? results[1].value?.data || null
-          : null,
+          : null
       );
       setPolicies(
-        results[2].status === "fulfilled" ? pickArray(results[2].value) : [],
+        results[2].status === "fulfilled" ? pickArray(results[2].value) : []
       );
     });
 
@@ -116,7 +116,7 @@ export default function CustomFooter() {
       socialConfig
         .filter((item) => footerData?.[item.key])
         .map((item) => ({ ...item, href: footerData[item.key] })),
-    [footerData],
+    [footerData]
   );
 
   const currentYear = new Date().getFullYear();
@@ -142,7 +142,7 @@ export default function CustomFooter() {
                   <Link href="/">
                     <img
                       className="footer-premium-logo-img"
-                      src="/assets/images/logos/jadir.png"
+                      src="/assets/images/logos/jadir-dark.png"
                       alt="Jadir"
                     />
                   </Link>
@@ -301,7 +301,6 @@ export default function CustomFooter() {
           </div>
         </div>
       </div>
-
       <div className="footer-premium-bottom">
         <div className="auto-container">
           <div className="footer-premium-bottom-inner">
@@ -309,6 +308,7 @@ export default function CustomFooter() {
               <div className="footer-premium-bottom-brand">
                 <p>&copy; {currentYear}, All rights reserved</p>
               </div>
+
               <ul className="clearfix footer-premium-bottom-nav">
                 <li>
                   <Link href="/policies">Privacy & Terms policies</Link>
@@ -321,6 +321,20 @@ export default function CustomFooter() {
                   </li>
                 ))}
               </ul>
+
+              <a
+                href="https://smartinb.com"
+                target="_blank"
+                rel="noreferrer"
+                className="footer-premium-credit"
+                aria-label="Developed by Smartinb"
+              >
+                <span className="footer-premium-credit-text">Developed by</span>
+                <span className="footer-premium-credit-brand">
+                  <span className="footer-premium-credit-dot" />
+                  Smartinb
+                </span>
+              </a>
             </div>
           </div>
         </div>
