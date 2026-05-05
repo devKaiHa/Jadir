@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { truncate } from "@/components/website/websiteUtils";
 import { useMemo, useState } from "react";
 import { getPageBanners, resolvePageBanner } from "@/lib/pageBanners";
-import { CareerModal } from "./CareerModal";
+import { CareerModal } from "../../components/CareerModal";
 
 const labels = {
   en: {
