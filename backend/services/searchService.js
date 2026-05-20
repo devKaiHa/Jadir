@@ -13,7 +13,7 @@ const SEARCH_TYPES = [
     label: "Services",
     model: ServiceModel,
     titleField: "title",
-    url: (item) => `/services/${item.slug}`,
+    url: (item) => `/Services/${item.slug}`,
     imageField: "bannerImage",
     imageFolder: "ourServices",
     priority: 1,
@@ -162,7 +162,8 @@ const compareByDate = (direction) => (a, b) => {
 };
 
 const toSearchItem = (config, item, keyword) => {
-  const image = item[config.imageField] || item[config.fallbackImageField] || "";
+  const image =
+    item[config.imageField] || item[config.fallbackImageField] || "";
 
   return {
     id: item._id,
@@ -214,7 +215,9 @@ exports.searchWebsite = asyncHandler(async (req, res) => {
 
   const resultsByType = await Promise.all(
     SEARCH_TYPES.map(async (config) => {
-      const shouldInclude = typesToSearch.some((item) => item.key === config.key);
+      const shouldInclude = typesToSearch.some(
+        (item) => item.key === config.key,
+      );
       const baseQuery = resolveBaseQuery(config);
       const titleQuery = buildTitleQuery(config.titleField, safeKeyword);
       const query = Object.keys(baseQuery).length
@@ -238,7 +241,9 @@ exports.searchWebsite = asyncHandler(async (req, res) => {
         config.model.countDocuments(query),
       ]);
 
-      const mappedItems = items.map((item) => toSearchItem(config, item, keyword));
+      const mappedItems = items.map((item) =>
+        toSearchItem(config, item, keyword),
+      );
       groups[config.key] = {
         label: config.label,
         total,

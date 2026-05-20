@@ -13093,7 +13093,7 @@ div#mCSB_1_container {
 .page-title .bg-layer:before {
   position: absolute;
   content: "";
-  background: #272e39;
+  /* background: #272e39; */
   width: 100%;
   height: 100%;
   left: 0px;

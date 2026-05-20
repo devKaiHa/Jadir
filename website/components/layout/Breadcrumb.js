@@ -7,7 +7,7 @@ export default function Breadcrumb({ breadcrumbTitle, img }) {
     <>
       <section className="page-title centred">
         <div className="bg-layer" style={{ backgroundImage: `url(${img})` }}>
-          <div className="overlay"></div>
+          {/* <div className="overlay"></div> */}
         </div>
 
         <div className="auto-container">

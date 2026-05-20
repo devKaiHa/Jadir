@@ -31,14 +31,14 @@ const Services = ({ data = [], length = 3 }) => {
                     </div>
 
                     <h3>
-                      <Link href={`/services/${service?.slug || service?._id}`}>
+                      <Link href={`/Services/${service?.slug || service?._id}`}>
                         {service?.title?.[lang] || service?.title?.en}
                       </Link>
                     </h3>
 
                     <div className="link">
                       <Link
-                        href={`/services/${service?.slug || service?._id}`}
+                        href={`/Services/${service?.slug || service?._id}`}
                         className="pe-4"
                       >
                         {lang === "ar"

@@ -12,6 +12,8 @@ const navIcons = {
   "/companies": "fa-regular fa-building",
   "/investment-funds": "fa-solid fa-chart-line",
   "/research": "fa-regular fa-newspaper",
+  "/career": "fa-solid fa-briefcase",
+  "/blogs": "fa-solid fa-newspaper",
   "/contact": "fa-regular fa-paper-plane",
   "/policies": "fa-solid fa-shield-halved",
 };

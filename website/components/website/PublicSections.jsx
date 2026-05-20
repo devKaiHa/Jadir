@@ -259,7 +259,7 @@ export function ServicesPreview({ services = [] }) {
           {services.slice(0, 6).map((service, index) => (
             <Link
               className="site-service-card"
-              href={`/services/${service?.slug || service?._id}`}
+              href={`/Services/${service?.slug || service?._id}`}
               key={service?._id || service?.slug}
             >
               <span className="site-service-number">

@@ -219,6 +219,6 @@
 /* hover effect */
 .banner-prev:hover,
 .banner-next:hover {
-  background: #c9a45c; /* your brand gold */
+  background: var(--site-blue); /* your brand gold */
   transform: scale(1.1);
 }

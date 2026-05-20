@@ -25,7 +25,7 @@
 }
 
 .theme-btn:before {
-  background: #57c396;
+  background: var(--site-navy);
 }
 
 .main-menu .navigation > li.current > a,
