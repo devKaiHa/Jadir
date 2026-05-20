@@ -2,10 +2,10 @@ import Layout from "@/components/layout/Layout";
 import baseURL, { CareersEndPoint, imageURL } from "@/api/GlobalData";
 import { fetchJSON, pickArray } from "@/GlobalHooks/GlobalHooks";
 import { useTranslation } from "react-i18next";
-import { truncate } from "@/components/website/websiteUtils";
-import { useMemo, useState } from "react";
+import { localize } from "@/components/website/websiteUtils";
+import { useMemo } from "react";
 import { getPageBanners, resolvePageBanner } from "@/lib/pageBanners";
-import { CareerModal } from "../../components/CareerModal";
+import Link from "next/link";
 
 const labels = {
   en: {
@@ -17,6 +17,7 @@ const labels = {
     empty: "There are no open roles right now.",
     apply: "Apply Now",
     endDate: "End Date",
+    position: "Position",
     readMore: "Read more",
     closed: "Application closed",
     active: "Open role",
@@ -26,7 +27,8 @@ const labels = {
     departments: "Departments",
     roleType: "Opportunity",
     location: "Location",
-    remote: "Office / Hybrid",
+    remote: "Unspecified",
+    available: "Available",
   },
   ar: {
     breadcrumb: "الوظائف",
@@ -37,6 +39,7 @@ const labels = {
     empty: "لا توجد وظائف متاحة حاليا.",
     apply: "قدم الآن",
     endDate: "تاريخ الانتهاء",
+    position: "المنصب",
     readMore: "اقرأ المزيد",
     closed: "انتهى التقديم",
     active: "متاحة",
@@ -46,7 +49,8 @@ const labels = {
     departments: "الأقسام",
     roleType: "فرصة وظيفية",
     location: "الموقع",
-    remote: "مكتبي / هجين",
+    remote: "لم يتم التحديد",
+    available: "متاح",
   },
   tr: {
     breadcrumb: "Kariyer",
@@ -57,6 +61,7 @@ const labels = {
     empty: "Şu anda açık pozisyon bulunmuyor.",
     apply: "Başvur",
     endDate: "Bitiş Tarihi",
+    position: "Pozisyon",
     readMore: "Devamını oku",
     closed: "Başvuru kapandı",
     active: "Açık rol",
@@ -66,33 +71,12 @@ const labels = {
     departments: "Departmanlar",
     roleType: "Fırsat",
     location: "Konum",
-    remote: "Ofis / Hibrit",
+    remote: "Belirtmemiş",
+    available: "Başvurulabilir",
   },
 };
 
-const localize = (value, lang = "en") => {
-  if (typeof value === "string") return value;
-  if (!value || typeof value !== "object") return "";
-  return value[lang] || value.en || value.ar || value.tr || "";
-};
-
-const formatDate = (value, lang) => {
-  if (!value) return "";
-  return new Date(value).toLocaleDateString(lang === "ar" ? "ar" : "en", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
-};
-
-const stripHtml = (value = "") =>
-  String(value)
-    .replace(/<[^>]*>/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-
 export default function CareerPage({ careers = [], pageBanners = {} }) {
-  const [selectedCareer, setSelectedCareer] = useState(null);
   const { i18n } = useTranslation();
   const lang = i18n.language || "en";
   const isRtl = lang === "ar";
@@ -107,9 +91,12 @@ export default function CareerPage({ careers = [], pageBanners = {} }) {
     const departments = new Set(
       careers
         .map((career) =>
-          localize(career?.department || career?.category || career?.type, lang)
+          localize(
+            career?.department || career?.category || career?.type,
+            lang,
+          ),
         )
-        .filter(Boolean)
+        .filter(Boolean),
     );
 
     return {
@@ -146,19 +133,19 @@ export default function CareerPage({ careers = [], pageBanners = {} }) {
                 <span>{copy.totalRoles}</span>
               </div>
 
-              <div className="career-portal-stat is-blue">
+              <div className="career-portal-stat">
                 <strong>{String(stats.open).padStart(2, "0")}</strong>
                 <span>{copy.openRoles}</span>
               </div>
 
-              <div className="career-portal-stat">
+              {/* <div className="career-portal-stat is-blue">
                 <strong>{String(stats.departments).padStart(2, "0")}</strong>
                 <span>{copy.departments}</span>
-              </div>
+              </div> */}
             </div>
           </div>
 
-          {careers.length ? (
+          {careers?.length ? (
             <div className="career-portal-board">
               <div className="career-portal-board-head">
                 <div>
@@ -172,10 +159,12 @@ export default function CareerPage({ careers = [], pageBanners = {} }) {
               </div>
 
               <div className="career-portal-list">
-                {careers.map((career, index) => {
+                {careers?.map((career) => {
+                  // const position = localize(career?.position, lang);
                   const title = localize(career?.title, lang);
-                  const rawDescription = localize(career?.description, lang);
-                  const description = stripHtml(rawDescription);
+                  const location =
+                    localize(career?.location, lang) || copy.remote;
+                  const detailUrl = `/career/${career?.slug || career?._id}`;
                   const imgSrc = career?.image
                     ? `${imageURL}careers/${career.image}`
                     : "/assets/images/news/news-1.jpg";
@@ -184,110 +173,76 @@ export default function CareerPage({ careers = [], pageBanners = {} }) {
                     career?.endDate &&
                     new Date(career.endDate).getTime() < Date.now();
 
-                  const department =
-                    localize(
-                      career?.department || career?.category || career?.type,
-                      lang
-                    ) || copy.roleType;
-
-                  const location =
-                    localize(career?.location, lang) ||
-                    career?.location ||
-                    copy.remote;
-
                   return (
-                    <article
-                      key={career?._id || index}
-                      id={`career-${career?._id}`}
-                      className={`career-portal-card ${
-                        isExpired ? "is-expired" : ""
-                      }`}
-                    >
-                      <div className="career-portal-card-index">
-                        {String(index + 1).padStart(2, "0")}
-                      </div>
+                    <div key={career?._id} className="news-block">
+                      <article className="news-block-one h-100 career-job-card">
+                        <div className="inner-box h-100 career-job-card-inner">
+                          <div className="career-job-image-wrap">
+                            <figure className="image career-job-image">
+                              <img src={imgSrc} alt={title} />
+                            </figure>
 
-                      <div className="career-portal-card-image-wrap">
-                        <img
-                          src={imgSrc}
-                          alt={title}
-                          className="career-portal-card-image"
-                        />
-                      </div>
-
-                      <div className="career-portal-card-main">
-                        <div className="career-portal-card-top">
-                          <span
-                            className={`career-portal-status ${
-                              isExpired ? "closed" : "open"
-                            }`}
-                          >
-                            {isExpired ? copy.expired : copy.active}
-                          </span>
-
-                          {career?.endDate ? (
-                            <span className="career-portal-date">
-                              <i className="fa-regular fa-calendar" />
-                              {copy.endDate}: {formatDate(career.endDate, lang)}
-                            </span>
-                          ) : null}
-                        </div>
-
-                        <h3 className="career-portal-card-title">{title}</h3>
-
-                        <div className="career-portal-meta">
-                          <span>
-                            <i className="fa-solid fa-briefcase" />
-                            {department}
-                          </span>
-
-                          <span>
-                            <i className="fa-solid fa-location-dot" />
-                            {location}
-                          </span>
-                        </div>
-
-                        <p className="career-portal-description">
-                          {description?.length > 150
-                            ? truncate(description, 150)
-                            : description}
-                        </p>
-                      </div>
-
-                      <div className="career-portal-card-actions">
-                        {description?.length > 150 ? (
-                          <button
-                            type="button"
-                            className="career-portal-secondary-btn"
-                            onClick={() => setSelectedCareer(career)}
-                          >
-                            {copy.readMore}
-                          </button>
-                        ) : null}
-
-                        {career?.applicationLink ? (
-                          !isExpired ? (
-                            <a
-                              href={career.applicationLink}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="career-portal-apply-btn"
+                            <span
+                              className={`career-job-status ${isExpired ? "is-closed" : "is-open"}`}
                             >
-                              <span>{copy.apply}</span>
-                              <i
-                                className={`fa-solid ${
-                                  isRtl ? "fa-arrow-left" : "fa-arrow-right"
-                                }`}
-                              />
-                            </a>
-                          ) : (
-                            <span className="career-portal-closed-btn">
-                              {copy.closed}
+                              {isExpired ? copy.closed : copy.available}
                             </span>
-                          )
-                        ) : null}
-                      </div>
-                    </article>
+                          </div>
+
+                          <div className="lower-box career-job-content">
+                            <div className="career-job-header">
+                              <h3 className="job-card-title career-job-title">
+                                {title}
+                              </h3>
+                            </div>
+
+                            <div className="career-portal-card-fields career-job-meta">
+                              <span>
+                                <i className="fa-solid fa-location-dot" />
+                                {location}
+                              </span>
+
+                              <span>
+                                <i className="fa-regular fa-calendar" />
+                                {career?.endDate
+                                  ? `${copy.endDate}: ${new Date(
+                                      career.endDate,
+                                    ).toLocaleDateString(
+                                      lang === "ar" ? "ar" : "en",
+                                    )}`
+                                  : copy.endDate}
+                              </span>
+                            </div>
+
+                            <div className="career-portal-card-actions career-job-actions">
+                              {!isExpired ? (
+                                <Link
+                                  href={detailUrl}
+                                  className="companies-brief-read-more"
+                                >
+                                  <span className="companies-brief-read-more-text">
+                                    {copy.apply}
+                                  </span>
+                                  <span className="companies-brief-arrow">
+                                    <i
+                                      className={`fas ${
+                                        isRtl
+                                          ? "fa-arrow-left"
+                                          : "fa-arrow-right"
+                                      }`}
+                                    />
+                                  </span>
+                                </Link>
+                              ) : (
+                                <span className="career-portal-closed-btn">
+                                  {copy.closed}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </article>
+                    </div>
                   );
                 })}
               </div>
@@ -302,20 +257,13 @@ export default function CareerPage({ careers = [], pageBanners = {} }) {
                 {lang === "ar"
                   ? "تابع الصفحة لاحقاً للاطلاع على الفرص الجديدة."
                   : lang === "tr"
-                  ? "Yeni fırsatlar için bu sayfayı daha sonra tekrar kontrol edin."
-                  : "Please check back later for new opportunities."}
+                    ? "Yeni fırsatlar için bu sayfayı daha sonra tekrar kontrol edin."
+                    : "Please check back later for new opportunities."}
               </p>
             </div>
           )}
         </div>
       </section>
-
-      <CareerModal
-        isOpen={selectedCareer}
-        setSelectedCareer={setSelectedCareer}
-        selectedCareer={selectedCareer}
-        lang={lang}
-      />
     </Layout>
   );
 }

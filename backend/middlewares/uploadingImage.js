@@ -50,3 +50,6 @@ exports.uploadMixOfImages = (arrayOfFields) =>
 
 exports.uploadSingleFile = (fieldName) =>
   createMulter({ fileFilter: attachmentFileFilter }).single(fieldName);
+
+exports.uploadAnyFile = () =>
+  createMulter({ fileFilter: attachmentFileFilter }).any();

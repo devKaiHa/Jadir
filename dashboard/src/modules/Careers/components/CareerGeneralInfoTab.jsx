@@ -1,10 +1,14 @@
+import { HelpCircle } from "lucide-react";
 import { CrudAvatarUpload } from "../../../partials/crud/CrudAvatarUpload";
+import { Tooltip } from "@mui/material";
 
 const CareerGeneralInfoTab = ({
   applicationLink,
   setApplicationLink,
   endDate,
   setEndDate,
+  status,
+  setStatus,
   imagePreview,
   onImageChange,
 }) => {
@@ -21,7 +25,16 @@ const CareerGeneralInfoTab = ({
               <tr>
                 <td className="p-2 pt-4">
                   <div className="input-group">
-                    <span className="btn btn-input w-[24%]">Application Link</span>
+                    <span className="btn btn-input w-[25%]">
+                      Application Link{" "}
+                      <Tooltip
+                        placement="top"
+                        disableInteractive
+                        title="Leave empty to use custom form"
+                      >
+                        <HelpCircle />
+                      </Tooltip>
+                    </span>
                     <input
                       type="url"
                       className="input"
@@ -36,13 +49,29 @@ const CareerGeneralInfoTab = ({
               <tr>
                 <td className="p-2 pt-4">
                   <div className="input-group">
-                    <span className="btn btn-input w-[24%]">End Date</span>
+                    <span className="btn btn-input w-[25%]">End Date</span>
                     <input
                       type="date"
                       className="input"
                       value={endDate}
                       onChange={(e) => setEndDate(e.target.value)}
                     />
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td className="p-2 pt-4">
+                  <div className="input-group">
+                    <span className="btn btn-input w-[25%]">Status</span>
+                    <select
+                      className="select"
+                      value={status}
+                      onChange={(e) => setStatus(e.target.value)}
+                    >
+                      <option value="draft">Draft</option>
+                      <option value="published">Published</option>
+                    </select>
                   </div>
                 </td>
               </tr>
@@ -61,7 +90,9 @@ const CareerGeneralInfoTab = ({
             <CrudAvatarUpload
               onChange={onImageChange}
               value={imagePreview}
-              initialImageURL={typeof imagePreview === "string" ? imagePreview : ""}
+              initialImageURL={
+                typeof imagePreview === "string" ? imagePreview : ""
+              }
               adviceMessage="Career image | Max 1MB"
             />
           </div>
