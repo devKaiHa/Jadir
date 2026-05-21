@@ -5,14 +5,18 @@
 .career-portal-page {
   position: relative;
   overflow: hidden;
-  --career-ink: var(--primary-dark, #00024F);
-  --career-deep: var(--primary, #006AFD);
-  --career-green: var(--primary-light, #006AFD);
-  --career-gold: var(--secondary, #006AFD);
-  --career-gold-soft: var(--secondary-light, #006AFD);
+  --career-ink: var(--primary-dark, #00024f);
+  --career-deep: var(--primary, #006afd);
+  --career-green: var(--primary-light, #006afd);
+  --career-gold: var(--secondary, #006afd);
+  --career-gold-soft: var(--secondary-light, #006afd);
   --career-muted: rgba(0, 2, 79, 0.68);
   background:
-    radial-gradient(circle at top left, rgba(0, 106, 253, 0.08), transparent 30%),
+    radial-gradient(
+      circle at top left,
+      rgba(0, 106, 253, 0.08),
+      transparent 30%
+    ),
     radial-gradient(
       circle at bottom right,
       rgba(0, 106, 253, 0.16),
@@ -986,7 +990,11 @@ html[dir="rtl"] .career-portal-apply-btn {
   flex-direction: column;
   border-radius: 32px;
   background:
-    radial-gradient(circle at top right, rgba(0, 106, 253, 0.1), transparent 34%),
+    radial-gradient(
+      circle at top right,
+      rgba(0, 106, 253, 0.1),
+      transparent 34%
+    ),
     linear-gradient(180deg, #ffffff 0%, #f7faff 100%);
   border: 1px solid rgba(0, 2, 79, 0.08);
   box-shadow:
@@ -1399,7 +1407,7 @@ html[dir="rtl"] .career-modal-footer {
   color: var(--title-color);
   font-size: clamp(2.15rem, 4vw, 4rem);
   line-height: 1.02;
-  font-weight: 650;
+  font-weight: 950;
 }
 
 .career-details-head .career-modal-summary {
@@ -1704,4 +1712,3 @@ html[dir="rtl"] .career-application-submit-row {
     width: 100%;
   }
 }
-

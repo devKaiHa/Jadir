@@ -131,9 +131,7 @@ export default function NewsSlider({ news = [] }) {
 
                   <h3 className="jadwa-blog-featured-title">
                     <Link
-                      href={`/blog-details/${
-                        featuredPost?.slug || featuredPost?._id
-                      }`}
+                      href={`/blogs/${featuredPost?.slug || featuredPost?._id}`}
                     >
                       {trimWords(
                         featuredPost?.title?.[currentLang] ||
@@ -161,9 +159,7 @@ export default function NewsSlider({ news = [] }) {
                     </div>
 
                     <Link
-                      href={`/blog-details/${
-                        featuredPost?.slug || featuredPost?._id
-                      }`}
+                      href={`/blogs/${featuredPost?.slug || featuredPost?._id}`}
                       className="jadwa-blog-readmore"
                     >
                       <span>{t("ExploreMore")}</span>
@@ -194,7 +190,7 @@ export default function NewsSlider({ news = [] }) {
               {smallPosts.map((blog) => (
                 <article key={blog?._id} className="jadwa-blog-card">
                   <Link
-                    href={`/blog-details/${blog?.slug || blog?._id}`}
+                    href={`/blogs/${blog?.slug || blog?._id}`}
                     className="jadwa-blog-card-image-link"
                   >
                     <img
@@ -220,7 +216,7 @@ export default function NewsSlider({ news = [] }) {
                     </div>
 
                     <h4 className="jadwa-blog-card-title">
-                      <Link href={`/blog-details/${blog?.slug || blog?._id}`}>
+                      <Link href={`/blogs/${blog?.slug || blog?._id}`}>
                         {trimWords(
                           blog?.title?.[currentLang] ||
                             blog?.title?.en ||
@@ -251,7 +247,7 @@ export default function NewsSlider({ news = [] }) {
             {mobilePosts.map((blog) => (
               <article key={blog?._id} className="jadwa-blog-mobile-row-card">
                 <Link
-                  href={`/blog-details/${blog?.slug || blog?._id}`}
+                  href={`/blogs/${blog?.slug || blog?._id}`}
                   className="jadwa-blog-mobile-row-image-link"
                 >
                   <img
@@ -277,7 +273,7 @@ export default function NewsSlider({ news = [] }) {
                   </div>
 
                   <h4 className="jadwa-blog-mobile-row-title">
-                    <Link href={`/blog-details/${blog?.slug || blog?._id}`}>
+                    <Link href={`/blogs/${blog?.slug || blog?._id}`}>
                       {trimWords(
                         blog?.title?.[currentLang] ||
                           blog?.title?.en ||

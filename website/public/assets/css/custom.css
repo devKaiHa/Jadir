@@ -577,7 +577,7 @@ html[dir="rtl"] .jadwa-about-slide-bg-icon {
   margin: 0 0 18px;
   color: #ffffff;
   font-size: clamp(1.85rem, 3vw, 2.45rem);
-  line-height: 1.08;
+  line-height: 1.25;
   font-weight: 950;
   letter-spacing: -0.045em;
 }
@@ -812,7 +812,7 @@ html[dir="rtl"] .jadwa-about-slide-text {
   margin: 0 auto;
   color: var(--site-navy);
   font-size: clamp(2.15rem, 4vw, 3.45rem);
-  line-height: 1.04;
+  line-height: 1.25;
   font-weight: 950;
   letter-spacing: -0.045em;
 }
@@ -1654,7 +1654,7 @@ html[dir="rtl"] .site-cta::after {
   margin: 0;
   color: #ffffff;
   font-size: clamp(2.55rem, 5vw, 4.6rem);
-  line-height: 0.98;
+  line-height: 1.25;
   font-weight: 950;
   letter-spacing: -0.06em;
 }
@@ -3292,7 +3292,7 @@ html[dir="rtl"] .jadwa-blog-featured-content::before {
 .jadwa-blog-featured-title {
   margin: 0 0 16px;
   font-size: clamp(2rem, 3.2vw, 3rem);
-  line-height: 1.05;
+  line-height: 1.25;
   font-weight: 950;
   letter-spacing: -0.045em;
 }
