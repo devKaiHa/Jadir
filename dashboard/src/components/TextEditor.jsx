@@ -11,7 +11,7 @@ export const TextEditor = ({
   classes,
   placeholder,
   enableImage = true,
-  enableColor = false,
+  enableColor = true,
   enableBackground = false,
   enableDirection = false,
   language,

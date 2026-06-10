@@ -59,13 +59,14 @@ const AddTestimonial = () => {
         />
       ),
     },
-    ...["en", "ar"].map((lang) => ({
+    ...["en", "ar", "tr"].map((lang) => ({
       key: `testimonial_${lang}`,
       label: `Testimonial ${lang.toUpperCase()}`,
       icon: "ki-outline ki-clipboard",
       content: (
         <TestimonialLangForm
           language={lang}
+          nameValue={name[lang]}
           roleValue={role[lang]}
           companyValue={company[lang]}
           contentValue={content[lang]}
@@ -79,7 +80,11 @@ const AddTestimonial = () => {
     <Container>
       <Tabs tabs={tabConfig} />
       <div className="mt-6">
-        <button className="btn btn-primary" onClick={handleSave} disabled={isPosting}>
+        <button
+          className="btn btn-primary"
+          onClick={handleSave}
+          disabled={isPosting}
+        >
           {isPosting ? "Submitting..." : "Create Testimonial"}
         </button>
       </div>

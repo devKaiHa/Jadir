@@ -5,7 +5,10 @@ import Tabs from "../../../components/Global/Tabs";
 import { imageURL } from "../../../Api/GlobalData";
 import ErrorMessageCard from "../../../components/Global/ErrorMessageCard";
 import LoadingCard from "../../../components/Global/LoadingCard";
-import { useOneTestimonial, useTestimonials } from "../../hooks/useTestimonials";
+import {
+  useOneTestimonial,
+  useTestimonials,
+} from "../../hooks/useTestimonials";
 import { useTestimonialEditorState } from "../hooks/useTestimonialEditor";
 import TestimonialGeneralInfoTab from "./TestimonialGeneralInfoTab";
 import TestimonialLangForm from "./TestimonialLangForm";
@@ -72,13 +75,14 @@ const UpdateTestimonial = () => {
         />
       ),
     },
-    ...["en", "ar"].map((lang) => ({
+    ...["en", "ar", "tr"].map((lang) => ({
       key: `testimonial_${lang}`,
       label: `Testimonial ${lang.toUpperCase()}`,
       icon: "ki-outline ki-clipboard",
       content: (
         <TestimonialLangForm
           language={lang}
+          nameValue={name[lang]}
           roleValue={role[lang]}
           companyValue={company[lang]}
           contentValue={content[lang]}
@@ -92,7 +96,11 @@ const UpdateTestimonial = () => {
     <Container>
       <Tabs tabs={tabConfig} />
       <div className="mt-6">
-        <button className="btn btn-primary" onClick={handleSave} disabled={isUpdating}>
+        <button
+          className="btn btn-primary"
+          onClick={handleSave}
+          disabled={isUpdating}
+        >
           {isUpdating ? "Updating..." : "Update Testimonial"}
         </button>
       </div>

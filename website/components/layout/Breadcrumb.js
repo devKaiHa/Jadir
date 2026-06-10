@@ -2,9 +2,11 @@ import Link from "next/link";
 import { useTranslation } from "react-i18next";
 
 export default function Breadcrumb({ breadcrumbTitle, img }) {
-  const { t } = useTranslation();
+  const { i18n, t } = useTranslation();
+  const isRtl = (i18n.language || "en") === "ar";
+
   return (
-    <>
+    <div className={isRtl ? "rtl" : ""} dir={isRtl ? "rtl" : "ltr"}>
       <section className="page-title centred">
         <div className="bg-layer" style={{ backgroundImage: `url(${img})` }}>
           {/* <div className="overlay"></div> */}
@@ -12,7 +14,7 @@ export default function Breadcrumb({ breadcrumbTitle, img }) {
 
         <div className="auto-container">
           <div className="content-box breadcrumb_box">
-            <h1>{breadcrumbTitle}</h1>
+            <h1 style={{ visibility: "hidden" }}>{breadcrumbTitle}</h1>
             <ul className="bread-crumb clearfix">
               <li>
                 <Link href="/">{t("Breadcrumbhome")}</Link>
@@ -22,6 +24,6 @@ export default function Breadcrumb({ breadcrumbTitle, img }) {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

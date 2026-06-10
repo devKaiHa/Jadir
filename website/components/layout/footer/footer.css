@@ -27,7 +27,8 @@
   padding: 56px 34px 28px;
   overflow: hidden;
   border-radius: 38px 38px 0 0;
-  background: radial-gradient(
+  background:
+    radial-gradient(
       circle at top left,
       rgba(0, 106, 253, 0.085),
       transparent 30%
@@ -43,8 +44,10 @@
       rgba(247, 250, 255, 0.94)
     );
   border: 1px solid rgba(0, 2, 79, 0.08);
-  box-shadow: 0 -18px 60px rgba(0, 2, 79, 0.06),
-    0 28px 70px rgba(0, 2, 79, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.92);
+  box-shadow:
+    0 -18px 60px rgba(0, 2, 79, 0.06),
+    0 28px 70px rgba(0, 2, 79, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.92);
 }
 
 .footer-premium-main::before {
@@ -53,7 +56,8 @@
   inset: 0;
   pointer-events: none;
   opacity: 0.28;
-  background-image: linear-gradient(rgba(0, 2, 79, 0.028) 1px, transparent 1px),
+  background-image:
+    linear-gradient(rgba(0, 2, 79, 0.028) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 2, 79, 0.028) 1px, transparent 1px);
   background-size: 78px 78px;
   mask-image: linear-gradient(to bottom, #000 0%, transparent 86%);
@@ -88,6 +92,7 @@
 }
 
 .footer-premium-desc {
+  text-align: justify !important;
   max-width: 320px;
   margin: 0;
   color: rgba(0, 2, 79, 0.58);
@@ -108,7 +113,8 @@
     border-radius: 24px;
     background: rgba(255, 255, 255, 0.72);
     border: 1px solid rgba(0, 2, 79, 0.075);
-    box-shadow: 0 16px 38px rgba(0, 2, 79, 0.06),
+    box-shadow:
+      0 16px 38px rgba(0, 2, 79, 0.06),
       inset 0 1px 0 rgba(255, 255, 255, 0.92);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -136,12 +142,16 @@
   color: rgba(0, 2, 79, 0.62);
   background: #ffffff;
   border: 1px solid rgba(0, 2, 79, 0.075);
-  box-shadow: 0 10px 22px rgba(0, 2, 79, 0.055),
+  box-shadow:
+    0 10px 22px rgba(0, 2, 79, 0.055),
     inset 0 1px 0 rgba(255, 255, 255, 0.86);
   font-size: 13px;
   text-decoration: none;
-  transition: transform 0.25s ease, background 0.25s ease,
-    border-color 0.25s ease, color 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease;
 }
 
 .footer-premium-social-link:hover {
@@ -210,7 +220,9 @@
   font-weight: 650;
   line-height: 1.65;
   text-decoration: none;
-  transition: color 0.25s ease, transform 0.25s ease;
+  transition:
+    color 0.25s ease,
+    transform 0.25s ease;
 }
 
 .footer-premium-links li a::before {
@@ -356,14 +368,16 @@ html[dir="rtl"] .footer-premium-contact-list li {
   margin-top: 34px;
   padding: 26px;
   border-radius: 28px;
-  background: radial-gradient(
+  background:
+    radial-gradient(
       circle at top right,
       rgba(255, 255, 255, 0.18),
       transparent 34%
     ),
     linear-gradient(135deg, var(--site-blue), var(--site-blue-dark));
   border: 1px solid rgba(0, 106, 253, 0.18);
-  box-shadow: 0 22px 52px rgba(0, 106, 253, 0.18),
+  box-shadow:
+    0 22px 52px rgba(0, 106, 253, 0.18),
     inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
 
@@ -427,7 +441,9 @@ html[dir="rtl"] .footer-premium-newsletter-wrap::before {
   outline: none;
   font-size: 14px;
   font-weight: 600;
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .footer-premium-input::placeholder {
@@ -453,7 +469,10 @@ html[dir="rtl"] .footer-premium-newsletter-wrap::before {
   box-shadow: 0 14px 30px rgba(0, 2, 79, 0.22);
   font-size: 14px;
   font-weight: 900;
-  transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease,
+    color 0.25s ease;
 }
 
 .footer-premium-btn:hover {

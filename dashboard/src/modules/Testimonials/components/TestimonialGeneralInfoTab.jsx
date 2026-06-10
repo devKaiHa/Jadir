@@ -25,21 +25,6 @@ const TestimonialGeneralInfoTab = ({
               <tr>
                 <td className="p-2 pt-4">
                   <div className="input-group">
-                    <span className="btn btn-input w-[20%]">Name</span>
-                    <input
-                      type="text"
-                      className="input"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      placeholder="Enter customer name"
-                    />
-                  </div>
-                </td>
-              </tr>
-
-              <tr>
-                <td className="p-2 pt-4">
-                  <div className="input-group">
                     <span className="btn btn-input w-[20%]">Rating</span>
                     <input
                       type="number"
@@ -97,7 +82,9 @@ const TestimonialGeneralInfoTab = ({
             <CrudAvatarUpload
               onChange={onImageChange}
               value={imagePreview}
-              initialImageURL={typeof imagePreview === "string" ? imagePreview : ""}
+              initialImageURL={
+                typeof imagePreview === "string" ? imagePreview : ""
+              }
               adviceMessage="Testimonial image | Max 1MB"
             />
           </div>

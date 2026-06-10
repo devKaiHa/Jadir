@@ -18,7 +18,7 @@ import { getPageBanners, resolvePageBanner } from "@/lib/pageBanners";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { stripHtml } from "@/components/utils/helpers";
+import { stripHtml, truncateStripText } from "@/components/utils/helpers";
 import { useIsMobile } from "@/lib/helpers";
 
 const BLOGS_PER_PAGE = 9;
@@ -149,7 +149,8 @@ export default function BlogPage({
   const totalItems = blogs?.pagination?.totalItems ?? blogs?.data?.length ?? 0;
   const blogItems = blogs?.data || [];
 
-  const featuredBlogs = blogItems.slice(0, 10);
+  const featuredBlogs = blogItems.slice(0, 3);
+
   const gridBlogs = blogItems;
 
   const handleCategoryChange = (nextCategoryId = "") => {
@@ -434,7 +435,7 @@ export default function BlogPage({
                         </h3>
 
                         <p className="jadwa-blog-card-v2-excerpt">
-                          {truncateText(
+                          {truncateStripText(
                             blog?.content?.[currentLang] ||
                               blog?.content?.en ||
                               "",

@@ -561,6 +561,7 @@ html[dir="rtl"] .about-value-title {
 }
 
 .about-value-dynamic-card.is-active .about-value-text p {
+  text-align: justify !important;
   max-width: 620px;
   color: rgba(255, 255, 255, 0.76);
   font-size: 14px;
@@ -569,6 +570,7 @@ html[dir="rtl"] .about-value-title {
 }
 
 .about-value-dynamic-card.is-inactive .about-value-text p {
+  text-align: justify !important;
   color: rgba(0, 2, 79, 0.58);
   font-size: 14px;
   font-weight: 500;
@@ -796,6 +798,7 @@ html[dir="rtl"] .jadwa-founder-name {
 }
 
 .jadwa-founder-bio p {
+  text-align: justify !important;
   margin: 0;
   color: rgba(0, 2, 79, 0.6);
   font-size: 13.5px;
@@ -1168,6 +1171,7 @@ html[dir="rtl"] .jadwa-mini-team-name {
 }
 
 .jadwa-mini-team-bio {
+  text-align: justify !important;
   min-height: 72px;
   margin: 0 0 14px;
   color: rgba(0, 2, 79, 0.58);
@@ -1394,6 +1398,7 @@ html[dir="rtl"] .jadir-about-testimonial-featured::after {
 }
 
 .jadir-about-testimonial-featured-text {
+  text-align: justify !important;
   position: relative;
   z-index: 1;
   max-width: 720px;
@@ -1499,6 +1504,7 @@ html[dir="rtl"] .jadir-about-testimonial-featured::after {
 }
 
 .jadir-about-testimonial-card p {
+  text-align: justify !important;
   margin: 0 0 22px;
   color: rgba(0, 2, 79, 0.62);
   font-size: 14px;

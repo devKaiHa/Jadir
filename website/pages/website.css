@@ -22,8 +22,8 @@
 } */
 :root {
   /* Main brand colors */
-  --site-blue: #006AFD;
-  --site-navy: #00024F;
+  --site-blue: #006afd;
+  --site-navy: #00024f;
   --site-blue-dark: #0056d1;
   --site-blue-soft: rgba(0, 106, 253, 0.1);
   --site-navy-soft: rgba(0, 2, 79, 0.08);
@@ -76,7 +76,8 @@
 }
 body {
   color: var(--site-text);
-  background: radial-gradient(
+  background:
+    radial-gradient(
       circle at top left,
       rgba(0, 106, 253, 0.06),
       transparent 28%
@@ -136,6 +137,7 @@ body {
 .site-info-panel p,
 .site-richtext,
 .site-form label {
+  text-align: justify !important;
   color: var(--site-muted);
 }
 
@@ -563,6 +565,12 @@ body {
 .jadwa-nav .navigation > li.current > a,
 .jadwa-nav .navigation > li.current-menu-item > a,
 .jadwa-social-link:hover {
+  color: var(--site-navy) !important;
+}
+
+.jadwa-nav .navigation > li.current > i,
+.jadwa-nav .navigation > li.current-menu-item > i,
+.jadwa-social-link:hover {
   color: var(--site-white) !important;
 }
 
@@ -600,6 +608,7 @@ body {
 .jadwa-detail-hero-content p,
 .jadwa-detail-card p,
 .jadwa-detail-card li {
+  text-align: justify !important;
   color: var(--site-muted) !important;
 }
 
@@ -637,11 +646,8 @@ body {
 
 .jadwa-detail-hero-content {
   padding: 42px;
-  background: linear-gradient(
-      180deg,
-      rgba(0, 106, 253, 0.045),
-      rgba(255, 255, 255, 0)
-    ),
+  background:
+    linear-gradient(180deg, rgba(0, 106, 253, 0.045), rgba(255, 255, 255, 0)),
     #fff;
 }
 
@@ -770,11 +776,8 @@ body {
 
 .site-about-preview {
   overflow: hidden;
-  background: linear-gradient(
-      180deg,
-      rgba(0, 106, 253, 0.035),
-      rgba(255, 255, 255, 0)
-    ),
+  background:
+    linear-gradient(180deg, rgba(0, 106, 253, 0.035), rgba(255, 255, 255, 0)),
     #fff;
 }
 
@@ -886,7 +889,9 @@ body {
   background: #fff;
   box-shadow: 0 18px 44px rgba(0, 2, 79, 0.08);
   color: var(--site-text);
-  transition: transform 0.25s ease, box-shadow 0.25s ease,
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
     border-color 0.25s ease;
 }
 
@@ -1048,7 +1053,9 @@ body {
 .site-project-showcase .site-media-card,
 .site-blog-showcase .site-media-card {
   box-shadow: 0 18px 44px rgba(0, 2, 79, 0.08);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .site-project-showcase .site-media-card:hover,

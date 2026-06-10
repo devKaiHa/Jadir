@@ -1223,6 +1223,7 @@ html[dir="rtl"] .career-modal-section h4 {
 
 .career-modal-rich-text,
 .career-modal-rich-text p {
+  text-align: justify !important;
   color: var(--content-color);
   font-size: 15px;
   font-weight: 500;

@@ -9,7 +9,8 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 function getInitials(name = "") {
-  return name
+  const orgName = name?.en ?? name;
+  return orgName
     .split(" ")
     .filter(Boolean)
     .slice(0, 2)
@@ -34,7 +35,7 @@ export default function TestimonialsShowcase({ testimonials = [] }) {
   if (!sortedTestimonials.length) return null;
 
   // left featured swiper
-  const featuredSlides = sortedTestimonials.slice(0, 3);
+  const featuredSlides = sortedTestimonials;
 
   // right static cards
   const sideCards = sortedTestimonials.slice(0, 2);
@@ -100,11 +101,19 @@ export default function TestimonialsShowcase({ testimonials = [] }) {
 
                           <div className="jadwa-user">
                             <div className="jadwa-avatar jadwa-avatar-dark">
-                              {getInitials(item?.name || "Client")}
+                              {getInitials(
+                                item?.name?.[lang] ??
+                                  item?.name?.en ??
+                                  "Client",
+                              )}
                             </div>
 
                             <div className="jadwa-user-meta">
-                              <h4>{item?.name || "Client"}</h4>
+                              <h4>
+                                {item?.name?.[lang] ??
+                                  item?.name?.en ??
+                                  "Client"}
+                              </h4>
                               <p>
                                 {item?.role?.[lang] || item?.role?.en || ""}
                               </p>
@@ -134,11 +143,15 @@ export default function TestimonialsShowcase({ testimonials = [] }) {
 
                       <div className="jadwa-user jadwa-user-small">
                         <div className="jadwa-avatar jadwa-avatar-light">
-                          {getInitials(item?.name || "Client")}
+                          {getInitials(
+                            item?.name?.[lang] ?? item?.name?.en ?? "Client",
+                          )}
                         </div>
 
                         <div className="jadwa-user-meta">
-                          <h4>{item?.name || "Client"}</h4>
+                          <h4>
+                            {item?.name?.[lang] ?? item?.name?.en ?? "Client"}
+                          </h4>
                           <p>{item?.role?.[lang] || item?.role?.en || ""}</p>
                         </div>
                       </div>

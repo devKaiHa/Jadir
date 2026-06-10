@@ -8,13 +8,8 @@ import { useTestimonials } from "../../hooks/useTestimonials";
 
 const AllTestimonials = () => {
   const navigate = useNavigate();
-  const {
-    testimonials,
-    isLoading,
-    error,
-    deleteTestimonial,
-    isDeleting,
-  } = useTestimonials({ limit: 100 });
+  const { testimonials, isLoading, error, deleteTestimonial, isDeleting } =
+    useTestimonials({ limit: 100 });
 
   const handleDelete = async (id) => {
     try {
@@ -60,19 +55,13 @@ const AllTestimonials = () => {
                 <tbody>
                   {testimonials.map((item) => (
                     <tr key={item._id}>
-                      <td>{item?.name || "-"}</td>
+                      <td>{item?.name?.en || item?.name?.ar || "-"}</td>
                       <td>{item?.role?.en || item?.role?.ar || "-"}</td>
-                      <td>
-                        {item?.company?.en || item?.company?.ar || "-"}
-                      </td>
+                      <td>{item?.company?.en || item?.company?.ar || "-"}</td>
                       <td>{item?.rating ?? 5}</td>
                       <td>{item?.isFeatured ? "Yes" : "No"}</td>
                       <td>
-                        <span
-                          className={`badge ${
-                            "badge-success"
-                          }`}
-                        >
+                        <span className={`badge ${"badge-success"}`}>
                           {"Active"}
                         </span>
                       </td>
@@ -104,7 +93,10 @@ const AllTestimonials = () => {
 
                   {!testimonials.length && (
                     <tr>
-                      <td colSpan={7} className="text-center py-6 text-gray-500">
+                      <td
+                        colSpan={7}
+                        className="text-center py-6 text-gray-500"
+                      >
                         No testimonials found
                       </td>
                     </tr>

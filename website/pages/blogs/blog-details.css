@@ -222,6 +222,7 @@ html[dir="rtl"] .jadwa-blog-details-content h4 {
 }
 
 .jadwa-blog-details-content p {
+  text-align: justify !important;
   margin: 0 0 1.15em;
   color: rgba(0, 2, 79, 0.64);
 }

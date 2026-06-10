@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { TextEditor } from "../../../../components/TextEditor";
 
 const BlogLangForm = ({ language, value = {}, onChange }) => {
   const [localValue, setLocalValue] = useState({
@@ -58,11 +59,20 @@ const BlogLangForm = ({ language, value = {}, onChange }) => {
               Excerpt ({language})
             </label>
             <div className="w-full bg-white">
-              <textarea
+              <TextEditor
+                language={language}
+                value={localValue.excerpt}
+                onChange={(value) => handleChange("excerpt", value)}
+                enableDirection
+                enableImage={false}
+                className={`bg-white text-black ${language === "ar" ? "rtl-editor" : ""}`}
+              />
+
+              {/* <textarea
                 value={localValue.excerpt}
                 onChange={(e) => handleChange("excerpt", e.target.value)}
                 className="input min-h-[180px] w-full p-3 bg-white text-black tracking-[1px] leading-[20px]"
-              />
+              /> */}
             </div>
           </div>
 
@@ -85,11 +95,20 @@ const BlogLangForm = ({ language, value = {}, onChange }) => {
               Content ({language})
             </label>
             <div className="w-full bg-white">
-              <textarea
+              <TextEditor
+                language={language}
+                value={localValue.content}
+                onChange={(value) => handleChange("content", value)}
+                enableDirection
+                enableImage={false}
+                className={`bg-white text-black ${language === "ar" ? "rtl-editor" : ""}`}
+              />
+
+              {/* <textarea
                 value={localValue.content}
                 onChange={(e) => handleChange("content", e.target.value)}
                 className="input min-h-[180px] w-full p-3 bg-white text-black tracking-[1px] leading-[20px]"
-              />
+              /> */}
             </div>
           </div>
         </div>

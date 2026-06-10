@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { useTranslation } from "react-i18next";
 
 export default function AboutUsSlider({ slides = [] }) {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const lang = i18n.language || "en";
   const isRtl = lang === "ar";
 
@@ -44,16 +44,20 @@ export default function AboutUsSlider({ slides = [] }) {
                 </div>
 
                 <div className="jadwa-about-slide-top">
-                  <div className="jadwa-about-slide-icon">
-                    <i
-                      className={
-                        isVision
-                          ? "fa-solid fa-binoculars"
-                          : "fa-solid fa-chart-line"
-                      }
-                    />
+                  <div className="d-flex align-items-center">
+                    <div className="jadwa-about-slide-icon">
+                      <i
+                        className={
+                          isVision
+                            ? "fa-solid fa-binoculars"
+                            : "fa-solid fa-chart-line"
+                        }
+                      />
+                    </div>
+                    <h3 className="h-auto mx-2 mb-0">
+                      {t(`our_${slide?.type}`)}
+                    </h3>
                   </div>
-
                   <span className="jadwa-about-slide-count">
                     {String(idx + 1).padStart(2, "0")}
                   </span>

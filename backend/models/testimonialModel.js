@@ -3,7 +3,7 @@ const multilingualSchema = require("./multilingualModel");
 
 const testimonialSchema = new mongoose.Schema(
   {
-    name: { type: String, default: "" },
+    name: { type: multilingualSchema },
     role: { type: multilingualSchema },
     company: { type: multilingualSchema },
     content: { type: multilingualSchema },

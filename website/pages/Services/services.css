@@ -222,6 +222,7 @@ html[dir="rtl"] .services-redesign-card-title {
 }
 
 .services-redesign-card-text {
+  text-align: justify !important;
   margin: 0;
   color: rgba(0, 2, 79, 0.62);
   font-size: 14.5px;
@@ -248,7 +249,7 @@ html[dir="rtl"] .services-redesign-card-title {
 }
 
 .services-redesign-section.rtl .services-redesign-card-footer {
-  flex-direction: row-reverse;
+  flex-direction: row;
 }
 
 .services-redesign-link {
@@ -515,6 +516,7 @@ html[dir="rtl"] .jadir-service-detail-intro {
 }
 
 .jadir-service-detail-intro h1 {
+  text-align: justify !important;
   max-width: 650px;
   margin: 0 0 20px;
   color: var(--site-navy);
@@ -529,6 +531,7 @@ html[dir="rtl"] .jadir-service-detail-intro h1 {
 }
 
 .jadir-service-detail-summary {
+  text-align: justify !important;
   max-width: 620px;
   margin: 0;
   color: rgba(0, 2, 79, 0.62);
@@ -628,6 +631,7 @@ html[dir="rtl"] .jadir-service-section-head h2 {
 .jadir-service-description-richtext,
 .jadir-service-description-richtext p,
 .jadir-service-description-richtext li {
+  text-align: justify !important;
   color: rgba(0, 2, 79, 0.62);
   font-size: 15px;
   font-weight: 500;
@@ -728,6 +732,7 @@ html[dir="rtl"] .jadir-service-section-head h2 {
 }
 
 .jadir-service-list-card li p {
+  text-align: justify !important;
   margin: 0;
   color: rgba(0, 2, 79, 0.62);
   font-size: 14px;
@@ -802,6 +807,7 @@ html[dir="rtl"] .jadir-service-section-head h2 {
 }
 
 .jadir-service-related-content p {
+  text-align: justify !important;
   margin: 0;
   color: rgba(0, 2, 79, 0.58);
   font-size: 14px;
@@ -871,7 +877,7 @@ html[dir="rtl"] .jadir-service-section-head h2 {
 }
 
 .jadir-service-detail-page.rtl .jadir-service-list-card li {
-  flex-direction: row-reverse;
+  flex-direction: row;
 }
 
 /* Responsive */

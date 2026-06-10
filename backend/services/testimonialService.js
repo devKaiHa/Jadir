@@ -40,11 +40,15 @@ exports.getTestimonials = asyncHandler(async (req, res) => {
   if (keyword?.trim()) {
     const safeKeyword = keyword.trim();
     query.$or = [
-      { name: { $regex: safeKeyword, $options: "i" } },
+      { "name.ar": { $regex: safeKeyword, $options: "i" } },
+      { "name.en": { $regex: safeKeyword, $options: "i" } },
+      { "name.tr": { $regex: safeKeyword, $options: "i" } },
       { "role.ar": { $regex: safeKeyword, $options: "i" } },
       { "role.en": { $regex: safeKeyword, $options: "i" } },
+      { "role.tr": { $regex: safeKeyword, $options: "i" } },
       { "company.ar": { $regex: safeKeyword, $options: "i" } },
       { "company.en": { $regex: safeKeyword, $options: "i" } },
+      { "company.tr": { $regex: safeKeyword, $options: "i" } },
     ];
   }
 
@@ -106,6 +110,7 @@ exports.createTestimonial = asyncHandler(async (req, res) => {
   req.body.role = safeParseJSON(req.body.role, "role");
   req.body.company = safeParseJSON(req.body.company, "company");
   req.body.content = safeParseJSON(req.body.content, "content");
+  req.body.name = safeParseJSON(req.body.name, "name");
 
   if (req.body.isFeatured !== undefined) {
     req.body.isFeatured =
@@ -128,6 +133,9 @@ exports.updateTestimonial = asyncHandler(async (req, res, next) => {
 
   if (req.body.company !== undefined) {
     req.body.company = safeParseJSON(req.body.company, "company");
+  }
+  if (req.body.name !== undefined) {
+    req.body.name = safeParseJSON(req.body.name, "name");
   }
 
   if (req.body.content !== undefined) {

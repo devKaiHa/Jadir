@@ -31,6 +31,14 @@ export const stripHtml = (html = "") => {
   return html.replace(/<[^>]*>/g, "");
 };
 
+export const truncateStripText = (text = "", maxLength = 150) => {
+  const plainText = stripHtml(text);
+
+  return plainText.length > maxLength
+    ? plainText.slice(0, maxLength) + "..."
+    : plainText;
+};
+
 export const formatNumberSuff = (num, options = {}) => {
   const { decimals = 1 } = options;
 

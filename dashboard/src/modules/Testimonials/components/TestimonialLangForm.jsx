@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 
 const TestimonialLangForm = ({
   language,
+  nameValue = "",
   roleValue = "",
   companyValue = "",
   contentValue = "",
   onLangChange,
 }) => {
   const [localState, setLocalState] = useState({
+    name: nameValue || "",
     role: roleValue || "",
     company: companyValue || "",
     content: contentValue || "",
@@ -30,6 +32,22 @@ const TestimonialLangForm = ({
     <div className="card-table scrollable-x-auto pb-3">
       <table className="table-auto w-full text-sm text-gray-600">
         <tbody>
+          <tr>
+            <td className="p-2 pt-4">
+              <div className="input-group">
+                <span className="btn btn-input w-[20%] capitalize">
+                  Name ({language})
+                </span>
+                <input
+                  type="text"
+                  className="input"
+                  value={localState.name}
+                  onChange={(e) => handleChange("name", e.target.value)}
+                />
+              </div>
+            </td>
+          </tr>
+
           <tr>
             <td className="p-2 pt-4">
               <div className="input-group">
