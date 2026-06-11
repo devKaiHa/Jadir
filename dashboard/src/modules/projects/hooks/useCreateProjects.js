@@ -6,6 +6,7 @@ import { useProjects } from "../../hooks/useProjects";
 const emptyLangState = {
   en: "",
   ar: "",
+  tr: "",
 };
 
 const useCreateProject = () => {

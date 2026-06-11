@@ -18,9 +18,12 @@ const OurServiceGeneralInfoTab = ({
       <div className="space-y-6">
         <div className="rounded-3xl border border-gray-200 bg-white p-5 shadow-sm">
           <div className="mb-5">
-            <h3 className="text-lg font-semibold text-gray-900">Service Settings</h3>
+            <h3 className="text-lg font-semibold text-gray-900">
+              Service Settings
+            </h3>
             <p className="mt-1 text-sm text-gray-500">
-              Control visibility, ordering, and linked content for this service page.
+              Control visibility, ordering, and linked content for this service
+              page.
             </p>
           </div>
 
@@ -41,9 +44,12 @@ const OurServiceGeneralInfoTab = ({
 
         <div className="rounded-3xl border border-gray-200 bg-white p-5 shadow-sm">
           <div className="mb-5">
-            <h3 className="text-lg font-semibold text-gray-900">Relationships</h3>
+            <h3 className="text-lg font-semibold text-gray-900">
+              Relationships
+            </h3>
             <p className="mt-1 text-sm text-gray-500">
-              Connect this service to related projects and supporting service pages.
+              Connect this service to related projects and supporting service
+              pages.
             </p>
           </div>
 
@@ -78,7 +84,9 @@ const OurServiceGeneralInfoTab = ({
       <div className="space-y-6">
         <div className="rounded-3xl border border-gray-200 bg-white p-5 shadow-sm">
           <div className="mb-4">
-            <h3 className="text-lg font-semibold text-gray-900">Banner Image</h3>
+            <h3 className="text-lg font-semibold text-gray-900">
+              Banner Image
+            </h3>
             <p className="mt-1 text-sm text-gray-500">
               Upload the banner used across service pages.
             </p>

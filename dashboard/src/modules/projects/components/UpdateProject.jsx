@@ -50,7 +50,7 @@ const UpdateProject = () => {
         />
       ),
     },
-    ...["en", "ar"].map((lang) => ({
+    ...["en", "ar", "tr"].map((lang) => ({
       key: `project_${lang}`,
       label: `Project ${lang.toUpperCase()}`,
       icon: "ki-outline ki-clipboard",

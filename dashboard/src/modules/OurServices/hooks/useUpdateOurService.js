@@ -8,6 +8,7 @@ import { imageURL } from "../../../Api/GlobalData";
 const emptyLangState = {
   en: "",
   ar: "",
+  tr: "",
 };
 
 const createEmptyTestimonial = () => ({
@@ -21,16 +22,19 @@ const useUpdateOurService = () => {
   const { id } = useParams();
 
   const { service, isLoading, error } = useOneOurService(id);
-  const { updateOurService, isUpdating, services } = useOurServices({ limit: 100 });
+  const { updateOurService, isUpdating, services } = useOurServices({
+    limit: 100,
+  });
   const { projects } = useProjects({ limit: 100 });
 
   const [title, setTitle] = useState({ ...emptyLangState });
   const [description, setDescription] = useState({ ...emptyLangState });
-  const [features, setFeatures] = useState({ en: [], ar: [] });
-  const [steps, setSteps] = useState({ en: [], ar: [] });
+  const [features, setFeatures] = useState({ en: [], ar: [], tr: [] });
+  const [steps, setSteps] = useState({ en: [], ar: [], tr: [] });
   const [targetingSectors, setTargetingSectors] = useState({
     en: [],
     ar: [],
+    tr: [],
   });
   const [testimonials, setTestimonials] = useState([]);
   const [order, setOrder] = useState(0);
@@ -45,23 +49,28 @@ const useUpdateOurService = () => {
     setTitle({
       en: service?.title?.en || "",
       ar: service?.title?.ar || "",
+      tr: service?.title?.tr || "",
     });
 
     setDescription({
       en: service?.description?.en || "",
       ar: service?.description?.ar || "",
+      tr: service?.description?.tr || "",
     });
     setFeatures({
       en: service?.features?.en || [],
       ar: service?.features?.ar || [],
+      tr: service?.features?.tr || [],
     });
     setSteps({
       en: service?.steps?.en || [],
       ar: service?.steps?.ar || [],
+      tr: service?.steps?.tr || [],
     });
     setTargetingSectors({
       en: service?.targetingSectors?.en || [],
       ar: service?.targetingSectors?.ar || [],
+      tr: service?.targetingSectors?.tr || [],
     });
     const serviceTestimonials = Array.isArray(service?.testimonials)
       ? service.testimonials
@@ -74,24 +83,31 @@ const useUpdateOurService = () => {
         clientName: {
           en: item?.clientName?.en || "",
           ar: item?.clientName?.ar || "",
+          tr: item?.clientName?.tr || "",
         },
         clientRole: {
           en: item?.clientRole?.en || "",
           ar: item?.clientRole?.ar || "",
+          tr: item?.clientRole?.tr || "",
         },
         quote: {
           en: item?.quote?.en || "",
           ar: item?.quote?.ar || "",
+          tr: item?.quote?.tr || "",
         },
       })),
     );
     setOrder(service?.order || 0);
     setRelatedProjects(service?.relatedProjects || []);
     setRelatedServices(
-      (service?.relatedServices || []).filter((item) => item?._id !== service?._id),
+      (service?.relatedServices || []).filter(
+        (item) => item?._id !== service?._id,
+      ),
     );
     setImagePreview(
-      service?.bannerImage ? `${imageURL}/ourServices/${service.bannerImage}` : null,
+      service?.bannerImage
+        ? `${imageURL}/ourServices/${service.bannerImage}`
+        : null,
     );
     setImageFile(null);
   }, [service]);
@@ -121,7 +137,9 @@ const useUpdateOurService = () => {
   };
 
   const removeTestimonial = (index) => {
-    setTestimonials((prev) => prev.filter((_, itemIndex) => itemIndex !== index));
+    setTestimonials((prev) =>
+      prev.filter((_, itemIndex) => itemIndex !== index),
+    );
   };
 
   const handleTestimonialFieldChange = (index, field, lang, value) => {
@@ -146,7 +164,9 @@ const useUpdateOurService = () => {
     } else {
       setImageFile(null);
       setImagePreview(
-        service?.bannerImage ? `${imageURL}/ourServices/${service.bannerImage}` : null,
+        service?.bannerImage
+          ? `${imageURL}/ourServices/${service.bannerImage}`
+          : null,
       );
     }
   };

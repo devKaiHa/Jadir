@@ -67,7 +67,7 @@ const EditAboutHome = () => {
     //     />
     //   ),
     // },
-    ...["en", "ar"].map((lang) => ({
+    ...["en", "ar", "tr"].map((lang) => ({
       key: `about_home_${lang}`,
       label: `About Home ${lang.toUpperCase()}`,
       icon: "ki-outline ki-clipboard",

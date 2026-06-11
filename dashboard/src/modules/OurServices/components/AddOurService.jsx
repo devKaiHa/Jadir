@@ -55,7 +55,7 @@ const AddOurService = () => {
         />
       ),
     },
-    ...["en", "ar"].map((lang) => ({
+    ...["en", "ar", "tr"].map((lang) => ({
       key: `service_${lang}`,
       label: `Service ${lang.toUpperCase()}`,
       icon: "ki-outline ki-clipboard",

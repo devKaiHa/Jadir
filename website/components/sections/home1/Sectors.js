@@ -15,30 +15,43 @@ export default function Sectors({ values = [] }) {
     .filter((item) => item?.isActive !== false)
     .sort((a, b) => (a?.order || 0) - (b?.order || 0));
 
-  const icons = {
-    Transparency: "fa-solid fa-chart-line",
-    Independence: "fa-solid fa-shield-halved",
-    "Practical Impact": "fa-solid fa-bullseye",
-    "Responsible Innovation": "fa-solid fa-flask",
-    Commitment: "fa-solid fa-handshake",
-    Collaboration: "fa-solid fa-users",
-    الشفافية: "fa-solid fa-chart-line",
-    الاستقلالية: "fa-solid fa-shield-halved",
-    "الأثر العملي": "fa-solid fa-bullseye",
-    "الابتكار المسؤول": "fa-solid fa-flask",
-    الالتزام: "fa-solid fa-handshake",
-    التعاون: "fa-solid fa-users",
-    Şeffaflık: "fa-solid fa-chart-line",
-    Bağımsızlık: "fa-solid fa-shield-halved",
-    "Pratik Etki": "fa-solid fa-bullseye",
-    "Sorumlu İnovasyon": "fa-solid fa-flask",
-    Bağlılık: "fa-solid fa-handshake",
-    "İş Birliği": "fa-solid fa-users",
-  };
+  const iconRules = [
+    {
+      keywords: ["transparency", "clear", "trust", "seffaf"],
+      icon: "fa-solid fa-chart-line",
+    },
+    {
+      keywords: ["independence", "independent", "bagimsiz"],
+      icon: "fa-solid fa-shield-halved",
+    },
+    {
+      keywords: ["impact", "goal", "target", "etki"],
+      icon: "fa-solid fa-bullseye",
+    },
+    {
+      keywords: ["innovation", "innovative", "inovasyon"],
+      icon: "fa-solid fa-flask",
+    },
+    {
+      keywords: ["commitment", "dedication", "baglilik"],
+      icon: "fa-solid fa-handshake",
+    },
+    {
+      keywords: ["collaboration", "team", "partnership", "birligi"],
+      icon: "fa-solid fa-users",
+    },
+  ];
 
   const getText = (field) =>
     field?.[lang] || field?.en || field?.ar || field?.tr || "";
 
+  const getIconClass = (name, index) => {
+    const matchedRule = iconRules.find((rule) =>
+      rule.keywords.some((keyword) => name.includes(keyword)),
+    );
+
+    return matchedRule?.icon || fallbackIcons[index % fallbackIcons.length];
+  };
   if (!items.length) {
     return (
       <section className="jadwa-values-section sec-pad">
@@ -91,7 +104,6 @@ export default function Sectors({ values = [] }) {
             const name = getText(item?.name);
             const content = getText(item?.content);
             const description = getText(item?.description);
-            const iconClass = icons[name] || "fa-solid fa-star";
 
             return (
               <SwiperSlide key={item?._id || index}>
@@ -100,7 +112,7 @@ export default function Sectors({ values = [] }) {
 
                   <div className="jadwa-values-slide-top">
                     <div className="jadwa-values-icon">
-                      <i className={iconClass} />
+                      <i className={getIconClass(name, index)} />
                     </div>
 
                     <div className="jadwa-values-counter">

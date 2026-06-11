@@ -5,8 +5,10 @@ import {
   getProjectBySlug,
   getWebsiteData,
   localize,
+  truncate,
 } from "@/components/website/websiteUtils";
 import { useTranslation } from "react-i18next";
+import parse from "html-react-parser";
 
 const blockLabels = {
   en: {
@@ -65,7 +67,7 @@ export default function ProjectDetailsPage({ project }) {
   const image = asset(
     "projects",
     project?.image,
-    "/assets/images/project/project-5.jpg"
+    "/assets/images/project/project-5.jpg",
   );
 
   const blocks = [
@@ -108,10 +110,9 @@ export default function ProjectDetailsPage({ project }) {
               <h1>{title}</h1>
 
               {brief && (
-                <div
-                  className="jadir-project-detail-brief"
-                  dangerouslySetInnerHTML={{ __html: brief }}
-                />
+                <div className="jadir-project-detail-brief">
+                  {parse(truncate(brief, 300))}
+                </div>
               )}
 
               <Link href="/projects" className="jadir-project-detail-back">

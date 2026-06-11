@@ -1,3 +1,4 @@
+import { stripHtml } from "@/components/website/websiteUtils";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 
@@ -30,8 +31,8 @@ const AboutService = ({ data = [], length = 3 }) => {
             {lang === "ar"
               ? "حلول وخدمات مصممة لدعم النمو، ورفع الكفاءة، وتقديم قيمة حقيقية للعملاء."
               : lang === "tr"
-              ? "Büyümeyi desteklemek, verimliliği artırmak ve müşterilere gerçek değer sunmak için tasarlanmış hizmetler."
-              : "Purpose-built services designed to support growth, improve efficiency, and deliver real value to clients."}
+                ? "Büyümeyi desteklemek, verimliliği artırmak ve müşterilere gerçek değer sunmak için tasarlanmış hizmetler."
+                : "Purpose-built services designed to support growth, improve efficiency, and deliver real value to clients."}
           </p>
         </div>
 
@@ -59,8 +60,8 @@ const AboutService = ({ data = [], length = 3 }) => {
                       {lang === "ar"
                         ? "خدمة"
                         : lang === "tr"
-                        ? "Hizmet"
-                        : "Service"}
+                          ? "Hizmet"
+                          : "Service"}
                     </div>
                   </div>
 
@@ -69,7 +70,9 @@ const AboutService = ({ data = [], length = 3 }) => {
                       <Link href={href}>{title}</Link>
                     </h3>
 
-                    <p className="services-redesign-card-text">{description}</p>
+                    <p className="services-redesign-card-text">
+                      {stripHtml(description)}
+                    </p>
                   </div>
 
                   <div className="services-redesign-card-footer">
@@ -78,8 +81,8 @@ const AboutService = ({ data = [], length = 3 }) => {
                         {lang === "ar"
                           ? "تفاصيل الخدمة"
                           : lang === "tr"
-                          ? "Hizmet Detayları"
-                          : "Service Details"}
+                            ? "Hizmet Detayları"
+                            : "Service Details"}
                       </span>
                       <i
                         className={`services-redesign-arrow ${

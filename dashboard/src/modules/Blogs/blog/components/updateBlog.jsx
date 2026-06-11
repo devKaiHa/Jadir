@@ -14,16 +14,18 @@ const buildTagsByLanguage = (tags = []) => {
   return {
     en: tags.map((tag) => tag?.en || "").filter(Boolean),
     ar: tags.map((tag) => tag?.ar || "").filter(Boolean),
+    tr: tags.map((tag) => tag?.tr || "").filter(Boolean),
   };
 };
 
-const buildMultilingualTags = (tagsEN = [], tagsAR = []) => {
-  const maxLength = Math.max(tagsEN.length, tagsAR.length);
+const buildMultilingualTags = (tagsEN = [], tagsAR = [], tagsTR = []) => {
+  const maxLength = Math.max(tagsEN.length, tagsAR.length, tagsTR.length);
 
   return Array.from({ length: maxLength }, (_, index) => ({
     en: tagsEN[index] || "",
     ar: tagsAR[index] || "",
-  })).filter((tag) => tag.en || tag.ar);
+    tr: tagsAR[index] || "",
+  })).filter((tag) => tag.en || tag.ar || tag.tr);
 };
 
 const UpdateBlog = () => {
@@ -40,6 +42,7 @@ const UpdateBlog = () => {
 
   const [tagsEN, setTagsEN] = useState([]);
   const [tagsAR, setTagsAR] = useState([]);
+  const [tagsTR, setTagsTR] = useState([]);
 
   const [coverImage, setCoverImage] = useState(null);
   const [coverPreview, setCoverPreview] = useState(null);
@@ -50,6 +53,7 @@ const UpdateBlog = () => {
   const [blogData, setBlogData] = useState({
     en: { title: "", excerpt: "", authorRole: "", content: "" },
     ar: { title: "", excerpt: "", authorRole: "", content: "" },
+    tr: { title: "", excerpt: "", authorRole: "", content: "" },
   });
 
   useEffect(() => {
@@ -64,6 +68,7 @@ const UpdateBlog = () => {
 
     setTagsEN(tagsByLang.en);
     setTagsAR(tagsByLang.ar);
+    setTagsTR(tagsByLang.tr);
 
     setCoverPreview(blog.image || null);
     setCoverImage(null);
@@ -87,6 +92,12 @@ const UpdateBlog = () => {
         excerpt: blog.excerpt?.ar || "",
         authorRole: blog.author?.role?.ar || "",
         content: blog.content?.ar || "",
+      },
+      tr: {
+        title: blog.title?.tr || "",
+        excerpt: blog.excerpt?.tr || "",
+        authorRole: blog.author?.role?.tr || "",
+        content: blog.content?.tr || "",
       },
     });
   }, [blog]);
@@ -128,21 +139,25 @@ const UpdateBlog = () => {
       const title = {
         en: blogData.en?.title || "",
         ar: blogData.ar?.title || "",
+        tr: blogData.tr?.title || "",
       };
 
       const content = {
         en: blogData.en?.content || "",
         ar: blogData.ar?.content || "",
+        tr: blogData.tr?.content || "",
       };
       const excerpt = {
         en: blogData.en?.excerpt || "",
         ar: blogData.ar?.excerpt || "",
+        tr: blogData.tr?.excerpt || "",
       };
       const author = {
         name: authorName || "",
         role: {
           en: blogData.en?.authorRole || "",
           ar: blogData.ar?.authorRole || "",
+          tr: blogData.tr?.authorRole || "",
         },
       };
 
@@ -214,6 +229,8 @@ const UpdateBlog = () => {
           setTagsEN={setTagsEN}
           tagsAR={tagsAR}
           setTagsAR={setTagsAR}
+          tagsTR={tagsTR}
+          setTagsTR={setTagsTR}
           coverPreview={coverPreview}
           onCoverChange={handleCoverChange}
           thumbnailPreviews={thumbnailPreviews}
@@ -221,7 +238,7 @@ const UpdateBlog = () => {
         />
       ),
     },
-    ...["en", "ar"].map((lang) => ({
+    ...["en", "ar", "tr"].map((lang) => ({
       key: `Blog_${lang}`,
       label: `Blog ${lang.toUpperCase()}`,
       icon: "ki-outline ki-clipboard",

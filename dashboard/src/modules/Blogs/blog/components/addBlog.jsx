@@ -21,6 +21,8 @@ const AddBlog = () => {
     setTagsEN,
     tagsAR,
     setTagsAR,
+    tagsTR,
+    setTagsTR,
     coverPreview,
     onCoverChange,
     thumbnailPreviews,
@@ -49,6 +51,8 @@ const AddBlog = () => {
           setTagsEN={setTagsEN}
           tagsAR={tagsAR}
           setTagsAR={setTagsAR}
+          tagsTR={tagsTR}
+          setTagsTR={setTagsTR}
           coverPreview={coverPreview}
           onCoverChange={onCoverChange}
           thumbnailPreviews={thumbnailPreviews}
@@ -76,6 +80,18 @@ const AddBlog = () => {
         <BlogLangForm
           language="ar"
           value={blogData.ar}
+          onChange={handleLangChange}
+        />
+      ),
+    },
+    {
+      key: "Blog_tr",
+      label: "Blog TR",
+      icon: "ki-outline ki-clipboard",
+      content: (
+        <BlogLangForm
+          language="tr"
+          value={blogData.tr}
           onChange={handleLangChange}
         />
       ),

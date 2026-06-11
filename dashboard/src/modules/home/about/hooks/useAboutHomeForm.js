@@ -5,6 +5,7 @@ import useAboutHome from "../../../hooks/useAboutHome";
 const emptyLangState = {
   en: "",
   ar: "",
+  tr: "",
 };
 
 const useAboutHomeForm = () => {
@@ -33,41 +34,49 @@ const useAboutHomeForm = () => {
     setContent({
       en: aboutHome?.content?.en || "",
       ar: aboutHome?.content?.ar || "",
+      tr: aboutHome?.content?.tr || "",
     });
 
     setVision({
       en: aboutHome?.vision?.en || "",
       ar: aboutHome?.vision?.ar || "",
+      tr: aboutHome?.vision?.tr || "",
     });
 
     setVisionDescription({
       en: aboutHome?.visionDescription?.en || "",
       ar: aboutHome?.visionDescription?.ar || "",
+      tr: aboutHome?.visionDescription?.tr || "",
     });
 
     setMessage({
       en: aboutHome?.message?.en || "",
       ar: aboutHome?.message?.ar || "",
+      tr: aboutHome?.message?.tr || "",
     });
 
     setMessageDescription({
       en: aboutHome?.messageDescription?.en || "",
       ar: aboutHome?.messageDescription?.ar || "",
+      tr: aboutHome?.messageDescription?.tr || "",
     });
 
     setBusinessApproach({
       en: aboutHome?.businessApproach?.en || "",
       ar: aboutHome?.businessApproach?.ar || "",
+      tr: aboutHome?.businessApproach?.tr || "",
     });
 
     setWhyUs({
       en: aboutHome?.whyUs?.en || "",
       ar: aboutHome?.whyUs?.ar || "",
+      tr: aboutHome?.whyUs?.tr || "",
     });
 
     setWhoWeServe({
       en: aboutHome?.whoWeServe?.en || "",
       ar: aboutHome?.whoWeServe?.ar || "",
+      tr: aboutHome?.whoWeServe?.tr || "",
     });
   }, [aboutHome]);
 

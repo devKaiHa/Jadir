@@ -14,6 +14,8 @@ const GeneralInfoTab = ({
   setTagsEN,
   tagsAR,
   setTagsAR,
+  tagsTR,
+  setTagsTR,
   coverPreview,
   onCoverChange,
   thumbnailPreviews,
@@ -43,14 +45,16 @@ const GeneralInfoTab = ({
   const [tagsInput, setTagsInput] = useState({
     en: (tagsEN || []).join(", "),
     ar: (tagsAR || []).join(", "),
+    tr: (tagsTR || []).join(", "),
   });
 
   useEffect(() => {
     setTagsInput({
       en: (tagsEN || []).join(", "),
       ar: (tagsAR || []).join(", "),
+      tr: (tagsTR || []).join(", "),
     });
-  }, [tagsEN, tagsAR]);
+  }, [tagsEN, tagsAR, tagsTR]);
 
   const handleTagsBlur = (lang) => {
     const tagsArray = (tagsInput[lang] || "")
@@ -60,6 +64,7 @@ const GeneralInfoTab = ({
 
     if (lang === "en") setTagsEN(tagsArray);
     if (lang === "ar") setTagsAR(tagsArray);
+    if (lang === "tr") setTagsTR(tagsArray);
   };
 
   return (
@@ -68,9 +73,12 @@ const GeneralInfoTab = ({
         <div className="space-y-6">
           <div className="rounded-3xl border border-gray-200 bg-white p-5 shadow-sm">
             <div className="mb-5">
-              <h3 className="text-lg font-semibold text-gray-900">Publishing Setup</h3>
+              <h3 className="text-lg font-semibold text-gray-900">
+                Publishing Setup
+              </h3>
               <p className="mt-1 text-sm text-gray-500">
-                Assign the post to a category, control the publish state, and define the author.
+                Assign the post to a category, control the publish state, and
+                define the author.
               </p>
             </div>
 
@@ -134,12 +142,13 @@ const GeneralInfoTab = ({
             <div className="mb-5">
               <h3 className="text-lg font-semibold text-gray-900">Tags</h3>
               <p className="mt-1 text-sm text-gray-500">
-                Add comma-separated tags for each language to improve organization and discovery.
+                Add comma-separated tags for each language to improve
+                organization and discovery.
               </p>
             </div>
 
             <div className="grid gap-4 xl:grid-cols-2">
-              {["en", "ar"].map((lang) => (
+              {["en", "ar", "tr"].map((lang) => (
                 <div
                   key={lang}
                   className="rounded-2xl border border-gray-200 bg-gray-50 p-4"
@@ -174,9 +183,12 @@ const GeneralInfoTab = ({
 
           <div className="rounded-3xl border border-gray-200 bg-white p-5 shadow-sm">
             <div className="mb-5">
-              <h3 className="text-lg font-semibold text-gray-900">Related Posts</h3>
+              <h3 className="text-lg font-semibold text-gray-900">
+                Related Posts
+              </h3>
               <p className="mt-1 text-sm text-gray-500">
-                Connect supporting or follow-up posts so readers can navigate across related content.
+                Connect supporting or follow-up posts so readers can navigate
+                across related content.
               </p>
             </div>
 
@@ -203,7 +215,9 @@ const GeneralInfoTab = ({
         <div className="space-y-6">
           <div className="rounded-3xl border border-gray-200 bg-white p-5 shadow-sm">
             <div className="mb-4">
-              <h3 className="text-lg font-semibold text-gray-900">Cover Image</h3>
+              <h3 className="text-lg font-semibold text-gray-900">
+                Cover Image
+              </h3>
               <p className="mt-1 text-sm text-gray-500">
                 Main visual for the blog page and article header.
               </p>
@@ -222,7 +236,9 @@ const GeneralInfoTab = ({
 
           <div className="rounded-3xl border border-gray-200 bg-white p-5 shadow-sm">
             <div className="mb-4">
-              <h3 className="text-lg font-semibold text-gray-900">Thumbnail Image</h3>
+              <h3 className="text-lg font-semibold text-gray-900">
+                Thumbnail Image
+              </h3>
               <p className="mt-1 text-sm text-gray-500">
                 Compact visual used in listings and cards.
               </p>
@@ -250,7 +266,9 @@ const GeneralInfoTab = ({
                       </span>
                       <button
                         type="button"
-                        onClick={() => onThumbnailsChange({ target: { files: [] } })}
+                        onClick={() =>
+                          onThumbnailsChange({ target: { files: [] } })
+                        }
                         className="text-red-500 hover:text-red-700 font-bold"
                       >
                         x
@@ -259,7 +277,9 @@ const GeneralInfoTab = ({
                   ))}
                 </ul>
               ) : (
-                <div className="text-sm text-gray-500">No thumbnail selected yet.</div>
+                <div className="text-sm text-gray-500">
+                  No thumbnail selected yet.
+                </div>
               )}
             </div>
           </div>

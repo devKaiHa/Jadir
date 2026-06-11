@@ -3,6 +3,7 @@
 import AboutUsSlider from "@/components/slider/AboutUsSlider";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
+import parse from "html-react-parser";
 
 export default function About({ aboutUs = [], ishomePage = false }) {
   const { i18n, t } = useTranslation();
@@ -57,9 +58,7 @@ export default function About({ aboutUs = [], ishomePage = false }) {
 
             <div className="jadwa-section-line" />
 
-            <div className="jadwa-about-text">
-              <p>{content}</p>
-            </div>
+            <div className="jadwa-about-text">{parse(content)}</div>
 
             {ishomePage && (
               <div className="jadwa-about-actions">

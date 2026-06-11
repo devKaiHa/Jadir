@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { TextEditor } from "../../../../components/TextEditor";
 
 const AboutHomeLangForm = ({
   language,
@@ -78,11 +79,12 @@ const AboutHomeLangForm = ({
                 <span className="btn btn-input w-[25%] capitalize">
                   Content ({language})
                 </span>
-                <textarea
+                <TextEditor
+                  language={language}
                   value={localState.content}
-                  onChange={(e) => handleChange("content", e.target.value)}
+                  onChange={(value) => handleChange("content", value)}
                   placeholder={`Enter content in ${language.toUpperCase()}`}
-                  className="input min-h-[180px] w-full tracking-[1px] leading-[20px]"
+                  className="bg-white text-black min-h-[180px] w-full pb-[3rem]"
                 />
               </div>
             </td>
@@ -111,13 +113,12 @@ const AboutHomeLangForm = ({
                 <span className="btn btn-input w-[25%] capitalize">
                   Vision Description ({language})
                 </span>
-                <textarea
+                <TextEditor
+                  language={language}
                   value={localState.visionDescription}
-                  onChange={(e) =>
-                    handleChange("visionDescription", e.target.value)
-                  }
+                  onChange={(value) => handleChange("visionDescription", value)}
                   placeholder={`Enter vision description in ${language.toUpperCase()}`}
-                  className="input min-h-[180px] w-full tracking-[1px] leading-[20px]"
+                  className="bg-white text-black min-h-[180px] w-full pb-[3rem]"
                 />
               </div>
             </td>
@@ -146,13 +147,14 @@ const AboutHomeLangForm = ({
                 <span className="btn btn-input w-[25%] capitalize">
                   Message Description ({language})
                 </span>
-                <textarea
+                <TextEditor
+                  language={language}
                   value={localState.messageDescription}
-                  onChange={(e) =>
-                    handleChange("messageDescription", e.target.value)
+                  onChange={(value) =>
+                    handleChange("messageDescription", value)
                   }
                   placeholder={`Enter message description in ${language.toUpperCase()}`}
-                  className="input min-h-[180px] w-full tracking-[1px] leading-[20px]"
+                  className="bg-white text-black min-h-[180px] w-full pb-[3rem]"
                 />
               </div>
             </td>
@@ -164,13 +166,12 @@ const AboutHomeLangForm = ({
                 <span className="btn btn-input w-[25%] capitalize">
                   Business Approach ({language})
                 </span>
-                <textarea
+                <TextEditor
+                  language={language}
                   value={localState.businessApproach}
-                  onChange={(e) =>
-                    handleChange("businessApproach", e.target.value)
-                  }
+                  onChange={(value) => handleChange("businessApproach", value)}
                   placeholder={`Enter business approach in ${language.toUpperCase()}`}
-                  className="input min-h-[180px] w-full tracking-[1px] leading-[20px]"
+                  className="bg-white text-black min-h-[180px] w-full pb-[3rem]"
                 />
               </div>
             </td>
@@ -182,11 +183,12 @@ const AboutHomeLangForm = ({
                 <span className="btn btn-input w-[25%] capitalize">
                   Why Us ({language})
                 </span>
-                <textarea
+                <TextEditor
+                  language={language}
                   value={localState.whyUs}
-                  onChange={(e) => handleChange("whyUs", e.target.value)}
+                  onChange={(value) => handleChange("whyUs", value)}
                   placeholder={`Enter why us in ${language.toUpperCase()}`}
-                  className="input min-h-[180px] w-full tracking-[1px] leading-[20px]"
+                  className="bg-white text-black min-h-[180px] w-full pb-[3rem]"
                 />
               </div>
             </td>
@@ -198,11 +200,12 @@ const AboutHomeLangForm = ({
                 <span className="btn btn-input w-[25%] capitalize">
                   Who we serve ({language})
                 </span>
-                <textarea
+                <TextEditor
+                  language={language}
                   value={localState.whoWeServe}
-                  onChange={(e) => handleChange("whoWeServe", e.target.value)}
+                  onChange={(value) => handleChange("whoWeServe", value)}
                   placeholder={`Enter who we serve in ${language.toUpperCase()}`}
-                  className="input min-h-[180px] w-full tracking-[1px] leading-[20px]"
+                  className="bg-white text-black min-h-[180px] w-full pb-[3rem]"
                 />
               </div>
             </td>

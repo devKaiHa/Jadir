@@ -7,6 +7,7 @@ import { imageURL } from "../../../Api/GlobalData";
 const emptyLangState = {
   en: "",
   ar: "",
+  tr: "",
 };
 
 const useUpdateProject = () => {
@@ -33,26 +34,31 @@ const useUpdateProject = () => {
     setTitle({
       en: project?.title?.en || "",
       ar: project?.title?.ar || "",
+      tr: project?.title?.tr || "",
     });
 
     setBrief({
       en: project?.brief?.en || "",
       ar: project?.brief?.ar || "",
+      tr: project?.brief?.tr || "",
     });
 
     setChallenge({
       en: project?.challenge?.en || "",
       ar: project?.challenge?.ar || "",
+      tr: project?.challenge?.tr || "",
     });
 
     setSolution({
       en: project?.solution?.en || "",
       ar: project?.solution?.ar || "",
+      tr: project?.solution?.tr || "",
     });
 
     setResult({
       en: project?.result?.en || "",
       ar: project?.result?.ar || "",
+      tr: project?.result?.tr || "",
     });
 
     setProjectLink(project?.projectLink || "");

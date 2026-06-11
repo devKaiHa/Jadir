@@ -7,6 +7,7 @@ import { useProjects } from "../../hooks/useProjects";
 const emptyLangState = {
   en: "",
   ar: "",
+  tr: "",
 };
 
 const createEmptyTestimonial = () => ({
@@ -17,7 +18,9 @@ const createEmptyTestimonial = () => ({
 
 const useCreateOurService = () => {
   const navigate = useNavigate();
-  const { postOurService, isPosting, services } = useOurServices({ limit: 100 });
+  const { postOurService, isPosting, services } = useOurServices({
+    limit: 100,
+  });
   const { projects } = useProjects({ limit: 100 });
 
   const [title, setTitle] = useState({ ...emptyLangState });
@@ -25,14 +28,17 @@ const useCreateOurService = () => {
   const [features, setFeatures] = useState({
     en: [],
     ar: [],
+    tr: [],
   });
   const [steps, setSteps] = useState({
     en: [],
     ar: [],
+    tr: [],
   });
   const [targetingSectors, setTargetingSectors] = useState({
     en: [],
     ar: [],
+    tr: [],
   });
   const [testimonials, setTestimonials] = useState([]);
   const [order, setOrder] = useState(0);
@@ -66,7 +72,9 @@ const useCreateOurService = () => {
   };
 
   const removeTestimonial = (index) => {
-    setTestimonials((prev) => prev.filter((_, itemIndex) => itemIndex !== index));
+    setTestimonials((prev) =>
+      prev.filter((_, itemIndex) => itemIndex !== index),
+    );
   };
 
   const handleTestimonialFieldChange = (index, field, lang, value) => {

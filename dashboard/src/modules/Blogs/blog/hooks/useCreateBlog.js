@@ -19,6 +19,7 @@ export const useCreateBlog = () => {
   const [blogData, setBlogData] = useState({
     en: { title: "", excerpt: "", authorRole: "", content: "" },
     ar: { title: "", excerpt: "", authorRole: "", content: "" },
+    tr: { title: "", excerpt: "", authorRole: "", content: "" },
   });
 
   const [category, setCategory] = useState("");
@@ -28,6 +29,7 @@ export const useCreateBlog = () => {
 
   const [tagsEN, setTagsEN] = useState([]);
   const [tagsAR, setTagsAR] = useState([]);
+  const [tagsTR, setTagsTR] = useState([]);
 
   const [coverImage, setCoverImage] = useState(null);
   const [coverPreview, setCoverPreview] = useState(null);
@@ -39,6 +41,7 @@ export const useCreateBlog = () => {
     setBlogData({
       en: { title: "", excerpt: "", authorRole: "", content: "" },
       ar: { title: "", excerpt: "", authorRole: "", content: "" },
+      tr: { title: "", excerpt: "", authorRole: "", content: "" },
     });
     setCategory("");
     setPublished(false);
@@ -46,6 +49,7 @@ export const useCreateBlog = () => {
     setRelatedPosts([]);
     setTagsEN([]);
     setTagsAR([]);
+    setTagsTR([]);
     setCoverImage(null);
     setCoverPreview(null);
     setThumbnailFile(null);
@@ -83,21 +87,25 @@ export const useCreateBlog = () => {
       const title = {
         en: blogData.en?.title || "",
         ar: blogData.ar?.title || "",
+        tr: blogData.tr?.title || "",
       };
 
       const content = {
         en: blogData.en?.content || "",
         ar: blogData.ar?.content || "",
+        tr: blogData.tr?.content || "",
       };
       const excerpt = {
         en: blogData.en?.excerpt || "",
         ar: blogData.ar?.excerpt || "",
+        tr: blogData.tr?.excerpt || "",
       };
       const author = {
         name: authorName || "",
         role: {
           en: blogData.en?.authorRole || "",
           ar: blogData.ar?.authorRole || "",
+          tr: blogData.tr?.authorRole || "",
         },
       };
 
@@ -162,6 +170,8 @@ export const useCreateBlog = () => {
     setTagsEN,
     tagsAR,
     setTagsAR,
+    tagsTR,
+    setTagsTR,
 
     coverPreview,
     onCoverChange,

@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { TextEditor } from "../../../components/TextEditor";
 
 const toTextareaValue = (value) =>
   Array.isArray(value) ? value.filter(Boolean).join("\n") : "";
@@ -6,7 +7,7 @@ const toTextareaValue = (value) =>
 const fromTextareaValue = (value) => value.split("\n");
 
 const getLocalizedValue = (value = {}, language = "en") =>
-  value?.[language] || value?.en || value?.ar || "";
+  value?.[language] || value?.en || value?.ar || value?.tr || "";
 
 const TestimonialModal = ({
   isOpen,
@@ -131,7 +132,9 @@ const OurServiceLangForm = ({
   ]);
 
   const activeTestimonial =
-    activeTestimonialIndex !== null ? testimonialsValue[activeTestimonialIndex] : null;
+    activeTestimonialIndex !== null
+      ? testimonialsValue[activeTestimonialIndex]
+      : null;
 
   const testimonialSummary = useMemo(
     () =>
@@ -189,11 +192,12 @@ const OurServiceLangForm = ({
             <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.18em] text-gray-400">
               Description ({language})
             </label>
-            <textarea
+            <TextEditor
+              language={language}
               value={localState.description}
-              onChange={(e) => handleChange("description", e.target.value)}
+              onChange={(value) => handleChange("description", value)}
               placeholder={`Enter description in ${language.toUpperCase()}`}
-              className="input min-h-[180px] w-full p-3 tracking-[1px] leading-[20px]"
+              className="bg-white text-black w-full"
             />
           </div>
 
@@ -327,7 +331,12 @@ const OurServiceLangForm = ({
         testimonial={activeTestimonial}
         onClose={() => setActiveTestimonialIndex(null)}
         onFieldChange={(field, value) =>
-          onTestimonialFieldChange?.(activeTestimonialIndex, field, language, value)
+          onTestimonialFieldChange?.(
+            activeTestimonialIndex,
+            field,
+            language,
+            value,
+          )
         }
       />
     </div>

@@ -3,6 +3,7 @@
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useTranslation } from "react-i18next";
+import parse from "html-react-parser";
 
 export default function AboutUsSlider({ slides = [] }) {
   const { i18n, t } = useTranslation();
@@ -66,7 +67,7 @@ export default function AboutUsSlider({ slides = [] }) {
                 <h3>{pick(slide?.title)}</h3>
 
                 <div className="jadwa-about-slide-text">
-                  {pick(slide?.content)}
+                  {parse(pick(slide?.content))}
                 </div>
               </div>
             </SwiperSlide>
