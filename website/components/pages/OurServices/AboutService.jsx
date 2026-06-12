@@ -20,14 +20,12 @@ const AboutService = ({ data = [], length = 3 }) => {
       <div className="services-redesign-bg services-redesign-bg-two" />
 
       <div className="auto-container">
-        <div className="services-redesign-header text-center">
-          <span className="services-redesign-subtitle">{t("Services")}</span>
-
-          <h2 className="services-redesign-title">
+        <div className="statistics-head">
+          <span className="statistics-subtitle">{t("Services")}</span>
+          <h2 className="jadwa-services-title">
             {t("Jadwa_most_important_services")}
           </h2>
-
-          <p className="services-redesign-text">
+          <p className="jadwa-triple-title">
             {lang === "ar"
               ? "حلول وخدمات مصممة لدعم النمو، ورفع الكفاءة، وتقديم قيمة حقيقية للعملاء."
               : lang === "tr"

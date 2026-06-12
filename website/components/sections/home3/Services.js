@@ -18,8 +18,8 @@ export default function Services({ services }) {
       dir={isRtl ? "rtl" : "ltr"}
     >
       <div className="auto-container">
-        <div className="jadwa-services-head">
-          <span className="jadwa-services-kicker">{t("services.title")}</span>
+        <div className="statistics-head">
+          <span className="statistics-subtitle">{t("services.title")}</span>
           <h2 className="jadwa-services-title">{t("services.subtitle")}</h2>
         </div>
 

@@ -334,10 +334,9 @@ export function TrustedLogos({ partners = [], companies = [] }) {
       <div className="jadwa-trusted-bg" />
 
       <div className="auto-container">
-        <div className="jadwa-trusted-head">
-          <span className="jadwa-trusted-kicker">{t("trustedBy")}</span>
-
-          <h2 className="jadwa-trusted-title">{t("trustedPartners")}</h2>
+        <div className="statistics-head">
+          <span className="statistics-subtitle">{t("trustedBy")}</span>
+          <h2 className="jadwa-services-title">{t("trustedPartners")}</h2>
         </div>
 
         <div className="jadwa-trusted-rail">
@@ -411,11 +410,11 @@ export function Testimonials({ testimonials = [] }) {
       dir={lang === "ar" ? "rtl" : "ltr"}
     >
       <div className="auto-container">
-        <SectionTitle
-          eyebrow={t("about.testimonials")}
-          title={t("whatClientsSay")}
-          text={t("trustedPeopleFeedback")}
-        />
+        <div className="statistics-head">
+          <span className="statistics-subtitle">{t("about.testimonials")}</span>
+          <h2 className="jadwa-services-title">{t("whatClientsSay")}</h2>
+          <p className="jadwa-triple-title">{t("trustedPeopleFeedback")}</p>
+        </div>
 
         <div className="jadir-about-testimonials-layout">
           <article className="jadir-about-testimonial-featured">

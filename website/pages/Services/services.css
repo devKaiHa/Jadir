@@ -217,9 +217,9 @@ html[dir="rtl"] .services-redesign-card-title {
   transition: color 0.25s ease;
 }
 
-.services-redesign-card:hover .services-redesign-card-title a {
+/* .services-redesign-card:hover .services-redesign-card-title a {
   color: var(--site-blue);
-}
+} */
 
 .services-redesign-card-text {
   text-align: justify !important;
@@ -264,13 +264,20 @@ html[dir="rtl"] .services-redesign-card-title {
   transition: color 0.25s ease;
 }
 
+.services-redesign-link:hover {
+  color: var(--site-blue);
+}
+.services-redesign-link i:hover {
+  color: var(--site-white);
+}
+
 .services-redesign-section.rtl .services-redesign-link {
   flex-direction: row-reverse;
 }
 
-.services-redesign-card:hover .services-redesign-link {
+/* .services-redesign-card:hover .services-redesign-link {
   color: var(--site-navy);
-}
+} */
 
 .services-redesign-arrow {
   width: 34px;
@@ -291,7 +298,7 @@ html[dir="rtl"] .services-redesign-card-title {
 }
 
 .services-redesign-card:hover .services-redesign-arrow {
-  background: var(--site-navy);
+  /* background: var(--site-navy); */
   transform: translateX(4px);
 }
 

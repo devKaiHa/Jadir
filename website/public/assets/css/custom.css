@@ -813,7 +813,7 @@ html[dir="rtl"] .jadwa-about-slide-text {
   max-width: 780px;
   margin: 0 auto;
   color: var(--site-navy);
-  font-size: clamp(2.15rem, 4vw, 3.45rem);
+  font-size: clamp(2.15rem, 4vw, 3rem);
   line-height: 1.25;
   font-weight: 950;
   letter-spacing: -0.045em;
@@ -824,6 +824,7 @@ html[dir="rtl"] .jadwa-about-slide-text {
 }
 
 .statistics-intro {
+  text-align: center !important;
   max-width: 620px;
   margin: 18px auto 0;
   color: rgba(0, 2, 79, 0.56);
@@ -1244,7 +1245,7 @@ html[dir="rtl"] .jadwa-about-slide-text {
   max-width: 840px;
   margin: 0;
   color: var(--site-navy);
-  font-size: clamp(2.45rem, 4.4vw, 4rem);
+  font-size: clamp(2.45rem, 4.4vw, 3rem);
   line-height: 0.98;
   font-weight: 950;
   letter-spacing: -0.06em;
@@ -1912,7 +1913,7 @@ html[dir="rtl"] .site-cta-btn:hover::after {
 
 .jadwa-trusted-logo-card img {
   max-width: 220px;
-  max-height: 150px;
+  max-height: 100px;
   width: auto;
   height: auto;
   object-fit: contain;
@@ -2076,6 +2077,17 @@ html[dir="rtl"] .jadwa-testimonials-title {
 }
 
 .jadwa-testimonials-subtitle {
+  max-width: 580px;
+  margin: 0 auto;
+  color: rgba(0, 2, 79, 0.52);
+  font-size: 0.92rem;
+  font-weight: 500;
+  line-height: 1.55;
+  text-align: center !important;
+}
+
+.jadwa-triple-title {
+  margin-top: 10px !important;
   max-width: 580px;
   margin: 0 auto;
   color: rgba(0, 2, 79, 0.52);
