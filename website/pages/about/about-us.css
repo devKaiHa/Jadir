@@ -18,8 +18,7 @@
   inset: 0;
   pointer-events: none;
   opacity: 0.24;
-  background-image:
-    linear-gradient(rgba(0, 2, 79, 0.026) 1px, transparent 1px),
+  background-image: linear-gradient(rgba(0, 2, 79, 0.026) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 2, 79, 0.026) 1px, transparent 1px);
   background-size: 82px 82px;
   mask-image: linear-gradient(
@@ -54,8 +53,7 @@
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.82);
   border: 1px solid rgba(0, 2, 79, 0.07);
-  box-shadow:
-    0 18px 42px rgba(0, 2, 79, 0.07),
+  box-shadow: 0 18px 42px rgba(0, 2, 79, 0.07),
     inset 0 1px 0 rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
@@ -77,14 +75,11 @@
   background: transparent;
   color: rgba(0, 2, 79, 0.58);
   font-size: 13px;
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1;
   letter-spacing: 0;
   cursor: pointer;
-  transition:
-    color 0.25s ease,
-    background 0.25s ease,
-    transform 0.25s ease,
+  transition: color 0.25s ease, background 0.25s ease, transform 0.25s ease,
     box-shadow 0.25s ease;
 }
 
@@ -152,7 +147,7 @@
   font-family: var(--urbanist);
   font-size: clamp(28px, 4vw, 44px);
   line-height: 1.08;
-  font-weight: 900;
+  font-weight: 700;
   letter-spacing: -0.035em;
 }
 
@@ -231,9 +226,7 @@
   height: auto;
   opacity: 0.52;
   transform: scale(0.94);
-  transition:
-    transform 0.55s ease,
-    opacity 0.55s ease;
+  transition: transform 0.55s ease, opacity 0.55s ease;
 }
 
 .jadwa-values-swiper .swiper-slide-active {
@@ -247,16 +240,14 @@
   overflow: hidden;
   padding: 36px 40px 34px;
   border-radius: 54px;
-  background:
-    radial-gradient(
+  background: radial-gradient(
       circle at top right,
       rgba(0, 106, 253, 0.22),
       transparent 32%
     ),
     linear-gradient(135deg, rgba(0, 2, 79, 0.98), rgba(0, 18, 108, 0.94));
   border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow:
-    0 24px 64px rgba(0, 2, 79, 0.18),
+  box-shadow: 0 24px 64px rgba(0, 2, 79, 0.18),
     inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
@@ -265,8 +256,10 @@
   inset: 0;
   opacity: 0.13;
   pointer-events: none;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.08) 1px,
+      transparent 1px
+    ),
     linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
   background-size: 34px 34px;
   mask-image: linear-gradient(180deg, #000, transparent 88%);
@@ -303,7 +296,7 @@
 .jadwa-values-counter {
   color: rgba(255, 255, 255, 0.2);
   font-size: clamp(28px, 4vw, 56px);
-  font-weight: 950;
+  font-weight: 700;
   line-height: 1;
   letter-spacing: -0.06em;
   font-variant-numeric: lining-nums tabular-nums;
@@ -324,7 +317,7 @@
   font-family: var(--urbanist);
   font-size: 60px;
   line-height: 0.94;
-  font-weight: 950;
+  font-weight: 700;
   letter-spacing: -0.055em;
 }
 
@@ -360,10 +353,7 @@
   border: 1px solid rgba(0, 2, 79, 0.08);
   box-shadow: 0 14px 30px rgba(0, 2, 79, 0.1);
   transform: translateY(-50%);
-  transition:
-    background 0.25s ease,
-    color 0.25s ease,
-    transform 0.25s ease,
+  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease,
     box-shadow 0.25s ease;
 }
 
@@ -406,12 +396,8 @@ html[dir="rtl"] .jadwa-values-next i {
   padding: 26px 24px 24px;
   border-radius: 28px;
   flex: 1;
-  transition:
-    flex 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.32s ease,
-    box-shadow 0.32s ease,
-    border-color 0.32s ease,
-    background 0.32s ease,
+  transition: flex 0.45s cubic-bezier(0.22, 1, 0.36, 1), transform 0.32s ease,
+    box-shadow 0.32s ease, border-color 0.32s ease, background 0.32s ease,
     opacity 0.25s ease;
 }
 
@@ -426,31 +412,27 @@ html[dir="rtl"] .jadwa-values-next i {
 .about-value-dynamic-card.is-active {
   flex: 1.65;
   color: #ffffff;
-  background:
-    radial-gradient(
+  background: radial-gradient(
       circle at top right,
       rgba(0, 106, 253, 0.24),
       transparent 36%
     ),
     linear-gradient(135deg, rgba(0, 2, 79, 0.98), rgba(0, 18, 108, 0.94));
   border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow:
-    0 26px 64px rgba(0, 2, 79, 0.18),
+  box-shadow: 0 26px 64px rgba(0, 2, 79, 0.18),
     inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
 .about-value-dynamic-card.is-inactive {
   flex: 0.92;
-  background:
-    radial-gradient(
+  background: radial-gradient(
       circle at top right,
       rgba(0, 106, 253, 0.08),
       transparent 36%
     ),
     linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(247, 250, 255, 0.78));
   border: 1px solid rgba(0, 2, 79, 0.075);
-  box-shadow:
-    0 18px 44px rgba(0, 2, 79, 0.07),
+  box-shadow: 0 18px 44px rgba(0, 2, 79, 0.07),
     inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
@@ -460,22 +442,21 @@ html[dir="rtl"] .jadwa-values-next i {
   z-index: 0;
   pointer-events: none;
   background-size: 34px 34px;
-  transition:
-    opacity 0.35s ease,
-    background-image 0.35s ease;
+  transition: opacity 0.35s ease, background-image 0.35s ease;
 }
 
 .about-value-dynamic-card.is-active .about-value-pattern {
   opacity: 0.12;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.08) 1px,
+      transparent 1px
+    ),
     linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
 }
 
 .about-value-dynamic-card.is-inactive .about-value-pattern {
   opacity: 0.26;
-  background-image:
-    linear-gradient(rgba(0, 2, 79, 0.032) 1px, transparent 1px),
+  background-image: linear-gradient(rgba(0, 2, 79, 0.032) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 2, 79, 0.032) 1px, transparent 1px);
 }
 
@@ -494,13 +475,8 @@ html[dir="rtl"] .jadwa-values-next i {
   align-items: center;
   justify-content: center;
   font-size: 22px;
-  transition:
-    background 0.3s ease,
-    color 0.3s ease,
-    border-color 0.3s ease,
-    box-shadow 0.3s ease,
-    transform 0.3s ease,
-    margin-bottom 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease,
+    box-shadow 0.3s ease, transform 0.3s ease, margin-bottom 0.3s ease;
 }
 
 .about-value-dynamic-card.is-active .about-value-icon {
@@ -525,11 +501,8 @@ html[dir="rtl"] .jadwa-values-next i {
 .about-value-title {
   margin: 0 0 14px;
   font-family: var(--urbanist);
-  font-weight: 950;
-  transition:
-    color 0.3s ease,
-    font-size 0.3s ease,
-    line-height 0.3s ease,
+  font-weight: 700;
+  transition: color 0.3s ease, font-size 0.3s ease, line-height 0.3s ease,
     letter-spacing 0.3s ease;
 }
 
@@ -554,10 +527,7 @@ html[dir="rtl"] .about-value-title {
 
 .about-value-text p {
   margin: 0;
-  transition:
-    color 0.3s ease,
-    opacity 0.3s ease,
-    transform 0.3s ease;
+  transition: color 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
 }
 
 .about-value-dynamic-card.is-active .about-value-text p {
@@ -611,25 +581,21 @@ html[dir="rtl"] .about-value-title {
   min-height: 360px;
   overflow: hidden;
   border-radius: 28px;
-  background:
-    radial-gradient(
+  background: radial-gradient(
       circle at top left,
       rgba(0, 106, 253, 0.07),
       transparent 32%
     ),
     linear-gradient(180deg, #ffffff 0%, #f7faff 100%);
   border: 1px solid rgba(0, 2, 79, 0.08);
-  transition:
-    transform 0.28s ease,
-    box-shadow 0.28s ease,
+  transition: transform 0.28s ease, box-shadow 0.28s ease,
     border-color 0.28s ease;
 }
 
 .jadwa-founder-slide:hover {
   transform: translateY(-4px);
   border-color: rgba(0, 106, 253, 0.16);
-  box-shadow:
-    0 26px 62px rgba(0, 2, 79, 0.12),
+  box-shadow: 0 26px 62px rgba(0, 2, 79, 0.12),
     inset 0 1px 0 rgba(255, 255, 255, 0.92);
 }
 
@@ -638,8 +604,7 @@ html[dir="rtl"] .about-value-title {
   inset: 0;
   pointer-events: none;
   opacity: 0.2;
-  background-image:
-    linear-gradient(rgba(0, 2, 79, 0.028) 1px, transparent 1px),
+  background-image: linear-gradient(rgba(0, 2, 79, 0.028) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 2, 79, 0.028) 1px, transparent 1px);
   background-size: 58px 58px;
   mask-image: linear-gradient(to bottom, #000 0%, transparent 88%);
@@ -668,8 +633,7 @@ html[dir="rtl"] .about-value-title {
   min-height: 332px;
   overflow: hidden;
   border-radius: 22px;
-  background:
-    radial-gradient(
+  background: radial-gradient(
       circle at top right,
       rgba(0, 106, 253, 0.12),
       transparent 34%
@@ -683,8 +647,11 @@ html[dir="rtl"] .about-value-title {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background:
-    linear-gradient(180deg, transparent 48%, rgba(0, 2, 79, 0.16) 100%),
+  background: linear-gradient(
+      180deg,
+      transparent 48%,
+      rgba(0, 2, 79, 0.16) 100%
+    ),
     radial-gradient(
       circle at top right,
       rgba(0, 106, 253, 0.12),
@@ -753,11 +720,10 @@ html[dir="rtl"] .jadwa-founder-content::after {
   top: 24px;
   inset-inline-end: 24px;
   color: rgba(0, 2, 79, 0.1);
-  font-family:
-    "Inter Tight", "SF Pro Display", "Arial Narrow", var(--urbanist), system-ui,
-    sans-serif;
+  font-family: "Inter Tight", "SF Pro Display", "Arial Narrow", var(--urbanist),
+    system-ui, sans-serif;
   font-size: 2.65rem;
-  font-weight: 950;
+  font-weight: 700;
   line-height: 1;
   letter-spacing: -0.08em;
   font-variant-numeric: lining-nums tabular-nums;
@@ -770,7 +736,7 @@ html[dir="rtl"] .jadwa-founder-content::after {
   font-family: var(--urbanist);
   font-size: clamp(2rem, 3vw, 3.15rem);
   line-height: 1.05;
-  font-weight: 950;
+  font-weight: 700;
   letter-spacing: -0.055em;
 }
 
@@ -787,7 +753,7 @@ html[dir="rtl"] .jadwa-founder-name {
   background: rgba(0, 106, 253, 0.07);
   border: 1px solid rgba(0, 106, 253, 0.12);
   font-size: 10.5px;
-  font-weight: 900;
+  font-weight: 700;
   letter-spacing: 0.07em;
   line-height: 1;
   text-transform: uppercase;
@@ -825,10 +791,7 @@ html[dir="rtl"] .jadwa-founder-name {
   background: #ffffff;
   border: 1px solid rgba(0, 2, 79, 0.08);
   box-shadow: 0 12px 26px rgba(0, 2, 79, 0.07);
-  transition:
-    background 0.25s ease,
-    color 0.25s ease,
-    transform 0.25s ease,
+  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease,
     box-shadow 0.25s ease;
 }
 
@@ -891,10 +854,7 @@ html[dir="rtl"] .jadwa-founder-next i {
   overflow: hidden;
   border-radius: 24px;
   cursor: default;
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease,
-    border-color 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .jadwa-team-card:hover {
@@ -924,8 +884,11 @@ html[dir="rtl"] .jadwa-founder-next i {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background:
-    linear-gradient(180deg, transparent 45%, rgba(0, 2, 79, 0.14) 100%),
+  background: linear-gradient(
+      180deg,
+      transparent 45%,
+      rgba(0, 2, 79, 0.14) 100%
+    ),
     radial-gradient(
       circle at top right,
       rgba(0, 106, 253, 0.12),
@@ -947,7 +910,7 @@ html[dir="rtl"] .jadwa-founder-next i {
   border: 1px solid rgba(0, 106, 253, 0.14);
   box-shadow: 0 10px 24px rgba(0, 2, 79, 0.08);
   font-size: 10.5px;
-  font-weight: 900;
+  font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -976,7 +939,7 @@ html[dir="rtl"] .jadwa-team-badge {
 .jadwa-team-position {
   margin: 0 0 12px;
   color: var(--site-blue);
-  font-weight: 900;
+  font-weight: 700;
 }
 
 .jadwa-team-bio {
@@ -987,37 +950,34 @@ html[dir="rtl"] .jadwa-team-badge {
 
 .jadwa-team-card--founder,
 .jadwa-team-card--member {
-  background:
-    radial-gradient(
+  background: radial-gradient(
       circle at top right,
       rgba(0, 106, 253, 0.06),
       transparent 32%
     ),
     linear-gradient(180deg, #ffffff 0%, #f7faff 100%);
   border: 1px solid rgba(0, 2, 79, 0.075);
-  box-shadow:
-    0 18px 45px rgba(0, 2, 79, 0.07),
+  box-shadow: 0 18px 45px rgba(0, 2, 79, 0.07),
     inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
 .jadwa-team-card--founder:hover,
 .jadwa-team-card--member:hover {
   border-color: rgba(0, 106, 253, 0.18);
-  box-shadow:
-    0 26px 62px rgba(0, 2, 79, 0.11),
+  box-shadow: 0 26px 62px rgba(0, 2, 79, 0.11),
     inset 0 1px 0 rgba(255, 255, 255, 0.92);
 }
 
 .jadwa-team-card--founder .jadwa-team-name {
   font-size: 28px;
   line-height: 1.15;
-  font-weight: 950;
+  font-weight: 700;
 }
 
 .jadwa-team-card--member .jadwa-team-name {
   font-size: 22px;
   line-height: 1.2;
-  font-weight: 950;
+  font-weight: 700;
 }
 
 .jadwa-team-card--founder .jadwa-team-position,
@@ -1053,28 +1013,23 @@ html[dir="rtl"] .jadwa-team-badge {
   height: 100%;
   overflow: hidden;
   border-radius: 24px;
-  background:
-    radial-gradient(
+  background: radial-gradient(
       circle at top right,
       rgba(0, 106, 253, 0.06),
       transparent 32%
     ),
     linear-gradient(180deg, #ffffff 0%, #f7faff 100%);
   border: 1px solid rgba(0, 2, 79, 0.075);
-  box-shadow:
-    0 18px 45px rgba(0, 2, 79, 0.07),
+  box-shadow: 0 18px 45px rgba(0, 2, 79, 0.07),
     inset 0 1px 0 rgba(255, 255, 255, 0.9);
-  transition:
-    transform 0.32s ease,
-    box-shadow 0.32s ease,
+  transition: transform 0.32s ease, box-shadow 0.32s ease,
     border-color 0.32s ease;
 }
 
 .jadwa-mini-team-card:hover {
   transform: translateY(-6px);
   border-color: rgba(0, 106, 253, 0.18);
-  box-shadow:
-    0 26px 62px rgba(0, 2, 79, 0.11),
+  box-shadow: 0 26px 62px rgba(0, 2, 79, 0.11),
     inset 0 1px 0 rgba(255, 255, 255, 0.92);
 }
 
@@ -1100,8 +1055,11 @@ html[dir="rtl"] .jadwa-team-badge {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background:
-    linear-gradient(180deg, transparent 45%, rgba(0, 2, 79, 0.14) 100%),
+  background: linear-gradient(
+      180deg,
+      transparent 45%,
+      rgba(0, 2, 79, 0.14) 100%
+    ),
     radial-gradient(
       circle at top right,
       rgba(0, 106, 253, 0.12),
@@ -1133,7 +1091,7 @@ html[dir="rtl"] .jadwa-mini-team-topbar {
   border: 1px solid rgba(0, 106, 253, 0.14);
   box-shadow: 0 10px 24px rgba(0, 2, 79, 0.08);
   font-size: 10.5px;
-  font-weight: 900;
+  font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -1148,7 +1106,7 @@ html[dir="rtl"] .jadwa-mini-team-topbar {
   font-family: var(--urbanist);
   font-size: 21px;
   line-height: 1.15;
-  font-weight: 950;
+  font-weight: 700;
   letter-spacing: -0.025em;
   transition: color 0.25s ease;
 }
@@ -1165,7 +1123,7 @@ html[dir="rtl"] .jadwa-mini-team-name {
   margin-bottom: 12px;
   color: var(--site-blue);
   font-size: 12px;
-  font-weight: 900;
+  font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -1186,10 +1144,8 @@ html[dir="rtl"] .jadwa-mini-team-name {
   gap: 8px;
   color: var(--site-navy);
   font-size: 13px;
-  font-weight: 900;
-  transition:
-    color 0.25s ease,
-    transform 0.25s ease;
+  font-weight: 700;
+  transition: color 0.25s ease, transform 0.25s ease;
 }
 
 .jadwa-mini-team-link:hover {
@@ -1228,10 +1184,7 @@ html[dir="rtl"] .jadwa-mini-team-link:hover {
   background: #ffffff;
   border: 1px solid rgba(0, 2, 79, 0.08);
   box-shadow: 0 12px 26px rgba(0, 2, 79, 0.06);
-  transition:
-    background 0.25s ease,
-    color 0.25s ease,
-    transform 0.25s ease,
+  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease,
     box-shadow 0.25s ease;
 }
 
@@ -1310,8 +1263,7 @@ html[dir="rtl"] .jadwa-team-next i {
   position: relative;
   overflow: hidden;
   padding: 90px 0;
-  background:
-    radial-gradient(
+  background: radial-gradient(
       circle at top left,
       rgba(0, 106, 253, 0.055),
       transparent 30%
@@ -1325,8 +1277,7 @@ html[dir="rtl"] .jadwa-team-next i {
   inset: 0;
   pointer-events: none;
   opacity: 0.22;
-  background-image:
-    linear-gradient(rgba(0, 2, 79, 0.026) 1px, transparent 1px),
+  background-image: linear-gradient(rgba(0, 2, 79, 0.026) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 2, 79, 0.026) 1px, transparent 1px);
   background-size: 82px 82px;
   mask-image: linear-gradient(
@@ -1357,16 +1308,14 @@ html[dir="rtl"] .jadwa-team-next i {
   min-height: 420px;
   padding: 38px;
   border-radius: 30px;
-  background:
-    radial-gradient(
+  background: radial-gradient(
       circle at bottom right,
       rgba(0, 106, 253, 0.28),
       transparent 34%
     ),
     linear-gradient(135deg, rgba(0, 2, 79, 0.98), rgba(0, 18, 108, 0.94));
   color: #ffffff;
-  box-shadow:
-    0 26px 64px rgba(0, 2, 79, 0.2),
+  box-shadow: 0 26px 64px rgba(0, 2, 79, 0.2),
     inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
@@ -1393,7 +1342,7 @@ html[dir="rtl"] .jadir-about-testimonial-featured::after {
   margin-bottom: 34px;
   color: rgba(255, 255, 255, 0.22);
   font-size: 76px;
-  font-weight: 950;
+  font-weight: 700;
   line-height: 0.7;
 }
 
@@ -1437,7 +1386,7 @@ html[dir="rtl"] .jadir-about-testimonial-featured::after {
   border: 1px solid rgba(0, 106, 253, 0.12);
   box-shadow: 0 12px 26px rgba(0, 2, 79, 0.1);
   font-size: 12px;
-  font-weight: 950;
+  font-weight: 700;
   letter-spacing: 0.04em;
 }
 
@@ -1445,7 +1394,7 @@ html[dir="rtl"] .jadir-about-testimonial-featured::after {
   margin: 0 0 4px;
   color: inherit;
   font-size: 15px;
-  font-weight: 950;
+  font-weight: 700;
   line-height: 1.2;
 }
 
@@ -1470,28 +1419,23 @@ html[dir="rtl"] .jadir-about-testimonial-featured::after {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background:
-    radial-gradient(
+  background: radial-gradient(
       circle at top right,
       rgba(0, 106, 253, 0.06),
       transparent 34%
     ),
     linear-gradient(180deg, #ffffff 0%, #f7faff 100%);
   border: 1px solid rgba(0, 2, 79, 0.075);
-  box-shadow:
-    0 18px 45px rgba(0, 2, 79, 0.07),
+  box-shadow: 0 18px 45px rgba(0, 2, 79, 0.07),
     inset 0 1px 0 rgba(255, 255, 255, 0.9);
-  transition:
-    transform 0.28s ease,
-    box-shadow 0.28s ease,
+  transition: transform 0.28s ease, box-shadow 0.28s ease,
     border-color 0.28s ease;
 }
 
 .jadir-about-testimonial-card:hover {
   transform: translateY(-4px);
   border-color: rgba(0, 106, 253, 0.16);
-  box-shadow:
-    0 26px 62px rgba(0, 2, 79, 0.11),
+  box-shadow: 0 26px 62px rgba(0, 2, 79, 0.11),
     inset 0 1px 0 rgba(255, 255, 255, 0.92);
 }
 
@@ -1499,7 +1443,7 @@ html[dir="rtl"] .jadir-about-testimonial-featured::after {
   margin-bottom: 12px;
   color: rgba(0, 106, 253, 0.26);
   font-size: 40px;
-  font-weight: 950;
+  font-weight: 700;
   line-height: 0.7;
 }
 

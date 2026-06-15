@@ -114,17 +114,17 @@ function TestimonialsList({ testimonials = [], lang = "en" }) {
           {testimonials.map((testimonial, index) => {
             const name = localize(
               testimonial?.clientName || testimonial?.name,
-              lang,
+              lang
             );
             const role = localize(
               testimonial?.clientRole || testimonial?.role,
-              lang,
+              lang
             );
             const quote = localize(
               testimonial?.quote ||
                 testimonial?.content ||
                 testimonial?.description,
-              lang,
+              lang
             );
 
             return (
@@ -154,7 +154,7 @@ export default function ServiceDetailsPage({
   relatedServices = [],
 }) {
   const router = useRouter();
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const lang = i18n.language || "en";
   const isRtl = lang === "ar";
   const copy = copyMap[lang] || copyMap.en;
@@ -174,13 +174,13 @@ export default function ServiceDetailsPage({
   const testimonials = Array.isArray(service?.testimonials)
     ? service.testimonials
     : service?.testimonial
-      ? [service.testimonial]
-      : [];
+    ? [service.testimonial]
+    : [];
 
   const relatedProjects = projects.filter((project) =>
     (service?.relatedProjects || []).some(
-      (item) => (item?._id || item) === project?._id,
-    ),
+      (item) => (item?._id || item) === project?._id
+    )
   );
 
   const listBlocks = [
@@ -295,9 +295,8 @@ export default function ServiceDetailsPage({
 
               <div className="jadir-service-related-grid">
                 {relatedServices.map((item) => (
-                  <Link
-                    className="jadir-service-related-card"
-                    href={`/Services/${item?.slug || item?._id}`}
+                  <div
+                    className="bg-white jadir-service-related-card"
                     key={item?._id || item?.slug}
                   >
                     <div className="jadir-service-related-image">
@@ -305,18 +304,31 @@ export default function ServiceDetailsPage({
                         src={asset(
                           "ourServices",
                           item.bannerImage,
-                          "/assets/images/project/project-5.jpg",
+                          "/assets/images/project/project-5.jpg"
                         )}
                         alt={localize(item?.title, lang)}
                       />
                     </div>
 
                     <div className="jadir-service-related-content">
-                      <span>{copy.openService}</span>
                       <h3>{localize(item?.title, lang)}</h3>
                       <p>{truncate(localize(item?.description, lang), 120)}</p>
+
+                      <Link
+                        href={`/Services/${item?.slug || item?._id}`}
+                        className="services-redesign-link"
+                      >
+                        <span>{t("learnMore")}</span>
+                        <i
+                          className={`services-redesign-arrow ${
+                            isRtl ? "rtl-arrow" : ""
+                          }`}
+                        >
+                          →
+                        </i>
+                      </Link>
                     </div>
-                  </Link>
+                  </div>
                 ))}
               </div>
             </div>
@@ -358,7 +370,7 @@ export async function getStaticProps({ params }) {
   if (!service) return { notFound: true, revalidate: 60 };
 
   const relatedIds = (service.relatedServices || []).map(
-    (item) => item?._id || item,
+    (item) => item?._id || item
   );
 
   return {
@@ -369,7 +381,7 @@ export async function getStaticProps({ params }) {
         .filter(
           (item) =>
             relatedIds.includes(item?._id) ||
-            (!relatedIds.length && item?._id !== service?._id),
+            (!relatedIds.length && item?._id !== service?._id)
         )
         .slice(0, 3),
     },

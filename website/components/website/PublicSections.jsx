@@ -25,15 +25,10 @@ const fallbackHero = [
 
 export function SectionTitle({ eyebrow, title, text, light = false }) {
   return (
-    <div className={`site-section-title ${light ? "is-light" : ""}`}>
-      {eyebrow ? (
-        <div className="site-pill">
-          <span className="site-pill-dot" />
-          <span>{eyebrow}</span>
-        </div>
-      ) : null}
-      <h2>{title}</h2>
-      {text ? <p>{text}</p> : null}
+    <div className={`statistics-head ${light ? "is-light" : ""}`}>
+      {eyebrow ? <span className="statistics-subtitle">{eyebrow}</span> : null}
+      <h2 className="jadwa-services-title">{title}</h2>
+      {text ? <p className="jadwa-triple-title">{text}</p> : null}
     </div>
   );
 }
@@ -191,7 +186,7 @@ export function AboutOverview({ data = {} }) {
                           {truncate(
                             localize(value?.content, lang) ||
                               localize(value?.description, lang),
-                            120,
+                            120
                           )}
                         </span>
                       </li>
@@ -357,8 +352,7 @@ export function TrustedLogos({ partners = [], companies = [] }) {
               480: { slidesPerView: 2.4, spaceBetween: 12 },
               640: { slidesPerView: 3, spaceBetween: 14 },
               768: { slidesPerView: 4, spaceBetween: 16 },
-              1024: { slidesPerView: 5, spaceBetween: 18 },
-              1280: { slidesPerView: 5.6, spaceBetween: 18 },
+              1024: { slidesPerView: 4, spaceBetween: 16 },
             }}
             className="jadwa-trusted-swiper"
           >
@@ -504,42 +498,60 @@ export function Testimonials({ testimonials = [] }) {
 export function ProjectCards({ projects = [], limit }) {
   const { i18n, t } = useTranslation();
   const lang = i18n.language || "en";
+  const isRtl = lang === "ar";
   const items = limit ? projects.slice(0, limit) : projects;
 
   if (!items.length) return <EmptyState title={t("noProjects")} />;
 
   return (
-    <div className="site-card-grid">
-      {items.map((project) => (
-        <Link
-          className="site-media-card"
-          href={`/projects/${project?.slug || project?._id}`}
-          key={project?._id || project?.slug}
-        >
-          <img
-            src={asset(
-              "projects",
-              project?.image,
-              "/assets/images/project/project-5.jpg",
-            )}
-            alt={localize(project?.title, lang)}
-          />
-          <div>
-            <h3>{localize(project?.title, lang)}</h3>
-            <p>
-              {truncate(
-                localize(project?.brief, lang) ||
-                  localize(project?.challenge, lang),
-                120,
-              )}
-            </p>
+    <div className="jadir-service-related-grid">
+      {items.map((project) => {
+        const href = `/projects/${project?.slug || project?._id}`;
+        const title = localize(project?.title, lang);
+
+        return (
+          <div
+            className="jadir-service-related-card"
+            key={project?._id || project?.slug}
+          >
+            <div className="jadir-service-related-image">
+              <img
+                src={asset(
+                  "projects",
+                  project?.image,
+                  "/assets/images/project/project-5.jpg"
+                )}
+                alt={title}
+              />
+            </div>
+
+            <div className="jadir-service-related-content">
+              <h3>{title}</h3>
+              <p>
+                {truncate(
+                  localize(project?.brief, lang) ||
+                    localize(project?.challenge, lang),
+                  120
+                )}
+              </p>
+
+              <Link href={href} className="services-redesign-link">
+                <span>{t("learnMore")}</span>
+                <i
+                  className={`services-redesign-arrow ${
+                    isRtl ? "rtl-arrow" : ""
+                  }`}
+                >
+                  →
+                </i>
+              </Link>
+            </div>
           </div>
-        </Link>
-      ))}
+        );
+      })}
     </div>
   );
 }
-
 export function BlogCards({ blogs = [], limit }) {
   const { i18n, t } = useTranslation();
   const lang = i18n.language || "en";
@@ -559,7 +571,7 @@ export function BlogCards({ blogs = [], limit }) {
             src={asset(
               "blogs",
               blog?.image || blog?.photo,
-              "/assets/images/news/news-1.jpg",
+              "/assets/images/news/news-1.jpg"
             )}
             alt={localize(blog?.title, lang)}
           />
@@ -569,7 +581,7 @@ export function BlogCards({ blogs = [], limit }) {
             <p>
               {truncate(
                 localize(blog?.excerpt, lang) || localize(blog?.content, lang),
-                110,
+                110
               )}
             </p>
           </div>
@@ -646,7 +658,7 @@ export function AboutTabs({ data }) {
                   src={asset(
                     "boardMember",
                     member?.image,
-                    "/assets/images/team/1.jpg",
+                    "/assets/images/team/1.jpg"
                   )}
                   alt={localize(member?.name, lang)}
                 />
@@ -655,9 +667,9 @@ export function AboutTabs({ data }) {
                   {truncate(
                     localize(
                       member?.brief || member?.description || member?.position,
-                      lang,
+                      lang
                     ),
-                    120,
+                    120
                   )}
                 </p>
               </article>
@@ -674,7 +686,7 @@ export function AboutTabs({ data }) {
                   src={asset(
                     "companies",
                     company?.logo,
-                    "/assets/images/logos/jadir.png",
+                    "/assets/images/logos/jadir.png"
                   )}
                   alt={localize(company?.companyName, lang)}
                 />
@@ -683,9 +695,9 @@ export function AboutTabs({ data }) {
                   {truncate(
                     localize(
                       company?.about || company?.content || company?.aboutus,
-                      lang,
+                      lang
                     ),
-                    150,
+                    150
                   )}
                 </p>
               </article>
@@ -796,7 +808,7 @@ export function BlogFilters({ blogs = [], categories = [] }) {
       const tagMatch =
         !query ||
         (blog?.tags || []).some((tag) =>
-          localize(tag, lang).toLowerCase().includes(query.toLowerCase()),
+          localize(tag, lang).toLowerCase().includes(query.toLowerCase())
         );
       return (titleMatch || tagMatch) && categoryMatch;
     });
@@ -863,7 +875,7 @@ export function BlogDetails({ blog, related = [] }) {
             src={asset(
               "blogs",
               blog?.image || blog?.photo,
-              "/assets/images/news/news-1.jpg",
+              "/assets/images/news/news-1.jpg"
             )}
             alt={title}
           />

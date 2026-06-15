@@ -47,6 +47,16 @@
     "title": "Ortaklarımız",
     "subtitle": "Stratejik Ortaklar"
   },
+  "policiesPage": {
+    "breadcrumb": "Politikalar",
+    "subtitle": "Yasal Sayfalar",
+    "title": "Site Politikaları",
+    "description": "Web sitemizin ve hizmetlerimizin kullanımını yöneten yasal ve operasyonel politikaları inceleyin.",
+    "emptyTitle": "Henüz politika yok",
+    "emptyDescription": "Yasal ve site politikaları yakında burada yer alacak.",
+    "defaultType": "Politika",
+    "policies": "Politikalar"
+  },
   "contact": {
     "title": "Bizimle İletişime Geçin",
     "description": "Herhangi bir sorunuz veya sorununuz varsa, formu doldurarak bizimle iletişime geçebilirsiniz.",

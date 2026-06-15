@@ -21,7 +21,7 @@ export default function Banner({ HomeSlides }) {
         slidesPerView={1}
         spaceBetween={0}
         autoplay={{
-          delay: 5000,
+          delay: 500000,
           disableOnInteraction: false,
         }}
         pagination={false}

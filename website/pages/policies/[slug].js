@@ -1,6 +1,10 @@
 import Layout from "@/components/layout/Layout";
 import parse from "html-react-parser";
-import { getPolicyBySlug, getWebsiteData, localize } from "@/components/website/websiteUtils";
+import {
+  getPolicyBySlug,
+  getWebsiteData,
+  localize,
+} from "@/components/website/websiteUtils";
 import { useTranslation } from "react-i18next";
 
 export default function PolicyDetailsPage({ policy }) {
@@ -9,18 +13,29 @@ export default function PolicyDetailsPage({ policy }) {
 
   if (!policy) return null;
 
+  const title = policy?.title?.[lang] || policy?.title?.en || "";
+  const summary = policy?.summary?.[lang] || policy?.summary?.en || "";
+  const content = policy?.content?.[lang] || policy?.content?.en || "";
+
   return (
     <Layout breadcrumbTitle={localize(policy?.title, lang)}>
-      <section className="site-band">
+      <section className="policy-details-section sec-pad">
         <div className="auto-container">
-          <main className="site-detail-main">
-            <span className="site-link">{policy?.policyType || "Policy"}</span>
-            <h1>{localize(policy?.title, lang)}</h1>
-            <p>{localize(policy?.summary, lang)}</p>
-            <article className="site-richtext">
-              {parse(localize(policy?.content, lang) || "")}
-            </article>
-          </main>
+          <div className="policy-details-wrapper">
+            <div className="policy-details-header centred">
+              {/* <span className="policy-details-badge">{type}</span> */}
+              <h1 style={{ color: "#00024f" }}>{localize(title, lang)}</h1>
+              {summary ? (
+                <p className="policy-details-summary">{parse(summary)}</p>
+              ) : null}
+            </div>
+
+            <div className="policy-details-body">
+              <div className="policy-details-content">
+                {parse(localize(content, lang) || "")}
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </Layout>

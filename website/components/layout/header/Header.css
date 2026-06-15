@@ -30,12 +30,10 @@
   top: 18px;
   left: 0;
   right: 0;
-  width: min(96%, 1320px);
+  width: min(96%, 1420px);
   margin-inline: auto;
   z-index: 999;
-  transition:
-    top 0.3s ease,
-    width 0.3s ease;
+  transition: top 0.3s ease, width 0.3s ease;
 }
 
 .jadwa-header.is-search-open {
@@ -82,8 +80,7 @@
   position: relative;
   overflow: visible;
   border-radius: 34px;
-  background:
-    radial-gradient(
+  background: radial-gradient(
       circle at top left,
       rgba(0, 106, 253, 0.1),
       transparent 28%
@@ -94,9 +91,7 @@
       rgba(247, 250, 255, 0.84)
     );
   border: 1px solid rgba(0, 2, 79, 0.08);
-  box-shadow:
-    var(--header-shadow),
-    inset 0 1px 0 rgba(255, 255, 255, 0.86);
+  box-shadow: var(--header-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.86);
   backdrop-filter: blur(22px);
   -webkit-backdrop-filter: blur(22px);
 }
@@ -107,8 +102,7 @@
   inset: 1px;
   border-radius: inherit;
   pointer-events: none;
-  background:
-    linear-gradient(
+  background: linear-gradient(
       90deg,
       rgba(255, 255, 255, 0.58),
       transparent 36%,
@@ -122,8 +116,7 @@
 }
 
 .jadwa-header.is-sticky .jadwa-header-lower {
-  box-shadow:
-    var(--header-shadow-sticky),
+  box-shadow: var(--header-shadow-sticky),
     inset 0 1px 0 rgba(255, 255, 255, 0.88);
 }
 
@@ -134,7 +127,7 @@
   position: relative;
   z-index: 2;
   min-height: 98px;
-  padding: 14px 16px 14px 24px;
+  padding: 14px 14px 14px 0px;
   display: grid;
   grid-template-columns: 150px minmax(0, 1fr);
   align-items: center;
@@ -142,7 +135,7 @@
 }
 
 html[dir="rtl"] .jadwa-header-inner {
-  padding: 14px 24px 14px 16px;
+  padding: 14px 0px 14px 16px;
 }
 
 /* =========================================
@@ -264,7 +257,7 @@ html[dir="rtl"] .jadwa-header-tagline {
 .jadwa-select-box::before {
   content: "\f0ac";
   font-family: "Font Awesome 6 Free";
-  font-weight: 900;
+  font-weight: 700;
   position: absolute;
   top: 50%;
   inset-inline-start: 10px;
@@ -278,7 +271,7 @@ html[dir="rtl"] .jadwa-header-tagline {
 .jadwa-select-box::after {
   content: "\f107";
   font-family: "Font Awesome 6 Free";
-  font-weight: 900;
+  font-weight: 700;
   position: absolute;
   top: 50%;
   inset-inline-end: 10px;
@@ -367,7 +360,7 @@ html[dir="rtl"] .jadwa-header-tagline {
 .jadwa-nav .navigation > li > a,
 .jadwa-nav .navigation > li.dropdown > a {
   min-height: 38px;
-  padding: 0 13px 0 8px;
+  padding: 0 8px 0 3px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -385,7 +378,7 @@ html[dir="rtl"] .jadwa-header-tagline {
 
 html[dir="rtl"] .jadwa-nav .navigation > li > a,
 html[dir="rtl"] .jadwa-nav .navigation > li.dropdown > a {
-  padding: 0 8px 0 13px;
+  padding: 0 8px 0 3px;
 }
 
 .jadwa-nav .navigation > li > a::before,
@@ -405,7 +398,7 @@ html[dir="rtl"] .jadwa-nav .navigation > li.dropdown > a {
 .jadwa-nav-icon {
   width: 24px;
   height: 24px;
-  margin-inline-end: 7px;
+  margin-inline-end: 3px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -419,7 +412,7 @@ html[dir="rtl"] .jadwa-nav .navigation > li.dropdown > a {
 
 html[dir="rtl"] .jadwa-nav-icon {
   margin-inline-end: 0;
-  margin-inline-start: 7px;
+  margin-inline-start: 3px;
 }
 
 .jadwa-nav-icon i {
@@ -486,7 +479,7 @@ html[dir="rtl"] .jadwa-nav-icon {
   border: 1px solid rgba(0, 2, 79, 0.1);
   box-shadow: 0 13px 28px rgba(0, 2, 79, 0.18);
   font-size: 13px;
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1;
   text-transform: none;
   letter-spacing: 0;
@@ -498,7 +491,7 @@ html[dir="rtl"] .jadwa-nav-icon {
 .jadwa-invest-btn::after {
   content: "\f061";
   font-family: "Font Awesome 6 Free";
-  font-weight: 900;
+  font-weight: 700;
   width: 28px;
   height: 28px;
   margin-inline-start: 2px;
@@ -697,7 +690,7 @@ html[dir="rtl"] .jadwa-search-results-popover {
   background: #f1f6fa;
   border-radius: 14px;
   text-decoration: none;
-  font-weight: 900;
+  font-weight: 700;
 }
 
 /* =========================================
@@ -749,8 +742,7 @@ html[dir="rtl"] .jadwa-search-results-popover {
 .jadwa-mobile-backdrop {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(
+  background: radial-gradient(
       circle at top left,
       rgba(0, 106, 253, 0.16),
       transparent 30%
@@ -773,8 +765,7 @@ html[dir="rtl"] .jadwa-search-results-popover {
   width: min(92vw, 390px);
   overflow: hidden;
   border-radius: 30px;
-  background:
-    radial-gradient(
+  background: radial-gradient(
       circle at top left,
       rgba(0, 106, 253, 0.13),
       transparent 34%
@@ -790,8 +781,7 @@ html[dir="rtl"] .jadwa-search-results-popover {
       rgba(247, 250, 255, 0.92)
     );
   border: 1px solid rgba(255, 255, 255, 0.62);
-  box-shadow:
-    0 28px 90px rgba(0, 2, 79, 0.28),
+  box-shadow: 0 28px 90px rgba(0, 2, 79, 0.28),
     inset 0 1px 0 rgba(255, 255, 255, 0.88);
   transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -900,8 +890,7 @@ html[dir="rtl"] .jadwa-mobile-header {
   margin-bottom: 0;
   padding: 16px;
   border-radius: 24px;
-  background:
-    radial-gradient(
+  background: radial-gradient(
       circle at top right,
       rgba(0, 106, 253, 0.22),
       transparent 34%
@@ -920,8 +909,11 @@ html[dir="rtl"] .jadwa-mobile-header {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background:
-    linear-gradient(120deg, rgba(255, 255, 255, 0.08), transparent 36%),
+  background: linear-gradient(
+      120deg,
+      rgba(255, 255, 255, 0.08),
+      transparent 36%
+    ),
     radial-gradient(circle at 85% 85%, rgba(0, 106, 253, 0.28), transparent 34%);
 }
 
@@ -961,7 +953,7 @@ html[dir="rtl"] .jadwa-mobile-quickbox::after {
   margin-bottom: 8px;
   color: rgba(255, 255, 255, 0.66);
   font-size: 10.5px;
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1;
   letter-spacing: 0.065em;
   text-transform: uppercase;
@@ -972,7 +964,7 @@ html[dir="rtl"] .jadwa-mobile-quickbox::after {
   display: block;
   color: #ffffff;
   font-size: 17px;
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1.22;
   letter-spacing: -0.02em;
 }
@@ -1039,7 +1031,7 @@ html[dir="rtl"] .jadwa-mobile-quickbox::after {
   background: transparent;
   color: rgba(255, 255, 255, 0.62);
   font-size: 11px;
-  font-weight: 900;
+  font-weight: 700;
   letter-spacing: 0.04em;
   cursor: pointer;
   transition: all 0.25s ease;
@@ -1238,7 +1230,7 @@ html[dir="rtl"] .jadwa-mobile-nav li a {
   gap: 10px;
   text-decoration: none;
   font-size: 14px;
-  font-weight: 900;
+  font-weight: 700;
   color: #ffffff;
   background: linear-gradient(135deg, var(--site-blue), var(--site-blue-dark));
   box-shadow: 0 18px 38px rgba(0, 106, 253, 0.26);
@@ -1248,7 +1240,7 @@ html[dir="rtl"] .jadwa-mobile-nav li a {
 .jadwa-mobile-invest-btn::after {
   content: "\f061";
   font-family: "Font Awesome 6 Free";
-  font-weight: 900;
+  font-weight: 700;
   width: 32px;
   height: 32px;
   margin-inline-start: 8px;
@@ -1281,44 +1273,6 @@ html[dir="rtl"] .jadwa-mobile-invest-btn::after {
   display: none !important;
 }
 
-/* =========================================
-   RESPONSIVE: DESKTOP HEADER
-========================================= */
-@media (max-width: 1199px) {
-  .jadwa-header-inner {
-    grid-template-columns: 155px minmax(0, 1fr);
-    gap: 14px;
-  }
-
-  .jadwa-logo {
-    max-width: 135px;
-    max-height: 54px;
-  }
-
-  .jadwa-nav .navigation > li > a,
-  .jadwa-nav .navigation > li.dropdown > a {
-    padding-inline: 8px;
-    font-size: 12px;
-  }
-
-  .jadwa-nav-icon {
-    width: 22px;
-    height: 22px;
-    margin-inline-end: 5px;
-  }
-
-  html[dir="rtl"] .jadwa-nav-icon {
-    margin-inline-start: 5px;
-  }
-
-  .jadwa-invest-btn {
-    padding-inline: 16px 12px;
-  }
-}
-
-/* =========================================
-   RESPONSIVE: TABLET / MOBILE HEADER
-========================================= */
 @media (max-width: 991px) {
   .jadwa-header {
     top: 10px;

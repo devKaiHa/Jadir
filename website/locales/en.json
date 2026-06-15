@@ -61,6 +61,16 @@
     "message": "Message",
     "submit": "Send"
   },
+  "policiesPage": {
+    "breadcrumb": "Policies",
+    "subtitle": "Legal Pages",
+    "title": "Site Policies",
+    "description": "Review the legal and operational policies that govern the use of our website and services.",
+    "emptyTitle": "No policies available",
+    "emptyDescription": "Legal and site policies will appear here soon.",
+    "defaultType": "Policy",
+    "policies": "policies"
+  },
   "companySpecialization": "A company specialized in investment management and establishing joint-stock companies",
   "all_rights_reserved": "All rights reserved",
   "terms_conditions": "Terms & Conditions",

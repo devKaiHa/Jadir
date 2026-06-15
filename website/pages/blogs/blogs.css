@@ -14,8 +14,7 @@
   inset: 0;
   pointer-events: none;
   opacity: 0.16;
-  background-image:
-    linear-gradient(rgba(0, 2, 79, 0.024) 1px, transparent 1px),
+  background-image: linear-gradient(rgba(0, 2, 79, 0.024) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 2, 79, 0.024) 1px, transparent 1px);
   background-size: 86px 86px;
   mask-image: linear-gradient(
@@ -52,8 +51,7 @@
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.84);
   border: 1px solid rgba(0, 106, 253, 0.12);
-  box-shadow:
-    0 18px 44px rgba(0, 2, 79, 0.07),
+  box-shadow: 0 18px 44px rgba(0, 2, 79, 0.07),
     inset 0 1px 0 rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
@@ -81,14 +79,11 @@
   background: transparent;
   color: rgba(0, 2, 79, 0.58);
   font-size: 13px;
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1;
   white-space: nowrap;
   cursor: pointer;
-  transition:
-    color 0.25s ease,
-    background 0.25s ease,
-    box-shadow 0.25s ease,
+  transition: color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease,
     transform 0.25s ease;
 }
 
@@ -150,9 +145,7 @@ select.jadwa-blog-category-pill {
   color: #ffffff;
   background: var(--site-blue);
   cursor: pointer;
-  transition:
-    background 0.25s ease,
-    transform 0.25s ease;
+  transition: background 0.25s ease, transform 0.25s ease;
 }
 
 .jadwa-blog-search-btn:hover {
@@ -206,8 +199,7 @@ select.jadwa-blog-category-pill {
 .jadwa-blog-hero-overlay {
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(
+  background: linear-gradient(
       90deg,
       rgba(0, 2, 79, 0.88) 0%,
       rgba(0, 2, 79, 0.66) 44%,
@@ -217,8 +209,7 @@ select.jadwa-blog-category-pill {
 }
 
 html[dir="rtl"] .jadwa-blog-hero-overlay {
-  background:
-    linear-gradient(
+  background: linear-gradient(
       270deg,
       rgba(0, 2, 79, 0.88) 0%,
       rgba(0, 2, 79, 0.66) 44%,
@@ -231,16 +222,11 @@ html[dir="rtl"] .jadwa-blog-hero-overlay {
   position: relative;
   z-index: 2;
   min-height: 520px;
-  max-width: 690px;
-  padding: 58px 58px 48px;
+
+  padding: 58px 80px 48px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-}
-
-html[dir="rtl"] .jadwa-blog-hero-content {
-  margin-inline-start: auto;
-  text-align: right;
 }
 
 .jadwa-blog-hero-category {
@@ -255,7 +241,7 @@ html[dir="rtl"] .jadwa-blog-hero-content {
   border: 1px solid rgba(255, 255, 255, 0.18);
   box-shadow: 0 12px 26px rgba(0, 106, 253, 0.22);
   font-size: 11px;
-  font-weight: 950;
+  font-weight: 700;
   line-height: 1;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -266,7 +252,7 @@ html[dir="rtl"] .jadwa-blog-hero-content {
   margin: 0 0 18px;
   font-size: clamp(2.15rem, 4.2vw, 4rem);
   line-height: 1.25;
-  font-weight: 950;
+  font-weight: 700;
   letter-spacing: -0.055em;
 }
 
@@ -323,7 +309,7 @@ html[dir="rtl"] .jadwa-blog-hero-title {
   gap: 12px;
   color: #ffffff;
   font-size: 14px;
-  font-weight: 950;
+  font-weight: 700;
   text-decoration: none;
   transition: color 0.25s ease;
 }
@@ -338,10 +324,7 @@ html[dir="rtl"] .jadwa-blog-hero-title {
   color: var(--site-blue);
   background: #ffffff;
   font-size: 13px;
-  transition:
-    transform 0.25s ease,
-    background 0.25s ease,
-    color 0.25s ease;
+  transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
 }
 
 .jadwa-blog-hero-link:hover {
@@ -375,10 +358,7 @@ html[dir="rtl"] .jadwa-blog-hero-link:hover i {
   box-shadow: 0 14px 32px rgba(0, 2, 79, 0.16);
   transform: translateY(-50%);
   cursor: pointer;
-  transition:
-    background 0.25s ease,
-    color 0.25s ease,
-    transform 0.25s ease;
+  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
 }
 
 .jadwa-blog-hero-nav:hover {
@@ -392,11 +372,6 @@ html[dir="rtl"] .jadwa-blog-hero-link:hover i {
 
 .jadwa-blog-hero-next {
   right: 18px;
-}
-
-html[dir="rtl"] .jadwa-blog-hero-prev i,
-html[dir="rtl"] .jadwa-blog-hero-next i {
-  transform: rotate(180deg);
 }
 
 .jadwa-blog-hero-pagination {
@@ -441,9 +416,7 @@ html[dir="rtl"] .jadwa-blog-hero-next i {
   background: #ffffff;
   border: 1px solid rgba(0, 106, 253, 0.12);
   box-shadow: 0 18px 44px rgba(0, 2, 79, 0.07);
-  transition:
-    transform 0.28s ease,
-    box-shadow 0.28s ease,
+  transition: transform 0.28s ease, box-shadow 0.28s ease,
     border-color 0.28s ease;
 }
 
@@ -497,7 +470,7 @@ html[dir="rtl"] .jadwa-blog-hero-next i {
   background: rgba(0, 106, 253, 0.08);
   border: 1px solid rgba(0, 106, 253, 0.14);
   font-size: 10.5px;
-  font-weight: 950;
+  font-weight: 700;
   line-height: 1;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -519,7 +492,7 @@ html[dir="rtl"] .jadwa-blog-hero-next i {
   margin: 0 0 12px;
   font-size: 1.35rem;
   line-height: 1.25;
-  font-weight: 950;
+  font-weight: 700;
   letter-spacing: -0.03em;
 }
 
@@ -577,7 +550,7 @@ html[dir="rtl"] .jadwa-blog-card-v2-title {
   gap: 8px;
   color: var(--site-blue);
   font-size: 13px;
-  font-weight: 950;
+  font-weight: 700;
   line-height: 1;
   text-decoration: none;
   transition: color 0.25s ease;
@@ -593,9 +566,7 @@ html[dir="rtl"] .jadwa-blog-card-v2-title {
   color: #ffffff;
   background: var(--site-blue);
   font-size: 11px;
-  transition:
-    transform 0.25s ease,
-    background 0.25s ease;
+  transition: transform 0.25s ease, background 0.25s ease;
 }
 
 .jadwa-blog-card-v2-link:hover {

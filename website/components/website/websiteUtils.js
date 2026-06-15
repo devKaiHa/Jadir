@@ -14,6 +14,7 @@ export const siteLinks = [
   { href: "/projects", label: "projects" },
   { href: "/blogs", label: "blog.Blogs" },
   { href: "/career", label: "navCareer" },
+  { href: "/policies", label: "policies" },
   { href: "/contact", label: "navContact" },
 ];
 
@@ -37,7 +38,7 @@ export const truncate = (value = "", length = 150) => {
 export const asset = (
   folder,
   filename,
-  fallback = "/assets/images/news/news-1.jpg",
+  fallback = "/assets/images/news/news-1.jpg"
 ) => (filename ? `${imageURL}${folder}/${filename}` : fallback);
 
 export async function safeFetch(url, fallback) {
@@ -71,7 +72,7 @@ export async function getWebsiteData() {
     Object.entries(urls).map(async ([key, url]) => [
       key,
       await safeFetch(url, null),
-    ]),
+    ])
   );
   const data = Object.fromEntries(entries);
 
@@ -102,7 +103,7 @@ export async function getServiceBySlug(slug) {
 export async function getProjectBySlug(slug) {
   const payload = await safeFetch(
     `${baseURL}projects/public/slug/${slug}`,
-    null,
+    null
   );
   return payload?.data || null;
 }
@@ -115,7 +116,7 @@ export async function getBlogBySlug(slug) {
 export async function getPolicyBySlug(slug) {
   const payload = await safeFetch(
     `${baseURL}policies/public/slug/${slug}`,
-    null,
+    null
   );
   return payload?.data || null;
 }

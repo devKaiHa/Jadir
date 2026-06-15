@@ -14,8 +14,7 @@
   inset: 0;
   pointer-events: none;
   opacity: 0.18;
-  background-image:
-    linear-gradient(rgba(0, 2, 79, 0.024) 1px, transparent 1px),
+  background-image: linear-gradient(rgba(0, 2, 79, 0.024) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 2, 79, 0.024) 1px, transparent 1px);
   background-size: 86px 86px;
   mask-image: linear-gradient(
@@ -55,7 +54,7 @@
   border: 1px solid var(--site-blue);
   box-shadow: 0 12px 26px rgba(0, 106, 253, 0.18);
   font-size: 12px;
-  font-weight: 950;
+  font-weight: 700;
   line-height: 1;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -76,7 +75,7 @@
   color: var(--site-navy);
   font-size: clamp(2.2rem, 4.4vw, 4rem);
   line-height: 1.05;
-  font-weight: 950;
+  font-weight: 700;
   letter-spacing: -0.055em;
 }
 
@@ -91,6 +90,7 @@ html[dir="rtl"] .jadir-projects-head h2 {
   font-size: 15.5px;
   font-weight: 500;
   line-height: 1.9;
+  text-align: center;
 }
 
 /* =========================================
@@ -116,9 +116,7 @@ html[dir="rtl"] .jadir-projects-head h2 {
   background: #ffffff;
   border: 1px solid rgba(0, 106, 253, 0.14);
   box-shadow: 0 24px 70px rgba(0, 106, 253, 0.08);
-  transition:
-    transform 0.32s ease,
-    box-shadow 0.32s ease,
+  transition: transform 0.32s ease, box-shadow 0.32s ease,
     border-color 0.32s ease;
 }
 
@@ -169,8 +167,7 @@ html[dir="rtl"] .jadir-projects-head h2 {
   border-radius: 24px;
   background: #ffffff;
   border: 1px solid rgba(0, 2, 79, 0.08);
-  box-shadow:
-    0 20px 50px rgba(0, 2, 79, 0.09),
+  box-shadow: 0 20px 50px rgba(0, 2, 79, 0.09),
     inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
@@ -205,7 +202,7 @@ html[dir="rtl"] .jadir-projects-head h2 {
   box-shadow: 0 12px 26px rgba(0, 2, 79, 0.1);
   font-family: var(--urbanist), system-ui, sans-serif;
   font-size: 18px;
-  font-weight: 950;
+  font-weight: 700;
   line-height: 1;
   font-variant-numeric: lining-nums tabular-nums;
 }
@@ -225,13 +222,13 @@ html[dir="rtl"] .jadir-projects-head h2 {
   flex-direction: column;
   justify-content: center;
   overflow: hidden;
-  background:
-    linear-gradient(90deg, rgba(0, 106, 253, 0.035), transparent 34%), #ffffff;
+  background: linear-gradient(90deg, rgba(0, 106, 253, 0.035), transparent 34%),
+    #ffffff;
 }
 
 html[dir="rtl"] .jadir-project-copy {
-  background:
-    linear-gradient(270deg, rgba(0, 106, 253, 0.035), transparent 34%), #ffffff;
+  background: linear-gradient(270deg, rgba(0, 106, 253, 0.035), transparent 34%),
+    #ffffff;
 }
 
 .jadir-project-kicker {
@@ -242,7 +239,7 @@ html[dir="rtl"] .jadir-project-copy {
   gap: 8px;
   color: var(--site-blue);
   font-size: 11px;
-  font-weight: 950;
+  font-weight: 700;
   line-height: 1;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -260,7 +257,7 @@ html[dir="rtl"] .jadir-project-copy {
   margin: 0 0 18px;
   font-size: clamp(1.8rem, 3vw, 3rem);
   line-height: 1.25;
-  font-weight: 950;
+  font-weight: 700;
   letter-spacing: -0.05em;
 }
 
@@ -303,7 +300,7 @@ html[dir="rtl"] .jadir-project-copy h3 {
   color: var(--site-blue);
   text-decoration: none;
   font-size: 14px;
-  font-weight: 950;
+  font-weight: 700;
   line-height: 1;
   transition: color 0.25s ease;
 }
@@ -319,10 +316,7 @@ html[dir="rtl"] .jadir-project-copy h3 {
   background: var(--site-blue);
   box-shadow: 0 12px 26px rgba(0, 106, 253, 0.2);
   font-size: 13px;
-  transition:
-    transform 0.25s ease,
-    background 0.25s ease,
-    box-shadow 0.25s ease;
+  transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
 }
 
 .jadir-project-link:hover {
@@ -529,8 +523,7 @@ html[dir="rtl"] .jadir-project-link:hover i {
   inset: 0;
   pointer-events: none;
   opacity: 0.16;
-  background-image:
-    linear-gradient(rgba(0, 2, 79, 0.024) 1px, transparent 1px),
+  background-image: linear-gradient(rgba(0, 2, 79, 0.024) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 2, 79, 0.024) 1px, transparent 1px);
   background-size: 86px 86px;
   mask-image: linear-gradient(
@@ -577,8 +570,7 @@ html[dir="rtl"] .jadir-project-link:hover i {
   object-position: center;
   border-radius: 26px;
   border: 1px solid rgba(0, 2, 79, 0.08);
-  box-shadow:
-    0 22px 54px rgba(0, 2, 79, 0.1),
+  box-shadow: 0 22px 54px rgba(0, 2, 79, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
@@ -589,13 +581,13 @@ html[dir="rtl"] .jadir-project-link:hover i {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background:
-    linear-gradient(90deg, rgba(0, 106, 253, 0.04), transparent 38%), #ffffff;
+  background: linear-gradient(90deg, rgba(0, 106, 253, 0.04), transparent 38%),
+    #ffffff;
 }
 
 html[dir="rtl"] .jadir-project-detail-intro {
-  background:
-    linear-gradient(270deg, rgba(0, 106, 253, 0.04), transparent 38%), #ffffff;
+  background: linear-gradient(270deg, rgba(0, 106, 253, 0.04), transparent 38%),
+    #ffffff;
 }
 
 .jadir-project-detail-eyebrow {
@@ -606,7 +598,7 @@ html[dir="rtl"] .jadir-project-detail-intro {
   gap: 8px;
   color: var(--site-blue);
   font-size: 11px;
-  font-weight: 950;
+  font-weight: 700;
   line-height: 1;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -625,7 +617,7 @@ html[dir="rtl"] .jadir-project-detail-intro {
   color: var(--site-navy);
   font-size: clamp(2.3rem, 4.6vw, 4.4rem);
   line-height: 1.25;
-  font-weight: 950;
+  font-weight: 700;
   letter-spacing: -0.06em;
 }
 
@@ -656,7 +648,7 @@ html[dir="rtl"] .jadir-project-detail-intro h1 {
   color: var(--site-blue);
   text-decoration: none;
   font-size: 14px;
-  font-weight: 950;
+  font-weight: 700;
   line-height: 1;
   transition: color 0.25s ease;
 }
@@ -672,10 +664,7 @@ html[dir="rtl"] .jadir-project-detail-intro h1 {
   background: var(--site-blue);
   box-shadow: 0 12px 26px rgba(0, 106, 253, 0.2);
   font-size: 13px;
-  transition:
-    transform 0.25s ease,
-    background 0.25s ease,
-    box-shadow 0.25s ease;
+  transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
 }
 
 .jadir-project-detail-back:hover {
@@ -712,9 +701,7 @@ html[dir="rtl"] .jadir-project-detail-back:hover i {
   background: #ffffff;
   border: 1px solid rgba(0, 106, 253, 0.14);
   box-shadow: 0 18px 48px rgba(0, 106, 253, 0.07);
-  transition:
-    transform 0.28s ease,
-    border-color 0.28s ease,
+  transition: transform 0.28s ease, border-color 0.28s ease,
     box-shadow 0.28s ease;
 }
 
@@ -734,18 +721,13 @@ html[dir="rtl"] .jadir-project-detail-back:hover i {
   color: var(--site-blue);
   background: rgba(0, 106, 253, 0.08);
   border: 1px solid rgba(0, 106, 253, 0.18);
-  font-family:
-    "Inter Tight", "SF Pro Display", "Arial Narrow", var(--urbanist), system-ui,
-    sans-serif;
+  font-family: "Inter Tight", "SF Pro Display", "DIN Alternate", "Arial Narrow",
+    var(--urbanist), system-ui, sans-serif;
   font-size: 20px;
-  font-weight: 950;
+  font-weight: 700;
   line-height: 1;
-  letter-spacing: -0.04em;
   font-variant-numeric: lining-nums tabular-nums;
-  transition:
-    color 0.25s ease,
-    background 0.25s ease,
-    border-color 0.25s ease,
+  transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease,
     box-shadow 0.25s ease;
 }
 
@@ -765,7 +747,7 @@ html[dir="rtl"] .jadir-project-detail-back:hover i {
   color: var(--site-navy);
   font-size: clamp(1.45rem, 2.2vw, 2rem);
   line-height: 1.12;
-  font-weight: 950;
+  font-weight: 700;
   letter-spacing: -0.035em;
 }
 

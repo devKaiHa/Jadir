@@ -61,6 +61,16 @@
     "message": "رسالة",
     "submit": "أرسل"
   },
+  "policiesPage": {
+    "breadcrumb": "السياسات",
+    "subtitle": "الصفحات القانونية",
+    "title": "سياسات الموقع",
+    "description": "اطلع على السياسات القانونية والتشغيلية التي تحكم استخدام موقعنا وخدماتنا.",
+    "emptyTitle": "لا توجد سياسات متاحة",
+    "emptyDescription": "ستظهر السياسات القانونية وسياسات الموقع هنا قريبًا.",
+    "defaultType": "سياسة",
+    "policies": "السياسات"
+  },
   "companySpecialization": "شركة متخصصة بإدارة الاستثمار وتأسيس الشركات المساهمة",
   "all_rights_reserved": "جميع الحقوق محفوظة",
   "terms_conditions": "الشروط والأحكام",
@@ -259,8 +269,8 @@
   "copyLink": "نسخ الرابط",
   "copied": "تم النسخ",
   "digitalFinancialSolutions": "حلول مالية رقمية",
-  "navAbout": "حول",
-  "navCareer": "المهنية",
+  "navAbout": "من نحن",
+  "navCareer": "فرص العمل",
   "navContact": "تواصل",
   "quickLinks": "روابط سريعة",
   "policies": "السياسات",
@@ -301,7 +311,7 @@
       "blogs": "المدونة",
       "pages": "الصفحات",
       "team": "الفريق",
-      "careers": "الوظائف"
+      "careers": "فرص العمل"
     }
   }
 }

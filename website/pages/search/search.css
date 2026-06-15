@@ -1,6 +1,5 @@
 .search-page-section {
-  background:
-    radial-gradient(
+  background: radial-gradient(
       circle at top left,
       rgba(18, 92, 121, 0.08),
       transparent 34%
@@ -32,7 +31,7 @@
 .search-page-control span {
   color: #63716e;
   font-size: 11px;
-  font-weight: 900;
+  font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
@@ -69,7 +68,7 @@
   background: linear-gradient(135deg, var(--site-navy), var(--site-blue));
   border: 0;
   border-radius: 16px;
-  font-weight: 900;
+  font-weight: 700;
   transition: 0.22s ease;
 }
 
@@ -102,7 +101,7 @@
   background: #fff;
   border: 1px solid #e8efec;
   border-radius: 999px;
-  font-weight: 900;
+  font-weight: 700;
   transition: 0.22s ease;
 }
 
@@ -216,7 +215,7 @@
   background: #eef5f3;
   border-radius: 999px;
   font-size: 11px;
-  font-weight: 900;
+  font-weight: 700;
   font-style: normal;
   text-transform: uppercase;
 }
@@ -305,7 +304,7 @@
   background: #fff;
   border: 1px solid #e7efec;
   border-radius: 14px;
-  font-weight: 900;
+  font-weight: 700;
   transition: 0.22s ease;
 }
 

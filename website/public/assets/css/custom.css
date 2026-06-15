@@ -132,9 +132,7 @@
   height: 10px;
   margin: 0 4px !important;
   border-radius: 50%;
-  transition:
-    opacity 0.3s ease,
-    transform 0.3s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .swiper-pagination-bullet-active {
@@ -224,8 +222,7 @@ html[dir="rtl"] .custom-container .content-box::before {
   inset: 0;
   pointer-events: none;
   opacity: 0.32;
-  background-image:
-    linear-gradient(rgba(0, 2, 79, 0.03) 1px, transparent 1px),
+  background-image: linear-gradient(rgba(0, 2, 79, 0.03) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 2, 79, 0.03) 1px, transparent 1px);
   background-size: 72px 72px;
   mask-image: linear-gradient(
@@ -291,7 +288,7 @@ html[dir="rtl"] .custom-container .content-box::before {
   border: 1px solid rgba(0, 106, 253, 0.16);
   font-family: var(--urbanist);
   font-size: 12px;
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -314,7 +311,7 @@ html[dir="rtl"] .custom-container .content-box::before {
   color: var(--site-navy);
   font-size: clamp(2.4rem, 4vw, 3.8rem);
   line-height: 1.02;
-  font-weight: 950;
+  font-weight: 700;
   letter-spacing: -0.05em;
 }
 
@@ -379,8 +376,7 @@ html[dir="rtl"] .jadwa-about-text {
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.78);
   border: 1px solid rgba(0, 2, 79, 0.07);
-  box-shadow:
-    0 12px 28px rgba(0, 2, 79, 0.055),
+  box-shadow: 0 12px 28px rgba(0, 2, 79, 0.055),
     inset 0 1px 0 rgba(255, 255, 255, 0.86);
 }
 
@@ -408,7 +404,7 @@ html[dir="rtl"] .jadwa-about-highlight {
 .jadwa-about-highlight strong {
   color: rgba(0, 2, 79, 0.76);
   font-size: 13px;
-  font-weight: 900;
+  font-weight: 700;
 }
 
 .jadwa-about-actions {
@@ -465,26 +461,21 @@ html[dir="rtl"] .jadwa-about-slider-column {
   height: 100%;
   padding: 36px;
   border-radius: 28px;
-  background:
-    radial-gradient(
+  background: radial-gradient(
       circle at top right,
       rgba(0, 106, 253, 0.22),
       transparent 35%
     ),
     linear-gradient(135deg, rgba(0, 2, 79, 0.98), rgba(0, 18, 108, 0.94));
   border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow:
-    0 24px 55px rgba(0, 2, 79, 0.18),
+  box-shadow: 0 24px 55px rgba(0, 2, 79, 0.18),
     inset 0 1px 0 rgba(255, 255, 255, 0.12);
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .jadwa-about-slide-card:hover {
   transform: translateY(-4px);
-  box-shadow:
-    0 30px 70px rgba(0, 2, 79, 0.24),
+  box-shadow: 0 30px 70px rgba(0, 2, 79, 0.24),
     inset 0 1px 0 rgba(255, 255, 255, 0.14);
 }
 
@@ -494,8 +485,7 @@ html[dir="rtl"] .jadwa-about-slider-column {
   inset: 1px;
   border-radius: inherit;
   pointer-events: none;
-  background:
-    linear-gradient(120deg, rgba(255, 255, 255, 0.1), transparent 36%),
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.1), transparent 36%),
     radial-gradient(
       circle at bottom left,
       rgba(255, 255, 255, 0.08),
@@ -549,7 +539,7 @@ html[dir="rtl"] .jadwa-about-slide-bg-icon {
   color: rgba(255, 255, 255, 0.22);
   font-family: var(--urbanist);
   font-size: 54px;
-  font-weight: 950;
+  font-weight: 700;
   line-height: 1;
   letter-spacing: -0.08em;
 }
@@ -565,7 +555,7 @@ html[dir="rtl"] .jadwa-about-slide-bg-icon {
   background: rgba(255, 255, 255, 0.095);
   border: 1px solid rgba(255, 255, 255, 0.13);
   font-size: 11px;
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -577,9 +567,9 @@ html[dir="rtl"] .jadwa-about-slide-bg-icon {
   max-width: 420px;
   margin: 0 0 18px;
   color: #ffffff;
-  font-size: clamp(1.85rem, 3vw, 2.45rem);
+  font-size: clamp(1.85rem, 3vw, 2rem);
   line-height: 1.25;
-  font-weight: 950;
+  font-weight: 700;
   letter-spacing: -0.045em;
 }
 
@@ -755,8 +745,7 @@ html[dir="rtl"] .jadwa-about-slide-text {
   inset: 0;
   pointer-events: none;
   opacity: 0.28;
-  background-image:
-    linear-gradient(rgba(0, 2, 79, 0.028) 1px, transparent 1px),
+  background-image: linear-gradient(rgba(0, 2, 79, 0.028) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 2, 79, 0.028) 1px, transparent 1px);
   background-size: 84px 84px;
   mask-image: linear-gradient(
@@ -794,7 +783,7 @@ html[dir="rtl"] .jadwa-about-slide-text {
   background: rgba(0, 106, 253, 0.08);
   border: 1px solid rgba(0, 106, 253, 0.14);
   font-size: 12px;
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -815,7 +804,7 @@ html[dir="rtl"] .jadwa-about-slide-text {
   color: var(--site-navy);
   font-size: clamp(2.15rem, 4vw, 3rem);
   line-height: 1.25;
-  font-weight: 950;
+  font-weight: 700;
   letter-spacing: -0.045em;
 }
 
@@ -848,8 +837,7 @@ html[dir="rtl"] .jadwa-about-slide-text {
     rgba(247, 250, 255, 0.84)
   );
   border: 1px solid rgba(0, 2, 79, 0.075);
-  box-shadow:
-    0 26px 70px rgba(0, 2, 79, 0.085),
+  box-shadow: 0 26px 70px rgba(0, 2, 79, 0.085),
     inset 0 1px 0 rgba(255, 255, 255, 0.88);
 }
 
@@ -893,8 +881,7 @@ html[dir="rtl"] .jadwa-about-slide-text {
   position: absolute;
   inset: 16px;
   border-radius: 26px;
-  background:
-    radial-gradient(
+  background: radial-gradient(
       circle at top right,
       rgba(0, 106, 253, 0.095),
       transparent 34%
@@ -972,25 +959,22 @@ html[dir="rtl"] .jadwa-about-slide-text {
 
 .statistics-value {
   color: var(--site-navy);
-  font-family:
-    "Inter Tight", "SF Pro Display", "DIN Alternate", "Arial Narrow",
+  font-family: "Inter Tight", "SF Pro Display", "DIN Alternate", "Arial Narrow",
     var(--urbanist), system-ui, sans-serif;
   font-size: clamp(4.2rem, 7.5vw, 6.4rem);
-  font-weight: 950;
+  font-weight: 700;
   line-height: 0.82;
   font-variant-numeric: lining-nums tabular-nums;
-  font-feature-settings:
-    "lnum" 1,
-    "tnum" 1;
+  font-feature-settings: "lnum" 1, "tnum" 1;
 }
 
 .statistics-suffix {
   margin-bottom: 10px;
   color: var(--site-blue);
-  font-family:
-    "Inter Tight", "SF Pro Display", var(--urbanist), system-ui, sans-serif;
+  font-family: "Inter Tight", "SF Pro Display", var(--urbanist), system-ui,
+    sans-serif;
   font-size: clamp(1.25rem, 2vw, 1.8rem);
-  font-weight: 950;
+  font-weight: 700;
   line-height: 1;
   letter-spacing: -0.02em;
 }
@@ -1001,7 +985,7 @@ html[dir="rtl"] .jadwa-about-slide-text {
   color: rgba(0, 2, 79, 0.84);
   font-size: 1.08rem;
   line-height: 1.35;
-  font-weight: 900;
+  font-weight: 700;
 }
 
 .statistics-description {
@@ -1167,8 +1151,7 @@ html[dir="rtl"] .jadwa-about-slide-text {
   position: relative;
   overflow: hidden;
   padding: 104px 0 96px;
-  background:
-    radial-gradient(
+  background: radial-gradient(
       circle at top left,
       rgba(0, 106, 253, 0.045),
       transparent 28%
@@ -1182,8 +1165,7 @@ html[dir="rtl"] .jadwa-about-slide-text {
   inset: 0;
   pointer-events: none;
   opacity: 0.32;
-  background-image:
-    linear-gradient(rgba(0, 2, 79, 0.026) 1px, transparent 1px),
+  background-image: linear-gradient(rgba(0, 2, 79, 0.026) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 2, 79, 0.026) 1px, transparent 1px);
   background-size: 80px 80px;
   mask-image: linear-gradient(
@@ -1228,7 +1210,7 @@ html[dir="rtl"] .jadwa-about-slide-text {
   margin-bottom: 16px;
   color: var(--site-blue);
   font-size: 12px;
-  font-weight: 950;
+  font-weight: 700;
   line-height: 1;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -1247,7 +1229,7 @@ html[dir="rtl"] .jadwa-about-slide-text {
   color: var(--site-navy);
   font-size: clamp(2.45rem, 4.4vw, 3rem);
   line-height: 0.98;
-  font-weight: 950;
+  font-weight: 700;
   letter-spacing: -0.06em;
 }
 
@@ -1288,10 +1270,7 @@ html[dir="rtl"] .jadwa-about-slide-text {
   gap: 30px;
   padding: 32px 0;
   border-bottom: 1px solid rgba(0, 2, 79, 0.105);
-  transition:
-    background 0.25s ease,
-    border-color 0.25s ease,
-    padding 0.25s ease;
+  transition: background 0.25s ease, border-color 0.25s ease, padding 0.25s ease;
 }
 
 .jadwa-service-row::before {
@@ -1335,15 +1314,14 @@ html[dir="rtl"] .jadwa-about-slide-text {
   position: relative;
   z-index: 1;
   color: rgba(0, 4, 114, 0.649);
-  font-family: var(--urbanist), system-ui, sans-serif;
+  font-family: "Inter Tight", "SF Pro Display", "DIN Alternate", "Arial Narrow",
+    var(--urbanist), system-ui, sans-serif;
   font-size: 2rem;
-  font-weight: 950;
+  font-weight: 700;
   line-height: 1;
 
   font-variant-numeric: lining-nums tabular-nums;
-  transition:
-    color 0.25s ease,
-    transform 0.25s ease;
+  transition: color 0.25s ease, transform 0.25s ease;
 }
 
 .jadwa-service-row:hover .jadwa-service-number {
@@ -1369,7 +1347,7 @@ html[dir="rtl"] .jadwa-about-slide-text {
   margin: 0 0 11px;
   color: rgba(0, 2, 79, 0.9);
   font-size: clamp(1.35rem, 2.1vw, 1.9rem);
-  font-weight: 950;
+  font-weight: 700;
   line-height: 1.16;
   letter-spacing: -0.035em;
 }
@@ -1405,12 +1383,8 @@ html[dir="rtl"] .jadwa-about-slide-text {
   background: #ffffff;
   border: 1px solid rgba(0, 2, 79, 0.13);
   box-shadow: 0 10px 22px rgba(0, 2, 79, 0.035);
-  transition:
-    color 0.25s ease,
-    background 0.25s ease,
-    border-color 0.25s ease,
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
+  transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease,
+    transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .jadwa-services-section.rtl .jadwa-service-arrow {
@@ -1425,12 +1399,7 @@ html[dir="rtl"] .jadwa-about-slide-text {
   color: #ffffff;
   background: var(--site-blue);
   border-color: var(--site-blue);
-  transform: translateX(4px);
   box-shadow: 0 14px 30px rgba(0, 106, 253, 0.2);
-}
-
-.jadwa-services-section.rtl .jadwa-service-row:hover .jadwa-service-arrow {
-  transform: translateX(-4px);
 }
 
 /* =========================================
@@ -1537,8 +1506,7 @@ html[dir="rtl"] .jadwa-about-slide-text {
   position: relative;
   overflow: hidden;
   padding: 88px 0;
-  background:
-    radial-gradient(
+  background: radial-gradient(
       circle at top left,
       rgba(0, 106, 253, 0.2),
       transparent 30%
@@ -1557,8 +1525,10 @@ html[dir="rtl"] .jadwa-about-slide-text {
   inset: 0;
   opacity: 0.16;
   pointer-events: none;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.08) 1px,
+      transparent 1px
+    ),
     linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
   background-size: 74px 74px;
   mask-image: linear-gradient(
@@ -1614,8 +1584,7 @@ html[dir="rtl"] .site-cta::after {
   height: 11px;
   border-radius: 999px;
   background: var(--site-blue);
-  box-shadow:
-    0 0 0 8px rgba(0, 106, 253, 0.12),
+  box-shadow: 0 0 0 8px rgba(0, 106, 253, 0.12),
     0 0 0 18px rgba(0, 106, 253, 0.06);
   transform: translateY(-50%);
 }
@@ -1641,7 +1610,7 @@ html[dir="rtl"] .site-cta::after {
   margin-bottom: 18px;
   color: rgba(255, 255, 255, 0.68);
   font-size: 12px;
-  font-weight: 950;
+  font-weight: 700;
   line-height: 1;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -1659,7 +1628,7 @@ html[dir="rtl"] .site-cta::after {
   color: #ffffff;
   font-size: clamp(2.55rem, 5vw, 4.6rem);
   line-height: 1.25;
-  font-weight: 950;
+  font-weight: 700;
   letter-spacing: -0.06em;
 }
 
@@ -1689,14 +1658,11 @@ html[dir="rtl"] .site-cta h2 {
   border: 1px solid rgba(255, 255, 255, 0.28);
   box-shadow: 0 18px 42px rgba(0, 0, 0, 0.16);
   font-size: 14px;
-  font-weight: 950;
+  font-weight: 700;
   line-height: 1;
   text-decoration: none;
   white-space: nowrap;
-  transition:
-    color 0.25s ease,
-    background 0.25s ease,
-    transform 0.25s ease,
+  transition: color 0.25s ease, background 0.25s ease, transform 0.25s ease,
     box-shadow 0.25s ease;
 }
 
@@ -1707,7 +1673,7 @@ html[dir="rtl"] .site-cta-btn {
 .site-cta-btn::after {
   content: "\f061";
   font-family: "Font Awesome 6 Free";
-  font-weight: 900;
+  font-weight: 700;
   width: 34px;
   height: 34px;
   border-radius: 999px;
@@ -1821,7 +1787,7 @@ html[dir="rtl"] .site-cta-btn:hover::after {
   margin-bottom: 14px;
   color: var(--site-blue);
   font-size: 11px;
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -1842,7 +1808,7 @@ html[dir="rtl"] .site-cta-btn:hover::after {
   color: var(--site-navy);
   font-size: clamp(2rem, 3.4vw, 3rem);
   line-height: 1.08;
-  font-weight: 950;
+  font-weight: 700;
   letter-spacing: -0.045em;
 }
 
@@ -1918,9 +1884,7 @@ html[dir="rtl"] .site-cta-btn:hover::after {
   height: auto;
   object-fit: contain;
   filter: grayscale(1) opacity(0.48);
-  transition:
-    filter 0.25s ease,
-    transform 0.25s ease;
+  transition: filter 0.25s ease, transform 0.25s ease;
 }
 
 .jadwa-trusted-logo-card:hover img {
@@ -2024,6 +1988,31 @@ html[dir="rtl"] .site-cta-btn:hover::after {
   position: relative;
   z-index: 1;
 }
+.jadwa-featured-swiper .swiper-wrapper {
+  align-items: stretch;
+}
+
+.jadwa-featured-card {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-lg);
+  padding: 1.5rem;
+  color: var(--color-text-primary);
+}
+
+.swiper-slide-active .jadwa-featured-card {
+  background: linear-gradient(135deg, #0063f5, #2d3a9e);
+  color: #ffffff;
+  border-color: transparent;
+}
+
+.swiper-slide-active .jadwa-featured-card h4,
+.swiper-slide-active .jadwa-featured-card p,
+.swiper-slide-active .jadwa-featured-card .jadwa-featured-text {
+  color: #ffffff;
+}
 
 /* =========================================
    HEAD - TIGHTER
@@ -2047,7 +2036,7 @@ html[dir="rtl"] .site-cta-btn:hover::after {
   color: var(--site-blue);
   border: 1px solid rgba(0, 106, 253, 0.15);
   font-size: 10.5px;
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -2068,7 +2057,7 @@ html[dir="rtl"] .site-cta-btn:hover::after {
   color: var(--site-navy);
   font-size: clamp(2rem, 3.4vw, 3rem);
   line-height: 1.03;
-  font-weight: 950;
+  font-weight: 700;
   letter-spacing: -0.05em;
 }
 
@@ -2135,13 +2124,11 @@ html[dir="rtl"] .jadwa-testimonials-title {
   position: relative;
   overflow: hidden;
   width: 100%;
-  min-height: 250px;
-  height: 100%;
+  height: 350px;
   padding: 24px 24px 20px;
   border-radius: 24px;
   color: #ffffff;
-  background:
-    radial-gradient(
+  background: radial-gradient(
       circle at bottom right,
       rgba(0, 106, 253, 0.2),
       transparent 34%
@@ -2196,6 +2183,8 @@ html[dir="rtl"] .jadwa-featured-card::after {
   font-weight: 600;
   line-height: 1.65;
   flex: 1;
+  max-height: 240px;
+  overflow-y: auto;
 }
 
 .jadwa-stars {
@@ -2291,7 +2280,7 @@ html[dir="rtl"] .jadwa-featured-card::after {
   color: var(--site-navy);
   font-family: var(--urbanist), system-ui, sans-serif;
   font-size: clamp(1.35rem, 2vw, 1.85rem);
-  font-weight: 950;
+  font-weight: 700;
   line-height: 0.95;
   letter-spacing: -0.06em;
   font-variant-numeric: lining-nums tabular-nums;
@@ -2329,7 +2318,7 @@ html[dir="rtl"] .jadwa-featured-card::after {
   align-items: center;
   justify-content: center;
   font-size: 10.5px;
-  font-weight: 900;
+  font-weight: 700;
 }
 
 .jadwa-avatar-dark {
@@ -2353,7 +2342,7 @@ html[dir="rtl"] .jadwa-featured-card::after {
   color: inherit;
   font-size: 12px;
   line-height: 1.25;
-  font-weight: 900;
+  font-weight: 700;
 }
 
 .jadwa-user-meta p {
@@ -2592,8 +2581,7 @@ html[dir="rtl"] .jadwa-featured-card::after {
   display: flex;
   align-items: center;
   justify-content: center;
-  background:
-    radial-gradient(
+  background: radial-gradient(
       circle at top left,
       rgba(222, 147, 79, 0.16),
       transparent 35%
@@ -2622,8 +2610,11 @@ html[dir="rtl"] .jadwa-featured-card::after {
   width: 100%;
   height: 100%;
   border-radius: 14px;
-  background:
-    linear-gradient(135deg, rgba(15, 86, 98, 0.08), rgba(222, 147, 79, 0.08)),
+  background: linear-gradient(
+      135deg,
+      rgba(15, 86, 98, 0.08),
+      rgba(222, 147, 79, 0.08)
+    ),
     repeating-linear-gradient(
       135deg,
       rgba(15, 86, 98, 0.04) 0,
@@ -3058,8 +3049,7 @@ html[dir="rtl"] .companies-brief-read-more:hover .companies-brief-arrow {
   inset: 0;
   pointer-events: none;
   opacity: 0.22;
-  background-image:
-    linear-gradient(rgba(0, 2, 79, 0.026) 1px, transparent 1px),
+  background-image: linear-gradient(rgba(0, 2, 79, 0.026) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 2, 79, 0.026) 1px, transparent 1px);
   background-size: 82px 82px;
   mask-image: linear-gradient(
@@ -3116,14 +3106,11 @@ html[dir="rtl"] .companies-brief-read-more:hover .companies-brief-arrow {
   background: transparent;
   color: rgba(0, 2, 79, 0.58);
   font-size: 12px;
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1;
   cursor: pointer;
   white-space: nowrap;
-  transition:
-    background 0.25s ease,
-    color 0.25s ease,
-    transform 0.25s ease,
+  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease,
     box-shadow 0.25s ease;
 }
 
@@ -3157,13 +3144,10 @@ html[dir="rtl"] .companies-brief-read-more:hover .companies-brief-arrow {
   border: 1px solid rgba(0, 2, 79, 0.1);
   box-shadow: 0 14px 30px rgba(0, 2, 79, 0.14);
   font-size: 13px;
-  font-weight: 950;
+  font-weight: 700;
   line-height: 1;
   text-decoration: none;
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    background 0.25s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
 }
 
 html[dir="rtl"] .jadwa-blog-all-btn {
@@ -3173,7 +3157,7 @@ html[dir="rtl"] .jadwa-blog-all-btn {
 .jadwa-blog-all-btn::after {
   content: "\f061";
   font-family: "Font Awesome 6 Free";
-  font-weight: 900;
+  font-weight: 700;
   width: 28px;
   height: 28px;
   border-radius: 999px;
@@ -3221,8 +3205,7 @@ html[dir="rtl"] .jadwa-blog-all-btn::after {
   border-radius: 30px;
   background: #ffffff;
   border: 1px solid rgba(0, 2, 79, 0.075);
-  box-shadow:
-    0 24px 65px rgba(0, 2, 79, 0.09),
+  box-shadow: 0 24px 65px rgba(0, 2, 79, 0.09),
     inset 0 1px 0 rgba(255, 255, 255, 0.86);
 }
 
@@ -3234,8 +3217,7 @@ html[dir="rtl"] .jadwa-blog-all-btn::after {
   flex-direction: column;
   justify-content: center;
   color: #ffffff;
-  background:
-    radial-gradient(
+  background: radial-gradient(
       circle at top right,
       rgba(0, 106, 253, 0.22),
       transparent 34%
@@ -3284,7 +3266,7 @@ html[dir="rtl"] .jadwa-blog-featured-content::before {
   background: rgba(255, 255, 255, 0.11);
   border: 1px solid rgba(255, 255, 255, 0.12);
   font-size: 11px;
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -3308,9 +3290,8 @@ html[dir="rtl"] .jadwa-blog-featured-content::before {
 
 .jadwa-blog-featured-title {
   margin: 0 0 16px;
-  font-size: clamp(2rem, 3.2vw, 3rem);
+  font-size: clamp(2rem, 3.2vw, 2rem);
   line-height: 1.25;
-  font-weight: 950;
   letter-spacing: -0.045em;
 }
 
@@ -3356,7 +3337,7 @@ html[dir="rtl"] .jadwa-blog-featured-title {
   gap: 10px;
   color: #ffffff;
   font-size: 13px;
-  font-weight: 900;
+  font-weight: 700;
   text-decoration: none;
 }
 
@@ -3371,9 +3352,7 @@ html[dir="rtl"] .jadwa-blog-featured-title {
   color: #ffffff;
   font-size: 12px;
   box-shadow: 0 10px 22px rgba(0, 106, 253, 0.24);
-  transition:
-    transform 0.25s ease,
-    background 0.25s ease;
+  transition: transform 0.25s ease, background 0.25s ease;
 }
 
 .jadwa-blog-readmore:hover {
@@ -3400,8 +3379,7 @@ html[dir="rtl"] .jadwa-blog-readmore:hover i {
   content: "";
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(90deg, rgba(0, 2, 79, 0.05), transparent 38%),
+  background: linear-gradient(90deg, rgba(0, 2, 79, 0.05), transparent 38%),
     radial-gradient(
       circle at top right,
       rgba(0, 106, 253, 0.12),
@@ -3411,8 +3389,7 @@ html[dir="rtl"] .jadwa-blog-readmore:hover i {
 }
 
 html[dir="rtl"] .jadwa-blog-featured-image-wrap::after {
-  background:
-    linear-gradient(270deg, rgba(0, 2, 79, 0.05), transparent 38%),
+  background: linear-gradient(270deg, rgba(0, 2, 79, 0.05), transparent 38%),
     radial-gradient(
       circle at top left,
       rgba(0, 106, 253, 0.12),
@@ -3448,20 +3425,16 @@ html[dir="rtl"] .jadwa-blog-featured-image-wrap::after {
   border-radius: 26px;
   background: #ffffff;
   border: 1px solid rgba(0, 2, 79, 0.075);
-  box-shadow:
-    0 18px 45px rgba(0, 2, 79, 0.07),
+  box-shadow: 0 18px 45px rgba(0, 2, 79, 0.07),
     inset 0 1px 0 rgba(255, 255, 255, 0.88);
-  transition:
-    transform 0.28s ease,
-    box-shadow 0.28s ease,
+  transition: transform 0.28s ease, box-shadow 0.28s ease,
     border-color 0.28s ease;
 }
 
 .jadwa-blog-card:hover {
   transform: translateY(-5px);
   border-color: rgba(0, 106, 253, 0.16);
-  box-shadow:
-    0 24px 60px rgba(0, 2, 79, 0.1),
+  box-shadow: 0 24px 60px rgba(0, 2, 79, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.92);
 }
 
@@ -3506,7 +3479,7 @@ html[dir="rtl"] .jadwa-blog-featured-image-wrap::after {
   margin: 0 0 12px;
   font-size: 1.25rem;
   line-height: 1.25;
-  font-weight: 950;
+  font-weight: 700;
   letter-spacing: -0.025em;
 }
 
@@ -3617,7 +3590,7 @@ html[dir="rtl"] .jadwa-blog-card-title {
 .jadwa-blog-mobile-row-title {
   margin: 0 0 7px;
   font-size: 1rem;
-  font-weight: 950;
+  font-weight: 700;
   line-height: 1.25;
 }
 
@@ -4313,10 +4286,6 @@ html[dir="rtl"] .left-column .chooseus-block-one .inner-box .overlay-content {
   .main-menu .navigation > li {
     margin: 0px 5px !important;
   }
-
-  html[dir="rtl"] .main-menu .navigation > li > a {
-    padding-left: 23px !important;
-  }
 }
 
 @media only screen and (max-width: 1700px) {
@@ -4325,10 +4294,6 @@ html[dir="rtl"] .left-column .chooseus-block-one .inner-box .overlay-content {
   }
   .main-menu .navigation > li {
     margin: 0px 5px !important;
-  }
-
-  html[dir="rtl"] .main-menu .navigation > li > a {
-    padding-left: 23px !important;
   }
 }
 
@@ -4341,13 +4306,6 @@ html[dir="rtl"] .left-column .chooseus-block-one .inner-box .overlay-content {
   }
   .main-menu .navigation > li {
     margin: 0px 5px !important;
-  }
-  .main-menu .navigation > li > a {
-    font-size: 13px !important;
-    padding-left: 0px !important;
-  }
-  html[dir="rtl"] .main-menu .navigation > li > a {
-    padding-left: 23px !important;
   }
 }
 

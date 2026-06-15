@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
 const navIcons = {
   "/": "fa-solid fa-house",
   "/about": "fa-regular fa-building",
-  "/services": "fa-solid fa-layer-group",
+  "/Services": "fa-solid fa-layer-group",
   "/projects": "fa-regular fa-folder-open",
   "/companies": "fa-regular fa-building",
   "/investment-funds": "fa-solid fa-chart-line",
@@ -34,15 +34,15 @@ export default function Menu() {
                 ? "current"
                 : ""
               : pathname.startsWith(href)
-                ? "current"
-                : ""
+              ? "current"
+              : ""
           }
         >
           <Link href={href}>
             <span className="jadwa-nav-icon">
               <i className={navIcons[href] || "fa-regular fa-circle"} />
             </span>
-            <span className="jadwa-nav-label mx-1">{t(label)}</span>
+            <span className="jadwa-nav-label mx-2">{t(label)}</span>
           </Link>
         </li>
       ))}

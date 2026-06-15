@@ -31,7 +31,7 @@ const labels = {
     available: "Available",
   },
   ar: {
-    breadcrumb: "الوظائف",
+    breadcrumb: "فرص العمل",
     eyebrow: "الوظائف المتاحة",
     title: "فرص العمل",
     subtitle:
@@ -91,12 +91,9 @@ export default function CareerPage({ careers = [], pageBanners = {} }) {
     const departments = new Set(
       careers
         .map((career) =>
-          localize(
-            career?.department || career?.category || career?.type,
-            lang,
-          ),
+          localize(career?.department || career?.category || career?.type, lang)
         )
-        .filter(Boolean),
+        .filter(Boolean)
     );
 
     return {
@@ -174,71 +171,63 @@ export default function CareerPage({ careers = [], pageBanners = {} }) {
                     new Date(career.endDate).getTime() < Date.now();
 
                   return (
-                    <div key={career?._id} className="news-block">
-                      <article className="news-block-one h-100 career-job-card">
-                        <div className="inner-box h-100 career-job-card-inner">
-                          <div className="career-job-image-wrap">
-                            <figure className="image career-job-image">
-                              <img src={imgSrc} alt={title} />
-                            </figure>
+                    <div key={career?._id} className="career-job-block">
+                      <article className="career-job-card h-100">
+                        <div className="career-job-image-wrap">
+                          <figure className="career-job-image">
+                            <img src={imgSrc} alt={title} />
+                          </figure>
 
-                            <span
-                              className={`career-job-status ${isExpired ? "is-closed" : "is-open"}`}
-                            >
-                              {isExpired ? copy.closed : copy.available}
+                          <span
+                            className={`career-job-status ${
+                              isExpired ? "is-closed" : "is-open"
+                            }`}
+                          >
+                            {isExpired ? copy.closed : copy.available}
+                          </span>
+                        </div>
+
+                        <div className="career-job-content">
+                          <h3 className="career-job-title">{title}</h3>
+
+                          <div className="career-job-meta">
+                            <span>
+                              <i className="fa-solid fa-location-dot" />
+                              {location}
+                            </span>
+
+                            <span>
+                              <i className="fa-regular fa-calendar" />
+                              {career?.endDate
+                                ? `${copy.endDate}: ${new Date(
+                                    career.endDate
+                                  ).toLocaleDateString(
+                                    lang === "ar" ? "ar" : "en"
+                                  )}`
+                                : copy.endDate}
                             </span>
                           </div>
 
-                          <div className="lower-box career-job-content">
-                            <div className="career-job-header">
-                              <h3 className="job-card-title career-job-title">
-                                {title}
-                              </h3>
-                            </div>
-
-                            <div className="career-portal-card-fields career-job-meta">
-                              <span>
-                                <i className="fa-solid fa-location-dot" />
-                                {location}
-                              </span>
-
-                              <span>
-                                <i className="fa-regular fa-calendar" />
-                                {career?.endDate
-                                  ? `${copy.endDate}: ${new Date(
-                                      career.endDate,
-                                    ).toLocaleDateString(
-                                      lang === "ar" ? "ar" : "en",
-                                    )}`
-                                  : copy.endDate}
-                              </span>
-                            </div>
-
-                            <div className="career-portal-card-actions career-job-actions">
-                              {!isExpired ? (
-                                <Link
-                                  href={detailUrl}
-                                  className="companies-brief-read-more"
+                          <div className="career-job-actions">
+                            {!isExpired ? (
+                              <Link
+                                href={detailUrl}
+                                className="services-redesign-link"
+                              >
+                                <span>{copy.apply}</span>
+                                <i
+                                  className={`services-redesign-arrow ${
+                                    isRtl ? "rtl-arrow" : ""
+                                  }`}
                                 >
-                                  <span className="companies-brief-read-more-text">
-                                    {copy.apply}
-                                  </span>
-                                  <span className="companies-brief-arrow">
-                                    <i
-                                      className={`fas ${
-                                        isRtl
-                                          ? "fa-arrow-left"
-                                          : "fa-arrow-right"
-                                      }`}
-                                    />
-                                  </span>
-                                </Link>
-                              ) : (
-                                <span className="career-portal-closed-btn">
-                                  {copy.closed}
-                                </span>
-                              )}
-                            </div>
+                                  →
+                                </i>
+                              </Link>
+                            ) : (
+                              <span className="career-job-closed-btn">
+                                {copy.closed}
+                              </span>
+                            )}
                           </div>
                         </div>
                       </article>
@@ -257,8 +246,8 @@ export default function CareerPage({ careers = [], pageBanners = {} }) {
                 {lang === "ar"
                   ? "تابع الصفحة لاحقاً للاطلاع على الفرص الجديدة."
                   : lang === "tr"
-                    ? "Yeni fırsatlar için bu sayfayı daha sonra tekrar kontrol edin."
-                    : "Please check back later for new opportunities."}
+                  ? "Yeni fırsatlar için bu sayfayı daha sonra tekrar kontrol edin."
+                  : "Please check back later for new opportunities."}
               </p>
             </div>
           )}
