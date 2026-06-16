@@ -141,7 +141,7 @@ const ShareArticle = ({ title = "", description = "", className = "" }) => {
             aria-label="Copy link"
           >
             <i className="fa-solid fa-link" />
-            <span>{copied ? t("copied") : t("copyLink")}</span>
+            {/* <span>{copied ? t("copied") : t("copyLink")}</span> */}
           </button>
 
           {links.map((item) => (

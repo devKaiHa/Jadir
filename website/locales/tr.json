@@ -336,5 +336,6 @@
   "enter_msg": "Lütfen mesajınızı giriniz.",
   "select_service": "Lütfen ilgilendiğiniz hizmeti seçin.",
   "enter_email": "Lütfen e-posta adresinizi girin.",
-  "enter_name": "Lütfen adınızı girin."
+  "enter_name": "Lütfen adınızı girin.",
+  "founder": "Kurucu"
 }

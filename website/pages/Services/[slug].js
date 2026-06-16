@@ -114,17 +114,17 @@ function TestimonialsList({ testimonials = [], lang = "en" }) {
           {testimonials.map((testimonial, index) => {
             const name = localize(
               testimonial?.clientName || testimonial?.name,
-              lang
+              lang,
             );
             const role = localize(
               testimonial?.clientRole || testimonial?.role,
-              lang
+              lang,
             );
             const quote = localize(
               testimonial?.quote ||
                 testimonial?.content ||
                 testimonial?.description,
-              lang
+              lang,
             );
 
             return (
@@ -174,13 +174,13 @@ export default function ServiceDetailsPage({
   const testimonials = Array.isArray(service?.testimonials)
     ? service.testimonials
     : service?.testimonial
-    ? [service.testimonial]
-    : [];
+      ? [service.testimonial]
+      : [];
 
   const relatedProjects = projects.filter((project) =>
     (service?.relatedProjects || []).some(
-      (item) => (item?._id || item) === project?._id
-    )
+      (item) => (item?._id || item) === project?._id,
+    ),
   );
 
   const listBlocks = [
@@ -242,7 +242,7 @@ export default function ServiceDetailsPage({
                   {copy.description}
                 </div>
 
-                <h2>{title}</h2>
+                {/* <h2>{title}</h2> */}
               </div>
 
               <div className="jadir-service-description-card">
@@ -304,7 +304,7 @@ export default function ServiceDetailsPage({
                         src={asset(
                           "ourServices",
                           item.bannerImage,
-                          "/assets/images/project/project-5.jpg"
+                          "/assets/images/project/project-5.jpg",
                         )}
                         alt={localize(item?.title, lang)}
                       />
@@ -370,7 +370,7 @@ export async function getStaticProps({ params }) {
   if (!service) return { notFound: true, revalidate: 60 };
 
   const relatedIds = (service.relatedServices || []).map(
-    (item) => item?._id || item
+    (item) => item?._id || item,
   );
 
   return {
@@ -381,7 +381,7 @@ export async function getStaticProps({ params }) {
         .filter(
           (item) =>
             relatedIds.includes(item?._id) ||
-            (!relatedIds.length && item?._id !== service?._id)
+            (!relatedIds.length && item?._id !== service?._id),
         )
         .slice(0, 3),
     },

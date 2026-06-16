@@ -91,9 +91,12 @@ export default function CareerPage({ careers = [], pageBanners = {} }) {
     const departments = new Set(
       careers
         .map((career) =>
-          localize(career?.department || career?.category || career?.type, lang)
+          localize(
+            career?.department || career?.category || career?.type,
+            lang,
+          ),
         )
-        .filter(Boolean)
+        .filter(Boolean),
     );
 
     return {
@@ -134,11 +137,6 @@ export default function CareerPage({ careers = [], pageBanners = {} }) {
                 <strong>{String(stats.open).padStart(2, "0")}</strong>
                 <span>{copy.openRoles}</span>
               </div>
-
-              {/* <div className="career-portal-stat is-blue">
-                <strong>{String(stats.departments).padStart(2, "0")}</strong>
-                <span>{copy.departments}</span>
-              </div> */}
             </div>
           </div>
 
@@ -157,7 +155,6 @@ export default function CareerPage({ careers = [], pageBanners = {} }) {
 
               <div className="career-portal-list">
                 {careers?.map((career) => {
-                  // const position = localize(career?.position, lang);
                   const title = localize(career?.title, lang);
                   const location =
                     localize(career?.location, lang) || copy.remote;
@@ -200,9 +197,9 @@ export default function CareerPage({ careers = [], pageBanners = {} }) {
                               <i className="fa-regular fa-calendar" />
                               {career?.endDate
                                 ? `${copy.endDate}: ${new Date(
-                                    career.endDate
+                                    career.endDate,
                                   ).toLocaleDateString(
-                                    lang === "ar" ? "ar" : "en"
+                                    lang === "ar" ? "ar" : "en",
                                   )}`
                                 : copy.endDate}
                             </span>
@@ -246,8 +243,8 @@ export default function CareerPage({ careers = [], pageBanners = {} }) {
                 {lang === "ar"
                   ? "تابع الصفحة لاحقاً للاطلاع على الفرص الجديدة."
                   : lang === "tr"
-                  ? "Yeni fırsatlar için bu sayfayı daha sonra tekrar kontrol edin."
-                  : "Please check back later for new opportunities."}
+                    ? "Yeni fırsatlar için bu sayfayı daha sonra tekrar kontrol edin."
+                    : "Please check back later for new opportunities."}
               </p>
             </div>
           )}

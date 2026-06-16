@@ -14,7 +14,8 @@
   inset: 0;
   pointer-events: none;
   opacity: 0.15;
-  background-image: linear-gradient(rgba(0, 2, 79, 0.024) 1px, transparent 1px),
+  background-image:
+    linear-gradient(rgba(0, 2, 79, 0.024) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 2, 79, 0.024) 1px, transparent 1px);
   background-size: 86px 86px;
   mask-image: linear-gradient(
@@ -63,7 +64,10 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   text-decoration: none;
-  transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .jadwa-blog-details-category:hover {
@@ -114,6 +118,10 @@ html[dir="rtl"] .jadwa-blog-details-title {
   font-weight: 800;
 }
 
+.jadwa-blog-details-excerpt * {
+  text-align: center !important;
+}
+
 .jadwa-blog-details-excerpt {
   max-width: 780px;
   margin: 0 auto;
@@ -121,7 +129,6 @@ html[dir="rtl"] .jadwa-blog-details-title {
   font-size: 16px;
   font-weight: 500;
   line-height: 1.9;
-  text-align: center !important;
 }
 
 .jadwa-blog-details-excerpt p {
@@ -334,7 +341,10 @@ html[dir="rtl"] .jadwa-blog-details-content h4 {
   text-decoration: none;
   font-size: 12px;
   font-weight: 700;
-  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
 }
 
 .jadwa-blog-side-tags a:hover {
@@ -359,7 +369,9 @@ html[dir="rtl"] .jadwa-blog-details-content h4 {
   border-radius: 18px;
   background: rgba(0, 106, 253, 0.035);
   text-decoration: none;
-  transition: background 0.25s ease, transform 0.25s ease;
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease;
 }
 
 .jadwa-blog-side-post:hover {

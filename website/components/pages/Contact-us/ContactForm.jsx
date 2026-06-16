@@ -210,7 +210,7 @@ const ContactForm = () => {
               <div className="jadwa-contact-v2-info-inner">
                 <div className="jadwa-pill jadwa-contact-v2-pill-dark">
                   <span className="jadwa-pill-dot" />
-                  <span>{t("contact.title")}</span>
+                  <span style={{ color: "#fff" }}>{t("contact.title")}</span>
                 </div>
 
                 <h2 className="jadwa-contact-v2-title">

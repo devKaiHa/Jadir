@@ -275,7 +275,7 @@ export default function CustomFooter() {
                   <div className="footer-premium-newsletter-form">
                     <input
                       type="email"
-                      placeholder="Your email address"
+                      placeholder="your_name@domain.com"
                       className="footer-premium-input"
                     />
                     <button

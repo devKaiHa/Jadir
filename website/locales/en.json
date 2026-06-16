@@ -338,5 +338,6 @@
   "enter_msg": "Please enter your message",
   "select_service": "Please select the service you're interested in.",
   "enter_email": "Please enter your email address.",
-  "enter_name": "Please enter your name."
+  "enter_name": "Please enter your name.",
+  "founder": "Founder"
 }

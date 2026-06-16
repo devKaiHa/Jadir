@@ -351,6 +351,7 @@ html[dir="rtl"] .jadwa-section-line {
   font-size: 1.06rem;
   font-weight: 500;
   line-height: 1.95;
+  text-align: justify !important;
 }
 
 html[dir="rtl"] .jadwa-about-content,
@@ -1388,6 +1389,7 @@ html[dir="rtl"] .jadwa-about-slide-text {
   font-size: 0.98rem;
   font-weight: 500;
   line-height: 1.75;
+  text-align: justify !important;
 }
 
 /* =========================================

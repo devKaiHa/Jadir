@@ -323,7 +323,8 @@ export default function About({ data = {}, homeData = {} }) {
                     </h2>
                   </div>
 
-                  <TeamlSlider team={team} variant="team" />
+                  <FounderSlides founders={team} variant="team" />
+                  {/* <TeamlSlider team={team} variant="team" /> */}
                 </div>
               )}
 

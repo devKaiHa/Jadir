@@ -11,11 +11,10 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { useIsMobile } from "@/lib/helpers";
 
-export default function FounderSlider({ founders = [] }) {
-  const { i18n } = useTranslation();
+export default function FounderSlider({ founders = [], variant = "founders" }) {
+  const { i18n, t } = useTranslation();
   const lang = i18n.language || "en";
   const isRtl = lang === "ar";
-  const isMobile = useIsMobile();
 
   const items = Array.isArray(founders) ? founders : [];
 
@@ -30,9 +29,7 @@ export default function FounderSlider({ founders = [] }) {
         key={lang}
         dir={isRtl ? "rtl" : "ltr"}
         modules={[Navigation, Pagination, Autoplay]}
-        // slidesPerView={isMobile ? 1.5 : 2}
         centeredSlides={true}
-        // spaceBetween={24}
         loop={items.length > 1}
         speed={700}
         observer
@@ -88,11 +85,7 @@ export default function FounderSlider({ founders = [] }) {
                       <div className="jadwa-pill jadwa-founder-pill">
                         <span className="jadwa-pill-dot" />
                         <span>
-                          {lang === "ar"
-                            ? "مؤسس"
-                            : lang === "tr"
-                              ? "Kurucu"
-                              : "Founder"}
+                          {variant === "founders" ? t("founder") : t("team")}
                         </span>
                       </div>
 
