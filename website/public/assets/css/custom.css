@@ -132,7 +132,9 @@
   height: 10px;
   margin: 0 4px !important;
   border-radius: 50%;
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
 }
 
 .swiper-pagination-bullet-active {
@@ -222,7 +224,8 @@ html[dir="rtl"] .custom-container .content-box::before {
   inset: 0;
   pointer-events: none;
   opacity: 0.32;
-  background-image: linear-gradient(rgba(0, 2, 79, 0.03) 1px, transparent 1px),
+  background-image:
+    linear-gradient(rgba(0, 2, 79, 0.03) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 2, 79, 0.03) 1px, transparent 1px);
   background-size: 72px 72px;
   mask-image: linear-gradient(
@@ -376,7 +379,8 @@ html[dir="rtl"] .jadwa-about-text {
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.78);
   border: 1px solid rgba(0, 2, 79, 0.07);
-  box-shadow: 0 12px 28px rgba(0, 2, 79, 0.055),
+  box-shadow:
+    0 12px 28px rgba(0, 2, 79, 0.055),
     inset 0 1px 0 rgba(255, 255, 255, 0.86);
 }
 
@@ -461,21 +465,26 @@ html[dir="rtl"] .jadwa-about-slider-column {
   height: 100%;
   padding: 36px;
   border-radius: 28px;
-  background: radial-gradient(
+  background:
+    radial-gradient(
       circle at top right,
       rgba(0, 106, 253, 0.22),
       transparent 35%
     ),
     linear-gradient(135deg, rgba(0, 2, 79, 0.98), rgba(0, 18, 108, 0.94));
   border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 24px 55px rgba(0, 2, 79, 0.18),
+  box-shadow:
+    0 24px 55px rgba(0, 2, 79, 0.18),
     inset 0 1px 0 rgba(255, 255, 255, 0.12);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .jadwa-about-slide-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 30px 70px rgba(0, 2, 79, 0.24),
+  box-shadow:
+    0 30px 70px rgba(0, 2, 79, 0.24),
     inset 0 1px 0 rgba(255, 255, 255, 0.14);
 }
 
@@ -485,7 +494,8 @@ html[dir="rtl"] .jadwa-about-slider-column {
   inset: 1px;
   border-radius: inherit;
   pointer-events: none;
-  background: linear-gradient(120deg, rgba(255, 255, 255, 0.1), transparent 36%),
+  background:
+    linear-gradient(120deg, rgba(255, 255, 255, 0.1), transparent 36%),
     radial-gradient(
       circle at bottom left,
       rgba(255, 255, 255, 0.08),
@@ -745,7 +755,8 @@ html[dir="rtl"] .jadwa-about-slide-text {
   inset: 0;
   pointer-events: none;
   opacity: 0.28;
-  background-image: linear-gradient(rgba(0, 2, 79, 0.028) 1px, transparent 1px),
+  background-image:
+    linear-gradient(rgba(0, 2, 79, 0.028) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 2, 79, 0.028) 1px, transparent 1px);
   background-size: 84px 84px;
   mask-image: linear-gradient(
@@ -837,7 +848,8 @@ html[dir="rtl"] .jadwa-about-slide-text {
     rgba(247, 250, 255, 0.84)
   );
   border: 1px solid rgba(0, 2, 79, 0.075);
-  box-shadow: 0 26px 70px rgba(0, 2, 79, 0.085),
+  box-shadow:
+    0 26px 70px rgba(0, 2, 79, 0.085),
     inset 0 1px 0 rgba(255, 255, 255, 0.88);
 }
 
@@ -881,7 +893,8 @@ html[dir="rtl"] .jadwa-about-slide-text {
   position: absolute;
   inset: 16px;
   border-radius: 26px;
-  background: radial-gradient(
+  background:
+    radial-gradient(
       circle at top right,
       rgba(0, 106, 253, 0.095),
       transparent 34%
@@ -959,20 +972,23 @@ html[dir="rtl"] .jadwa-about-slide-text {
 
 .statistics-value {
   color: var(--site-navy);
-  font-family: "Inter Tight", "SF Pro Display", "DIN Alternate", "Arial Narrow",
+  font-family:
+    "Inter Tight", "SF Pro Display", "DIN Alternate", "Arial Narrow",
     var(--urbanist), system-ui, sans-serif;
   font-size: clamp(4.2rem, 7.5vw, 6.4rem);
   font-weight: 700;
   line-height: 0.82;
   font-variant-numeric: lining-nums tabular-nums;
-  font-feature-settings: "lnum" 1, "tnum" 1;
+  font-feature-settings:
+    "lnum" 1,
+    "tnum" 1;
 }
 
 .statistics-suffix {
   margin-bottom: 10px;
   color: var(--site-blue);
-  font-family: "Inter Tight", "SF Pro Display", var(--urbanist), system-ui,
-    sans-serif;
+  font-family:
+    "Inter Tight", "SF Pro Display", var(--urbanist), system-ui, sans-serif;
   font-size: clamp(1.25rem, 2vw, 1.8rem);
   font-weight: 700;
   line-height: 1;
@@ -1136,6 +1152,7 @@ html[dir="rtl"] .jadwa-about-slide-text {
 
   .statistics-card-title {
     font-size: 1rem;
+    text-align: center !important;
   }
 
   .statistics-description {
@@ -1151,7 +1168,8 @@ html[dir="rtl"] .jadwa-about-slide-text {
   position: relative;
   overflow: hidden;
   padding: 104px 0 96px;
-  background: radial-gradient(
+  background:
+    radial-gradient(
       circle at top left,
       rgba(0, 106, 253, 0.045),
       transparent 28%
@@ -1165,7 +1183,8 @@ html[dir="rtl"] .jadwa-about-slide-text {
   inset: 0;
   pointer-events: none;
   opacity: 0.32;
-  background-image: linear-gradient(rgba(0, 2, 79, 0.026) 1px, transparent 1px),
+  background-image:
+    linear-gradient(rgba(0, 2, 79, 0.026) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 2, 79, 0.026) 1px, transparent 1px);
   background-size: 80px 80px;
   mask-image: linear-gradient(
@@ -1270,7 +1289,10 @@ html[dir="rtl"] .jadwa-about-slide-text {
   gap: 30px;
   padding: 32px 0;
   border-bottom: 1px solid rgba(0, 2, 79, 0.105);
-  transition: background 0.25s ease, border-color 0.25s ease, padding 0.25s ease;
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    padding 0.25s ease;
 }
 
 .jadwa-service-row::before {
@@ -1314,14 +1336,17 @@ html[dir="rtl"] .jadwa-about-slide-text {
   position: relative;
   z-index: 1;
   color: rgba(0, 4, 114, 0.649);
-  font-family: "Inter Tight", "SF Pro Display", "DIN Alternate", "Arial Narrow",
+  font-family:
+    "Inter Tight", "SF Pro Display", "DIN Alternate", "Arial Narrow",
     var(--urbanist), system-ui, sans-serif;
   font-size: 2rem;
   font-weight: 700;
   line-height: 1;
 
   font-variant-numeric: lining-nums tabular-nums;
-  transition: color 0.25s ease, transform 0.25s ease;
+  transition:
+    color 0.25s ease,
+    transform 0.25s ease;
 }
 
 .jadwa-service-row:hover .jadwa-service-number {
@@ -1383,8 +1408,12 @@ html[dir="rtl"] .jadwa-about-slide-text {
   background: #ffffff;
   border: 1px solid rgba(0, 2, 79, 0.13);
   box-shadow: 0 10px 22px rgba(0, 2, 79, 0.035);
-  transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease,
-    transform 0.25s ease, box-shadow 0.25s ease;
+  transition:
+    color 0.25s ease,
+    background 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .jadwa-services-section.rtl .jadwa-service-arrow {
@@ -1506,7 +1535,8 @@ html[dir="rtl"] .jadwa-about-slide-text {
   position: relative;
   overflow: hidden;
   padding: 88px 0;
-  background: radial-gradient(
+  background:
+    radial-gradient(
       circle at top left,
       rgba(0, 106, 253, 0.2),
       transparent 30%
@@ -1525,10 +1555,8 @@ html[dir="rtl"] .jadwa-about-slide-text {
   inset: 0;
   opacity: 0.16;
   pointer-events: none;
-  background-image: linear-gradient(
-      rgba(255, 255, 255, 0.08) 1px,
-      transparent 1px
-    ),
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
   background-size: 74px 74px;
   mask-image: linear-gradient(
@@ -1584,7 +1612,8 @@ html[dir="rtl"] .site-cta::after {
   height: 11px;
   border-radius: 999px;
   background: var(--site-blue);
-  box-shadow: 0 0 0 8px rgba(0, 106, 253, 0.12),
+  box-shadow:
+    0 0 0 8px rgba(0, 106, 253, 0.12),
     0 0 0 18px rgba(0, 106, 253, 0.06);
   transform: translateY(-50%);
 }
@@ -1662,7 +1691,10 @@ html[dir="rtl"] .site-cta h2 {
   line-height: 1;
   text-decoration: none;
   white-space: nowrap;
-  transition: color 0.25s ease, background 0.25s ease, transform 0.25s ease,
+  transition:
+    color 0.25s ease,
+    background 0.25s ease,
+    transform 0.25s ease,
     box-shadow 0.25s ease;
 }
 
@@ -1884,7 +1916,9 @@ html[dir="rtl"] .site-cta-btn:hover::after {
   height: auto;
   object-fit: contain;
   filter: grayscale(1) opacity(0.48);
-  transition: filter 0.25s ease, transform 0.25s ease;
+  transition:
+    filter 0.25s ease,
+    transform 0.25s ease;
 }
 
 .jadwa-trusted-logo-card:hover img {
@@ -2128,7 +2162,8 @@ html[dir="rtl"] .jadwa-testimonials-title {
   padding: 24px 24px 20px;
   border-radius: 24px;
   color: #ffffff;
-  background: radial-gradient(
+  background:
+    radial-gradient(
       circle at bottom right,
       rgba(0, 106, 253, 0.2),
       transparent 34%
@@ -2581,7 +2616,8 @@ html[dir="rtl"] .jadwa-featured-card::after {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(
+  background:
+    radial-gradient(
       circle at top left,
       rgba(222, 147, 79, 0.16),
       transparent 35%
@@ -2610,11 +2646,8 @@ html[dir="rtl"] .jadwa-featured-card::after {
   width: 100%;
   height: 100%;
   border-radius: 14px;
-  background: linear-gradient(
-      135deg,
-      rgba(15, 86, 98, 0.08),
-      rgba(222, 147, 79, 0.08)
-    ),
+  background:
+    linear-gradient(135deg, rgba(15, 86, 98, 0.08), rgba(222, 147, 79, 0.08)),
     repeating-linear-gradient(
       135deg,
       rgba(15, 86, 98, 0.04) 0,
@@ -3049,7 +3082,8 @@ html[dir="rtl"] .companies-brief-read-more:hover .companies-brief-arrow {
   inset: 0;
   pointer-events: none;
   opacity: 0.22;
-  background-image: linear-gradient(rgba(0, 2, 79, 0.026) 1px, transparent 1px),
+  background-image:
+    linear-gradient(rgba(0, 2, 79, 0.026) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 2, 79, 0.026) 1px, transparent 1px);
   background-size: 82px 82px;
   mask-image: linear-gradient(
@@ -3110,7 +3144,10 @@ html[dir="rtl"] .companies-brief-read-more:hover .companies-brief-arrow {
   line-height: 1;
   cursor: pointer;
   white-space: nowrap;
-  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease,
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease,
     box-shadow 0.25s ease;
 }
 
@@ -3147,7 +3184,10 @@ html[dir="rtl"] .companies-brief-read-more:hover .companies-brief-arrow {
   font-weight: 700;
   line-height: 1;
   text-decoration: none;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
 }
 
 html[dir="rtl"] .jadwa-blog-all-btn {
@@ -3205,7 +3245,8 @@ html[dir="rtl"] .jadwa-blog-all-btn::after {
   border-radius: 30px;
   background: #ffffff;
   border: 1px solid rgba(0, 2, 79, 0.075);
-  box-shadow: 0 24px 65px rgba(0, 2, 79, 0.09),
+  box-shadow:
+    0 24px 65px rgba(0, 2, 79, 0.09),
     inset 0 1px 0 rgba(255, 255, 255, 0.86);
 }
 
@@ -3217,7 +3258,8 @@ html[dir="rtl"] .jadwa-blog-all-btn::after {
   flex-direction: column;
   justify-content: center;
   color: #ffffff;
-  background: radial-gradient(
+  background:
+    radial-gradient(
       circle at top right,
       rgba(0, 106, 253, 0.22),
       transparent 34%
@@ -3352,7 +3394,9 @@ html[dir="rtl"] .jadwa-blog-featured-title {
   color: #ffffff;
   font-size: 12px;
   box-shadow: 0 10px 22px rgba(0, 106, 253, 0.24);
-  transition: transform 0.25s ease, background 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease;
 }
 
 .jadwa-blog-readmore:hover {
@@ -3379,7 +3423,8 @@ html[dir="rtl"] .jadwa-blog-readmore:hover i {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgba(0, 2, 79, 0.05), transparent 38%),
+  background:
+    linear-gradient(90deg, rgba(0, 2, 79, 0.05), transparent 38%),
     radial-gradient(
       circle at top right,
       rgba(0, 106, 253, 0.12),
@@ -3389,7 +3434,8 @@ html[dir="rtl"] .jadwa-blog-readmore:hover i {
 }
 
 html[dir="rtl"] .jadwa-blog-featured-image-wrap::after {
-  background: linear-gradient(270deg, rgba(0, 2, 79, 0.05), transparent 38%),
+  background:
+    linear-gradient(270deg, rgba(0, 2, 79, 0.05), transparent 38%),
     radial-gradient(
       circle at top left,
       rgba(0, 106, 253, 0.12),
@@ -3425,16 +3471,20 @@ html[dir="rtl"] .jadwa-blog-featured-image-wrap::after {
   border-radius: 26px;
   background: #ffffff;
   border: 1px solid rgba(0, 2, 79, 0.075);
-  box-shadow: 0 18px 45px rgba(0, 2, 79, 0.07),
+  box-shadow:
+    0 18px 45px rgba(0, 2, 79, 0.07),
     inset 0 1px 0 rgba(255, 255, 255, 0.88);
-  transition: transform 0.28s ease, box-shadow 0.28s ease,
+  transition:
+    transform 0.28s ease,
+    box-shadow 0.28s ease,
     border-color 0.28s ease;
 }
 
 .jadwa-blog-card:hover {
   transform: translateY(-5px);
   border-color: rgba(0, 106, 253, 0.16);
-  box-shadow: 0 24px 60px rgba(0, 2, 79, 0.1),
+  box-shadow:
+    0 24px 60px rgba(0, 2, 79, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.92);
 }
 
@@ -3583,6 +3633,7 @@ html[dir="rtl"] .jadwa-blog-card-title {
 .jadwa-blog-mobile-row-top {
   margin-bottom: 8px;
   display: flex;
+  flex-direction: row !important;
   align-items: center;
   gap: 8px;
 }

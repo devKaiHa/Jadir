@@ -73,7 +73,7 @@ export default function CustomFooter() {
     const schedule = Array.isArray(footerData?.workingSchedule)
       ? [...footerData.workingSchedule]
           .filter(
-            (item) => localize(item?.day, lang) || localize(item?.hours, lang)
+            (item) => localize(item?.day, lang) || localize(item?.hours, lang),
           )
           .sort((a, b) => (a?.order || 0) - (b?.order || 0))
       : [];
@@ -94,15 +94,15 @@ export default function CustomFooter() {
       setFooterData(
         results[0].status === "fulfilled"
           ? results[0].value?.data || null
-          : null
+          : null,
       );
       setContactData(
         results[1].status === "fulfilled"
           ? results[1].value?.data || null
-          : null
+          : null,
       );
       setPolicies(
-        results[2].status === "fulfilled" ? pickArray(results[2].value) : []
+        results[2].status === "fulfilled" ? pickArray(results[2].value) : [],
       );
     });
 
@@ -116,7 +116,7 @@ export default function CustomFooter() {
       socialConfig
         .filter((item) => footerData?.[item.key])
         .map((item) => ({ ...item, href: footerData[item.key] })),
-    [footerData]
+    [footerData],
   );
 
   const currentYear = new Date().getFullYear();
@@ -261,7 +261,7 @@ export default function CustomFooter() {
           <div className="footer-premium-newsletter-wrap">
             <div className="row clearfix align-items-center">
               <div className="col-lg-5 col-md-12 col-sm-12">
-                <div className="footer-widget footer-premium-widget">
+                <div className="footer-widget footer-premium-widget newsletter-bg">
                   <div className="widget-title footer-premium-widget-title">
                     <h3>{t("newsletter")}</h3>
                   </div>

@@ -52,6 +52,7 @@
     "subtitle": "Yasal Sayfalar",
     "title": "Site Politikaları",
     "description": "Web sitemizin ve hizmetlerimizin kullanımını yöneten yasal ve operasyonel politikaları inceleyin.",
+    "description2": "Herhangi bir sorunuz, ortaklık fikriniz veya yatırım talebiniz varsa, ekibimiz size yardımcı olmaya hazır.",
     "emptyTitle": "Henüz politika yok",
     "emptyDescription": "Yasal ve site politikaları yakında burada yer alacak.",
     "defaultType": "Politika",
@@ -312,5 +313,28 @@
       "team": "Ekip",
       "careers": "Kariyer"
     }
-  }
+  },
+  "contact_form_title": "Sizden haber almak isteriz",
+  "address": "Adres",
+  "open_map": "Hariyayı aç",
+  "subject": "Konu",
+  "request_type": "İstek türü",
+  "service": "Servis",
+  "continue": "Devam et",
+  "msg_received_title": "Teşekkürler, mesajınız alındı",
+  "msg_received_txt": "Ekibimiz mesajınızı inceleyip size en kısa sürede dönüş yapacaktır.",
+  "whatsapp": "WhatsApp",
+  "map": "Harita",
+  "failed_load_data": "Verileri şu anda yükleyemedik. Lütfen bir süre sonra tekrar deneyin.",
+  "sending": "Gönderiliyor",
+  "branches_badge": "Bizimle iletişime geç",
+  "branches_title": "Ofislerimiz ve Şubelerimiz",
+  "branches_sub_title": "Ekiplerimize ihtiyacınıza göre birden fazla lokasyondan ulaşabilirsiniz.",
+  "try_again": "Lütfen biraz sonra tekrar deneyin.",
+  "send_failed": "Mesajınızı gönderemedik. Lütfen sonra tekrar deneyiniz.",
+  "send_success": "Mesaj gönderildi",
+  "enter_msg": "Lütfen mesajınızı giriniz.",
+  "select_service": "Lütfen ilgilendiğiniz hizmeti seçin.",
+  "enter_email": "Lütfen e-posta adresinizi girin.",
+  "enter_name": "Lütfen adınızı girin."
 }

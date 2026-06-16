@@ -129,12 +129,10 @@ const ContactForm = () => {
   };
 
   const validateForm = () => {
-    if (!formData.name.trim()) return "Please enter your name.";
-    if (!formData.email.trim()) return "Please enter your email address.";
-    if (isServiceRequest && !formData.service) {
-      return "Please select the service you are interested in.";
-    }
-    if (!formData.message.trim()) return "Please enter your message.";
+    if (!formData.name.trim()) return t("enter_name");
+    if (!formData.email.trim()) return t("enter_email");
+    if (isServiceRequest && !formData.service) return t("select_service");
+    if (!formData.message.trim()) return t("enter_msg");
     return "";
   };
 
@@ -166,16 +164,13 @@ const ContactForm = () => {
       setShowSuccess(true);
       setSubmitState({
         type: "success",
-        message: result?.message || "Message sent successfully.",
+        message: result?.message || t("send_success"),
       });
       clearForm();
     } catch (error) {
       setSubmitState({
         type: "error",
-        message:
-          error?.data?.message ||
-          error?.error ||
-          "We couldn't send your message. Please try again.",
+        message: error?.data?.message || error?.error || t("send_failed"),
       });
     }
   };
@@ -187,14 +182,14 @@ const ContactForm = () => {
       <section className="jadwa-contact-v2">
         <div className="auto-container">
           <div className="jadwa-contact-v2-error">
-            <h3>Unable to load contact details</h3>
-            <p>Please try again in a moment.</p>
+            <h3>{t("failed_load_data")}</h3>
+            <p>{t("try_again")}</p>
             <button
               type="button"
               className="jadwa-contact-v2-submit"
               onClick={() => refetch()}
             >
-              Retry
+              {t("retry")}
             </button>
           </div>
         </div>
@@ -215,25 +210,15 @@ const ContactForm = () => {
               <div className="jadwa-contact-v2-info-inner">
                 <div className="jadwa-pill jadwa-contact-v2-pill-dark">
                   <span className="jadwa-pill-dot" />
-                  <span>
-                    {t("contact.title") === "contact.title"
-                      ? "Contact Information"
-                      : t("contact.title")}
-                  </span>
+                  <span>{t("contact.title")}</span>
                 </div>
 
                 <h2 className="jadwa-contact-v2-title">
-                  {lang === "ar"
-                    ? "يسعدنا تواصلك معنا"
-                    : lang === "tr"
-                      ? "Bizimle iletişime geçin"
-                      : "We’d Love to Hear From You"}
+                  {t("contact_form_title")}
                 </h2>
 
                 <p className="jadwa-contact-v2-text">
-                  {t("contact.description") === "contact.description"
-                    ? "If you have any questions, partnership ideas, or investment inquiries, our team is ready to help."
-                    : t("contact.description")}
+                  {t("contact.description2")}
                 </p>
 
                 <div className="jadwa-contact-v2-list">
@@ -243,13 +228,7 @@ const ContactForm = () => {
                         <i className="fa-solid fa-location-dot" />
                       </div>
                       <div className="jadwa-contact-v2-item-body">
-                        <h4>
-                          {lang === "ar"
-                            ? "العنوان"
-                            : lang === "tr"
-                              ? "Adres"
-                              : "Address"}
-                        </h4>
+                        <h4>{t("address")}</h4>
                         <p>{localize(contact.address, lang)}</p>
                         {contact?.mapLink ? (
                           <a
@@ -257,11 +236,7 @@ const ContactForm = () => {
                             target="_blank"
                             rel="noreferrer"
                           >
-                            {lang === "ar"
-                              ? "عرض الموقع"
-                              : lang === "tr"
-                                ? "Haritada Aç"
-                                : "Open Map"}
+                            {t("open_map")}
                           </a>
                         ) : null}
                       </div>
@@ -275,13 +250,7 @@ const ContactForm = () => {
                         <i className="fa-solid fa-envelope" />
                       </div>
                       <div className="jadwa-contact-v2-item-body">
-                        <h4>
-                          {lang === "ar"
-                            ? "البريد الإلكتروني"
-                            : lang === "tr"
-                              ? "E-posta"
-                              : "Email"}
-                        </h4>
+                        <h4>{t("contact.email")}</h4>
                         {contact.emails.filter(Boolean).map((item) => (
                           <p key={item}>
                             <a href={`mailto:${item}`}>{item}</a>
@@ -298,16 +267,13 @@ const ContactForm = () => {
                         <i className="fa-solid fa-phone" />
                       </div>
                       <div className="jadwa-contact-v2-item-body">
-                        <h4>
-                          {lang === "ar"
-                            ? "الهاتف"
-                            : lang === "tr"
-                              ? "Telefon"
-                              : "Phone"}
-                        </h4>
+                        <h4>{t("contact.phone")}</h4>
                         {contact.phones.filter(Boolean).map((item) => (
                           <p key={item}>
-                            <a href={`tel:${item.replace(/\s+/g, "")}`}>
+                            <a
+                              href={`tel:${item.replace(/\s+/g, "")}`}
+                              dir="ltr"
+                            >
                               {item}
                             </a>
                           </p>
@@ -322,7 +288,7 @@ const ContactForm = () => {
                               target="_blank"
                               rel="noreferrer"
                             >
-                              WhatsApp: {contact.whatsapp}
+                              {t("whatsapp")}: {contact.whatsapp}
                             </a>
                           </p>
                         ) : null}
@@ -345,11 +311,7 @@ const ContactForm = () => {
                 </div>
 
                 <h3 className="jadwa-contact-v2-form-title">
-                  {lang === "ar"
-                    ? "تواصل معنا"
-                    : lang === "tr"
-                      ? "Bize Yazın"
-                      : "Contact Us"}
+                  {t("contact.formTitle")}
                 </h3>
 
                 <form
@@ -359,7 +321,10 @@ const ContactForm = () => {
                 >
                   <div className="jadwa-contact-v2-fields">
                     <div className="jadwa-contact-v2-field">
-                      <label>{t("contact.name")}</label>
+                      <label>
+                        {t("contact.name")}{" "}
+                        <span className="text-danger">*</span>
+                      </label>
                       <input
                         name="name"
                         value={formData.name}
@@ -370,7 +335,10 @@ const ContactForm = () => {
                     </div>
 
                     <div className="jadwa-contact-v2-field">
-                      <label>{t("contact.email")}</label>
+                      <label>
+                        {t("contact.email")}{" "}
+                        <span className="text-danger">*</span>
+                      </label>
                       <input
                         type="email"
                         name="email"
@@ -392,23 +360,17 @@ const ContactForm = () => {
                     </div>
 
                     <div className="jadwa-contact-v2-field">
-                      <label>Subject</label>
+                      <label>{t("subject")}</label>
                       <input
                         name="subject"
                         value={formData.subject}
                         onChange={handleChange("subject")}
-                        placeholder="Subject"
+                        placeholder={t("subject")}
                       />
                     </div>
 
                     <div className="jadwa-contact-v2-field jadwa-contact-v2-field-full">
-                      <label>
-                        {lang === "ar"
-                          ? "نوع الطلب"
-                          : lang === "tr"
-                            ? "Talep Türü"
-                            : "Request Type"}
-                      </label>
+                      <label>{t("request_type")}</label>
                       <select
                         name="requestType"
                         value={formData.requestType}
@@ -425,11 +387,7 @@ const ContactForm = () => {
                     {isServiceRequest ? (
                       <div className="jadwa-contact-v2-field jadwa-contact-v2-field-full">
                         <label>
-                          {lang === "ar"
-                            ? "Ø§Ù„Ø®Ø¯Ù…Ø©"
-                            : lang === "tr"
-                              ? "Hizmet"
-                              : "Service"}
+                          {t("service")} <span className="text-danger">*</span>
                         </label>
                         <SearchableSelect
                           className="jadwa-contact-v2-searchable"
@@ -440,10 +398,10 @@ const ContactForm = () => {
                           height="3.25"
                           placeholder={
                             isLoadingServices
-                              ? "Loading services..."
+                              ? t("loading")
                               : isServicesError
-                                ? "Unable to load services"
-                                : "Search and select a service"
+                                ? t("failed_load_data")
+                                : t("search.button")
                           }
                           options={{ data: serviceOptions }}
                           selectedValue={formData.service}
@@ -454,15 +412,17 @@ const ContactForm = () => {
                         />
                         {isServicesError ? (
                           <span className="jadwa-contact-v2-field-note">
-                            We couldn't load the services right now. Please try
-                            again in a moment.
+                            {t("failed_load_data")}
                           </span>
                         ) : null}
                       </div>
                     ) : null}
 
                     <div className="jadwa-contact-v2-field jadwa-contact-v2-field-full">
-                      <label>{t("contact.message")}</label>
+                      <label>
+                        {t("contact.message")}{" "}
+                        <span className="text-danger">*</span>
+                      </label>
                       <textarea
                         name="message"
                         value={formData.message}
@@ -485,11 +445,7 @@ const ContactForm = () => {
                     disabled={isSubmitting}
                   >
                     <span>
-                      {isSubmitting
-                        ? "Sending..."
-                        : t("contact.submit") === "contact.submit"
-                          ? "Send Message"
-                          : t("contact.submit")}
+                      {isSubmitting ? t("loading") : t("contact.submit")}
                     </span>
                     <i
                       className={
@@ -510,27 +466,15 @@ const ContactForm = () => {
             <div className="jadwa-testimonials-head jadwa-contact-v2-branches-head">
               <div className="jadwa-pill">
                 <span className="jadwa-pill-dot" />
-                <span>
-                  {t("headquarters") === "headquarters"
-                    ? "Branches"
-                    : t("headquarters")}
-                </span>
+                <span>{t("branches_badge")}</span>
               </div>
 
               <h2 className="jadwa-testimonials-title">
-                {lang === "ar"
-                  ? "مكاتبنا وفروعنا"
-                  : lang === "tr"
-                    ? "Ofislerimiz ve Şubelerimiz"
-                    : "Our Offices & Branches"}
+                {t("branches_title")}
               </h2>
 
               <p className="jadwa-testimonials-subtitle">
-                {lang === "ar"
-                  ? "يمكنك الوصول إلى فرقنا عبر أكثر من موقع حسب احتياجك."
-                  : lang === "tr"
-                    ? "Ekiplerimize ihtiyacınıza göre birden fazla lokasyondan ulaşabilirsiniz."
-                    : "Reach our teams through multiple locations based on your needs."}
+                {t("branches_sub_title")}
               </p>
             </div>
 
@@ -556,6 +500,7 @@ const ContactForm = () => {
                       <a
                         className="jadwa-contact-v2-branch-phone"
                         href={`tel:${branch.phones[0].replace(/\s+/g, "")}`}
+                        dir="ltr"
                       >
                         {branch.phones[0]}
                       </a>
@@ -568,11 +513,7 @@ const ContactForm = () => {
                           target="_blank"
                           rel="noreferrer"
                         >
-                          {lang === "ar"
-                            ? "الخريطة"
-                            : lang === "tr"
-                              ? "Harita"
-                              : "Map"}
+                          {t("map")}
                         </a>
                       ) : null}
 
@@ -584,8 +525,9 @@ const ContactForm = () => {
                           )}`}
                           target="_blank"
                           rel="noreferrer"
+                          dir="ltr"
                         >
-                          WhatsApp
+                          {t("whatsapp")}
                         </a>
                       ) : null}
                     </div>
@@ -619,32 +561,16 @@ const ContactForm = () => {
               <i className="fa-solid fa-check" />
             </div>
 
-            <h3>
-              {lang === "ar"
-                ? "شكراً، تم استلام رسالتك"
-                : lang === "tr"
-                  ? "Teşekkürler, mesajınız alındı"
-                  : "Thanks, we got your message"}
-            </h3>
+            <h3>{t("msg_received_title")}</h3>
 
-            <p>
-              {lang === "ar"
-                ? "سيقوم فريقنا بمراجعة رسالتك والرد عليك في أقرب وقت ممكن."
-                : lang === "tr"
-                  ? "Ekibimiz mesajınızı inceleyip size en kısa sürede dönüş yapacaktır."
-                  : "Our team will review your message and get back to you as soon as possible."}
-            </p>
+            <p>{t("msg_received_txt")}</p>
 
             <button
               type="button"
               onClick={closeSuccessModal}
               className="jadwa-contact-v2-submit"
             >
-              {lang === "ar"
-                ? "متابعة"
-                : lang === "tr"
-                  ? "Devam Et"
-                  : "Continue"}
+              {t("continue")}
             </button>
           </div>
         </div>

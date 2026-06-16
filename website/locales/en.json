@@ -51,6 +51,7 @@
   "contact": {
     "title": "Stay in Touch with Us",
     "description": "If you have any questions or encounter any problems, you can contact us by filling out the form.",
+    "description2": "If you have any questions, partnership ideas, or investment inquiries, our team is ready to help.",
     "address": "MAHMUTBEY MAH.HACI BOSTAN CAD.NO.22 \nBAGCILAR - ISTANBUL",
     "socialTitle": "Contact Us:",
     "formTitle": "Contact Us",
@@ -313,5 +314,29 @@
       "team": "Team",
       "careers": "Careers"
     }
-  }
+  },
+  "retry": "Retry",
+  "contact_form_title": "We'd like to hear from you",
+  "address": "Address",
+  "open_map": "Open map",
+  "subject": "Subject",
+  "request_type": "Request type",
+  "service": "Service",
+  "continue": "Continue",
+  "msg_received_title": "Thanks, we got your message",
+  "msg_received_txt": "Our team will review your message and get back to you as soon as possible",
+  "whatsapp": "WhatsApp",
+  "map": "Map",
+  "failed_load_data": "We couldn't load the data right now. Please try again in a moment.",
+  "sending": "Sending",
+  "branches_badge": "Reach to us",
+  "branches_title": "Our Offices & Branches",
+  "branches_sub_title": "Reach our teams through multiple locations based on your needs.",
+  "try_again": "Please try again in a moment",
+  "send_failed": "We couldn't send your message. Please try again later.",
+  "send_success": "Message sent successfully",
+  "enter_msg": "Please enter your message",
+  "select_service": "Please select the service you're interested in.",
+  "enter_email": "Please enter your email address.",
+  "enter_name": "Please enter your name."
 }

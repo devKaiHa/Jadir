@@ -22,11 +22,13 @@ const socialConfig = [
 const navIcons = {
   "/": "fa-solid fa-house",
   "/about": "fa-regular fa-building",
-  "/services": "fa-solid fa-layer-group",
+  "/Services": "fa-solid fa-layer-group",
   "/projects": "fa-regular fa-folder-open",
   "/companies": "fa-regular fa-building",
   "/investment-funds": "fa-solid fa-chart-line",
   "/research": "fa-regular fa-newspaper",
+  "/career": "fa-solid fa-briefcase",
+  "/blogs": "fa-solid fa-newspaper",
   "/contact": "fa-regular fa-paper-plane",
   "/policies": "fa-solid fa-shield-halved",
 };

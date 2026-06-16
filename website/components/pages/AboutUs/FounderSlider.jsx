@@ -9,11 +9,13 @@ import { imageURL } from "@/api/GlobalData";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { useIsMobile } from "@/lib/helpers";
 
 export default function FounderSlider({ founders = [] }) {
   const { i18n } = useTranslation();
   const lang = i18n.language || "en";
   const isRtl = lang === "ar";
+  const isMobile = useIsMobile();
 
   const items = Array.isArray(founders) ? founders : [];
 
@@ -28,15 +30,26 @@ export default function FounderSlider({ founders = [] }) {
         key={lang}
         dir={isRtl ? "rtl" : "ltr"}
         modules={[Navigation, Pagination, Autoplay]}
-        slidesPerView={2}
-        spaceBetween={24}
+        // slidesPerView={isMobile ? 1.5 : 2}
+        centeredSlides={true}
+        // spaceBetween={24}
         loop={items.length > 1}
         speed={700}
         observer
         observeParents
         updateOnWindowResize
+        breakpoints={{
+          0: {
+            slidesPerView: 1.5,
+            spaceBetween: 12,
+          },
+          768: {
+            slidesPerView: 1,
+            spaceBetween: 20,
+          },
+        }}
         autoplay={{
-          delay: 7000,
+          delay: 70000,
           disableOnInteraction: false,
         }}
         navigation={{
@@ -78,8 +91,8 @@ export default function FounderSlider({ founders = [] }) {
                           {lang === "ar"
                             ? "مؤسس"
                             : lang === "tr"
-                            ? "Kurucu"
-                            : "Founder"}
+                              ? "Kurucu"
+                              : "Founder"}
                         </span>
                       </div>
 
