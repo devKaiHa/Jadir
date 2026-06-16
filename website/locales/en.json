@@ -339,5 +339,10 @@
   "select_service": "Please select the service you're interested in.",
   "enter_email": "Please enter your email address.",
   "enter_name": "Please enter your name.",
-  "founder": "Founder"
+  "founder": "Founder",
+  "languagePreference": "Language preference",
+  "locationDetected": "Approximate location detected",
+  "recommended": "Recommended",
+  "chooseAnotherLanguage": "Choose another language",
+  "accept": "Accept"
 }

@@ -338,5 +338,10 @@
   "select_service": "يرجى اختيار الخدمة التي أنت مهتم بها.",
   "enter_email": "يرجى إدخال البريد الإلكتروني.",
   "enter_name": "يرجى إدخال الاسم.",
-  "founder": "مؤسس"
+  "founder": "مؤسس",
+  "languagePreference": "اللغة المفضلة",
+  "locationDetected": "تم تحديد الموقع التقريبي",
+  "recommended": "موصى به",
+  "chooseAnotherLanguage": "اختر لغة اخرى",
+  "accept": "موافق"
 }

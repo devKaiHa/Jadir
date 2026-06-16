@@ -337,5 +337,10 @@
   "select_service": "Lütfen ilgilendiğiniz hizmeti seçin.",
   "enter_email": "Lütfen e-posta adresinizi girin.",
   "enter_name": "Lütfen adınızı girin.",
-  "founder": "Kurucu"
+  "founder": "Kurucu",
+  "languagePreference": "Dil tercihi",
+  "locationDetected": "Yaklaşık konum bulundu",
+  "recommended": "Önerilen",
+  "chooseAnotherLanguage": "Başka bir dil seçin",
+  "accept": "Onayla"
 }
